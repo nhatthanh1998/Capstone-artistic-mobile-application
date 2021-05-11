@@ -8,7 +8,7 @@ import { CameraIcon } from "./images/CameraIcon";
 import { GallaryIcon } from "./images/GallaryIcon";
 import tailwind from 'tailwind-rn'
 import { MenuIcon } from "./images/MenuIcon";
-export const HomePage = () => {
+export const ImageTranferPage = () => {
 
     const handlePressCamera = () => {
 

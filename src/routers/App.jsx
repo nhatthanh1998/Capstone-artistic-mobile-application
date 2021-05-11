@@ -10,7 +10,14 @@ const App = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator>
-                <Stack.Screen name="Example" component={HomePage}
+                <Stack.Screen name="Effects" component={HomePage}
+                    options={{
+                        title: 'Effects',
+                    }}
+
+                />
+
+                <Stack.Screen name="HomePage" component={HomePage}
                     options={{
                         title: 'HomePage',
                         headerShown: false
