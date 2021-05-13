@@ -5,19 +5,30 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { HomePage } from "../pages/HomePage"
 import { ImageTranferPage } from "../pages/ImageTranferPage"
+import { CameraPage } from '../pages/CameraPage'
 const App = () => {
     const Stack = createStackNavigator()
 
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="EFFECTS" component={ImageTranferPage}
+                <Stack.Screen name="HomePage" component={HomePage}
                     options={{
-                        title: 'EFFECTS',
-                        
+                        headerShown: false
                     }}
-
                 />
+
+                <Stack.Screen name="CameraPage" component={CameraPage}
+                    options={{
+                        title: "CAMERA"
+                    }}
+                />
+                <Stack.Screen name="EffectPage" component={ImageTranferPage}
+                    options={{
+                        title: 'EFFECTS'
+                    }}
+                />
+
             </Stack.Navigator>
         </NavigationContainer>
     );
