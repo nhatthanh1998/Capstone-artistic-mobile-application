@@ -1,13 +1,16 @@
 import React from "react";
 import { Dimensions } from 'react-native';
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 import { ImageBackground, Text, View, TouchableOpacity } from "react-native";
 import styled from 'styled-components/native'
-import { CameraIcon } from "./images/CameraIcon";
-import { GallaryIcon } from "./images/GallaryIcon";
+import { CameraIcon } from "../../commons/components/CameraIcon";
+import { GallaryIcon } from "../../commons/components/GallaryIcon";
+import { MenuIcon } from "../../commons/components/MenuIcon";
 import tailwind from 'tailwind-rn'
-import { MenuIcon } from "./images/MenuIcon";
+
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 export const HomePage = () => {
 
     const handlePressCamera = () => {
