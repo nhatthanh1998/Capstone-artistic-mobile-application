@@ -4,11 +4,11 @@ import styled from 'styled-components/native'
 import { useHeaderHeight } from '@react-navigation/stack';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-import { ListEffectBoxContainer } from '../../containers/HomePage/ListEffectBoxContainer'
-import { ImageBox } from '../../components/HomePage/ImageBox'
+import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
+import { ImageBox } from '../../components/EffectPage/ImageBox'
 
 
-export const ImageTranferPage = ({ route, navigation }) => {
+export const EffectPage = ({ route, navigation }) => {
     const headerHeight = useHeaderHeight()
     const {pictureUri} = route.params
 

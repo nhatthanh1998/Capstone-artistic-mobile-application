@@ -4,8 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { HomePage } from "../pages/HomePage"
-import { ImageTranferPage } from "../pages/ImageTranferPage"
+import { EffectPage } from "../pages/EffectPage"
 import { CameraPage } from '../pages/CameraPage'
+import { GalleryPage } from '../pages/GalleryPage'
+
 const App = () => {
     const Stack = createStackNavigator()
 
@@ -23,7 +25,15 @@ const App = () => {
                         title: "CAMERA"
                     }}
                 />
-                <Stack.Screen name="EffectPage" component={ImageTranferPage}
+
+                <Stack.Screen name="GalleryPage" component={GalleryPage}
+                    options={{
+                        title: "GALLERY"
+                    }}
+                />
+
+
+                <Stack.Screen name="EffectPage" component={EffectPage}
                     options={{
                         title: 'EFFECTS'
                     }}
