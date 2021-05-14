@@ -1,12 +1,10 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import { EffectBox } from '../../../components/HomePage/EffectBox'
+import { EffectBox } from '../../../components/EffectPage/EffectBox'
 import { useState } from 'react'
-import {Dimensions} from 'react-native'
 import tailwind from 'tailwind-rn'
 
 
-const windowWidth = Dimensions.get('window').width
 export const ListEffectBoxContainer = ({ effectBoxDatas }) => {
 
     let [selectedStyleID, setSeletedStyleID] = useState(1)

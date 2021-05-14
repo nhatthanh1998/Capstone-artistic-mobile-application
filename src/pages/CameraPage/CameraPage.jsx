@@ -16,7 +16,6 @@ export const CameraPage = ({navigation}) => {
   }
 
   useEffect(() => {
-
     getPermissionStatus()
   }, [])
 
@@ -26,6 +25,10 @@ export const CameraPage = ({navigation}) => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
+
+
+
 
   const handlePressFlip = () => {
     if (type === Camera.Constants.Type.back) {
