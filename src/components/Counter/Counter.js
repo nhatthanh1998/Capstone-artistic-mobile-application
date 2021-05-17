@@ -32,7 +32,6 @@ export const Counter = () => {
                     title="increase"
                     style={tailwind("text-white text-center text-xl font-semibold rounded-tr-md px-1 bg-gray-800")}
                     onPress={() => {
-                        console.log("Click +")
                         handleClickAdd()
                     }}
                 />
@@ -40,7 +39,6 @@ export const Counter = () => {
                     title="decrease"
                     style={tailwind("text-white rounded-br-md px-1 bg-gray-800 ")}
                     onPress={() => {
-                        console.log("Click -")
                         handleClickDecrease()
                     }}
                 />
@@ -48,7 +46,6 @@ export const Counter = () => {
                     title="reset"
                     style={tailwind("text-white rounded-br-md px-1 bg-gray-800 ")}
                     onPress={() => {
-                        console.log("Click reset")
                         handleClickReset()
                     }}
                 />

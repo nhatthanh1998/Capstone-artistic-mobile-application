@@ -20,8 +20,6 @@ export const HomePage = ({ navigation }) => {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
     const [hasCameraPermission, setHasCameraPermission] = useState(false)
 
-
-
     // function to get Gallary Image Access Permision
     async function getGalleryAccessPermission() {
         if (Platform.OS !== 'web') {
@@ -33,15 +31,15 @@ export const HomePage = ({ navigation }) => {
             }
         }
     }
-
-
     // function to get Camera Acess Permission
+
 
 
 
     useEffect(() => {
         getGalleryAccessPermission()
     }, [])
+
     if (hasGalleryPermission == null) {
         return <Text>Something when wrong with Gallery Permission</Text>
     }
@@ -52,9 +50,6 @@ export const HomePage = ({ navigation }) => {
 
 
     // action handler section
-
-
-
     const handlePressCamera = () => {
         navigation.navigate('CameraPage')
     }
@@ -69,8 +64,6 @@ export const HomePage = ({ navigation }) => {
             allowsEditing: true,
             quality: 1,
         });
-
-        console.log(pictureData);
 
         if (!pictureData.cancelled) {
             navigation.navigate("EffectPage", {
@@ -98,5 +91,3 @@ export const HomePage = ({ navigation }) => {
         </ImageBackground>
     )
 }
-
-

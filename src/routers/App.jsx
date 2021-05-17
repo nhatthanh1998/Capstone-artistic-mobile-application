@@ -6,7 +6,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { HomePage } from "../pages/HomePage"
 import { EffectPage } from "../pages/EffectPage"
 import { CameraPage } from '../pages/CameraPage'
-import { GalleryPage } from '../pages/GalleryPage'
 
 const App = () => {
     const Stack = createStackNavigator()
@@ -23,12 +22,6 @@ const App = () => {
                 <Stack.Screen name="CameraPage" component={CameraPage}
                     options={{
                         title: "CAMERA"
-                    }}
-                />
-
-                <Stack.Screen name="GalleryPage" component={GalleryPage}
-                    options={{
-                        title: "GALLERY"
                     }}
                 />
 

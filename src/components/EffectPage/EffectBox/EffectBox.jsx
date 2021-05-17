@@ -5,7 +5,7 @@ export const EffectBox = ({ styleId, styleName, styleImageUrl, handlePress, isSe
 
     if (isSelect == false) {
         return (
-            <View style={tailwind("w-1/4 mx-2 my-10 justify-center flex flex-row")}>
+            <View style={tailwind("w-1/4 my-10 justify-center flex flex-row")}>
                 <TouchableOpacity
                     onPress={() => { handlePress(styleId) }}
                 >
@@ -21,7 +21,7 @@ export const EffectBox = ({ styleId, styleName, styleImageUrl, handlePress, isSe
         )
     } else {
         return (
-            <View style={tailwind("w-1/4 mx-2 my-10 justify-center flex flex-row")}>
+            <View style={tailwind("w-1/4 my-10 justify-center flex flex-row")}>
                 <TouchableOpacity
                     onPress={() => { handlePress(styleId) }}
                 >
