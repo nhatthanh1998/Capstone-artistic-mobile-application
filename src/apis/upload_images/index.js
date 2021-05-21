@@ -3,7 +3,7 @@ import { CONFIG } from '../config'
 export async function uploadImageToServer(imageUri) {
     const ENDPOINT_URL = `${CONFIG.ENPOINT_URL}/upload-images/upload`
     let formData = new FormData();
-    formData.append("image", {uri: imageUri, type: 'image/jpg', name: 'picture.jpg'});
+    formData.append("photo", {uri: imageUri, type: 'image/jpg', name: 'picture.jpg'});
     const response = await axios.post(ENDPOINT_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data'

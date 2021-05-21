@@ -6,6 +6,9 @@ import { StatusBar } from 'react-native';
 import { MediaButton } from "../../components/HomePage/MediaButton";
 import { NavigationButton } from "../../components/HomePage/NavigationButton";
 import { useState, useEffect } from 'react'
+import {io} from 'socket.io-client'
+
+
 import * as ImagePicker from 'expo-image-picker';
 
 const windowWidth = Dimensions.get('screen').width;
@@ -19,7 +22,6 @@ export const HomePage = ({ navigation }) => {
     // status of the permission
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
     const [hasCameraPermission, setHasCameraPermission] = useState(false)
-
     // function to get Gallary Image Access Permision
     async function getGalleryAccessPermission() {
         if (Platform.OS !== 'web') {
@@ -32,9 +34,6 @@ export const HomePage = ({ navigation }) => {
         }
     }
     // function to get Camera Acess Permission
-
-
-
 
     useEffect(() => {
         getGalleryAccessPermission()
