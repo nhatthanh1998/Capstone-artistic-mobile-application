@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit"
 const imageSlicer = createSlice({
     name: 'image',
     initialState: {
-        imageURL: null,
+        photoLocation: null,
+        accessURL: null,
         userID: null,
         photoName: null,
         id: null,
@@ -13,8 +14,9 @@ const imageSlicer = createSlice({
     },
     reducers: {
         setSelectedImage: (state, action) => {
-            const { imageURL, userID, photoName, id, createdAt, updatedAt} = action.payload
-            state.imageURL = imageURL
+            const { photoLocation, accessURL, userID, photoName, id, createdAt, updatedAt} = action.payload
+            state.photoLocation = photoLocation
+            state.accessURL = accessURL
             state.userID = userID
             state.photoName = photoName
             state.id = id

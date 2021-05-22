@@ -34,7 +34,7 @@ export const EffectPage = ({ route, navigation }) => {
     const selectedImage = useSelector(selectSelectedImage)
     return (
         <Container headerHeight={headerHeight}>
-            <ImageBox imageURL={selectedImage.imageURL} />
+            <ImageBox imageURL={selectedImage.accessURL} />
             <ListEffectBoxContainer
                 data={styles}
             />

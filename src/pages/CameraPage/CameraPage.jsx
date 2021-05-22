@@ -61,11 +61,7 @@ export const CameraPage = ({ navigation }) => {
 
   const handleTakePicture = async () => {
     if (camera) {
-      setTimeout(() => {
-        setLoading(true)
-        clearTimeout()
-      }, 500)
-
+      setLoading(true)
       const pictureData = await camera.takePictureAsync(null)
       const data = await uploadImageToServer(pictureData.uri)
       dispatch(setSelectedImage(data))
@@ -105,9 +101,6 @@ export const CameraPage = ({ navigation }) => {
           </View>
         </Camera>
       </View>
-
     </View>
-
   );
-
 }
