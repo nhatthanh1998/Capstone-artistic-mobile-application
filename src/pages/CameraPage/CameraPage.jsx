@@ -3,10 +3,14 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import tailwind from "tailwind-rn"
 import { uploadImageToServer } from '../../apis/upload_images'
+import {selectSelectedImage, setSelectedImage} from '../../redux/slicers/image.slicer'
 import LottieView from 'lottie-react-native';
-
+import {useSelector, useDispatch} from 'react-redux'
 
 export const CameraPage = ({ navigation }) => {
+  const dispatch = useDispatch()
+  const selectedImage = useSelector(selectSelectedImage)
+  
   const [hasPermission, setHasPermission] = useState(null);
   const [loading, setLoading] = useState(false)
   const [camera, setCamera] = useState(null)
@@ -63,10 +67,9 @@ export const CameraPage = ({ navigation }) => {
       }, 500)
 
       const pictureData = await camera.takePictureAsync(null)
-      await uploadImageToServer(pictureData.uri)
-      navigation.navigate("EffectPage", {
-        pictureUri: pictureData.uri
-      })
+      const data = await uploadImageToServer(pictureData.uri)
+      dispatch(setSelectedImage(data))
+      navigation.navigate("EffectPage")
     }
   }
   return (

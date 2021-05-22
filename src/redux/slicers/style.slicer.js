@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const styleSlicer = createSlice({
-    name: 'socket',
+    name: 'style',
     initialState: {
         styles: [],
         selectedStyle: null

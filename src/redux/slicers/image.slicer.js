@@ -2,14 +2,24 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const imageSlicer = createSlice({
-    name: 'socket',
+    name: 'image',
     initialState: {
-        selectedImage: null
+        imageURL: null,
+        userID: null,
+        photoName: null,
+        id: null,
+        createdAt: null,
+        updatedAt: null
     },
     reducers: {
         setSelectedImage: (state, action) => {
-            const data = action.payload
-            state.selectedImage = data
+            const { imageURL, userID, photoName, id, createdAt, updatedAt} = action.payload
+            state.imageURL = imageURL
+            state.userID = userID
+            state.photoName = photoName
+            state.id = id
+            state.createdAt = createdAt
+            state.updatedAt = updatedAt
         }
     }
 })
@@ -20,7 +30,7 @@ export const { setSelectedImage } = imageSlicer.actions
 
 
 // use-selector export 
-export const selectSelectedImage = (state) => state.image.selectedImage
+export const selectSelectedImage = (state) => state.image
 
 // reducer export
 export default imageSlicer.reducer

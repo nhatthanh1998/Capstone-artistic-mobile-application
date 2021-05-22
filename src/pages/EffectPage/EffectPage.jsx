@@ -7,6 +7,8 @@ import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllStyles } from "../../apis/styles"
 import {setStyles, selectStyles} from '../../redux/slicers/style.slicer'
+import { selectSelectedImage } from '../../redux/slicers/image.slicer'
+
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -17,7 +19,6 @@ const windowHeight = Dimensions.get('window').height;
 export const EffectPage = ({ route, navigation }) => {
     const dispatch = useDispatch()
     const headerHeight = useHeaderHeight()
-    const { pictureUri } = route.params
     const styles = useSelector(selectStyles)
 
 
@@ -30,12 +31,12 @@ export const EffectPage = ({ route, navigation }) => {
         getStyles()
     }, [])
 
-
+    const selectedImage = useSelector(selectSelectedImage)
     return (
         <Container headerHeight={headerHeight}>
-            <ImageBox imageURL={pictureUri} />
+            <ImageBox imageURL={selectedImage.imageURL} />
             <ListEffectBoxContainer
-                effectBoxDatas={styles}
+                data={styles}
             />
         </Container >
     )
