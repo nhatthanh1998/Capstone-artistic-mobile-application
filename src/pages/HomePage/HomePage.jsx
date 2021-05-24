@@ -7,17 +7,13 @@ import { MediaButton } from "../../components/HomePage/MediaButton";
 import { NavigationButton } from "../../components/HomePage/NavigationButton";
 import * as ImagePicker from 'expo-image-picker';
 import { useState, useEffect } from 'react'
-import { setSocket, selectSocketID } from '../../redux/slicers/socket.slicer'
-import { socket } from '../../services/socket.service'
-import { useDispatch, useSelector } from 'react-redux'
+
 
 const windowWidth = Dimensions.get('screen').width;
 const windowHeight = Dimensions.get('window').height;
 
 
 export const HomePage = ({ navigation }) => {
-    const dispatch = useDispatch();
-    const socketID = useSelector(selectSocketID)
 
     // Get permission section
     // status of the permission
@@ -40,17 +36,9 @@ export const HomePage = ({ navigation }) => {
     }
 
 
-    // init socketID when socket connected to the server
-    async function initSocket() {
-        socket.on('connection', data => {
-            const {socketID} = data
-            dispatch(setSocket({socketID}))
-        })
-    }
-
     useEffect(() => {
         getGalleryAccessPermission()
-        initSocket()
+
     }, [])
 
     if (hasGalleryPermission == null) {
@@ -90,8 +78,6 @@ export const HomePage = ({ navigation }) => {
             navigation.navigate("HomePage")
         }
     }
-
-    console.log(socketID)
     return (
         <ImageBackground source={require('./images/background.jpg')} style={{ width: windowWidth, height: windowHeight, marginTop: StatusBar.currentHeight }}>
             <View style={tailwind("w-full h-full")}>

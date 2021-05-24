@@ -3,13 +3,13 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import tailwind from "tailwind-rn"
 import { uploadImageToServer } from '../../apis/upload_images'
-import {selectSelectedImage, setSelectedImage} from '../../redux/slicers/image.slicer'
+import {setOriginImage} from '../../redux/slicers/origin-image.slicer'
 import LottieView from 'lottie-react-native';
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 
 export const CameraPage = ({ navigation }) => {
   const dispatch = useDispatch()
-  const selectedImage = useSelector(selectSelectedImage)
+  
   
   const [hasPermission, setHasPermission] = useState(null);
   const [loading, setLoading] = useState(false)
@@ -31,9 +31,6 @@ export const CameraPage = ({ navigation }) => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-
-
 
 
   const handlePressFlip = () => {
@@ -64,10 +61,12 @@ export const CameraPage = ({ navigation }) => {
       setLoading(true)
       const pictureData = await camera.takePictureAsync(null)
       const data = await uploadImageToServer(pictureData.uri)
-      dispatch(setSelectedImage(data))
+      dispatch(setOriginImage(data))
       navigation.navigate("EffectPage")
     }
   }
+
+  
   return (
     <View style={tailwind("flex-1")}>
       <View style={tailwind("flex-1	")}>

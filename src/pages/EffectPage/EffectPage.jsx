@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {socket} from '../../services/socket.service'
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native'
 import { useHeaderHeight } from '@react-navigation/stack';
@@ -7,19 +8,21 @@ import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllStyles } from "../../apis/styles"
 import {setStyles, selectStyles} from '../../redux/slicers/style.slicer'
-import { selectSelectedImage } from '../../redux/slicers/image.slicer'
-
-
+import {selectOriginImage} from '../../redux/slicers/origin-image.slicer'
+import {selectGeneratedImage} from '../../redux/slicers/generated-image.slicer'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-
 export const EffectPage = ({ route, navigation }) => {
     const dispatch = useDispatch()
     const headerHeight = useHeaderHeight()
+
     const styles = useSelector(selectStyles)
+    const originImage = useSelector(selectOriginImage)
+    const generatedImage = useSelector(selectGeneratedImage)
+    const [loading, setLoading] = useState(false)
 
 
     async function getStyles() {
@@ -31,12 +34,18 @@ export const EffectPage = ({ route, navigation }) => {
         getStyles()
     }, [])
 
-    const selectedImage = useSelector(selectSelectedImage)
+    socket.on('transfer_success', data => {
+        const {imageURL} = data
+        setLoading(false)
+
+    })
+
     return (
         <Container headerHeight={headerHeight}>
-            <ImageBox imageURL={selectedImage.accessURL} />
+            <ImageBox imageURL={originImage.accessURL} />
             <ListEffectBoxContainer
                 data={styles}
+                originImageAccessURL = {originImage.accessURL}
             />
         </Container >
     )

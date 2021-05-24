@@ -5,7 +5,7 @@ const styleSlicer = createSlice({
     name: 'style',
     initialState: {
         styles: [],
-        selectedStyle: null
+        selectedStyleID: 'ORIGINAL'
     },
     reducers: {
         setStyles: (state, action) => {
@@ -13,21 +13,20 @@ const styleSlicer = createSlice({
             state.styles = data
         },
 
-        setSelectedStyle: (state, action) => {
-            const data = action.payload
-            state.selectedStyle = data
+        setSelectedStyleID: (state, action) => {
+            state.selectedStyleID = action.payload
         }
     }
 })
 
 
 // action export
-export const { setStyles, setSelectedStyle } = styleSlicer.actions
+export const { setStyles, setSelectedStyleID } = styleSlicer.actions
 
 
 // use-selector export 
 export const selectStyles = state => state.style.styles
-export const selectSelectedStyle = state => state.style.selectedStyle
+export const selectSelectedStyleID = state => state.style.selectedStyleID
 
 // reducer export
 export default styleSlicer.reducer
