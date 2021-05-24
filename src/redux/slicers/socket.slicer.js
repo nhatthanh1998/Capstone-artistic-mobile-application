@@ -1,27 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+const initialState = {
+    client: null,
+    socketID: null
+}
 
 const socketSlicer = createSlice({
     name: 'socket',
-    initialState: null,
+    initialState: {
+        socketID: null
+    },
     reducers: {
-        init: (state, action) => {
-            const {client} = action.payload
-            state = client
+        setSocket: (state, action) => {
+            const {client, socketID} = action.payload
+            state.socketID = socketID
+
         },
-        remove: state => {
-            state = null
+        removeSocket: state => {
+            state = initialState
         }
     }
 })
 
 
 // action export
-export const { init, remove } = socketSlicer.actions
+export const { setSocket, removeSocket } = socketSlicer.actions
 
 
 // use-selector export 
-export const selectSocket = (state) => state.socket
+export const selectSocketID = state => state.socket.socketID
 
 // reducer export
 export default socketSlicer.reducer
