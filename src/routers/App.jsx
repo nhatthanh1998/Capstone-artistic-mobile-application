@@ -2,14 +2,14 @@ import React from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
-
+import {useSocket} from '../services/socket.service'
 import { HomePage } from "../pages/HomePage"
 import { EffectPage } from "../pages/EffectPage"
 import { CameraPage } from '../pages/CameraPage'
 
 const App = () => {
     const Stack = createStackNavigator()
-
+    useSocket()
     return (
         <NavigationContainer>
             <Stack.Navigator>

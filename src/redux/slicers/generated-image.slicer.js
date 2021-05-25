@@ -3,24 +3,22 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const generatedImageSlicer = createSlice({
     name: 'generatedImage',
-    initialState: {
-        imageURL: null,
-    },
+    initialState: {},
     reducers: {
-        setGeneratedImage: (state, action) => {
-            const { imageURL } = action.payload
-            state.imageURL = imageURL
+        setGeneratedImageAccessURL: (state, action) => {
+            const { accessURL, styleID } = action.payload
+            state[styleID] = accessURL
         }
     }
 })
 
 
 // action export
-export const { setGeneratedImage } = generatedImageSlicer.actions
+export const { setGeneratedImageAccessURL } = generatedImageSlicer.actions
 
 
 // use-selector export 
-export const selectGeneratedImage = state => state.generatedImage
+export const selectGeneratedImageAccessURL = state => state.generatedImage
 
 // reducer export
 export default generatedImageSlicer.reducer

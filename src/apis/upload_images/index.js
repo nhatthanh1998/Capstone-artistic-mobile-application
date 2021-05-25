@@ -12,3 +12,12 @@ export async function uploadImageToServer(imageUri) {
 
     return response.data
 }
+
+
+export async function sendTransferImageRequest({socketID, photoLocation, styleID }) {
+    const ENDPOINT_URL = `${CONFIG.ENPOINT_URL}/photos/transfer-photo`
+    const payload = {socketID, photoLocation, styleID}
+    const response = await axios.post(ENDPOINT_URL, payload)
+
+    return response.data
+}
