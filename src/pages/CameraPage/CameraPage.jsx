@@ -6,6 +6,7 @@ import { uploadImageToServer } from '../../apis/upload_images'
 import {setOriginImage} from '../../redux/slicers/origin-image.slicer'
 import LottieView from 'lottie-react-native';
 import {useDispatch} from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const CameraPage = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -57,11 +58,17 @@ export const CameraPage = ({ navigation }) => {
   }
 
   const handleTakePicture = async () => {
+    setLoading(true)
     if (camera) {
-      setLoading(true)
-      const pictureData = await camera.takePictureAsync(null)
-      const data = await uploadImageToServer(pictureData.uri)
-      dispatch(setOriginImage(data))
+      const options = {
+        quality: 0.8,
+        base64: false,
+        skipProcessing: false,
+      };
+      const pictureData = await camera.takePictureAsync(options)
+      dispatch(setOriginImage({accessURL: pictureData.uri}))
+      const socketID = await AsyncStorage.getItem("socketID")
+      uploadImageToServer({imageURI: pictureData.uri, socketID: socketID})
       navigation.navigate("EffectPage")
     }
   }
