@@ -26,7 +26,6 @@ export const EffectPage = ({ route, navigation }) => {
     const [loading, setLoading] = useState(false)
 
 
-    console.log("in page:", generatedImage)
     async function getStyles() {
         const response = await fetchAllStyles()
         dispatch(setStyles(response))

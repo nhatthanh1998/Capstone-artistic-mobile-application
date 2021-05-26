@@ -15,14 +15,11 @@ export const ListEffectBoxContainer = ({ data, originImageAccessURL }) => {
     const originImage = useSelector(selectOriginImage)
 
     useEffect(() => {
-        console.log("nó đổi styleId")
-        console.log(selectedStyleID)
         requestTransferImage()
     }, [selectedStyleID] )
 
     const requestTransferImage = async () => {
         if (selectedStyleID !== 'ORIGINAL') {
-            console.log("chay trong nay ne:",selectedStyleID)
             const socketID = await AsyncStorage.getItem('socketID')
             const photoLocation = originImage.photoLocation
             const response = await sendTransferImageRequest({ socketID, photoLocation, styleID:selectedStyleID })

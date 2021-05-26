@@ -7,6 +7,8 @@ import {setOriginImage} from '../../redux/slicers/origin-image.slicer'
 import LottieView from 'lottie-react-native';
 import {useDispatch} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImageManipulator from 'expo-image-manipulator';
+
 
 export const CameraPage = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -66,7 +68,14 @@ export const CameraPage = ({ navigation }) => {
         skipProcessing: false,
       };
       const pictureData = await camera.takePictureAsync(options)
-      dispatch(setOriginImage({accessURL: pictureData.uri}))
+
+      const image = await ImageManipulator.manipulateAsync(
+        pictureData.uri,
+        [{ resize: { width: 720, height: 1280 } }],
+        { format: 'jpeg' }
+    );
+
+      dispatch(setOriginImage({accessURL: image.uri}))
       const socketID = await AsyncStorage.getItem("socketID")
       uploadImageToServer({imageURI: pictureData.uri, socketID: socketID})
       navigation.navigate("EffectPage")

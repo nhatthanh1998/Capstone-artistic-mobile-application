@@ -13,8 +13,6 @@ export function useSocket() {
     })
 
     socket.on('UPLOAD_IMAGE_SUCCESS', async data => {
-        console.log("transfer success")
-        console.log(data)
         await dispatch(setOriginImage(data))
     })
     
