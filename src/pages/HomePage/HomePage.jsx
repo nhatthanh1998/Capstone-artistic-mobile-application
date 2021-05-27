@@ -8,13 +8,11 @@ import { NavigationButton } from "../../components/HomePage/NavigationButton";
 import * as ImagePicker from 'expo-image-picker';
 import { useState, useEffect } from 'react'
 
-
 const windowWidth = Dimensions.get('screen').width;
 const windowHeight = Dimensions.get('window').height;
 
 
 export const HomePage = ({ navigation }) => {
-
     // Get permission section
     // status of the permission
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
