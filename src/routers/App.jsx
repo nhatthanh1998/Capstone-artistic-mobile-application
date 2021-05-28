@@ -2,7 +2,7 @@ import React from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
-import {useSocket} from '../services/socket.service'
+import {useSocket} from '../hooks/socket.hook'
 import { HomePage } from "../pages/HomePage"
 import { EffectPage } from "../pages/EffectPage"
 import { CameraPage } from '../pages/CameraPage'

@@ -30,12 +30,9 @@ export const EffectPage = ({ route, navigation }) => {
         const response = await fetchAllStyles()
         dispatch(setStyles(response))
     }
-
     useEffect(() => {
         getStyles()
-        return () => {
-            // console.log("clean up")
-        }
+        return () => {}
     }, [])
 
 
@@ -44,7 +41,6 @@ export const EffectPage = ({ route, navigation }) => {
         dispatch(setSelectedStyleID('ORIGINAL'))
     }, [originImage])
 
-    console.log("in here",generatedImage)
     return (
         <Container headerHeight={headerHeight}>
             <ImageBox imageURL={generatedImage[selectedStyleID]} />
