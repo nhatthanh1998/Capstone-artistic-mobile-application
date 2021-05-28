@@ -6,18 +6,20 @@ const isLoadingSlicer = createSlice({
     initialState: false,
     reducers: {
         setIsLoading: (state, action) => {
-            state.loading = action.payload
+            console.log(action.payload)
+            state = action.payload
+            return state
         }
     }
 })
 
 
 // action export
-export const { setLoading } = isLoadingSlicer.actions
+export const { setIsLoading } = isLoadingSlicer.actions
 
 
 // use-selector export 
-export const selectLoading = state => state.isLoading
+export const selectIsLoading = state => state.isLoading
 
 // reducer export
 export default isLoadingSlicer.reducer

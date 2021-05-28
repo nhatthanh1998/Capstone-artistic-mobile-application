@@ -4,19 +4,24 @@ import { Camera } from 'expo-camera';
 import tailwind from "tailwind-rn"
 import { uploadImageToServer } from '../../apis/upload_images'
 import {setOriginImage} from '../../redux/slicers/origin-image.slicer'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImageManipulator from 'expo-image-manipulator';
 import {Loading} from '../../components/CameraPage/Loading/Loading'
+import { setIsLoading, selectIsLoading } from '../../redux/slicers/is-loading.slicer'
+
 
 export const CameraPage = ({ navigation }) => {
   const dispatch = useDispatch()
-  
-  
   const [hasPermission, setHasPermission] = useState(null);
-  const [loading, setLoading] = useState(false)
   const [camera, setCamera] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back);
+
+
+  const isLoading = useSelector(selectIsLoading)
+
+
+
 
   async function getPermissionStatus() {
     const { status } = await Camera.requestPermissionsAsync()
@@ -25,7 +30,14 @@ export const CameraPage = ({ navigation }) => {
 
   useEffect(() => {
     getPermissionStatus()
+    return () => {}
   }, [])
+
+
+  useEffect(() => {
+
+  }, [isLoading])
+
 
   if (hasPermission === null) {
     return <Text>Something went wrong with the camera</Text>;
@@ -44,7 +56,7 @@ export const CameraPage = ({ navigation }) => {
   }
 
   const handleTakePicture = async () => {
-    setLoading(true)
+    dispatch(setIsLoading(true))
     if (camera) {
       const options = {
         quality: 0.8,
@@ -74,7 +86,7 @@ export const CameraPage = ({ navigation }) => {
           type={type}
           ratio={'16:9'}
         >
-          <Loading isLoading = {loading} loadingText = "Progressing your image..."/>
+          <Loading isLoading = {isLoading} loadingText = "Progressing your image..."/>
 
           <View style={tailwind("w-full h-24 absolute bottom-0 flex flex-row")}>
             <View style={tailwind("w-1/3 h-24")}>
