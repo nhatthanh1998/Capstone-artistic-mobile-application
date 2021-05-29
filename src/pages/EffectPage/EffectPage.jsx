@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useHeaderHeight } from '@react-navigation/stack';
+import { useSelector, useDispatch } from 'react-redux'
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native'
-import { useHeaderHeight } from '@react-navigation/stack';
+
 import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
+
 import { ImageBox } from '../../components/EffectPage/ImageBox'
-import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllStyles } from "../../apis/styles"
 import { setStyles, selectStyles, setSelectedStyleID } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
 import { selectSelectedStyleID } from '../../redux/slicers/style.slicer'
 
+import { DEFAULT_EFFECT_ID } from "../../enums/default-effect-id"
+
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 
 export const EffectPage = ({ route, navigation }) => {
     const dispatch = useDispatch()
@@ -32,13 +36,13 @@ export const EffectPage = ({ route, navigation }) => {
     }
     useEffect(() => {
         getStyles()
-        return () => {}
+        return () => { }
     }, [])
 
 
     useEffect(() => {
-        dispatch(setGeneratedImageAccessURL({accessURL: originImage.accessURL, styleID: "ORIGINAL"}))
-        dispatch(setSelectedStyleID('ORIGINAL'))
+        dispatch(setGeneratedImageAccessURL({ accessURL: originImage.accessURL, styleID: DEFAULT_EFFECT_ID }))
+        dispatch(setSelectedStyleID(DEFAULT_EFFECT_ID))
     }, [originImage])
 
     return (

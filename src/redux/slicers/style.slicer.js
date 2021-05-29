@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
+import {STYLE_REDUCER_PREFIX} from "../../enums/reducer-prefix"
+import {DEFAULT_EFFECT_ID} from "../../enums/default-effect-id"
 
+
+const initialState = {
+    styles: [],
+    selectedStyleID: DEFAULT_EFFECT_ID
+}
 
 const styleSlicer = createSlice({
-    name: 'style',
-    initialState: {
-        styles: [],
-        selectedStyleID: 'ORIGINAL'
-    },
+    name: STYLE_REDUCER_PREFIX,
+    initialState,
     reducers: {
         setStyles: (state, action) => {
             const data = action.payload

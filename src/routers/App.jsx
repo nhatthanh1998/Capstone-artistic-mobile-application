@@ -2,10 +2,14 @@ import React from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
-import {useSocket} from '../hooks/socket.hook'
+import { useSocket } from '../hooks/socket.hook'
 import { HomePage } from "../pages/HomePage"
 import { EffectPage } from "../pages/EffectPage"
 import { CameraPage } from '../pages/CameraPage'
+
+import { CAMERA_PAGE, EFFECT_PAGE, HOME_PAGE } from "../enums/page-name"
+import { CAMERA_PAGE_TITLE, EFFECT_PAGE_TITLE } from "../enums/page-title"
+
 
 const App = () => {
     const Stack = createStackNavigator()
@@ -13,22 +17,22 @@ const App = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="HomePage" component={HomePage}
+                <Stack.Screen name={HOME_PAGE} component={HomePage}
                     options={{
                         headerShown: false
                     }}
                 />
 
-                <Stack.Screen name="CameraPage" component={CameraPage}
+                <Stack.Screen name={CAMERA_PAGE} component={CameraPage}
                     options={{
-                        title: "CAMERA"
+                        title: CAMERA_PAGE_TITLE
                     }}
                 />
 
 
-                <Stack.Screen name="EffectPage" component={EffectPage}
+                <Stack.Screen name={EFFECT_PAGE} component={EffectPage}
                     options={{
-                        title: 'EFFECTS'
+                        title: EFFECT_PAGE_TITLE
                     }}
                 />
 

@@ -1,0 +1,2 @@
+export const EFFECT_PAGE_TITLE = "EFFECTS"
+export const CAMERA_PAGE_TITLE = "CAMERA"

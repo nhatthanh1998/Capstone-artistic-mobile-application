@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-import { Camera } from 'expo-camera';
-import tailwind from "tailwind-rn"
-import { uploadImageToServer } from '../../apis/upload_images'
-import {setOriginImage} from '../../redux/slicers/origin-image.slicer'
 import {useDispatch, useSelector} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as ImageManipulator from 'expo-image-manipulator';
+import tailwind from "tailwind-rn"
+
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Camera } from 'expo-camera';
 import {Loading} from '../../components/CameraPage/Loading/Loading'
+import * as ImageManipulator from 'expo-image-manipulator';
+
+
+import { uploadImageToServer } from '../../apis/upload_images'
+import {setOriginImage} from '../../redux/slicers/origin-image.slicer'
 import { setIsLoading, selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 
 
@@ -16,11 +19,7 @@ export const CameraPage = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back);
-
-
   const isLoading = useSelector(selectIsLoading)
-
-
 
 
   async function getPermissionStatus() {
@@ -32,11 +31,6 @@ export const CameraPage = ({ navigation }) => {
     getPermissionStatus()
     return () => {}
   }, [])
-
-
-  useEffect(() => {
-
-  }, [isLoading])
 
 
   if (hasPermission === null) {

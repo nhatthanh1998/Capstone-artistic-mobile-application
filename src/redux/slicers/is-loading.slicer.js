@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { IS_LOADING_REDUCER_PREFIX } from "../../enums/reducer-prefix"
+
+
+const initialState = false
 
 
 const isLoadingSlicer = createSlice({
-    name: 'isLoading',
-    initialState: false,
+    name: IS_LOADING_REDUCER_PREFIX,
+    initialState,
     reducers: {
         setIsLoading: (state, action) => {
-            console.log(action.payload)
             state = action.payload
             return state
         }
@@ -20,6 +23,7 @@ export const { setIsLoading } = isLoadingSlicer.actions
 
 // use-selector export 
 export const selectIsLoading = state => state.isLoading
+
 
 // reducer export
 export default isLoadingSlicer.reducer

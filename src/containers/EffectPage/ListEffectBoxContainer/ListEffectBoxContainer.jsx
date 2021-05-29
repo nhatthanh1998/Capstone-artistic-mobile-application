@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import tailwind from 'tailwind-rn'
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ScrollView } from 'react-native'
 import { EffectBox } from '../../../components/EffectPage/EffectBox'
-import tailwind from 'tailwind-rn'
-import { useSelector, useDispatch } from 'react-redux'
+
 import { setSelectedStyleID, selectSelectedStyleID } from '../../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../../redux/slicers/origin-image.slicer'
 import { sendTransferImageRequest } from '../../../apis/upload_images'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import {DEFAULT_EFFECT_ID} from '../../../enums/default-effect-id'
 
 export const ListEffectBoxContainer = ({ data, originImageAccessURL }) => {
     const dispatch = useDispatch()
@@ -19,7 +22,7 @@ export const ListEffectBoxContainer = ({ data, originImageAccessURL }) => {
     }, [selectedStyleID] )
 
     const requestTransferImage = async () => {
-        if (selectedStyleID !== 'ORIGINAL') {
+        if (selectedStyleID !== DEFAULT_EFFECT_ID) {
             const socketID = await AsyncStorage.getItem('socketID')
             const photoLocation = originImage.photoLocation
             const response = await sendTransferImageRequest({ socketID, photoLocation, styleID:selectedStyleID })
@@ -33,8 +36,8 @@ export const ListEffectBoxContainer = ({ data, originImageAccessURL }) => {
 
 
     const renderOriginalEffectBox = () => {
-        const isSelect = selectedStyleID === 'ORIGINAL' ? true : false
-        return <EffectBox styleId={'ORIGINAL'} styleImageUrl={originImageAccessURL} styleName='ORIGINAL' handlePress={handlePress} key='ORIGINAL' isSelect={isSelect} />
+        const isSelect = selectedStyleID === DEFAULT_EFFECT_ID ? true : false
+        return <EffectBox styleId={DEFAULT_EFFECT_ID} styleImageUrl={originImageAccessURL} styleName={DEFAULT_EFFECT_ID} handlePress={handlePress} key={DEFAULT_EFFECT_ID} isSelect={isSelect} />
     }
 
 
