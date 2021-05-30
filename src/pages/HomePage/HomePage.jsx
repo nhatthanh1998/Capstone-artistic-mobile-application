@@ -1,18 +1,20 @@
-import React from "react";
+import React,  { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
+import tailwind from 'tailwind-rn';
 import { ImageBackground, View, Text } from "react-native";
-import tailwind from 'tailwind-rn'
 import { StatusBar } from 'react-native';
-import { MediaButton } from "../../components/HomePage/MediaButton";
-import { NavigationButton } from "../../components/HomePage/NavigationButton";
-import { Loading } from "../../components/HomePage/Loading"
+import { MediaButton } from '../../components/HomePage/MediaButton';
+import { NavigationButton } from '../../components/HomePage/NavigationButton';
+import { Loading } from '../../components/HomePage/Loading';
 
-import * as ImagePicker from 'expo-image-picker';
-import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectIsLoading, setIsLoading } from "../../redux/slicers/is-loading.slicer"
+import { selectIsLoading } from "../../redux/slicers/is-loading.slicer"
 
-import {CAMERA_PAGE, HOME_PAGE} from "../../enums/page-name"
+import { UPLOAD_PHOTO_LOADING_MESSAGE } from '../../enums/loading-message'
+import {GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE} from '../../enums/gallery-error-message'
+
+import { getGalleryAccessPermission, handlePressCamera, handlePressGallery, handlePressMenu } from './handler'
+
 
 
 const windowWidth = Dimensions.get('screen').width;
@@ -23,82 +25,36 @@ export const HomePage = ({ navigation }) => {
     // Variable
     const dispatch = useDispatch();
     const isLoading = useSelector(selectIsLoading)
-
-
-    // Get permission section
-    // status of the permission
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
-    // function to get Gallary Image Access Permision
-    async function getGalleryAccessPermission() {
-        if (Platform.OS !== 'web') {
-            const galleryPermission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (galleryPermission.status !== 'granted') {
-                setHasGalleryPermission(false)
-            } else {
-                setHasGalleryPermission(true)
-            }
-        }
-    }
-
-
     useEffect(() => {
-        getGalleryAccessPermission()
+        getGalleryAccessPermission({currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission})
 
     }, [])
 
     if (hasGalleryPermission == null) {
-        return <Text>Something when wrong with Gallery Permission</Text>
+        return (<Text>{GALLARY_ERROR_MESSAGE}</Text>)
     }
 
     if (hasGalleryPermission == false) {
-        return <Text>Must have gallery permission to use our Application</Text>
+        return (<Text>{GALLERY_NOT_GRANTED_MESSAGE}</Text>)
     }
 
-
-
-
-
-    // action handler section
-    const handlePressCamera = () => {
-        navigation.navigate(CAMERA_PAGE)
-    }
-
-    const handlePressMenu = () => {
-
-    }
-
-    const handlePressGallery = async () => {
-        let photo = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            quality: 1,
-        });
-
-        if (!photo.cancelled) {
-            dispatch(setIsLoading(true))
-            dispatch(setOriginImage({accessURL: photo.uri}))
-            const socketID = await AsyncStorage.getItem("socketID")
-            uploadImageToServer({imageURI: photo.uri, socketID: socketID})
-            navigation.navigate("EffectPage")
-        }
-        else {
-            navigation.navigate(HOME_PAGE)
-        }
-    }
     return (
         <ImageBackground source={require('../../commons/images/home-page-background/background.jpg')}
          style={{ width: windowWidth, height: windowHeight, marginTop: StatusBar.currentHeight }}>
-            <Loading isLoading = {isLoading} loadingText = {"Handling your image....."}/>
-            <View style={tailwind("w-full h-full")}>
 
+            <Loading isLoading = {isLoading} loadingText = {UPLOAD_PHOTO_LOADING_MESSAGE}/>
+
+            <View style={tailwind("w-full h-full")}>
                 {/* navigation button */}
                 <NavigationButton iconURL={require("../../commons/images/menu_icon.png")} handlePress={handlePressMenu} />
 
                 {/* media button section */}
                 <View style={tailwind("flex justify-center bg-black w-full flex-row bottom-0 absolute py-3")}>
-                    <MediaButton iconUrl={require("../../commons/images/camera_icon.png")} mediaName={"CAMERA"} handlePress={handlePressCamera} />
-                    <MediaButton iconUrl={require("../../commons/images/gallery_icon.png")} mediaName={"GALLERY"} handlePress={handlePressGallery} />
+                    <MediaButton iconUrl={require("../../commons/images/camera_icon.png")} mediaName={"CAMERA"} handlePress={handlePressCamera({navigation})} />
+                    <MediaButton iconUrl={require("../../commons/images/gallery_icon.png")} mediaName={"GALLERY"} handlePress={handlePressGallery({navigation, dispatch})} />
                 </View>
+                
             </View >
         </ImageBackground>
     )

@@ -1,0 +1,1 @@
+export const UPLOAD_PHOTO_LOADING_MESSAGE = "Processing your photo......"
