@@ -7,19 +7,18 @@ import styled from 'styled-components/native'
 import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
 
 import { ImageBox } from '../../components/EffectPage/ImageBox'
-import { fetchAllStyles } from "../../apis/styles"
-import { setStyles, selectStyles, setSelectedStyleID } from '../../redux/slicers/style.slicer'
+import { selectStyles, setSelectedStyleID } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
 import { selectSelectedStyleID } from '../../redux/slicers/style.slicer'
-
+import { getStyles } from './handler'
 import { DEFAULT_EFFECT_ID } from "../../enums/default-effect-id"
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export const EffectPage = ({ route, navigation }) => {
+export const EffectPage = ({ navigation }) => {
     const dispatch = useDispatch()
     const headerHeight = useHeaderHeight()
 
@@ -27,13 +26,7 @@ export const EffectPage = ({ route, navigation }) => {
     const originImage = useSelector(selectOriginImage)
     const selectedStyleID = useSelector(selectSelectedStyleID)
     const generatedImage = useSelector(selectGeneratedImageAccessURL)
-    const [loading, setLoading] = useState(false)
 
-
-    async function getStyles() {
-        const response = await fetchAllStyles()
-        dispatch(setStyles(response))
-    }
     useEffect(() => {
         getStyles()
         return () => { }

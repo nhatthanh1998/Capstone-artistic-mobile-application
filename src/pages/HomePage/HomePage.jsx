@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoading } from "../../redux/slicers/is-loading.slicer"
 
 import { UPLOAD_PHOTO_LOADING_MESSAGE } from '../../enums/loading-message'
-import {GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE} from '../../enums/gallery-error-message'
+import {GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE} from '../../enums/error-message'
 
 import { getGalleryAccessPermission, handlePressCamera, handlePressGallery, handlePressMenu } from './handler'
 
@@ -47,12 +47,12 @@ export const HomePage = ({ navigation }) => {
 
             <View style={tailwind("w-full h-full")}>
                 {/* navigation button */}
-                <NavigationButton iconURL={require("../../commons/images/menu_icon.png")} handlePress={handlePressMenu} />
+                <NavigationButton iconURL={require("../../commons/images/menu_icon.png")} handlePress={() => handlePressMenu()} />
 
                 {/* media button section */}
                 <View style={tailwind("flex justify-center bg-black w-full flex-row bottom-0 absolute py-3")}>
-                    <MediaButton iconUrl={require("../../commons/images/camera_icon.png")} mediaName={"CAMERA"} handlePress={handlePressCamera({navigation})} />
-                    <MediaButton iconUrl={require("../../commons/images/gallery_icon.png")} mediaName={"GALLERY"} handlePress={handlePressGallery({navigation, dispatch})} />
+                    <MediaButton iconUrl={require("../../commons/images/camera_icon.png")} mediaName={"CAMERA"} handlePress={() => handlePressCamera({navigation})} />
+                    <MediaButton iconUrl={require("../../commons/images/gallery_icon.png")} mediaName={"GALLERY"} handlePress={() => handlePressGallery({navigation, dispatch})} />
                 </View>
                 
             </View >

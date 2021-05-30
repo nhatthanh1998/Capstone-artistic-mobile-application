@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import tailwind from "tailwind-rn"
 
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
-import {Loading} from '../../components/CameraPage/Loading/Loading'
-import * as ImageManipulator from 'expo-image-manipulator';
+import { Loading } from '../../components/CameraPage/Loading/Loading'
 
-
-import { uploadImageToServer } from '../../apis/upload_images'
-import {setOriginImage} from '../../redux/slicers/origin-image.slicer'
-import { setIsLoading, selectIsLoading } from '../../redux/slicers/is-loading.slicer'
-
+import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
+import {getCameraPermission, handlePressFlip, handleTakePicture} from './handler'
+import { UPLOAD_PHOTO_LOADING_MESSAGE } from '../../enums/loading-message'
+import { CAMERA_ERROR_MESSAGE, CAMERA_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
 
 export const CameraPage = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -22,56 +19,19 @@ export const CameraPage = ({ navigation }) => {
   const isLoading = useSelector(selectIsLoading)
 
 
-  async function getPermissionStatus() {
-    const { status } = await Camera.requestPermissionsAsync()
-    status === "granted" ? setHasPermission(true) : setHasPermission(false)
-  }
-
   useEffect(() => {
-    getPermissionStatus()
+    getCameraPermission({setHasPermission})
     return () => {}
   }, [])
 
 
   if (hasPermission === null) {
-    return <Text>Something went wrong with the camera</Text>;
+    return <Text>{ CAMERA_ERROR_MESSAGE }</Text>;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text>{ CAMERA_NOT_GRANTED_MESSAGE }</Text>;
   }
 
-
-  const handlePressFlip = () => {
-    if (type === Camera.Constants.Type.back) {
-      setType(Camera.Constants.Type.front)
-    } else {
-      setType(Camera.Constants.Type.back)
-    }
-  }
-
-  const handleTakePicture = async () => {
-    dispatch(setIsLoading(true))
-    if (camera) {
-      const options = {
-        quality: 0.8,
-        base64: false,
-        skipProcessing: false,
-      };
-      const photoData = await camera.takePictureAsync(options)
-
-      const photo = await ImageManipulator.manipulateAsync(
-        photoData.uri,
-        [{ resize: { width: 720, height: 1280 } }],
-        { format: 'jpeg' }
-    );
-      dispatch(setOriginImage({accessURL: photo.uri}))
-      const socketID = await AsyncStorage.getItem("socketID")
-      uploadImageToServer({imageURI: photo.uri, socketID: socketID})
-      navigation.navigate("EffectPage")
-    }
-  }
-
-  
   return (
     <View style={tailwind("flex-1")}>
       <View style={tailwind("flex-1	")}>
@@ -80,7 +40,7 @@ export const CameraPage = ({ navigation }) => {
           type={type}
           ratio={'16:9'}
         >
-          <Loading isLoading = {isLoading} loadingText = "Progressing your image..."/>
+          <Loading isLoading = { isLoading } loadingText = {UPLOAD_PHOTO_LOADING_MESSAGE}/>
 
           <View style={tailwind("w-full h-24 absolute bottom-0 flex flex-row")}>
             <View style={tailwind("w-1/3 h-24")}>
@@ -88,15 +48,15 @@ export const CameraPage = ({ navigation }) => {
             </View>
 
             <TouchableOpacity style={tailwind("w-1/3 h-24 items-center")}
-              onPress={() => handleTakePicture()}
+              onPress={() => handleTakePicture({camera, dispatch, navigation})}
             >
               <Image source={require("../../commons/images/take_picture_icon.png")}
                 style={tailwind("w-24 h-24 absolute")}
               />
             </TouchableOpacity>
             <TouchableOpacity style={tailwind("w-1/3 h-24 items-center justify-center")}
-              onPress={async () => {
-                await handlePressFlip()
+              onPress={() => {
+                handlePressFlip({type, setType})
               }}
             >
               <Image source={require("../../commons/images/flip_icon.png")}
