@@ -57,16 +57,16 @@ export const CameraPage = ({ navigation }) => {
         base64: false,
         skipProcessing: false,
       };
-      const pictureData = await camera.takePictureAsync(options)
+      const photoData = await camera.takePictureAsync(options)
 
-      const image = await ImageManipulator.manipulateAsync(
-        pictureData.uri,
+      const photo = await ImageManipulator.manipulateAsync(
+        photoData.uri,
         [{ resize: { width: 720, height: 1280 } }],
         { format: 'jpeg' }
     );
-      dispatch(setOriginImage({accessURL: image.uri}))
+      dispatch(setOriginImage({accessURL: photo.uri}))
       const socketID = await AsyncStorage.getItem("socketID")
-      uploadImageToServer({imageURI: pictureData.uri, socketID: socketID})
+      uploadImageToServer({imageURI: photo.uri, socketID: socketID})
       navigation.navigate("EffectPage")
     }
   }

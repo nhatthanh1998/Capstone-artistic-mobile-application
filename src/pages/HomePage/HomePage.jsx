@@ -5,18 +5,29 @@ import tailwind from 'tailwind-rn'
 import { StatusBar } from 'react-native';
 import { MediaButton } from "../../components/HomePage/MediaButton";
 import { NavigationButton } from "../../components/HomePage/NavigationButton";
+import { Loading } from "../../components/HomePage/Loading"
+
 import * as ImagePicker from 'expo-image-picker';
 import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectIsLoading, setIsLoading } from "../../redux/slicers/is-loading.slicer"
+
+import {CAMERA_PAGE, HOME_PAGE} from "../../enums/page-name"
+
 
 const windowWidth = Dimensions.get('screen').width;
 const windowHeight = Dimensions.get('window').height;
 
 
 export const HomePage = ({ navigation }) => {
+    // Variable
+    const dispatch = useDispatch();
+    const isLoading = useSelector(selectIsLoading)
+
+
     // Get permission section
     // status of the permission
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
-    const [hasCameraPermission, setHasCameraPermission] = useState(false)
     // function to get Gallary Image Access Permision
     async function getGalleryAccessPermission() {
         if (Platform.OS !== 'web') {
@@ -27,10 +38,6 @@ export const HomePage = ({ navigation }) => {
                 setHasGalleryPermission(true)
             }
         }
-    }
-    // function to get Camera Acess Permission
-
-    async function getCameraAccessPermission() {
     }
 
 
@@ -44,16 +51,16 @@ export const HomePage = ({ navigation }) => {
     }
 
     if (hasGalleryPermission == false) {
-        return <Text>Must have gallery and camera permission to use our Application</Text>
+        return <Text>Must have gallery permission to use our Application</Text>
     }
 
-    
+
 
 
 
     // action handler section
     const handlePressCamera = () => {
-        navigation.navigate('CameraPage')
+        navigation.navigate(CAMERA_PAGE)
     }
 
     const handlePressMenu = () => {
@@ -61,23 +68,27 @@ export const HomePage = ({ navigation }) => {
     }
 
     const handlePressGallery = async () => {
-        let pictureData = await ImagePicker.launchImageLibraryAsync({
+        let photo = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             quality: 1,
         });
 
-        if (!pictureData.cancelled) {
-            navigation.navigate("EffectPage", {
-                pictureUri: pictureData.uri
-            })
+        if (!photo.cancelled) {
+            dispatch(setIsLoading(true))
+            dispatch(setOriginImage({accessURL: photo.uri}))
+            const socketID = await AsyncStorage.getItem("socketID")
+            uploadImageToServer({imageURI: photo.uri, socketID: socketID})
+            navigation.navigate("EffectPage")
         }
         else {
-            navigation.navigate("HomePage")
+            navigation.navigate(HOME_PAGE)
         }
     }
     return (
-        <ImageBackground source={require('./images/background.jpg')} style={{ width: windowWidth, height: windowHeight, marginTop: StatusBar.currentHeight }}>
+        <ImageBackground source={require('../../commons/images/home-page-background/background.jpg')}
+         style={{ width: windowWidth, height: windowHeight, marginTop: StatusBar.currentHeight }}>
+            <Loading isLoading = {isLoading} loadingText = {"Handling your image....."}/>
             <View style={tailwind("w-full h-full")}>
 
                 {/* navigation button */}
