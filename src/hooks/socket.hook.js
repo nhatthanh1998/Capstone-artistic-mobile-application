@@ -12,8 +12,8 @@ export function useSocket() {
     const dispatch = useDispatch()
 
     socket.on('connection', async data => {
-        const {socketID} = data
-        await AsyncStorage.setItem('socketID', socketID)
+        const {socketId} = data
+        await AsyncStorage.setItem('socketId', socketId)
     })
 
     socket.on(UPLOAD_IMAGE_SUCCESS, async data => {

@@ -1,6 +1,6 @@
 import { Camera } from 'expo-camera';
 
-import { uploadImageToServer } from '../../apis/upload_images'
+import { uploadPhotoToServer } from '../../apis/photos'
 import { setOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
 
@@ -42,8 +42,8 @@ export const handlePressFlip = ({type, setType}) => {
         { format: 'jpeg' }
     );
       dispatch(setOriginImage({accessURL: photo.uri}))
-      const socketID = await AsyncStorage.getItem("socketID")
-      uploadImageToServer({imageURI: photo.uri, socketID: socketID})
+      const socketId = await AsyncStorage.getItem("socketId")
+      uploadPhotoToServer({imageURI: photo.uri, socketId: socketId})
       navigation.navigate(EFFECT_PAGE)
     } else {
         console.log('no camera instance')

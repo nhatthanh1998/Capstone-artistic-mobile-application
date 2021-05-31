@@ -7,7 +7,7 @@ import styled from 'styled-components/native'
 import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
 
 import { ImageBox } from '../../components/EffectPage/ImageBox'
-import { selectStyles, setSelectedStyleID } from '../../redux/slicers/style.slicer'
+import { selectStyles, setSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
 import { selectSelectedStyleID } from '../../redux/slicers/style.slicer'
@@ -28,21 +28,21 @@ export const EffectPage = ({ navigation }) => {
     const generatedImage = useSelector(selectGeneratedImageAccessURL)
 
     useEffect(() => {
-        getStyles()
+        getStyles({dispatch})
         return () => { }
     }, [])
 
 
     useEffect(() => {
         dispatch(setGeneratedImageAccessURL({ accessURL: originImage.accessURL, styleID: DEFAULT_EFFECT_ID }))
-        dispatch(setSelectedStyleID(DEFAULT_EFFECT_ID))
+        dispatch(setSelectedStyle({id: DEFAULT_EFFECT_ID}))
     }, [originImage])
 
     return (
         <Container headerHeight={headerHeight}>
             <ImageBox imageURL={generatedImage[selectedStyleID]} />
             <ListEffectBoxContainer
-                data={styles}
+                styles={styles}
                 originImageAccessURL={originImage.accessURL}
             />
         </Container >

@@ -6,46 +6,53 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ScrollView } from 'react-native'
 import { EffectBox } from '../../../components/EffectPage/EffectBox'
 
-import { setSelectedStyleID, selectSelectedStyleID } from '../../../redux/slicers/style.slicer'
+import { setSelectedStyle, selectSelectedStyleID, selectSelectedStyle } from '../../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../../redux/slicers/origin-image.slicer'
-import { sendTransferImageRequest } from '../../../apis/upload_images'
+import { sendTransferPhotoRequest } from '../../../apis/photos'
 
 import {DEFAULT_EFFECT_ID} from '../../../enums/default-effect-id'
 
-export const ListEffectBoxContainer = ({ data, originImageAccessURL }) => {
+export const ListEffectBoxContainer = ({ styles, originImageAccessURL }) => {
     const dispatch = useDispatch()
     const selectedStyleID = useSelector(selectSelectedStyleID)
+    const selectedStyle = useSelector(selectSelectedStyle)
     const originImage = useSelector(selectOriginImage)
 
     useEffect(() => {
-        requestTransferImage()
+        requestTransferImage({routingKey: selectedStyle.routingKey})
     }, [selectedStyleID] )
 
     const requestTransferImage = async () => {
         if (selectedStyleID !== DEFAULT_EFFECT_ID) {
-            const socketID = await AsyncStorage.getItem('socketID')
+            const socketId = await AsyncStorage.getItem('socketId')
             const photoLocation = originImage.photoLocation
-            await sendTransferImageRequest({ socketID, photoLocation, styleID:selectedStyleID })
+            await sendTransferPhotoRequest({ socketId, photoLocation, style: selectedStyle })
         } 
     }
 
 
-    const handlePress = async styleID => {
-        dispatch(setSelectedStyleID(styleID))
+    const handlePress = async selectedStyle => {
+        dispatch(setSelectedStyle(selectedStyle))
     }
 
 
     const renderOriginalEffectBox = () => {
         const isSelect = selectedStyleID === DEFAULT_EFFECT_ID ? true : false
-        return <EffectBox styleId={DEFAULT_EFFECT_ID} styleImageUrl={originImageAccessURL} styleName={DEFAULT_EFFECT_ID} handlePress={handlePress} key={DEFAULT_EFFECT_ID} isSelect={isSelect} />
+        const defaultStyle = {
+            id: DEFAULT_EFFECT_ID,
+            styleName: "ORIGINAL",
+            routingKey: "",
+            iconURL: originImageAccessURL
+
+        }
+        return <EffectBox style={defaultStyle} handlePress={handlePress} key={DEFAULT_EFFECT_ID} isSelect={isSelect} />
     }
 
 
-    const renderListEffectBox = data.map(item => {
-        const { id, style_name, icon_url, artist_id, is_generic, createdAt, updatedAt } = item
+    const renderListEffectBox = styles.map(style => {
         let isSelect = false;
-        isSelect = selectedStyleID === id ? true : false
-        return <EffectBox styleId={id} styleImageUrl={icon_url} styleName={style_name} handlePress={handlePress} key={style_name} isSelect={isSelect}
+        isSelect = selectedStyleID === style.id ? true : false
+        return <EffectBox style={style} handlePress={handlePress} key={style.id} isSelect={isSelect}
         />
     })
 

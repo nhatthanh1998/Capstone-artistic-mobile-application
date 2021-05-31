@@ -5,7 +5,7 @@ import {DEFAULT_EFFECT_ID} from "../../enums/default-effect-id"
 
 const initialState = {
     styles: [],
-    selectedStyleID: DEFAULT_EFFECT_ID
+    selectedStyle: {id: DEFAULT_EFFECT_ID}
 }
 
 const styleSlicer = createSlice({
@@ -17,20 +17,21 @@ const styleSlicer = createSlice({
             state.styles = data
         },
 
-        setSelectedStyleID: (state, action) => {
-            state.selectedStyleID = action.payload
+        setSelectedStyle: (state, action) => {
+            state.selectedStyle = action.payload
         }
     }
 })
 
 
 // action export
-export const { setStyles, setSelectedStyleID } = styleSlicer.actions
+export const { setStyles, setSelectedStyle } = styleSlicer.actions
 
 
 // use-selector export 
 export const selectStyles = state => state.style.styles
-export const selectSelectedStyleID = state => state.style.selectedStyleID
+export const selectSelectedStyleID = state => state.style.selectedStyle.id
+export const selectSelectedStyle = state => state.style.selectedStyle
 
 // reducer export
 export default styleSlicer.reducer

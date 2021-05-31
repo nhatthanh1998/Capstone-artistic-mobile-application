@@ -1,7 +1,7 @@
 import * as ImagePicker from 'expo-image-picker';
 import {CAMERA_PAGE, EFFECT_PAGE, HOME_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
-
+import {uploadPhotoToServer} from '../../apis/photos'
 
 // GET PERMISSION HANDLER
 export const getGalleryAccessPermission = async ({currentOS, setHasGalleryPermission}) => {
@@ -39,8 +39,8 @@ export const handlePressGallery = async ({navigation, dispatch}) => {
     if (!photo.cancelled) {
         dispatch(setIsLoading(true))
         dispatch(setOriginImage({accessURL: photo.uri}))
-        const socketID = await AsyncStorage.getItem("socketID")
-        uploadImageToServer({imageURI: photo.uri, socketID: socketID})
+        const socketId = await AsyncStorage.getItem("socketId")
+        uploadPhotoToServer({imageURI: photo.uri, socketId: socketId})
         navigation.navigate(EFFECT_PAGE)
     }
     else {
