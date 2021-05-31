@@ -7,7 +7,7 @@ export const EffectBox = ({ style, handlePress, isSelect }) => {
         return (
             <View style={tailwind("w-1/4 my-10 justify-center flex flex-row")}>
                 <TouchableOpacity
-                    onPress={() => { handlePress(id) }}
+                    onPress={() => { handlePress(style) }}
                 >
                     <View style={tailwind("text-center")}>
                         <View style={tailwind("w-20 h-20 rounded-lg overflow-hidden")}>

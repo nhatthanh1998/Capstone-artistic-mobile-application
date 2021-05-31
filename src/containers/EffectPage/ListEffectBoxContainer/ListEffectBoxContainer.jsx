@@ -26,6 +26,7 @@ export const ListEffectBoxContainer = ({ styles, originImageAccessURL }) => {
         if (selectedStyleID !== DEFAULT_EFFECT_ID) {
             const socketId = await AsyncStorage.getItem('socketId')
             const photoLocation = originImage.photoLocation
+            
             await sendTransferPhotoRequest({ socketId, photoLocation, style: selectedStyle })
         } 
     }

@@ -15,12 +15,10 @@ const styleSlicer = createSlice({
         setStyles: (state, action) => {
             const data = action.payload
             state.styles = data
-            return null
         },
 
         setSelectedStyle: (state, action) => {
             state.selectedStyle = action.payload
-            return null
         }
     }
 })

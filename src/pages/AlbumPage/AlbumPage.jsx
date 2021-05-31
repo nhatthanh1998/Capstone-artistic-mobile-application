@@ -15,11 +15,6 @@ export const AlbumPage = () => {
             // imageContainerStyle={{
             //     width: 1000,
             // }}
-
-            // Get data logic goes here.
-            // This will get trigger initially
-            // and when it reached the end
-            // if there is more.
             onGetData={(_, resolve) => {
                 getAlbumPhotos({dispatch})
                 resolve({

@@ -23,8 +23,8 @@ export function useSocket() {
     
 
     socket.on(TRANSFER_COMPLETED, async data => {
-        const {accessURL, styleID} = data
-        dispatch(setGeneratedImageAccessURL({accessURL: accessURL, styleID}))
+        const {accessURL, styleId} = data
+        dispatch(setGeneratedImageAccessURL({accessURL, styleId}))
         dispatch(setIsLoading(false))
     })
     return socket

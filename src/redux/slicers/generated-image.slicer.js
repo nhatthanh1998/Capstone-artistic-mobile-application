@@ -9,9 +9,8 @@ const generatedImageSlicer = createSlice({
     initialState,
     reducers: {
         setGeneratedImageAccessURL: (state, action) => {
-            const { accessURL, styleID } = action.payload
-            state[styleID] = accessURL
-            return null
+            const { accessURL, styleId } = action.payload
+            state[styleId] = accessURL
         }
     }
 })

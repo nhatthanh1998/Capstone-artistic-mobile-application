@@ -25,8 +25,6 @@ const originImageSlicer = createSlice({
             state.id = id
             state.createdAt = createdAt
             state.updatedAt = updatedAt
-
-            return null
         }
     }
 })

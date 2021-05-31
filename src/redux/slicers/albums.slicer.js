@@ -27,12 +27,10 @@ const albumSlicer = createSlice({
         addNewPhotoToPhotos: (state, action) => {
             const newPhoto = action.payload
             state.photos = {...state.photos, newPhoto}
-            return null
         },
 
         setAlbumSelectedPhoto: (state, action) => {
             state.selectedPhoto = action.payload
-            return null
         },
 
     }

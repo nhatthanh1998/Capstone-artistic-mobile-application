@@ -19,18 +19,19 @@ const App = () => {
         <NavigationContainer>
             
             <Stack.Navigator>
-                
+            <Stack.Screen name={HOME_PAGE} component={HomePage}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+            
             <Stack.Screen name={ALBUM_PAGE} component={AlbumPage}
                     options={{
                         title: ALBUM_PAGE_TITLE
                     }}
                 />
 
-            <Stack.Screen name={HOME_PAGE} component={HomePage}
-                    options={{
-                        headerShown: false
-                    }}
-                />
+
 
                 <Stack.Screen name={CAMERA_PAGE} component={CameraPage}
                     options={{

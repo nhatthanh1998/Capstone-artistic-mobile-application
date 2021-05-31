@@ -34,7 +34,7 @@ export const EffectPage = ({ navigation }) => {
 
 
     useEffect(() => {
-        dispatch(setGeneratedImageAccessURL({ accessURL: originImage.accessURL, styleID: DEFAULT_EFFECT_ID }))
+        dispatch(setGeneratedImageAccessURL({ accessURL: originImage.accessURL, styleId: DEFAULT_EFFECT_ID }))
         dispatch(setSelectedStyle({id: DEFAULT_EFFECT_ID}))
     }, [originImage])
 
