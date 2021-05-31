@@ -21,3 +21,8 @@ export async function sendTransferPhotoRequest({socketId, photoLocation, style }
     const response = await axios.post(ENDPOINT_URL, payload)
     return response.data
 }
+
+
+export async function fetchAlbums({userId, currentPage, limit, offset}) {
+    return null
+}
