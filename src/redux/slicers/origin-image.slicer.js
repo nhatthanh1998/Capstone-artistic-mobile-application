@@ -25,6 +25,8 @@ const originImageSlicer = createSlice({
             state.id = id
             state.createdAt = createdAt
             state.updatedAt = updatedAt
+
+            return null
         }
     }
 })
@@ -35,7 +37,7 @@ export const { setOriginImage } = originImageSlicer.actions
 
 
 // use-selector export 
-export const selectOriginImage = (state) => state.originImage
+export const selectOriginImage = state => state.originImage
 
 
 // reducer export

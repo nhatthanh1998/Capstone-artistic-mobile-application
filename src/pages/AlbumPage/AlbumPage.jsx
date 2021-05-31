@@ -1,8 +1,20 @@
-import React from 'react'
-import {View, Text} from "react-native"
-import CameraRollGallery from "react-native-camera-roll-gallery";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import CameraRollGallery from 'react-native-camera-roll-gallery';
+import { selectAlbumSelectedPhoto, selectAlbumPhotos, setAlbumSelectedPhoto } from '../../redux/slicers/albums.slicer'
+import { getAlbumPhotos } from './handler'
 
 export const AlbumPage = () => {
+    const dispatch = useDispatch()
+    const albumSelectedPhoto = useSelector(selectAlbumSelectedPhoto)
+    const albumPhotos = useSelector(selectAlbumPhotos)
+    
+    useEffect(() => {
+        getAlbumPhotos({dispatch})
+        return {}
+    }, [])
+
+
     return (
         <CameraRollGallery
             enableCameraRoll={false} // default true,

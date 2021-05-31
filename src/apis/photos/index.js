@@ -23,6 +23,13 @@ export async function sendTransferPhotoRequest({socketId, photoLocation, style }
 }
 
 
-export async function fetchAlbums({userId, currentPage, limit, offset}) {
-    return null
+export async function fetchAlbumPhotos({userId, page, limit, offset}) {
+    const ENDPOINT_URL = `${MAIN_SERVER}/photos?`
+    userId ? ENDPOINT_URL += `userId=${userId}&` : ENDPOINT_URL
+    page ? ENDPOINT_URL += `page=${page}` : ENDPOINT_URL
+    limit ? ENDPOINT_URL += `limit=${limit}` : ENDPOINT_URL
+    offset ? ENDPOINT_URL += `offset=${offset}` : ENDPOINT_URL
+
+    const response = await axios.get(ENDPOINT_URL)
+    return response.data
 }
