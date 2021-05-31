@@ -1,1 +1,0 @@
-export const DEFAULT_EFFECT_ID = "DEFAULT"

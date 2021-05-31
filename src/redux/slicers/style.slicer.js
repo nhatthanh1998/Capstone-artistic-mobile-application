@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 import {STYLE_REDUCER_PREFIX} from "../../enums/reducer-prefix"
-import {DEFAULT_EFFECT_ID} from "../../enums/default-effect-id"
+import {DEFAULT_STYLE_ID} from "../../enums/default-style-id"
 
 
 const initialState = {
     styles: [],
-    selectedStyle: {id: DEFAULT_EFFECT_ID}
+    selectedStyle: {id: DEFAULT_STYLE_ID}
 }
 
 const styleSlicer = createSlice({
@@ -27,6 +27,17 @@ const styleSlicer = createSlice({
 // action export
 export const { setStyles, setSelectedStyle } = styleSlicer.actions
 
+// Default style
+export const DEFAULT_STYLE = ({originImageAccessURL}) => {
+    const STYLE=  {
+        id: DEFAULT_STYLE_ID,
+        styleName: "ORIGINAL",
+        routingKey: "",
+        iconURL: originImageAccessURL
+    }
+    
+    return STYLE
+}
 
 // use-selector export 
 export const selectStyles = state => state.style.styles
