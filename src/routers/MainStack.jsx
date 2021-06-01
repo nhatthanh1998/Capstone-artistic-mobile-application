@@ -1,3 +1,4 @@
+import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { HomePage } from "../pages/HomePage"
 import { EffectPage } from "../pages/EffectPage"
@@ -8,7 +9,7 @@ import { ALBUM_PAGE, CAMERA_PAGE, EFFECT_PAGE, HOME_PAGE } from "../enums/page-n
 import { ALBUM_PAGE_TITLE, CAMERA_PAGE_TITLE, EFFECT_PAGE_TITLE } from "../enums/page-title"
 
 
-export const AppStack = () => {
+export const MainStack = () => {
     const Stack = createStackNavigator()
     return (
         <Stack.Navigator >
