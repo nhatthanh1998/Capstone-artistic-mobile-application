@@ -16,9 +16,10 @@ const App = () => {
     const Stack = createStackNavigator()
     useSocket()
     return (
-        <NavigationContainer>
+        <NavigationContainer >
             
-            <Stack.Navigator>
+            <Stack.Navigator >
+
             <Stack.Screen name={HOME_PAGE} component={HomePage}
                     options={{
                         headerShown: false
@@ -27,10 +28,12 @@ const App = () => {
             
             <Stack.Screen name={ALBUM_PAGE} component={AlbumPage}
                     options={{
-                        title: ALBUM_PAGE_TITLE
+                        title: ALBUM_PAGE_TITLE,
+                        headerShown: false
                     }}
                 />
 
+    
 
 
                 <Stack.Screen name={CAMERA_PAGE} component={CameraPage}

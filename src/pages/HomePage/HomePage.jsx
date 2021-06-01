@@ -42,7 +42,8 @@ export const HomePage = ({ navigation }) => {
     return (
         <ImageBackground source={require('../../commons/images/home-page-background/background.jpg')}
          style={{ width: windowWidth, height: windowHeight, marginTop: StatusBar.currentHeight }}>
-
+             <StatusBar
+            hidden={true} />
             <Loading isLoading = {isLoading} loadingText = {UPLOAD_PHOTO_LOADING_MESSAGE}/>
 
             <View style={tailwind("w-full h-full")}>

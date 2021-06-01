@@ -8,7 +8,7 @@ const initialState = {
     metaData: {
         page: 0,
         limit: 10, 
-        totalPage:0
+        totalPage: 1
     }
 }
 
