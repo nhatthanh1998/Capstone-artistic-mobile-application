@@ -15,6 +15,7 @@ const userSlicer = createSlice({
         setToken: (state, action) => {
             const { token } = action.payload
             state.token = token
+            state.isLoggedIn = true
         },
 
         setUserProfile: (state, action) => {
