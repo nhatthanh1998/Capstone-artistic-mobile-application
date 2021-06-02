@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux'
 import { MainStack } from './MainStack'
 import {AuthStack} from './AuthStack'
 
-
 const App = () => {
     useSocket()
     const isLoggedIn = useSelector(selectUserIsLoggedIn)

@@ -4,9 +4,17 @@ export const login= ({username, password}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/auth/login`
     const payload = {username, password}
     const response = await axios.post(ENDPOINT_URL, payload)
-    return {
-        data: response.data,
-        status: response.status
+    const data = response.data
+    if(data.statusCode === 401) {
+        return {
+            token: null,
+            error: true
+        }
+    } else {
+        return {
+            token: data.token,
+            error: false
+        }
     }
 }
 
