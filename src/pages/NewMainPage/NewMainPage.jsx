@@ -28,28 +28,21 @@ export const NewMainPage = () => {
 
 
             <View style={tailwind("mt-5 flex flex-row justify-center")}>
-                <View style={tailwind("")}>
-                    <View style={tailwind("w-12 h-12 relative mb-4")}>
-                        <View style={{...tailwind("flex w-12 h-12 rounded-md overflow-hidden justify-center items-center"), ...styles.shadow_1}} style="background-color: #fff   ">
-                            <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2072/2072974.png" }} alt="lovely avatar" style={tailwind("w-7 h-7")} />
-                        </View>
+                <View style={tailwind("mr-3")}>
+                    <View style={{ ...tailwind("flex flex-col w-10 h-10 mb-4 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}>
+                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2072/2072974.png" }} style={tailwind("w-5 h-5")} />
                     </View>
-                    <View style={tailwind("w-12 h-12 relative mb-4")}>
-                        <View style={tailwind("flex w-full h-full rounded-md overflow-hidden justify-center items-center")} style="background-color: #fff   ">
-                            <Image source={{ uri: "https://image.flaticon.com/icons/png/512/833/833281.png" }} alt="lovely avatar" style={tailwind("w-7 h-7")} />
-                        </View>
+                    <View style={{ ...tailwind("flex flex-col w-10 h-10 mb-4 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}>
+                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/833/833281.png" }} style={tailwind("w-5 h-5")} />
                     </View>
-                    <View style={tailwind("w-12 h-12 relative mb-4")}>
-                        <View style={tailwind("flex w-full h-full rounded-md overflow-hidden justify-center items-center")} style="background-color: #fff   ">
-                            <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2991/2991195.png" }} alt="lovely avatar" style={tailwind("w-7 h-7")} />
-                        </View>
+                    <View style={{ ...tailwind("flex flex-col w-10 h-10 mb-4 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}>
+                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2991/2991195.png" }} style={tailwind("w-5 h-5")} />
                     </View>
                 </View>
                 <View style={{...tailwind("w-60 h-60 relative mb-4 rounded-xl overflow-hidden"), ...styles.shadow_4}}>
                     <Image source={{ uri: "https://media.sanctuarymentalhealth.org/wp-content/uploads/2021/03/04151535/The-Starry-Night.jpg" }} alt="lovely avatar" style={tailwind("w-full h-full")} />
                 </View>
             </View>
-
             <View style={tailwind("mx-5 mt-10 flex justify-center flex-row")}>
                 <View style={tailwind("w-28 h-28 rounded-2xl overflow-hidden justify-center items-center")} style="background-color: #fff   ">
                     <Image source={require("../../commons/images/camera_ico.png")} alt="lovely avatar" style={tailwind("w-28 h-28")} />

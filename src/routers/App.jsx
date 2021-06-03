@@ -5,24 +5,25 @@ import { useSocket } from '../hooks/socket.hook'
 import { selectUserIsLoggedIn } from '../redux/slicers/user.slicer'
 import { useSelector } from 'react-redux'
 import { MainStack } from './MainStack'
-import {AuthStack} from './AuthStack'
+import { AuthStack } from './AuthStack'
+import { ProfileStack } from './ProfileStack'
 
 const App = () => {
     useSocket()
     const isLoggedIn = useSelector(selectUserIsLoggedIn)
 
-    return isLoggedIn == true ? 
-    (
-        <NavigationContainer >
-                        <AuthStack/>
+    return isLoggedIn == true ?
+        (
+            <NavigationContainer >
+                <AuthStack />
+            </NavigationContainer>
+        ) : (
+                <NavigationContainer >
+                    <ProfileStack />
+                </NavigationContainer>
+        )
 
-        </NavigationContainer>
-    ) : (
-        <NavigationContainer >
-            <MainStack/>
-
-        </NavigationContainer>
-    )
+    return
 };
 
 export default App;
