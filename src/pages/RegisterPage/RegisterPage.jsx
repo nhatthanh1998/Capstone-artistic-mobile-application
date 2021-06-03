@@ -9,6 +9,7 @@ export const RegisterPage = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState({})
+    const [isSuccess, setIsSucess] = useState(false)
     const [error, setError] = useState(false)
     const dispatch = useDispatch()
 
@@ -48,7 +49,7 @@ export const RegisterPage = () => {
 
                         <Button style={tailwind("text-center text-white bg-gray-800 p-3 rounded-sm w-full")} 
                         onPress = {async () => {
-                            await handleRegister({username, password, dispatch, setError, setErrorMessage})
+                            await handleRegister({username, password, dispatch, setError, setErrorMessage, setIsSucess})
                         }} title = "REGISTER"/>
                         {renderError()}
                         <Text onPress = {() => {

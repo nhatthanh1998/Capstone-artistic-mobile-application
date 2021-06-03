@@ -5,7 +5,7 @@ export const handleChangeText = ({text, setState}) => {
     setState(text)
 }
 
-export const handleRegister = async ({username, password, dispatch, setError, setErrorMessage}) => {
+export const handleRegister = async ({username, password, dispatch, setError, setErrorMessage, setIsSuccess}) => {
     const response = await login({username, password})
     const { token, error, errorMessage } = response
     if(error == true) {
@@ -13,7 +13,7 @@ export const handleRegister = async ({username, password, dispatch, setError, se
         setErrorMessage(errorMessage)
     } else {
         setError(false)
-        dispatch(setToken({token}))
+        setIsSuccess(true)
     }
 }
 

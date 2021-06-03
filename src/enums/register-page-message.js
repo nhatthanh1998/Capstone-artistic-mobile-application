@@ -1,0 +1,1 @@
+export const SUCCESS_MESSAGE = "Create account successfully! Back to Login Page to login!"
