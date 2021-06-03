@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, View } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
 import {MainStack} from './MainStack'
+import { NavigationDrawerContent } from '../commons/components/NavigationDrawer'
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -24,10 +24,10 @@ function NotificationsScreen({ navigation }) {
 
 const Drawer = createDrawerNavigator();
 
-export const ProfileStack = () => {
+export const MainDrawer = () => {
   return (
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={MainStack} />
+      <Drawer.Navigator initialRouteName="Home" drawerContent = {props => <NavigationDrawerContent {...props}/>}>
+        <Drawer.Screen name="MainStack" component={MainStack} />
         <Drawer.Screen name="Notifications" component={NotificationsScreen} />
       </Drawer.Navigator>
 );

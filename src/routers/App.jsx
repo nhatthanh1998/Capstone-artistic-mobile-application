@@ -4,9 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useSocket } from '../hooks/socket.hook'
 import { selectUserIsLoggedIn } from '../redux/slicers/user.slicer'
 import { useSelector } from 'react-redux'
-import { MainStack } from './MainStack'
 import { AuthStack } from './AuthStack'
-import { ProfileStack } from './ProfileStack'
+import { MainDrawer } from './MainDrawer'
 
 const App = () => {
     useSocket()
@@ -18,9 +17,9 @@ const App = () => {
                 <AuthStack />
             </NavigationContainer>
         ) : (
-                <NavigationContainer >
-                    <ProfileStack />
-                </NavigationContainer>
+            <NavigationContainer >
+                <MainDrawer />
+            </NavigationContainer>
         )
 
     return
