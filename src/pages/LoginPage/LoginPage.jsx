@@ -8,8 +8,19 @@ import { handleChangeText, handleClickRegister, handleLogin } from './handler'
 export const LoginPage = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState(false)
     const dispatch = useDispatch()
-    
+
+
+    const renderError = () => {
+        if(error == true) {
+            return <Text>Not valid username or password</Text>
+        } else {
+            return null
+        }
+    }
+
+
     return (
         <View style={tailwind("flex-1")}>
             <View style={tailwind("bg-white w-10/12 my-10")}>
@@ -36,9 +47,9 @@ export const LoginPage = () => {
 
                         <Button style={tailwind("text-center text-white bg-gray-800 p-3 rounded-sm w-full")} 
                         onPress = {async () => {
-                            await handleLogin({username, password, dispatch})
+                            await handleLogin({username, password, dispatch, setError})
                         }} title = "LOGIN"/>
-
+                        {renderError()}
                         <Text onPress = {() => {
                             handleClickRegister()
                         }}>Register account</Text>

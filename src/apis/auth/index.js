@@ -1,8 +1,9 @@
-import {axios} from 'axios'
+import axios from 'axios'
 import { MAIN_SERVER } from '@env'
-export const login= ({username, password}) => {
+export const login = async ({username, password}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/auth/login`
     const payload = {username, password}
+
     const response = await axios.post(ENDPOINT_URL, payload)
     const data = response.data
     if(data.statusCode === 401) {
@@ -18,7 +19,7 @@ export const login= ({username, password}) => {
     }
 }
 
-export const getUserProfile = ({token}) => {
+export const getUserProfile = async ({token}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/auth/profile`
     const payload = {username, password}
     const response = await axios.post(ENDPOINT_URL, payload, {

@@ -14,11 +14,13 @@ const App = () => {
     return isLoggedIn == true ? 
     (
         <NavigationContainer >
-            <MainStack/>
+                        <AuthStack/>
+
         </NavigationContainer>
     ) : (
         <NavigationContainer >
-            <AuthStack/>
+            <MainStack/>
+
         </NavigationContainer>
     )
 };
