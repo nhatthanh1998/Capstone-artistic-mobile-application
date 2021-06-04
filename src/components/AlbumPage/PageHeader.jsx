@@ -4,7 +4,7 @@ import tailwind from 'tailwind-rn'
 
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
-import {ConfirmModal} from '../../commons/modals/ConfirmModal'
+import {ConfirmModal} from './ConfirmSaveModal'
 
 async function downloadImage(imageUrl) {
     const {granted} = await MediaLibrary.getPermissionsAsync();

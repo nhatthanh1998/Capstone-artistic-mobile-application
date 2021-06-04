@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
+const deleteIcon = require('./delete-icon.webp')
 
 export const ConfirmModal = (props) => {
     const {isVisible, onCancel, onConfirm} = props
@@ -25,7 +26,7 @@ export const ConfirmModal = (props) => {
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
                         <AutoScaleImage onLayout={(event) => {
                             setImageHeight(event.nativeEvent.layout.height)
-                        }} width={modelWidth - 20} source={require('../images/taxi-6.png')}></AutoScaleImage>
+                        }} width={modelWidth - 20} source={deleteIcon}></AutoScaleImage>
                     </View>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Delete File</Text>
                     <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Sure you want to delete</Text>
