@@ -22,38 +22,9 @@ export const NewMainPage = () => {
                         </View>
                     </View>
                 </View>
-            </View>
-
-
-                {/* <View>
-                    <View style={tailwind("flex flex-col items-center text-gray-600 bg-white w-1/3 ")}>
-                        <View style={tailwind("flex flex-row items-center w-full justify-end pr-5 pt-3")}>
-
-                            <Text>Profile</Text>
-                            <Image source={require("../../commons/images/profile_icon.png")}
-                                style={tailwind("w-7 h-7")} />
-                        </View>
-
-                        <View style={tailwind("flex flex-row items-center w-full justify-end pr-5 pt-3")}>
-                            <Text>Gallary</Text>
-                            <Image source={require("../../commons/images/profile_icon.png")}
-                                style={tailwind("w-7 h-7")} />
-                        </View>
-
-                        <View style={tailwind("flex flex-row items-center w-full justify-end pr-5 pt-3")}>
-
-                            <Text>Logout</Text>
-                            <Image source={require("../../commons/images/profile_icon.png")}
-                                style={tailwind("w-7 h-7")} />
-                        </View>
-                    </View>
-                </View> */}
-                
+            </View>                
             <Text style={tailwind("ml-5 text-xl font-thin tracking-wide mt-8")}>Discovery</Text>
             <Text style={tailwind("ml-5 mt-1 text-4xl font-bold uppercase")}>Latest Style</Text>
-
-
-
             <View style={tailwind("mt-5 flex flex-row justify-center")}>
                 <View style={tailwind("mr-3")}>
                     <View style={{ ...tailwind("flex flex-col w-10 h-10 mb-4 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}>

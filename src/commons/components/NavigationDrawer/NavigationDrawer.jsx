@@ -9,6 +9,8 @@ import AntIcon from 'react-native-vector-icons/AntDesign'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 import { ALBUM_PAGE, HOME_PAGE, CAMERA_PAGE } from '../../../enums/page-name'
+import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE } from '../../../enums/drawer-title'
+
 
 import { handleNavigation, handleSignOut } from './handler'
 
@@ -38,7 +40,7 @@ export const NavigationDrawerContent = (props) => {
                         </View>
                     </View>
 
-                    <Drawer.Section style={styles.drawerSection} title="Sections">
+                    <Drawer.Section style={styles.drawerSection} title={SECTION_TITLE}>
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
@@ -47,7 +49,7 @@ export const NavigationDrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Home"
+                            label={HOME_TITLE}
                             onPress={() => { props.navigation.navigate('Home') }}
                         />
                         <DrawerItem
@@ -58,7 +60,7 @@ export const NavigationDrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Profile"
+                            label={PROFILE_TITLE}
                             onPress={() => { props.navigation.navigate('Profile') }}
                         />
                         <DrawerItem
@@ -69,7 +71,7 @@ export const NavigationDrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Camera"
+                            label={CAMERA_TITLE}
                             onPress={() => handleNavigation({navigation: props.navigation, pageName:CAMERA_PAGE})}
                         />
                         <DrawerItem
@@ -80,7 +82,7 @@ export const NavigationDrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Gallery"
+                            label={GALLERY_TITLE}
                             onPress={() => { props.navigation.navigate('Gallery') }}
                         />
 
@@ -92,7 +94,7 @@ export const NavigationDrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Album"
+                            label={ALBUM_TITLE}
                             onPress={() =>  handleNavigation({navigation: props.navigation, pageName: ALBUM_PAGE})}
                         />
                     </Drawer.Section>
@@ -107,8 +109,8 @@ export const NavigationDrawerContent = (props) => {
                             size={size}
                         />
                     )}
-                    label="Sign Out"
-                    onPress={() => { handleSignOut() }}
+                    label={SIGN_OUT_TITLE}
+                    onPress={() => { handleSignOut()}}
                 />
             </Drawer.Section>
         </View>
