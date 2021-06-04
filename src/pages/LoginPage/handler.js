@@ -1,6 +1,8 @@
-import { setToken } from '../../redux/slicers/user.slicer'
 import { login } from '../../apis/auth'
 import { REGISTER_PAGE } from '../../enums/page-name'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+
 export const handleChangeText = ({text, setState}) => {
     setState(text)
 }
@@ -12,7 +14,7 @@ export const handleLogin = async ({username, password, dispatch, setError}) => {
         setError(true)
     } else {
         setError(false)
-        dispatch(setToken({token}))
+        AsyncStorage.setItem('token', token)
     }
 }
 

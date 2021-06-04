@@ -5,17 +5,15 @@ import {USER_REDUCER_PREFIX} from "../../enums/reducer-prefix"
 const initialState = {
     profile: null,
     isLoggedIn: false,
-    token: ''
 }
 
 const userSlicer = createSlice({
     name: USER_REDUCER_PREFIX,
     initialState,
     reducers: {
-        setToken: (state, action) => {
-            const { token } = action.payload
-            state.token = token
-            state.isLoggedIn = true
+        setIsLoggedIn: (state, action) => {
+            const {isLoggedIn} = action.payload
+            state.isLoggedIn = isLoggedIn
         },
 
         setUserProfile: (state, action) => {
@@ -31,12 +29,11 @@ const userSlicer = createSlice({
 
 
 // action export
-export const { setToken, setUserInfo, logOut } = userSlicer.actions
+export const { setIsLoggedIn, setUserInfo, logOut } = userSlicer.actions
 
 
 // use-selector export 
 export const selectUserProfile = state => state.user.profile
-export const selectUserToken = state => state.user.token
 export const selectUserIsLoggedIn = state => state.user.isLoggedIn
 // reducer export
 export default userSlicer.reducer

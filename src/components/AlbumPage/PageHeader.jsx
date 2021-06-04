@@ -24,7 +24,6 @@ export const PageHeader = ({item, index, onClose}) => {
 
     const onConfirm = () => {
         setIsOpenConfirmModel(false)
-        console.log("Delete nha em trai")
     }
 
     const onDownloadImage = async () => {
