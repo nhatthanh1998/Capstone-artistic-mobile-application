@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
 
 export const DownloadSuccessModal = (props) => {
-    const {isVisible, onCancel, onConfirm} = props
+    const {isVisible, onClose} = props
     const [modelWidth, setModalWidth] = useState(0)
     const [imageHeight, setImageHeight] = useState(0) 
 
@@ -34,7 +34,7 @@ export const DownloadSuccessModal = (props) => {
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center text-black")}>Success</Text>
                     <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Your download is completed</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
-                        <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
+                        <TouchableOpacity onPress={onClose} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
                             <Text style={tailwind("text-center text-black text-base tracking-tight font-medium")}>Got it</Text>
                         </TouchableOpacity>
                     </View>

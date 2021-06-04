@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react'
-import {Text, Dimensions, TouchableOpacity, StatusBar} from 'react-native'
+import {Text, StatusBar} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import CameraRollGallery from 'react-native-camera-roll-gallery';
-import { selectAlbumSelectedPhoto, selectAlbumPhotos, setAlbumPhotos, setAlbumSelectedPhoto } from '../../redux/slicers/albums.slicer'
+import { selectAlbumSelectedPhoto, selectAlbumPhotos } from '../../redux/slicers/albums.slicer'
 import { getAlbumPhotos } from './handler'
-import AutoScaleImage from 'react-native-scalable-image';
 import tailwind from 'tailwind-rn'
 import { PageHeader } from '../../components/AlbumPage/PageHeader';
 
@@ -39,24 +38,6 @@ export const AlbumPage = () => {
                 return 
             }}
 
-            imagePageComponent={({image}, imageDimensions) => {
-                const imageURI = image.uri
-                return (
-                    <TouchableOpacity
-                        onPress={() => {
-                        console.log("hello")
-                    }}
-                    >
-                                        <AutoScaleImage
-                            width={Dimensions.get('window').width}
-                            source = {{uri: imageURI}}
-                        /> 
-                    </TouchableOpacity>
-
-                )
- 
-            }} 
-            onPageSelected={(i) => console.log(albumPhotos[i])}
             onGetData={(fetchParams, resolve) => {
                 resolve({
                     assets: albumPhotos,
@@ -64,9 +45,6 @@ export const AlbumPage = () => {
                         hasNextPage: false
                     }
                 });
-            }}
-            onSelect={(item) => {
-                console.log(item)
             }}
         />
     );

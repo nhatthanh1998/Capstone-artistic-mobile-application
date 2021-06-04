@@ -5,33 +5,8 @@ import tailwind from 'tailwind-rn'
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import { ConfirmDeleteModal } from './ConfirmDeleteModal'
+import { DownloadSuccessModal } from './DownloadSuccessModal'
 
-async function downloadImage(imageUrl) {
-    const {granted} = await MediaLibrary.getPermissionsAsync();
-    if (!granted) {
-        console.log("Permission not granted")
-        return;
-    }
-    try {
-        const fileName = imageUrl.lastIndexOf('/')
-        const fileUri = `${FileSystem.documentDirectory}${fileName}.png`;
-        const downloadedFile = await FileSystem.downloadAsync(imageUrl, fileUri);
-
-        if (downloadedFile.status != 200) {
-            console.log("Error in download file")
-        }
-        const asset = await MediaLibrary.createAssetAsync(downloadedFile.uri);
-        const album = await MediaLibrary.getAlbumAsync('Download');
-        if (album == null) {
-          await MediaLibrary.createAlbumAsync('Download', asset, false);
-        } else {
-          await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
-        }
-        console.log("Download Done")
-      } catch (e) {
-        console.log("Error at the end", e)
-    }
-}
 
 function deleteFile() {
 
@@ -39,7 +14,9 @@ function deleteFile() {
 
 
 export const PageHeader = ({item, index, onClose}) => {
-    const [isOpenConfirmModel, setIsOpenConfirmModel] = useState(false)
+    const [isShowConfirmDeleteModel, setIsShowConfirmDeleteModel] = useState(false)
+    const [isShowDownloadSuccessModel, setIsShowDownloadSuccessModel] = useState(false)
+    const {accessURL} = item
 
     const confirmDeletePhoto = () => {
         setIsOpenConfirmModel(true)
@@ -50,8 +27,31 @@ export const PageHeader = ({item, index, onClose}) => {
         console.log("Delete nha em trai")
     }
 
-    const onCancel = () => {
-        setIsOpenConfirmModel(false)
+    const onDownloadImage = async () => {
+        const {granted} = await MediaLibrary.getPermissionsAsync();
+        if (!granted) {
+            console.log("Permission not granted")
+            return;
+        }
+        try {
+            const fileName = accessURL.lastIndexOf('/')
+            const fileUri = `${FileSystem.documentDirectory}${fileName}.png`;
+            const downloadedFile = await FileSystem.downloadAsync(accessURL, fileUri);
+    
+            if (downloadedFile.status != 200) {
+                console.log("Error in download file")
+            }
+            const asset = await MediaLibrary.createAssetAsync(downloadedFile.uri);
+            const album = await MediaLibrary.getAlbumAsync('Download');
+            if (album == null) {
+              await MediaLibrary.createAlbumAsync('Download', asset, false);
+            } else {
+              await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+            }
+            setIsShowDownloadSuccessModel(true)
+          } catch (e) {
+            console.log("Error at the end", e)
+        }
     }
 
     return ( 
@@ -65,12 +65,15 @@ export const PageHeader = ({item, index, onClose}) => {
                 <TouchableOpacity onPress={confirmDeletePhoto}>
                     <Image style={tailwind("w-6 h-6 mr-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1214/1214428.png"}}></Image>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => downloadImage(item.accessURL)}>
+                <TouchableOpacity onPress={onDownloadImage}>
                     <Image style={tailwind("w-6 h-6 mr-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
                 </TouchableOpacity>
                 <Image style={tailwind("w-6 h-6 ")} source={{uri: "https://image.flaticon.com/icons/png/512/1159/1159633.png"}}></Image>
             </View>
-            <ConfirmDeleteModal onCancel={onCancel} onConfirm={onConfirm} isVisible={isOpenConfirmModel}/>
+            <ConfirmDeleteModal onCancel={() => {
+                setIsShowConfirmDeleteModel(false)
+            }} onConfirm={onConfirm} isVisible={isShowConfirmDeleteModel}/>
+            <DownloadSuccessModal isVisible={isShowDownloadSuccessModel} onClose={() => setIsShowDownloadSuccessModel(false)}/>
         </View>
     )
 }
