@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
+import { ALBUM_PAGE, HOME_PAGE, CAMERA_PAGE } from '../../../enums/page-name'
 
 import { handleNavigation, handleSignOut } from './handler'
 
@@ -69,7 +70,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label="Camera"
-                            onPress={() => { props.navigation.navigate('Gallery') }}
+                            onPress={() => handleNavigation({navigation: props.navigation, pageName:CAMERA_PAGE})}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (
@@ -92,7 +93,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label="Album"
-                            onPress={() => { props.navigation.navigate('Gallery') }}
+                            onPress={() =>  handleNavigation({navigation: props.navigation, pageName: ALBUM_PAGE})}
                         />
                     </Drawer.Section>
                 </View>

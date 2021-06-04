@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { HomePage } from "../pages/HomePage"
 import { EffectPage } from "../pages/EffectPage"
 import { CameraPage } from '../pages/CameraPage'
-import {AlbumPage} from "../pages/AlbumPage"
+import { AlbumPage } from "../pages/AlbumPage"
 import { NewMainPage } from '../pages/NewMainPage'
 
 import { ALBUM_PAGE, CAMERA_PAGE, EFFECT_PAGE, HOME_PAGE } from "../enums/page-name"
@@ -24,12 +24,6 @@ export const MainStack = () => {
                     headerShown: false
                 }}
             />
-            <Stack.Screen name={ALBUM_PAGE} component={AlbumPage}
-                options={{
-                    title: ALBUM_PAGE_TITLE,
-                    headerShown: false
-                }}
-            />
             <Stack.Screen name={CAMERA_PAGE} component={CameraPage}
                 options={{
                     title: CAMERA_PAGE_TITLE
@@ -38,6 +32,13 @@ export const MainStack = () => {
             <Stack.Screen name={EFFECT_PAGE} component={EffectPage}
                 options={{
                     title: EFFECT_PAGE_TITLE
+                }}
+            />
+
+            <Stack.Screen name={ALBUM_PAGE} component={AlbumPage}
+                options={{
+                    title: ALBUM_PAGE_TITLE,
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>
