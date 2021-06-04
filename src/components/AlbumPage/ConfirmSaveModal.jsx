@@ -25,7 +25,7 @@ export const ConfirmSaveModal = (props) => {
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
                         <AutoScaleImage onLayout={(event) => {
                             setImageHeight(event.nativeEvent.layout.height)
-                        }} width={modelWidth - 20} source={require('./save-icon.webp')}></AutoScaleImage>
+                        }} width={modelWidth - 20} source={require('../../commons/images/modals/save-icon.webp')}></AutoScaleImage>
                     </View>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Save Photo</Text>
                     <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Do you want save the photo to Album</Text>

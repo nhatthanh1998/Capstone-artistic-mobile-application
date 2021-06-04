@@ -4,7 +4,7 @@ import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
 
-export const ConfirmDeleteModal = (props) => {
+export const EditProfileSuccessModal = (props) => {
     const {isVisible, onCancel, onConfirm} = props
     const [modelWidth, setModalWidth] = useState(0)
     const [imageHeight, setImageHeight] = useState(0) 
