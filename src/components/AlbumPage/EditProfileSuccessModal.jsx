@@ -25,16 +25,13 @@ export const EditProfileSuccessModal = (props) => {
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
                         <AutoScaleImage onLayout={(event) => {
                             setImageHeight(event.nativeEvent.layout.height)
-                        }} width={modelWidth - 20} source={require('../../commons/images/modals/delete-icon.webp')}></AutoScaleImage>
+                        }} width={modelWidth - 20} source={require('../../commons/images/modals/edit-profile-success.webp')}></AutoScaleImage>
                     </View>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Delete File</Text>
-                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Sure you want to delete</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Profile</Text>
+                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Your profile updated successfully</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
                         <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Delete</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={onCancel} style={tailwind("py-3 bg-gray-800 rounded-full w-32")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium text-gray-200")}>Cancel</Text>
+                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Got it</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
