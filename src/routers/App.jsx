@@ -21,8 +21,6 @@ const App = () => {
                 <MainDrawer />
             </NavigationContainer>
         )
-
-    return
 };
 
 export default App;

@@ -1,33 +1,4 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-export const NavigationDrawerContent = () => {
-    return (
-
-        <View class="h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
-            <View class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
-                <View class="flex items-center justify-center h-14 border-b">
-                    <View>Sidebar Navigation By iAmine</View>
-                </View>
-                <View class="overflow-y-auto overflow-x-hidden flex-grow">
-                    <View class="flex flex-col py-4 space-y-1">
-                        <View class="px-5">
-                            <View class="flex flex-row items-center h-8">
-                                <Text class="text-sm font-light tracking-wide text-gray-500">Menu</Text>
-                            </View>
-                        </View>
-                        <View>
-                            <View class="inline-flex justify-center items-center ml-4">
-                                <Text>Hinh</Text>
-                            </View>
-                            <Text class="ml-2 text-sm tracking-wide truncate">Dashboard</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </View>             
-    )
-}
-
+export * from './NavigationDrawer'
 
 {/* <li>
                             <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">

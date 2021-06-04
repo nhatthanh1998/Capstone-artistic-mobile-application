@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, View } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import {MainStack} from './MainStack'
+import { MainStack } from './MainStack'
 import { NavigationDrawerContent } from '../commons/components/NavigationDrawer'
 function HomeScreen({ navigation }) {
   return (
@@ -27,8 +27,8 @@ const Drawer = createDrawerNavigator();
 export const MainDrawer = () => {
   return (
       <Drawer.Navigator initialRouteName="Home" drawerContent = {props => <NavigationDrawerContent {...props}/>}>
-        <Drawer.Screen name="MainStack" component={MainStack} />
+        <Drawer.Screen name="Home" component={MainStack} />
         <Drawer.Screen name="Notifications" component={NotificationsScreen} />
       </Drawer.Navigator>
-);
+  );
 }
