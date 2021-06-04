@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react'
-import {Text, Dimensions, TouchableOpacity} from 'react-native'
+import {Text, Dimensions, TouchableOpacity, StatusBar} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import CameraRollGallery from 'react-native-camera-roll-gallery';
 import { selectAlbumSelectedPhoto, selectAlbumPhotos, setAlbumPhotos, setAlbumSelectedPhoto } from '../../redux/slicers/albums.slicer'
 import { getAlbumPhotos } from './handler'
 import AutoScaleImage from 'react-native-scalable-image';
+import tailwind from 'tailwind-rn'
+import { PageHeader } from '../../components/AlbumPage/PageHeader';
 
 export const AlbumPage = () => {
 
@@ -14,6 +16,7 @@ export const AlbumPage = () => {
 
     useEffect(() => {
         getAlbumPhotos({dispatch})
+        StatusBar.setHidden(true);
     }, [])
 
     if(albumPhotos.length === 0) {
@@ -22,15 +25,20 @@ export const AlbumPage = () => {
 
     return (
         <CameraRollGallery
+            imageContainerStyle={tailwind('rounded-xl')}
             enableCameraRoll={false} // default true,
             enableVerticalExit={true}
             // imageContainerStyle={{
             //     width: 1000,
             // }}
-
             renderPageHeader={(item, index, onClose) => {
-                return <Text>Header</Text>
+                return <PageHeader item={item} onClose={onClose}/>
             }}
+
+            renderPageFooter={(item, index, onClose) => {
+                return 
+            }}
+
             imagePageComponent={({image}, imageDimensions) => {
                 const imageURI = image.uri
                 return (
