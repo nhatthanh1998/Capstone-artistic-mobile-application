@@ -4,7 +4,7 @@ import tailwind from 'tailwind-rn'
 
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
-import {ConfirmModal} from './ConfirmSaveModal'
+import { RegisterSuccessModal } from './RegisterSuccessModal'
 
 async function downloadImage(imageUrl) {
     const {granted} = await MediaLibrary.getPermissionsAsync();
@@ -70,7 +70,7 @@ export const PageHeader = ({item, index, onClose}) => {
                 </TouchableOpacity>
                 <Image style={tailwind("w-6 h-6 ")} source={{uri: "https://image.flaticon.com/icons/png/512/1159/1159633.png"}}></Image>
             </View>
-            <ConfirmModal onCancel={onCancel} onConfirm={onConfirm} isVisible={isOpenConfirmModel}/>
+            <RegisterSuccessModal onCancel={onCancel} onConfirm={onConfirm} isVisible={isOpenConfirmModel}/>
         </View>
     )
 }

@@ -3,9 +3,9 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
-const deleteIcon = require('./delete-icon.webp')
+const deleteIcon = require('./order-complete-1.png')
 
-export const ConfirmModal = (props) => {
+export const DownloadSuccessModal = (props) => {
     const {isVisible, onCancel, onConfirm} = props
     const [modelWidth, setModalWidth] = useState(0)
     const [imageHeight, setImageHeight] = useState(0) 
@@ -28,14 +28,11 @@ export const ConfirmModal = (props) => {
                             setImageHeight(event.nativeEvent.layout.height)
                         }} width={modelWidth - 20} source={deleteIcon}></AutoScaleImage>
                     </View>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Delete File</Text>
-                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Sure you want to delete</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center text-black")}>Success</Text>
+                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Your download is completed</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
                         <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Delete</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={onCancel} style={tailwind("py-3 bg-gray-800 rounded-full w-32")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium text-gray-200")}>Cancel</Text>
+                            <Text style={tailwind("text-center text-black text-base tracking-tight font-medium")}>Got it</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

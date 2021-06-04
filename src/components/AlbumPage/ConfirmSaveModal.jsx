@@ -3,9 +3,8 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
-const deleteIcon = require('./delete-icon.webp')
 
-export const ConfirmModal = (props) => {
+export const ConfirmSaveModal = (props) => {
     const {isVisible, onCancel, onConfirm} = props
     const [modelWidth, setModalWidth] = useState(0)
     const [imageHeight, setImageHeight] = useState(0) 
@@ -26,13 +25,13 @@ export const ConfirmModal = (props) => {
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
                         <AutoScaleImage onLayout={(event) => {
                             setImageHeight(event.nativeEvent.layout.height)
-                        }} width={modelWidth - 20} source={deleteIcon}></AutoScaleImage>
+                        }} width={modelWidth - 20} source={require('./save-icon.webp')}></AutoScaleImage>
                     </View>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Delete File</Text>
-                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Sure you want to delete</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Save Photo</Text>
+                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Do you want save the photo to Album</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
                         <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Delete</Text>
+                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Save</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={onCancel} style={tailwind("py-3 bg-gray-800 rounded-full w-32")}>
                             <Text style={tailwind("text-center text-base tracking-tight font-medium text-gray-200")}>Cancel</Text>
