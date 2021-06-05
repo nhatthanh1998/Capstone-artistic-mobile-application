@@ -8,9 +8,9 @@ export const getUserProfile = async ({token}) => {
     return response.data
 }
 
-export const registerAccount = async ({username, password, email}) => {
+export const registerAccount = async ({username, password}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/users`
-    const payload = {username, password, email}
+    const payload = {username, password, email, name}
     const response = await axios.post(ENDPOINT_URL, payload)
     const data = response.data
     if(data.error.length > 0) {
