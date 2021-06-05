@@ -2,14 +2,15 @@ import React, {useEffect} from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { handleGetUserProfile } from './handler'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { selectUserProfile } from '../../redux/slicers/user.slicer'
 
 
 export const NewMainPage = () => {
+    const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
     useEffect(() => {
-        handleGetUserProfile()
+        handleGetUserProfile({dispatch})
     }, [])
 
     return (

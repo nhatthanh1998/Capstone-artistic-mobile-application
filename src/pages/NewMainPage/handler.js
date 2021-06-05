@@ -9,3 +9,8 @@ export const handleGetUserProfile = async ({dispatch}) => {
     const response = await getUserProfile({token})
     dispatch(setUserProfile(response))
 }
+
+
+export const handlePressMenu = async () => {
+    
+}
