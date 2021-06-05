@@ -12,6 +12,7 @@ export const requestTransferImage = async ({generatedImage, selectedStyle, photo
     const { id } = selectedStyle
     if(generatedImage[id] === undefined && id !== DEFAULT_STYLE_ID) {
         const socketId = await AsyncStorage.getItem('socketId')
-        await sendTransferPhotoRequest({ socketId, photoLocation, selectedStyle })
+        const token = await AsyncStorage.getItem("token")
+        await sendTransferPhotoRequest({ socketId, photoLocation, selectedStyle, token})
     }
 }

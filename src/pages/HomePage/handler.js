@@ -40,7 +40,8 @@ export const handlePressGallery = async ({navigation, dispatch}) => {
         dispatch(setIsLoading(true))
         dispatch(setOriginImage({accessURL: photo.uri}))
         const socketId = await AsyncStorage.getItem("socketId")
-        uploadPhotoToServer({imageURI: photo.uri, socketId: socketId})
+        const token = await AsyncStorage.getItem("token")
+        uploadPhotoToServer({imageURI: photo.uri, socketId: socketId, token})
         navigation.navigate(EFFECT_PAGE)
     }
     else {
