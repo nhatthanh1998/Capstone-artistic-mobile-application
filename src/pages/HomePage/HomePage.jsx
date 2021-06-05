@@ -13,7 +13,7 @@ import { selectIsLoading } from "../../redux/slicers/is-loading.slicer"
 import { UPLOAD_PHOTO_LOADING_MESSAGE } from '../../enums/loading-message'
 import {GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE} from '../../enums/error-message'
 
-import { getGalleryAccessPermission, handlePressCamera, handlePressGallery, handlePressMenu } from './handler'
+import { getGalleryAccessPermission, handlePressCamera, handlePressGallery, handlePressMenu, handleGetUserProfile } from './handler'
 
 
 
@@ -28,7 +28,6 @@ export const HomePage = ({ navigation }) => {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
     useEffect(() => {
         getGalleryAccessPermission({currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission})
-
     }, [])
 
     if (hasGalleryPermission == null) {

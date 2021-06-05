@@ -20,9 +20,8 @@ export const login = async ({username, password}) => {
 }
 
 export const getUserProfile = async ({token}) => {
-    const ENDPOINT_URL = `${MAIN_SERVER}/auth/profile`
-    const payload = {username, password}
-    const response = await axios.post(ENDPOINT_URL, payload, {
+    const ENDPOINT_URL = `${MAIN_SERVER}/users/profile`
+    const response = await axios.post(ENDPOINT_URL, {
         headers: {
             Authorization: `Bearer ${token}`
         }
