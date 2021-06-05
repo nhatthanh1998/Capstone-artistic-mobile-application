@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { LoginPage } from '../pages/NewLoginPage/LoginPage'
-import { RegisterPage } from '../pages/RegisterPage'
+import { RegisterPage } from '../pages/NewRegisterPage'
 import { REGISTER_PAGE, LOGIN_PAGE } from "../enums/page-name"
 
 
