@@ -14,11 +14,11 @@ export const MainStack = () => {
     const Stack = createStackNavigator()
     return (
         <Stack.Navigator >
-            <Stack.Screen name={"ABC"} component={NewMainPage}
+        <Stack.Screen name={"ABC"} component={NewMainPage}
                 options={{
                     headerShown: false
                 }}
-            />
+        />
             <Stack.Screen name={HOME_PAGE} component={HomePage}
                 options={{
                     headerShown: false

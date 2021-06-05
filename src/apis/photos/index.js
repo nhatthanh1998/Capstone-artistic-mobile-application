@@ -30,7 +30,6 @@ export async function sendTransferPhotoRequest({socketId, photoLocation, selecte
 
 export async function fetchAlbumPhotos({page, limit, offset, token}) {
     let ENDPOINT_URL = `${MAIN_SERVER}/photos?`
-    userId ? ENDPOINT_URL += `userId=${userId}&` : ENDPOINT_URL
     page ? ENDPOINT_URL += `page=${page}` : ENDPOINT_URL
     limit ? ENDPOINT_URL += `limit=${limit}` : ENDPOINT_URL
     offset ? ENDPOINT_URL += `offset=${offset}` : ENDPOINT_URL
