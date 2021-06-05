@@ -1,8 +1,9 @@
-import { logOut } from '../../../redux/slicers/user.slicer'
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { setIsLoggedIn } from '../../../redux/slicers/user.slicer'
 
 export const handleSignOut = async ({dispatch}) => {
-    dispatch(logOut())
+    await AsyncStorage.removeItem('token')
+    dispatch(setIsLoggedIn(false))
 }
 
 

@@ -15,8 +15,7 @@ const App = () => {
     useEffect(() => {
         checkIsLoggedIn({dispatch})
     }, [])
-    useSocket()
-    
+    useSocket()    
     return isLoggedIn == true ?
         (
         <NavigationContainer >

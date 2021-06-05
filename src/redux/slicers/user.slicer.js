@@ -12,8 +12,7 @@ const userSlicer = createSlice({
     initialState,
     reducers: {
         setIsLoggedIn: (state, action) => {
-            const {isLoggedIn} = action.payload
-            state.isLoggedIn = isLoggedIn
+            state.isLoggedIn = action.payload
         },
 
         setUserProfile: (state, action) => {

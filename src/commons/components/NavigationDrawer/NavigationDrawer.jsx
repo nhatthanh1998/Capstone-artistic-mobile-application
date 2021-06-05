@@ -110,7 +110,7 @@ export const NavigationDrawerContent = (props) => {
                         />
                     )}
                     label={SIGN_OUT_TITLE}
-                    onPress={() => { handleSignOut()}}
+                    onPress={() => { handleSignOut({dispatch})}}
                 />
             </Drawer.Section>
         </View>
