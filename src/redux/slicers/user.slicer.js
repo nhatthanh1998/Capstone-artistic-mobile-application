@@ -16,8 +16,7 @@ const userSlicer = createSlice({
         },
 
         setUserProfile: (state, action) => {
-            const {profile} = action.payload
-            state.profile = profile
+            state.profile = action.payload
         },
 
         logOut: (state, action) => {
@@ -28,7 +27,7 @@ const userSlicer = createSlice({
 
 
 // action export
-export const { setIsLoggedIn, setUserInfo, logOut } = userSlicer.actions
+export const { setIsLoggedIn, setUserProfile, logOut } = userSlicer.actions
 
 
 // use-selector export 
