@@ -14,13 +14,7 @@ export const SignUpPage = () => {
     const [rePasswordError, setRePasswordError] = useState('')
     const [registerError, setRegisterError] = useState('')
     const [success, setSuccess] = useState(false)
-
-
-    useEffect(() => {
-        checkRePassword({ password, rePassword })
-    }, [rePassword])
-
-
+    
     return (
         <View style={tailwind("relative")}>
             <Image source={{ uri: "https://image.flaticon.com/icons/png/512/860/860790.png" }} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
