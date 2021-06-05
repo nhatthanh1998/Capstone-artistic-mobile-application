@@ -3,9 +3,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
-import { handleChangeText, handleSignUp, handleChangeRePassword } from './handler'
+import { handleChangeText, handleSignUp, handleChangeRePassword, handlePressLoginPage } from './handler'
 
-export const SignUpPage = () => {
+export const SignUpPage = ({navigation}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
@@ -66,6 +66,16 @@ export const SignUpPage = () => {
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2702/2702602.png" }} style={tailwind("h-7 w-7 mx-5")} />
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/174/174848.png" }} style={tailwind("h-7 w-7 mx-5")} />
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/25/25657.png" }} style={tailwind("h-7 w-7 mx-5")} />
+                </View>
+                <View style={tailwind("flex flex-row justify-center items-end")}>
+                    <Text style={tailwind("text-center text-sm font-thin text-gray-600")}>
+                        Already have an account?
+                </Text>
+                    <Text style={tailwind("ml-1 text-blue-900 font-bold")}
+                        onPress={() => handlePressLoginPage({ navigation })}
+                    >
+                        Sign in here
+                </Text>
                 </View>
             </View>
         </View>

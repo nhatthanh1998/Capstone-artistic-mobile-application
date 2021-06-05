@@ -1,4 +1,5 @@
 import { registerAccount } from '../../apis/users'
+import { LOGIN_PAGE } from '../../enums/page-name'
 
 
 export const handleSignUp = async ({username, password, rePassword, setUsernameError, setPasswordError, setRePasswordError, setRegisterError, setSuccess}) => {
@@ -56,4 +57,8 @@ export const handleChangeRePassword = ({text, password, setRePassword, setRePass
 
 export const handleChangeText = ({text, setState}) => {
     setState(text)
+}
+
+export const handlePressLoginPage = ({navigation}) => {
+    navigation.navigate(LOGIN_PAGE)
 }

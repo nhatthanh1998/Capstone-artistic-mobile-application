@@ -12,4 +12,3 @@ const RNRedux = () => {
 }
 
 registerRootComponent(RNRedux)
-
