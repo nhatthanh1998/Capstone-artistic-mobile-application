@@ -1,61 +1,66 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux'
-import { View, Text, TextInput, Button } from 'react-native'
+import { View, Image, Text, TextInput, Dimensions } from 'react-native'
 import tailwind from 'tailwind-rn'
+import AutoScaleImage from 'react-native-scalable-image';
 import { handleChangeText, handleClickRegister, handleLogin } from './handler'
 
-
-export const LoginPage = () => {
+export const LoginPage = ({navigation}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(false)
     const dispatch = useDispatch()
 
-
-    const renderError = () => {
-        if(error == true) {
-            return <Text>Not valid username or password</Text>
-        } else {
-            return null
-        }
-    }
-
-
     return (
-        <View style={tailwind("flex-1")}>
-            <View style={tailwind("bg-white w-10/12 my-10")}>
-                <View style={tailwind("py-8 px-8 rounded-xl")}>
-                    <Text style={tailwind("font-medium text-2xl mt-3 text-center")}>Login</Text>
-                    <View style={tailwind("mt-6")}>
-                        <View style={tailwind("my-5 text-sm")}>
-                            <Text style={tailwind(" text-black")}>Username</Text>
-                            <TextInput style={tailwind("rounded-sm px-4 py-3 mt-3 bg-gray-100 w-full")} placeholder="Username"
-                            onChangeText = {text => {
-                                handleChangeText({setState: setUsername, text})
-                            }}
-                            value={username}
-                            />
-                        </View>
-                        <View style={tailwind("my-5 text-sm")}>
-                            <Text style={tailwind(" text-black")}>Password</Text>
-                            <TextInput style={tailwind("rounded-sm px-4 py-3 mt-3 bg-gray-100 w-full")} placeholder="Password" secureTextEntry={true} 
-                            onChangeText = {text => {
-                                handleChangeText({setState: setPassword, text})
-                            }}
-                            />
-                        </View>
-
-                        <Button style={tailwind("text-center text-white bg-gray-800 p-3 rounded-sm w-full")} 
-                        onPress = {async () => {
-                            await handleLogin({username, password, dispatch, setError})
-                        }} title = "LOGIN"/>
-                        {renderError()}
-                        <Text onPress = {() => {
-                            handleClickRegister()
-                        }}>Register account</Text>
-                    </View>
+        <View>
+            <View style={tailwind("flex flex-row justify-center mt-5")}>
+                <AutoScaleImage
+                    width={Dimensions.get('window').width}
+                    source={{ uri: "https://ouch-cdn2.icons8.com/_fNVKX7Z_MdTZq4gLEhPfwhjKGtIwbxrDw8p2AgeVVE/rs:fit:1368:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMzA3/L2U5M2Y3YmFlLTA0/NmUtNDBjYS04NjMw/LTFmYzliNjZlZjQz/OS5zdmc.png" }}
+                />
+            </View>
+            <View style={tailwind("px-12 pb-7 mt-3")}>
+                <Text style={tailwind("text-4xl font-bold tracking-wide pb-3")}>Login</Text>
+                <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
+                    <Image source={{uri:"https://image.flaticon.com/icons/png/512/456/456283.png"}} style={tailwind("absolute w-4 h-4")} />
+                    <TextInput placeholder="Username" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                    onChangeText = {text => {handleChangeText({text, setState: setUsername})}}
+                    />
+                </View>
+                <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
+                    <Image source={{uri:"https://image.flaticon.com/icons/png/512/3064/3064197.png"}} style={tailwind("absolute w-4 h-4")} />
+                    <TextInput placeholder="Password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                    secureTextEntry={true} 
+                    onChangeText = {text => {
+                        handleChangeText({text, setState: setPassword})
+                    }}
+                    />
+                </View>
+                <View style={tailwind("rounded-xl bg-yellow-300 p-3 ")}>
+                    <Text style={tailwind("text-lg text-center tracking-wide")}
+                    onPress = {() => {
+                        handleLogin({username, password, dispatch, setError})
+                    }}
+                    >Login</Text>
+                </View>
+                <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or, login with ...</Text>
+                <View style={tailwind("flex justify-center flex-row")}>
+                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2702/2702602.png" }} style={tailwind("h-7 w-7 mx-5")} />
+                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/174/174848.png" }} style={tailwind("h-7 w-7 mx-5")} />
+                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/25/25657.png" }} style={tailwind("h-7 w-7 mx-5")} />
                 </View>
             </View>
+            <View style={tailwind("flex flex-row justify-center items-end")}>
+                <Text style={tailwind("text-center text-sm font-thin text-gray-600")}>
+                    New commer?
+                </Text>
+                <Text style={tailwind("ml-1 text-blue-900 font-bold")}
+                onPress = {() => handleClickRegister({navigation})}
+                >
+                    Register now
+                </Text>
+            </View>
         </View>
+
     )
 }
