@@ -1,4 +1,3 @@
-import { setToken } from '../../redux/slicers/user.slicer'
 import { login } from '../../apis/auth'
 import { LOGIN_PAGE } from '../../enums/page-name'
 export const handleChangeText = ({text, setState}) => {
@@ -7,7 +6,7 @@ export const handleChangeText = ({text, setState}) => {
 
 export const handleRegister = async ({username, password, dispatch, setError, setErrorMessage, setIsSuccess}) => {
     const response = await login({username, password})
-    const { token, error, errorMessage } = response
+    const { error, errorMessage } = response
     if(error == true) {
         setError(true)
         setErrorMessage(errorMessage)

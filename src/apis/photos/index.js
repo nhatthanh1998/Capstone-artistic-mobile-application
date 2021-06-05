@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {MAIN_SERVER} from '@env'
 
-export async function uploadPhotoToServer({imageURI, socketId}) {
+export async function uploadPhotoToServer({imageURI, socketId, token}) {
     const ENDPOINT_URL = `${MAIN_SERVER}/photos/upload`
     let formData = new FormData();
     formData.append("photo", {uri: imageURI, type: 'image/jpg', name: 'picture.jpg'});
@@ -15,7 +15,7 @@ export async function uploadPhotoToServer({imageURI, socketId}) {
 }
 
 
-export async function sendTransferPhotoRequest({socketId, photoLocation, selectedStyle }) {
+export async function sendTransferPhotoRequest({socketId, photoLocation, selectedStyle, token }) {
     const ENDPOINT_URL = `${MAIN_SERVER}/photos/transfer-photo`
     const payload = {socketId, photoLocation, style: selectedStyle}
     const response = await axios.post(ENDPOINT_URL, payload)
@@ -23,7 +23,7 @@ export async function sendTransferPhotoRequest({socketId, photoLocation, selecte
 }
 
 
-export async function fetchAlbumPhotos({userId, page, limit, offset}) {
+export async function fetchAlbumPhotos({page, limit, offset, token}) {
     let ENDPOINT_URL = `${MAIN_SERVER}/photos?`
     userId ? ENDPOINT_URL += `userId=${userId}&` : ENDPOINT_URL
     page ? ENDPOINT_URL += `page=${page}` : ENDPOINT_URL
