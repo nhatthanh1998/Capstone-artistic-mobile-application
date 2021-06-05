@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
-import { checkRePassword, handleChangeText, handleSignUp, handleChangeRePassword } from './handler'
+import { handleChangeText, handleSignUp, handleChangeRePassword } from './handler'
 
 export const SignUpPage = () => {
     const [username, setUsername] = useState('')
@@ -14,8 +15,9 @@ export const SignUpPage = () => {
     const [rePasswordError, setRePasswordError] = useState('')
     const [registerError, setRegisterError] = useState('')
     const [success, setSuccess] = useState(false)
-    
+
     return (
+
         <View style={tailwind("relative")}>
             <Image source={{ uri: "https://image.flaticon.com/icons/png/512/860/860790.png" }} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
             <View style={tailwind("flex flex-row justify-center mt-5")}>
@@ -28,25 +30,31 @@ export const SignUpPage = () => {
                 <Text style={tailwind("text-4xl font-bold tracking-wide pb-3")}>Sign up</Text>
                 <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/456/456283.png" }} style={tailwind("absolute w-4 h-4")} />
-                    <TextInput placeholder="Username" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                        value={username}
-                        onChangeText={text => { handleChangeText({ text, setState: setUsername }) }}
-                    />
+                    <KeyboardAwareScrollView>
+                        <TextInput placeholder="Username" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                            value={username}
+                            onChangeText={text => { handleChangeText({ text, setState: setUsername }) }}
+                        />
+                    </KeyboardAwareScrollView>
                 </View>
                 <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
-                    <TextInput placeholder="Password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                        value={password}
-                        onChangeText={text => { handleChangeText({ text, setState: setPassword }) }}
-                    />
+                    <KeyboardAwareScrollView>
+                        <TextInput placeholder="Password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                            value={password}
+                            onChangeText={text => { handleChangeText({ text, setState: setPassword }) }}
+                        />
+                    </KeyboardAwareScrollView>
                 </View>
                 <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
-                    <TextInput placeholder="Re enter password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                        value = {rePassword}
-                        onChangeText={text => { handleChangeRePassword({ text, password, setRePassword, setRePasswordError }) }}
+                    <KeyboardAwareScrollView>
+                        <TextInput placeholder="Re enter password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                            value={rePassword}
+                            onChangeText={text => { handleChangeRePassword({ text, password, setRePassword, setRePasswordError }) }}
 
-                    />
+                        />
+                    </KeyboardAwareScrollView>
                 </View>
                 <TouchableOpacity style={tailwind("rounded-xl bg-yellow-300 p-3 ")}
                     onPress={() => { handleSignUp({ username, password, rePassword, setPasswordError, setRePasswordError, setRegisterError, setSuccess, setUsernameError }) }}
