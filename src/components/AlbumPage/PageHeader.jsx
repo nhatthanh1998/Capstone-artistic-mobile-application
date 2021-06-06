@@ -4,8 +4,7 @@ import tailwind from 'tailwind-rn'
 
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
-import { ConfirmDeleteModal } from './ConfirmDeleteModal'
-import { DownloadSuccessModal } from './DownloadSuccessModal'
+import { ConfirmDeleteModal, DownloadSuccessModal } from '../../commons/components/Modals'
 
 
 function deleteFile() {
