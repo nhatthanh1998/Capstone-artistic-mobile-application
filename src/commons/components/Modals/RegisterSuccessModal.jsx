@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
+import { MESSAGE, TITLE, YES_BUTTON } from '../../../enums/modals/register-success-model'
 
 
 export const RegisterSuccessModal = (props) => {
@@ -32,11 +33,11 @@ export const RegisterSuccessModal = (props) => {
                             source={require('../../commons/register-success-icon.webp')}
                         />
                     </View>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Registered</Text>
-                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Your has registered successfully</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>{TITLE}</Text>
+                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>{MESSAGE}</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
                         <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-44 mx-5")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Start login</Text>
+                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>{YES_BUTTON}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

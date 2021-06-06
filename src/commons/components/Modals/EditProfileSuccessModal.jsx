@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
+import { MESSAGE, TITLE, YES_BUTTON } from '../../../enums/modals/edit-profile-success-model'
+
 
 export const EditProfileSuccessModal = (props) => {
     const {isVisible, onCancel, onConfirm} = props
@@ -27,11 +29,11 @@ export const EditProfileSuccessModal = (props) => {
                             setImageHeight(event.nativeEvent.layout.height)
                         }} width={modelWidth - 20} source={require('../../images/modals/edit-profile-success.webp')}></AutoScaleImage>
                     </View>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Profile</Text>
-                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Your profile updated successfully</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>{TITLE}</Text>
+                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>{MESSAGE}</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
                         <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Got it</Text>
+                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>{YES_BUTTON}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
