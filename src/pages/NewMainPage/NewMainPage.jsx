@@ -1,18 +1,9 @@
 import React, {useEffect} from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { handleGetUserProfile } from './handler'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectUserProfile } from '../../redux/slicers/user.slicer'
 
 
 export const NewMainPage = () => {
-    const dispatch = useDispatch()
-    const userProfile = useSelector(selectUserProfile)
-    useEffect(() => {
-        handleGetUserProfile({dispatch})
-    }, [])
-
     return (
         <View>
             <View style={tailwind("flex flex-row items-center mx-5 mt-10")}>

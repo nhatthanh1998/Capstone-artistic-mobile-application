@@ -2,7 +2,6 @@ import * as ImagePicker from 'expo-image-picker';
 import {CAMERA_PAGE, EFFECT_PAGE, HOME_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {uploadPhotoToServer} from '../../apis/photos'
-import { getUserProfile } from '../../apis/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 

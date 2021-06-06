@@ -18,8 +18,14 @@ import { handlePressGallery } from '../../../pages/HomePage/handler'
 export const NavigationDrawerContent = (props) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
-    const {iconURL, username, firstName, lastName} = userProfile
-    const fullName = firstName + lastName
+    let username = null
+    let fullName = null
+    let iconURL = null
+    if(userProfile !== null) {
+        username = userProfile.username
+        fullName = userProfile.firstName + userProfile.lastName
+        iconURL = userProfile.iconURL
+    }
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>

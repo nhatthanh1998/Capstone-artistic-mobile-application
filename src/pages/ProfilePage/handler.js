@@ -1,6 +1,6 @@
 import { uploadProfile } from '../../apis/users'
 
-export const handleUploadProfile = ({firstName, lastName, dateOfBirth, setFirstNameError, setLastNameError, setSuccess}) => {
+export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, setFirstNameError, setLastNameError, setSuccess}) => {
     let isValidated = true
 
     if(firstName.length == 0) {
