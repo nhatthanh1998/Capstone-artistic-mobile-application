@@ -4,6 +4,8 @@ import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'reac
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
 import { handleChangeText, handleSignUp, handleChangeRePassword, handlePressLoginPage } from './handler'
+import { RegisterSuccessModal } from '../../commons/components/Modals/RegisterSuccess'
+
 
 export const SignUpPage = ({navigation}) => {
     const [username, setUsername] = useState('')
@@ -19,6 +21,7 @@ export const SignUpPage = ({navigation}) => {
     return (
 
         <View style={tailwind("relative")}>
+            <RegisterSuccessModal isVisible={success} onConfirm={() => handlePressLoginPage({navigation})}/>
             <Image source={{ uri: "https://image.flaticon.com/icons/png/512/860/860790.png" }} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
             <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <AutoScaleImage
