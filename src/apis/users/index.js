@@ -30,3 +30,10 @@ export const registerAccount = async ({username, password}) => {
         }
     }
 }
+
+export const uploadProfile = async ({firstName, lastName, dateOfBirth}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/users`
+    const payload = {firstName, lastName, email, dateOfBirth}
+    const response = await axios.put(ENDPOINT_URL, payload)
+    return response.data
+} 
