@@ -3,7 +3,12 @@ import {USER_REDUCER_PREFIX} from "../../enums/reducer-prefix"
 
 
 const initialState = {
-    profile: null,
+    profile: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        id: ''
+    },
     isLoggedIn: false,
 }
 

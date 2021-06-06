@@ -10,7 +10,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export const ProfilePage = () => {
     const userProfile = useSelector(selectUserProfile)
-    const {firstName, lastName, username, email} = userProfile
+    const {firstName, lastName, email, id, username} = userProfile
 
     const [deviceHeight, setDeviceHeight] = useState(0)
     const [updatedFirstName, setUpdatedFirstName] = useState(firstName)
@@ -39,16 +39,22 @@ export const ProfilePage = () => {
                         <View style={tailwind("flex flex-row pb-5")}>
                             <View style={tailwind("w-1/2 pr-3")}>
                                 <Text style={tailwind("text-sm pb-2 text-gray-700")}>First Name</Text>
-                                <TextInput value={firstName} style={tailwind("text-base px-3 py-2 border w-full  rounded-xl font-normal")} />
+                                <TextInput style={tailwind("text-base px-3 py-2 border w-full  rounded-xl font-normal")} 
+                                value={updatedFirstName}
+                                />
                             </View>
                             <View style={tailwind("w-1/2 pl-3")}>
                                 <Text style={tailwind("text-sm pb-2 text-gray-700")}>Last Name</Text>
-                                <TextInput value={lastName} style={tailwind("text-base px-3 py-2 border w-full rounded-xl font-normal")} />
+                                <TextInput style={tailwind("text-base px-3 py-2 border w-full rounded-xl font-normal")} 
+                                value={updatedLastName}
+                                />
                             </View>
                         </View>
                         <View style={tailwind("w-full pb-5")}>
                             <Text style={tailwind("text-sm pb-2 text-gray-700")}>Email</Text>
-                            <TextInput value={email} style={tailwind("text-base px-3 py-2 border w-full font-normal rounded-xl")} />
+                            <TextInput value={email} style={tailwind("text-base px-3 py-2 border w-full font-normal rounded-xl")} 
+                            value={email}
+                            />
                         </View>
                         <View style={tailwind("w-full")}>
                             <Text style={tailwind("text-sm pb-2 text-gray-700")}>Date Of Birth</Text>
