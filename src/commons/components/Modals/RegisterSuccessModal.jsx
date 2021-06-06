@@ -30,7 +30,7 @@ export const RegisterSuccessModal = (props) => {
                                 setImageHeight(event.nativeEvent.layout.height)
                             }} 
                             width={modelWidth - 20}
-                            source={require('../../commons/register-success-icon.webp')}
+                            source={require('../../images/modals/register-success-icon.webp')}
                         />
                     </View>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>{TITLE}</Text>
