@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserProfile } from '../../../redux/slicers/user.slicer'
@@ -10,16 +10,13 @@ import IonIcon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 import { ALBUM_PAGE, HOME_PAGE, CAMERA_PAGE } from '../../../enums/page-name'
 import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE } from '../../../enums/drawer-title'
-
-
-
 import { handleNavigation, handleSignOut } from './handler'
-
 
 
 export const NavigationDrawerContent = (props) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
+    console.log(userProfile)
 
     return (
         <View style={{ flex: 1 }}>
