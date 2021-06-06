@@ -2,16 +2,15 @@ import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserProfile } from '../../../redux/slicers/user.slicer'
-import { Avatar, Title, Caption, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
+import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
-import { ALBUM_PAGE, HOME_PAGE, CAMERA_PAGE } from '../../../enums/page-name'
+import { ALBUM_PAGE, HOME_PAGE, CAMERA_PAGE, PROFILE_PAGE } from '../../../enums/page-name'
 import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE } from '../../../enums/drawer-title'
 import { handleNavigation, handleSignOut } from './handler'
-
 
 export const NavigationDrawerContent = (props) => {
     const dispatch = useDispatch()
@@ -58,7 +57,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label={PROFILE_TITLE}
-                            onPress={() => { props.navigation.navigate('Profile') }}
+                            onPress={() => { props.navigation.navigate(PROFILE_PAGE) }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (

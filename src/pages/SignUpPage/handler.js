@@ -2,7 +2,7 @@ import { registerAccount } from '../../apis/users'
 import { LOGIN_PAGE } from '../../enums/page-name'
 
 
-export const handleSignUp = async ({username, password, rePassword, setUsernameError, setPasswordError, setRePasswordError, setRegisterError, setSuccess}) => {
+export const handleSignUp = async ({username, password, rePassword, setUsernameError, setPasswordError, setRePasswordError, setSuccess}) => {
     let isValidated = true
     
     if(username.length == 0) {
@@ -26,7 +26,11 @@ export const handleSignUp = async ({username, password, rePassword, setUsernameE
         setRePasswordError("")
     }
 
-    if(password !== rePassword ) {
+    if(rePassword.length == 0) {
+        setRePasswordError("RePassword is required!")
+        isValidated = false
+    }
+    else if(password !== rePassword ) {
         setRePasswordError("RePassword must be same as Password!")
         isValidated = false
     } else {
@@ -38,20 +42,19 @@ export const handleSignUp = async ({username, password, rePassword, setUsernameE
         const response = await registerAccount({username, password})
         const {status, message} = response
         if(status && message) {
-            setRegisterError(message)
+            setUsernameError(message)
         } else {
             setSuccess(true)
         }
     } 
-
-
-    
 }
 
 export const handleChangeRePassword = ({text, password, setRePassword, setRePasswordError}) =>  {
     setRePassword(text)
     if(text !== password) {
         setRePasswordError("RePassword must be same as Password!")
+    } else {
+        setRePasswordError("")
     }
 }
 

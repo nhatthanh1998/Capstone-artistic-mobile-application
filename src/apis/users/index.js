@@ -4,7 +4,7 @@ import {MAIN_SERVER} from '@env'
 
 export const getUserProfile = async ({token}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/users/profile`
-    const response = await axios.post(ENDPOINT_URL, {
+    const response = await axios.get(ENDPOINT_URL, {
         headers: {
             Authorization: `Bearer ${token}`
         }

@@ -15,62 +15,60 @@ export const SignUpPage = ({navigation}) => {
     const [usernameError, setUsernameError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [rePasswordError, setRePasswordError] = useState('')
-    const [registerError, setRegisterError] = useState('')
     const [success, setSuccess] = useState(false)
 
     return (
+        <KeyboardAwareScrollView>
 
         <View style={tailwind("relative")}>
             <RegisterSuccessModal isVisible={success} onConfirm={() => handlePressLoginPage({navigation})}/>
             <Image source={{ uri: "https://image.flaticon.com/icons/png/512/860/860790.png" }} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
             <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <AutoScaleImage
-                    width={Dimensions.get('window').width - 50}
+                    width={Dimensions.get('window').width - 30}
                     source={{ uri: "https://ouch-cdn2.icons8.com/5Hyr0PNJb0Dhxqs7p_oXcWktGBpdf5Vx61dNp4LoZE0/rs:fit:1216:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNjc5/L2M0ZjFlNjM3LTZk/NWYtNGQ2MS1iNDc2/LTM3ZWY4YWNhNmRi/YS5zdmc.png" }}
                 />
             </View>
             <View style={tailwind("px-12 pb-7 mt-3")}>
                 <Text style={tailwind("text-4xl font-bold tracking-wide pb-3")}>Sign up</Text>
-                <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/456/456283.png" }} style={tailwind("absolute w-4 h-4")} />
-                    <KeyboardAwareScrollView>
-                        <TextInput placeholder="Username" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                            value={username}
-                            onChangeText={text => { handleChangeText({ text, setState: setUsername }) }}
-                        />
-                    </KeyboardAwareScrollView>
+                <View style={tailwind("mb-5")}>
+                    <View style={usernameError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800"): tailwind("py-2 border-b relative flex flex-row items-center")}>
+                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/456/456283.png" }} style={tailwind("absolute w-4 h-4")} />
+                            <TextInput placeholder="Username" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                                value={username}
+                                onChangeText={text => { handleChangeText({ text, setState: setUsername }) }}
+                            />
+                    </View>
+                    <Text style={tailwind("text-xs mt-2 text-red-700")}>{usernameError}</Text>
                 </View>
-                <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
-                    <KeyboardAwareScrollView>
-                        <TextInput placeholder="Password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                            value={password}
-                            onChangeText={text => { handleChangeText({ text, setState: setPassword }) }}
-                        />
-                    </KeyboardAwareScrollView>
+                <View style={tailwind("mb-5")}>
+                    <View style={passwordError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800") :  tailwind("py-2 border-b relative flex flex-row items-center")}>
+                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
+                            <TextInput placeholder="Password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                                value={password}
+                                onChangeText={text => { handleChangeText({ text, setState: setPassword }) }}
+                            />
+                    </View>
+                    <Text style={tailwind("text-xs mt-2 text-red-700")}>{passwordError}</Text>
                 </View>
-                <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
-                    <KeyboardAwareScrollView>
-                        <TextInput placeholder="Re enter password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                            value={rePassword}
-                            onChangeText={text => { handleChangeRePassword({ text, password, setRePassword, setRePasswordError }) }}
+                <View style={tailwind("mb-5")}>
+                    <View style={rePasswordError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800") : tailwind("py-2 border-b relative flex flex-row items-center")}>
+                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
+                            <TextInput placeholder="Re enter password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                                value={rePassword}
+                                onChangeText={text => { handleChangeRePassword({ text, password, setRePassword, setRePasswordError }) }}
 
-                        />
-                    </KeyboardAwareScrollView>
+                            />
+                    </View>
+                    <Text style={tailwind("text-xs mt-2 text-red-700")}>{rePasswordError}</Text>
                 </View>
+
                 <TouchableOpacity style={tailwind("rounded-xl bg-yellow-300 p-3 ")}
-                    onPress={() => { handleSignUp({ username, password, rePassword, setPasswordError, setRePasswordError, setRegisterError, setSuccess, setUsernameError }) }}
+                    onPress={() => { handleSignUp({ username, password, rePassword, setPasswordError, setRePasswordError, setSuccess, setUsernameError }) }}
                 >
                     <Text style={tailwind("text-lg text-center tracking-wide")}>Register</Text>
                 </TouchableOpacity>
-                <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or, login with ...</Text>
-                <View style={tailwind("flex justify-center flex-row")}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2702/2702602.png" }} style={tailwind("h-7 w-7 mx-5")} />
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/174/174848.png" }} style={tailwind("h-7 w-7 mx-5")} />
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/25/25657.png" }} style={tailwind("h-7 w-7 mx-5")} />
-                </View>
-                <View style={tailwind("flex flex-row justify-center items-end")}>
+                <View style={tailwind("flex flex-row justify-center mt-5 items-end")}>
                     <Text style={tailwind("text-center text-sm font-thin text-gray-600")}>
                         Already have an account?
                 </Text>
@@ -82,5 +80,6 @@ export const SignUpPage = ({navigation}) => {
                 </View>
             </View>
         </View>
+        </KeyboardAwareScrollView>
     )
 }
