@@ -19,7 +19,7 @@ const userSlicer = createSlice({
             state.profile = action.payload
         },
 
-        logOut: (state, action) => {
+        logOut: (state) => {
             state = initialState
         }
     }

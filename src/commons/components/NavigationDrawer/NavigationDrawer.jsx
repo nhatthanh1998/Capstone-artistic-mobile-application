@@ -11,12 +11,14 @@ import { styles } from './styles'
 import { ALBUM_PAGE, HOME_PAGE, CAMERA_PAGE, PROFILE_PAGE } from '../../../enums/page-name'
 import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE } from '../../../enums/drawer-title'
 import { handleNavigation, handleSignOut } from './handler'
+import { handlePressGallery } from '../../../pages/HomePage/handler'
+
+
 
 export const NavigationDrawerContent = (props) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
-    console.log(userProfile)
-
+    const {iconURL, username, id} = userProfile
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -25,13 +27,13 @@ export const NavigationDrawerContent = (props) => {
                         <View style={{ flexDirection: 'row', marginTop: 15 }}>
                             <Avatar.Image
                                 source={{
-                                    uri: 'https://i.pinimg.com/originals/c1/13/df/c113df816b94afc3224d925890e290e2.jpg'
+                                    uri: iconURL
                                 }}
                                 size={50}
                             />
                             <View style={{ marginLeft: 15, flexDirection: 'column' }}>
                                 <Title style={styles.title}>Marumi</Title>
-                                <Caption style={styles.caption}>@nhatthanhlolo1</Caption>
+                                <Caption style={styles.caption}>@{username}</Caption>
                             </View>
                         </View>
                     </View>
@@ -79,7 +81,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label={GALLERY_TITLE}
-                            onPress={() => { props.navigation.navigate('Gallery') }}
+                            onPress={() => {() => handlePressGallery({navigation: props.navigation, dispatch}) }}
                         />
 
                         <DrawerItem

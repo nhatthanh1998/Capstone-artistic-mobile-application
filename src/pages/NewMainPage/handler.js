@@ -6,10 +6,8 @@ import {setUserProfile} from '../../redux/slicers/user.slicer'
 
 export const handleGetUserProfile = async ({dispatch}) => {
     const token = await AsyncStorage.getItem("token")
-    console.log(token)
     const response = await getUserProfile({token})
-    console.log(response.data)
-    dispatch(setUserProfile(response.data))
+    dispatch(setUserProfile(response))
 }
 
 export const handlePressMenu = async ({navigation}) => {
