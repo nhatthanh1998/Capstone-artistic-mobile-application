@@ -4,7 +4,8 @@ import tailwind from 'tailwind-rn'
 
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
-import { ConfirmDeleteModal, DownloadSuccessModal } from '../../commons/components/Modals'
+import { DownloadSuccessModal } from '../../commons/components/modals/DownloadSuccessModal'
+import { ConfirmDeleteModal } from '../../commons/components/modals/ConfirmDeleteModal'
 
 
 function deleteFile() {
@@ -18,11 +19,11 @@ export const PageHeader = ({item, index, onClose}) => {
     const {accessURL} = item
 
     const confirmDeletePhoto = () => {
-        setIsOpenConfirmModel(true)
+        setIsShowConfirmDeleteModel(true)
     }
 
     const onConfirm = () => {
-        setIsOpenConfirmModel(false)
+        setIsShowDownloadSuccessModel(false)
     }
 
     const onDownloadImage = async () => {

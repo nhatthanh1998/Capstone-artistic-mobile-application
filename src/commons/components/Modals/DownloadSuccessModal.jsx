@@ -30,7 +30,7 @@ export const DownloadSuccessModal = (props) => {
                                 setImageHeight(event.nativeEvent.layout.height)
                             }} 
                             width={modelWidth - 20} 
-                            source={require('../../images/modals/download-complete.webp')}
+                            source={require('../../../assets/modals/download-complete.webp')}
                         />
                     </View>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center text-black")}>{TITLE}</Text>

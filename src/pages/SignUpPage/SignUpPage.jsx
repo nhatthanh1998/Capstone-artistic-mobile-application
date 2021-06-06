@@ -4,7 +4,7 @@ import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'reac
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
 import { handleChangeText, handleSignUp, handleChangeRePassword, handlePressLoginPage } from './handler'
-import { RegisterSuccessModal } from '../../commons/components/Modals'
+import { RegisterSuccessModal } from '../../commons/components/modals/RegisterSuccessModal'
 
 
 export const SignUpPage = ({navigation}) => {
