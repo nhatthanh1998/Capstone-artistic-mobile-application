@@ -42,6 +42,5 @@ export const handlePressGallery = async ({navigation, dispatch}) => {
         navigation.navigate(EFFECT_PAGE)
     }
     else {
-        navigation.navigate(MAIN_PAGE)
     }
 }

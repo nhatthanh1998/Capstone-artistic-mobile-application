@@ -15,9 +15,14 @@ export const getUserProfile = async () => {
 
 export const registerAccount = async ({username, password}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/users`
-    const payload = {username, password, email, name}
-    const response = await axios.post(ENDPOINT_URL, payload)
-    return response.data
+    const payload = {username, password}
+    try {
+        const response = await axios.post(ENDPOINT_URL, payload)
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+
 }
 
 export const uploadProfile = async ({firstName, lastName, dateOfBirth}) => {

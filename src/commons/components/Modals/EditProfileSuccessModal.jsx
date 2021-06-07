@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
-import AutoScaleImage from 'react-native-scalable-image';
 import { MESSAGE, TITLE, YES_BUTTON } from '../../../enums/modals/edit-profile-success-model'
 
-
 export const EditProfileSuccessModal = (props) => {
-    const {isVisible, onCancel, onConfirm} = props
+    const {isVisible, onConfirm, onHideCallback} = props
     const [modelWidth, setModalWidth] = useState(0)
     const [imageHeight, setImageHeight] = useState(0) 
 
@@ -16,18 +14,24 @@ export const EditProfileSuccessModal = (props) => {
     return (
         <View>
             <Modal isVisible={isVisible} 
-            animationOut="fadeOutUpBig"
-            animationIn="fadeInUpBig"
-            backdropColor="black"
-            backdropOpacity={0.7}
+                animationOut="bounceOut"
+                animationIn="bounceInUp"
+                animationInTiming={350}
+                animationOutTiming={250}
+                backdropColor="black"
+                backdropOpacity={0.7}
+                onModalHide={() => onHideCallback()}
             >
                 <View onLayout={(event) => {
                     setModalWidth(event.nativeEvent.layout.width)
                 }} style={{...tailwind("bg-white pb-10"), ...styles.border, paddingTop: paddingTop, transform: [{translateY: (imageHeight - paddingTop) / 2.5}]}}>
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
-                        <AutoScaleImage onLayout={(event) => {
+                        <Image onLayout={(event) => {
                             setImageHeight(event.nativeEvent.layout.height)
-                        }} width={modelWidth - 20} source={require('../../../assets/modals/edit-profile-success.webp')}></AutoScaleImage>
+                        }}
+                        style={tailwind("h-72")} 
+                        source={require('../../../assets/modals/edit-profile-success.webp')}
+                        resizeMode="contain"/>
                     </View>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>{TITLE}</Text>
                     <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>{MESSAGE}</Text>

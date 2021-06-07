@@ -1,9 +1,9 @@
 import { uploadProfile } from '../../apis/users'
+import { MAIN_PAGE } from '../../enums/page-name'
 import { setUserProfile } from '../../redux/slicers/user.slicer'
 import moment from 'moment'
-export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, gender, dispatch, setSuccess}) => {
+export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, gender, dispatch, setShowEditProfileSuccessModal}) => {
     let isValidated = true
-
     // if(firstName.length == 0) {
     //     setFirstNameError("firstName is required!")
     //     isValidated = false
@@ -16,7 +16,7 @@ export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, gen
     if(isValidated == true) {
         const response = await uploadProfile({firstName, lastName, dateOfBirth, gender})
         dispatch(setUserProfile(response))
-        setSuccess(true)
+        setShowEditProfileSuccessModal(true)
     }
 }
 
@@ -34,3 +34,7 @@ export const handleSelectDate = ({date, setDatePickerShow, setUpdatedDateOfBirth
     setUpdatedDateOfBirthText(dateText)
     setDatePickerShow(false)
 };
+
+export const handleCloseProfilePage = (navigation) => {
+  navigation.navigate(MAIN_PAGE)
+}

@@ -1,35 +1,36 @@
 import React, { useState } from 'react'
 import { View, Image, TextInput, Text, Keyboard, TouchableOpacity } from "react-native"
 import tailwind from 'tailwind-rn'
-import Modal from 'react-native-modal'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUserProfile } from '../../redux/slicers/user.slicer'
-import { handleUploadProfile, showDatePicker, hideDatePicker, handleSelectDate } from './handler'
+import { handleUploadProfile, showDatePicker, hideDatePicker, handleSelectDate, handleCloseProfilePage } from './handler'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from 'moment'
+import { EditProfileSuccessModal } from '../../commons/components/modals/EditProfileSuccessModal'
 
-export const ProfilePage = () => {
+
+export const ProfilePage = ({navigation}) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
-    const { firstName, lastName, email, username, iconURL } = userProfile
+    const { firstName, lastName, email, username, iconURL, dateOfBirth } = userProfile
 
     const [deviceHeight, setDeviceHeight] = useState(0)
     const [updatedFirstName, setUpdatedFirstName] = useState(firstName)
     const [updatedLastName, setUpdatedLastName] = useState(lastName)
-    const [updatedDateOfBirth, setUpdatedDateOfBirth] = useState(null)
-    const [updatedDateOfBirthText, setUpdatedDateOfBirthText] = useState('19th Sept 1998')
+    const [updatedDateOfBirth, setUpdatedDateOfBirth] = useState(dateOfBirth)
+    const [updatedDateOfBirthText, setUpdatedDateOfBirthText] = useState(moment(updatedDateOfBirth).format('Do MMMM YYYY'))
 
     const [firstNameError, setFirstNameError] = useState('')
     const [lastNameError, setLastNameError] = useState('')
 
 
     const [isDatePickerShow, setDatePickerShow] = useState(false)
-    const [success, setSuccess] = useState(false)
+    const [showEditProfileSuccessModal, setShowEditProfileSuccessModal] = useState(false)
 
     return (
         <View style={tailwind("w-full h-full")} onLayout={(event) => {
             setDeviceHeight(event.nativeEvent.layout.height)
         }}>
-            <Modal isVisible={true} hasBackdrop={false} style={tailwind("m-0")}>
 
                 <DateTimePickerModal
                     isVisible={isDatePickerShow}
@@ -41,10 +42,13 @@ export const ProfilePage = () => {
                     onCancel={() => hideDatePicker({ setDatePickerShow })}
                 />
 
-
                 <View style={{ height: deviceHeight }}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/1665/1665586.png" }} style={tailwind("w-5 h-5 absolute mr-3 mt-3 right-0 z-10")} alt="" />
-                    <View style={tailwind("px-11 py-10")}>
+                    <View style={tailwind("px-11 py-10 h-full w-full relative")}>
+                        <TouchableOpacity style={tailwind("absolute right-0 mt-6 mr-5")} onPress={() => handleCloseProfilePage({navigation})}>
+                            <Image source={{ uri: "https://image.flaticon.com/icons/png/512/1665/1665586.png" }} 
+                                style={tailwind("w-6 h-6")} alt="" />
+                        </TouchableOpacity>
+                        
                         <Text style={tailwind("text-2xl font-bold text-center tracking-tight pb-5")}>Personal Information</Text>
                         <View style={tailwind("flex flex-row justify-center")}>
                             <View style={tailwind("w-28 h-28 relative")}>
@@ -58,18 +62,24 @@ export const ProfilePage = () => {
                                 <Text style={tailwind("text-sm pb-2 text-gray-700")}>First Name</Text>
                                 <TextInput style={tailwind("text-base px-3 py-2 border w-full  rounded-xl font-normal")}
                                     value={updatedFirstName}
+                                    onChangeText = {text => {
+                                        setUpdatedFirstName(text)
+                                    }}
                                 />
                             </View>
                             <View style={tailwind("w-1/2 pl-3")}>
                                 <Text style={tailwind("text-sm pb-2 text-gray-700")}>Last Name</Text>
                                 <TextInput style={tailwind("text-base px-3 py-2 border w-full rounded-xl font-normal")}
                                     value={updatedLastName}
+                                    onTextChange = {text => {
+                                        setUpdatedLastName(text)
+                                    }}
                                 />
                             </View>
                         </View>
                         <View style={tailwind("w-full pb-5")}>
                             <Text style={tailwind("text-sm pb-2 text-gray-700")}>Email</Text>
-                            <TextInput value={email} style={tailwind("text-base px-3 py-2 border w-full font-normal rounded-xl")}
+                            <TextInput value={email} style={tailwind("text-base px-3 py-2 border border-gray-200 w-full font-normal rounded-xl bg-gray-200 text-black")}
                                 value={email} 
                                 editable={false}
                             />
@@ -84,18 +94,19 @@ export const ProfilePage = () => {
                             />
                         </View>
 
-
-
                         <TouchableOpacity style={tailwind("mt-9 bg-yellow-300 py-3 rounded-lg")}
                             onPress={() => {
-                                handleUploadProfile({ firstName: updatedFirstName, lastName: updatedLastName, dateOfBirth:updatedDateOfBirth, dispatch, setSuccess })
+                                handleUploadProfile({ firstName: updatedFirstName, lastName: updatedLastName, dateOfBirth:updatedDateOfBirth, dispatch, setShowEditProfileSuccessModal })
                             }}
                         >
                             <Text style={tailwind("text-base text-center font-normal")}>Update your profile</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            <EditProfileSuccessModal isVisible={showEditProfileSuccessModal} 
+                onConfirm={() => setShowEditProfileSuccessModal(false)}
+                onHideCallback={() => handleCloseProfilePage(navigation)}
+            />
         </View>
     )
 }

@@ -8,13 +8,13 @@ import { REGISTER_PAGE, LOGIN_PAGE } from "../enums/page-name"
 export const AuthStack = () => {
     const Stack = createStackNavigator()
     return (
-        <Stack.Navigator >
-            <Stack.Screen name={REGISTER_PAGE} component={SignUpPage}
+        <Stack.Navigator initialRouteName={LOGIN_PAGE}>
+            <Stack.Screen name={LOGIN_PAGE} component={LoginPage}
                 options={{
                     headerShown: false
                 }}
             />
-            <Stack.Screen name={LOGIN_PAGE} component={LoginPage}
+            <Stack.Screen name={REGISTER_PAGE} component={SignUpPage}
                 options={{
                     headerShown: false
                 }}

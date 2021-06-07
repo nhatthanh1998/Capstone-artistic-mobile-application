@@ -1,0 +1,1 @@
+export const registerSuccessIcon = require('./register-success-icon.webp')

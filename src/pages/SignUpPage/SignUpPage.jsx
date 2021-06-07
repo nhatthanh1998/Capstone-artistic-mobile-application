@@ -7,6 +7,7 @@ import { handleChangeText, handleSignUp, handleChangeRePassword, handlePressLogi
 import { RegisterSuccessModal } from '../../commons/components/modals/RegisterSuccessModal'
 
 
+
 export const SignUpPage = ({navigation}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
