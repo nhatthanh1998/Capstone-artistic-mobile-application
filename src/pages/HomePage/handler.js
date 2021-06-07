@@ -1,5 +1,5 @@
 import * as ImagePicker from 'expo-image-picker';
-import {CAMERA_PAGE, EFFECT_PAGE, HOME_PAGE} from '../../enums/page-name'
+import {CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {uploadPhotoToServer} from '../../apis/photos'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -47,6 +47,6 @@ export const handlePressGallery = async ({navigation, dispatch}) => {
         navigation.navigate(EFFECT_PAGE)
     }
     else {
-        navigation.navigate(HOME_PAGE)
+        navigation.navigate(MAIN_PAGE)
     }
 }

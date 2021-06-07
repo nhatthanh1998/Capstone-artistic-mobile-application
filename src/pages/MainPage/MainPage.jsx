@@ -3,7 +3,7 @@ import { View, Image, Text, StyleSheet } from 'react-native'
 import tailwind from 'tailwind-rn'
 
 
-export const NewMainPage = () => {
+export const MainPage = () => {
     return (
         <View>
             <View style={tailwind("flex flex-row items-center mx-5 mt-10")}>
