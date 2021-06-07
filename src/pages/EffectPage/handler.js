@@ -1,7 +1,6 @@
 import {fetchAllStyles} from '../../apis/styles'
 import {setStyles} from '../../redux/slicers/style.slicer'
 import {sendTransferPhotoRequest} from '../../apis/photos'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DEFAULT_STYLE_ID } from '../../enums/default-style-id'
 export const getStyles = async ({dispatch}) => {
     const response = await fetchAllStyles()
@@ -11,8 +10,6 @@ export const getStyles = async ({dispatch}) => {
 export const requestTransferImage = async ({generatedImage, selectedStyle, photoLocation}) => {
     const { id } = selectedStyle
     if(generatedImage[id] === undefined && id !== DEFAULT_STYLE_ID) {
-        const socketId = await AsyncStorage.getItem('socketId')
-        const token = await AsyncStorage.getItem("token")
-        await sendTransferPhotoRequest({ socketId, photoLocation, selectedStyle, token})
+        await sendTransferPhotoRequest({photoLocation, selectedStyle})
     }
 }

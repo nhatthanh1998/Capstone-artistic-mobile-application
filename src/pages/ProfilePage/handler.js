@@ -1,22 +1,19 @@
 import { uploadProfile } from '../../apis/users'
 import moment from 'moment'
-export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, setFirstNameError, setLastNameError, setSuccess}) => {
+export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, gender}) => {
     let isValidated = true
 
-    if(firstName.length == 0) {
-        setFirstNameError("firstName is required!")
-        isValidated = false
-    } 
-    if(lastName.length == 0) {
-        setLastNameError("lastName is required!")
-        isValidated = false
-    }
+    // if(firstName.length == 0) {
+    //     setFirstNameError("firstName is required!")
+    //     isValidated = false
+    // } 
+    // if(lastName.length == 0) {
+    //     setLastNameError("lastName is required!")
+    //     isValidated = false
+    // }
 
-    if(validated == true) {
-        const response = await uploadProfile({firstName, lastName, dateOfBirth})
-        if(response.status === 200) {
-            setSuccess(true)
-        }
+    if(isValidated == true) {
+        const response = await uploadProfile({firstName, lastName, dateOfBirth, gender})
     }
 }
 

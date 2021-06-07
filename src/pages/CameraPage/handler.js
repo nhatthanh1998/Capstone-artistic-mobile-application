@@ -43,8 +43,7 @@ export const handlePressFlip = ({type, setType}) => {
     );
       dispatch(setOriginImage({accessURL: photo.uri}))
       const socketId = await AsyncStorage.getItem("socketId")
-      const token = await AsyncStorage.getItem("token")
-      uploadPhotoToServer({imageURI: photo.uri, socketId: socketId, token})
+      uploadPhotoToServer({imageURI: photo.uri, socketId: socketId})
       navigation.navigate(EFFECT_PAGE)
     } else {
         console.log('no camera instance')

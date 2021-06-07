@@ -2,9 +2,6 @@ import * as ImagePicker from 'expo-image-picker';
 import {CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {uploadPhotoToServer} from '../../apis/photos'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
-
 // GET PERMISSION HANDLER
 export const getGalleryAccessPermission = async ({currentOS, setHasGalleryPermission}) => {
     if (currentOS !== 'web') {
@@ -41,9 +38,7 @@ export const handlePressGallery = async ({navigation, dispatch}) => {
     if (!photo.cancelled) {
         dispatch(setIsLoading(true))
         dispatch(setOriginImage({accessURL: photo.uri}))
-        const socketId = await AsyncStorage.getItem("socketId")
-        const token = await AsyncStorage.getItem("token")
-        uploadPhotoToServer({imageURI: photo.uri, socketId: socketId, token})
+        uploadPhotoToServer({imageURI: photo.uri})
         navigation.navigate(EFFECT_PAGE)
     }
     else {

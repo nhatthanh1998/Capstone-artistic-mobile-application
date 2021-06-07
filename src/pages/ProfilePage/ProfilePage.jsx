@@ -9,7 +9,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export const ProfilePage = () => {
     const userProfile = useSelector(selectUserProfile)
-    const { firstName, lastName, email, id, username, iconURL } = userProfile
+    const { firstName, lastName, email, username, iconURL } = userProfile
 
     const [deviceHeight, setDeviceHeight] = useState(0)
     const [updatedFirstName, setUpdatedFirstName] = useState(firstName)
@@ -19,6 +19,7 @@ export const ProfilePage = () => {
 
     const [firstNameError, setFirstNameError] = useState('')
     const [lastNameError, setLastNameError] = useState('')
+
 
     const [isDatePickerShow, setDatePickerShow] = useState(false)
     const [success, setSuccess] = useState(false)
@@ -85,7 +86,7 @@ export const ProfilePage = () => {
 
                         <TouchableOpacity style={tailwind("mt-9 bg-yellow-300 py-3 rounded-lg")}
                             onPress={() => {
-                                handleUploadProfile({ firstName, lastName })
+                                handleUploadProfile({ firstName: updatedFirstName, lastName: updatedLastName, dateOfBirth:updatedDateOfBirth })
                             }}
                         >
                             <Text style={tailwind("text-base text-center font-normal")}>Update your profile</Text>

@@ -1,8 +1,12 @@
 import axios from 'axios'
 import {MAIN_SERVER} from '@env'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export async function uploadPhotoToServer({imageURI, socketId, token}) {
+
+export async function uploadPhotoToServer({imageURI}) {
     const ENDPOINT_URL = `${MAIN_SERVER}/photos/upload`
+    const socketId = await AsyncStorage.getItem("socketId")
+    const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
     formData.append("photo", {uri: imageURI, type: 'image/jpg', name: 'picture.jpg'});
     formData.append('socketId', socketId)
@@ -16,8 +20,10 @@ export async function uploadPhotoToServer({imageURI, socketId, token}) {
 }
 
 
-export async function sendTransferPhotoRequest({socketId, photoLocation, selectedStyle, token }) {
+export async function sendTransferPhotoRequest({photoLocation, selectedStyle }) {
     const ENDPOINT_URL = `${MAIN_SERVER}/photos/transfer-photo`
+    const socketId = await AsyncStorage.getItem("socketId")
+    const token = await AsyncStorage.getItem("token")
     const payload = {socketId, photoLocation, style: selectedStyle}
     const response = await axios.post(ENDPOINT_URL, payload, {
         headers: {
@@ -28,11 +34,14 @@ export async function sendTransferPhotoRequest({socketId, photoLocation, selecte
 }
 
 
-export async function fetchAlbumPhotos({page, limit, offset, token}) {
+export async function fetchAlbumPhotos({page, limit, offset}) {
     let ENDPOINT_URL = `${MAIN_SERVER}/photos?`
     page ? ENDPOINT_URL += `page=${page}` : ENDPOINT_URL
     limit ? ENDPOINT_URL += `limit=${limit}` : ENDPOINT_URL
     offset ? ENDPOINT_URL += `offset=${offset}` : ENDPOINT_URL
+    
+    const token = await AsyncStorage.getItem("token")
+
     const response = await axios.get(ENDPOINT_URL, {
         headers: {
             'Authorization': `Bearer ${token}`
