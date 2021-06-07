@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { View, Image, TextInput, Text, Keyboard, TouchableOpacity } from "react-native"
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { selectUserProfile } from '../../redux/slicers/user.slicer'
 import { handleUploadProfile, showDatePicker, hideDatePicker, handleSelectDate } from './handler'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export const ProfilePage = () => {
+    const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
     const { firstName, lastName, email, username, iconURL } = userProfile
 
@@ -33,6 +34,7 @@ export const ProfilePage = () => {
                 <DateTimePickerModal
                     isVisible={isDatePickerShow}
                     mode="date"
+                    display="spinner"
                     onConfirm={date => {
                         handleSelectDate({date, setDatePickerShow, setUpdatedDateOfBirth, setUpdatedDateOfBirthText})
                     }}
@@ -86,7 +88,7 @@ export const ProfilePage = () => {
 
                         <TouchableOpacity style={tailwind("mt-9 bg-yellow-300 py-3 rounded-lg")}
                             onPress={() => {
-                                handleUploadProfile({ firstName: updatedFirstName, lastName: updatedLastName, dateOfBirth:updatedDateOfBirth })
+                                handleUploadProfile({ firstName: updatedFirstName, lastName: updatedLastName, dateOfBirth:updatedDateOfBirth, dispatch, setSuccess })
                             }}
                         >
                             <Text style={tailwind("text-base text-center font-normal")}>Update your profile</Text>

@@ -1,6 +1,7 @@
 import { uploadProfile } from '../../apis/users'
+import { setUserProfile } from '../../redux/slicers/user.slicer'
 import moment from 'moment'
-export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, gender}) => {
+export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, gender, dispatch, setSuccess}) => {
     let isValidated = true
 
     // if(firstName.length == 0) {
@@ -14,6 +15,8 @@ export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, gen
 
     if(isValidated == true) {
         const response = await uploadProfile({firstName, lastName, dateOfBirth, gender})
+        dispatch(setUserProfile(response))
+        setSuccess(true)
     }
 }
 

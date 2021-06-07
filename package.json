@@ -33,6 +33,7 @@
     "react-native": "~0.63.4",
     "react-native-camera": "^3.43.9",
     "react-native-camera-roll-gallery": "^4.4.3",
+    "react-native-date-picker": "^3.3.1",
     "react-native-dotenv": "^2.5.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-size": "^1.1.3",
