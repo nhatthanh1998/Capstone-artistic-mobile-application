@@ -4,23 +4,25 @@ import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal'
 import { useSelector } from 'react-redux'
 import { selectUserProfile } from '../../redux/slicers/user.slicer'
-import { handleUploadProfile, showDatePicker, hideDatePicker, handleConfirmDatePicker } from './handler'
+import { handleUploadProfile, showDatePicker, hideDatePicker, handleSelectDate } from './handler'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
-
 
 export const ProfilePage = () => {
     const userProfile = useSelector(selectUserProfile)
-    const { firstName, lastName, email, id, username } = userProfile
+    const { firstName, lastName, email, id, username, iconURL } = userProfile
 
     const [deviceHeight, setDeviceHeight] = useState(0)
     const [updatedFirstName, setUpdatedFirstName] = useState(firstName)
     const [updatedLastName, setUpdatedLastName] = useState(lastName)
+    const [updatedDateOfBirth, setUpdatedDateOfBirth] = useState(null)
+    const [updatedDateOfBirthText, setUpdatedDateOfBirthText] = useState('19th Sept 1998')
+
     const [firstNameError, setFirstNameError] = useState('')
     const [lastNameError, setLastNameError] = useState('')
+
+    const [isDatePickerShow, setDatePickerShow] = useState(false)
     const [success, setSuccess] = useState(false)
 
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
     return (
         <View style={tailwind("w-full h-full")} onLayout={(event) => {
             setDeviceHeight(event.nativeEvent.layout.height)
@@ -28,10 +30,12 @@ export const ProfilePage = () => {
             <Modal isVisible={true} hasBackdrop={false} style={tailwind("m-0")}>
 
                 <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
+                    isVisible={isDatePickerShow}
                     mode="date"
-                    onConfirm={() => handleConfirmDatePicker({ setDatePickerVisibility })}
-                    onCancel={() => hideDatePicker({ setDatePickerVisibility })}
+                    onConfirm={date => {
+                        handleSelectDate({date, setDatePickerShow, setUpdatedDateOfBirth, setUpdatedDateOfBirthText})
+                    }}
+                    onCancel={() => hideDatePicker({ setDatePickerShow })}
                 />
 
 
@@ -42,7 +46,7 @@ export const ProfilePage = () => {
                         <View style={tailwind("flex flex-row justify-center")}>
                             <View style={tailwind("w-28 h-28 relative")}>
                                 <Image source={{ uri: "https://image.flaticon.com/icons/png/512/1782/1782709.png" }} style={tailwind("w-5 h-5 absolute bottom-0 right-0")} />
-                                <Image style={tailwind("w-full h-full rounded-full")} source={{ uri: "https://i.pinimg.com/564x/c1/13/df/c113df816b94afc3224d925890e290e2.jpg" }} />
+                                <Image style={tailwind("w-full h-full rounded-full")} source={{ uri: iconURL }} />
                             </View>
                         </View>
                         <Text style={tailwind("pl-2 mt-1 font-thin text-lg text-center pb-5")}>@{username}</Text>
@@ -63,20 +67,18 @@ export const ProfilePage = () => {
                         <View style={tailwind("w-full pb-5")}>
                             <Text style={tailwind("text-sm pb-2 text-gray-700")}>Email</Text>
                             <TextInput value={email} style={tailwind("text-base px-3 py-2 border w-full font-normal rounded-xl")}
-                                value={email} disabled={true}
+                                value={email} 
+                                editable={false}
                             />
                         </View>
                         <View style={tailwind("w-full")}>
                             <Text style={tailwind("text-sm pb-2 text-gray-700")}>Date Of Birth</Text>
-                                <TextInput value="20th Nov 1999" style={tailwind("text-base px-3 py-2 border w-full rounded-xl font-normal")}
-                                    onTouchStart={() => {
-                                        showDatePicker({ setDatePickerVisibility })
-                                    }}
-
-                                    onTouchEnd={() => {
-                                        Keyboard.dismiss()
-                                    }}
-                                />
+                                <TextInput style={tailwind("text-base px-3 py-2 border w-full rounded-xl font-normal")}
+                                    pointerEvents = "none"
+                                    onTouchStart={() => {showDatePicker({ setDatePickerShow })}}
+                                    onTouchEnd={() => { Keyboard.dismiss()}}
+                                    value={updatedDateOfBirthText}
+                            />
                         </View>
 
 

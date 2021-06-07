@@ -1,5 +1,5 @@
 import { uploadProfile } from '../../apis/users'
-
+import moment from 'moment'
 export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, setFirstNameError, setLastNameError, setSuccess}) => {
     let isValidated = true
 
@@ -20,15 +20,17 @@ export const handleUploadProfile = async ({firstName, lastName, dateOfBirth, set
     }
 }
 
-export const showDatePicker = ({setDatePickerVisibility}) => {
-    setDatePickerVisibility(true);
+export const showDatePicker = ({setDatePickerShow}) => {
+    setDatePickerShow(true);
   };
 
-export const hideDatePicker = ({setDatePickerVisibility}) => {
-    setDatePickerVisibility(false);
+export const hideDatePicker = ({setDatePickerShow}) => {
+    setDatePickerShow(false);
   };
 
-export const handleConfirmDatePicker = (date, setDatePickerVisibility) => {
-    console.warn("A date has been picked: ", date);
-    hideDatePicker({setDatePickerVisibility});
-  };
+export const handleSelectDate = ({date, setDatePickerShow, setUpdatedDateOfBirth, setUpdatedDateOfBirthText}) => {
+    setUpdatedDateOfBirth(date)
+    const dateText = moment(date).format('Do MMMM YYYY')
+    setUpdatedDateOfBirthText(dateText)
+    setDatePickerShow(false)
+};
