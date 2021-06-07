@@ -15,7 +15,7 @@ export const MainStack = () => {
     const Stack = createStackNavigator()
     return (
         <Stack.Navigator >
-            <Stack.Screen name={MAIN_PAGE} component={NewMainPage}
+            <Stack.Screen name={MAIN_PAGE} component={MainPage}
                 options={{
                     headerShown: false
                 }}

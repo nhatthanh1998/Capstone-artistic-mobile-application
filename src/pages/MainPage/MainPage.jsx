@@ -1,16 +1,18 @@
-import React, {useEffect} from 'react'
-import { View, Image, Text, StyleSheet } from 'react-native'
+import React from 'react'
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
+import { handlePressMenu } from './handler'
 
-
-export const MainPage = () => {
+export const MainPage = ({navigation}) => {
     return (
         <View>
             <View style={tailwind("flex flex-row items-center mx-5 mt-10")}>
                 <View style={tailwind("w-1/3")}>
-                    <View style={{ ...tailwind("flex flex-col w-9 h-9 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}>
-                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/130/130918.png" }} style={tailwind("w-5 h-5")} />
-                    </View>
+                    <TouchableOpacity style={{ ...tailwind("flex flex-col w-9 h-9 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}
+                        onPress={() => {handlePressMenu({navigation})}}
+                    >
+                        <Image source={require("../../assets/icons/navigation_icon.png")} style={tailwind("w-5 h-5")} />
+                    </TouchableOpacity>
                 </View>
 
                 <View style={tailwind("flex flex-row items-center justify-end w-2/3")}>
