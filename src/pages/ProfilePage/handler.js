@@ -28,7 +28,7 @@ export const hideDatePicker = ({setDatePickerVisibility}) => {
     setDatePickerVisibility(false);
   };
 
-export const handleConfirmDatePicker = (date) => {
+export const handleConfirmDatePicker = (date, setDatePickerVisibility) => {
     console.warn("A date has been picked: ", date);
-    hideDatePicker();
+    hideDatePicker({setDatePickerVisibility});
   };

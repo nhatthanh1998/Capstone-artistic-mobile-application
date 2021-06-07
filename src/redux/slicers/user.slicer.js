@@ -7,7 +7,8 @@ const initialState = {
         firstName: '',
         lastName: '',
         email: '',
-        id: ''
+        id: '',
+        iconURL: null
     },
     isLoggedIn: false,
 }
