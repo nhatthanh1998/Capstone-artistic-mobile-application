@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
 import { useHeaderHeight } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux'
-import { Dimensions, Text } from 'react-native';
-import styled from 'styled-components/native'
-
 import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
 import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
-
 import { getStyles, requestTransferImage, handleRequestSavePhoto } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
-import { TouchableOpacity } from "react-native-gesture-handler";
-
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
+import tailwind from "tailwind-rn";
+import { PageHeader } from '../../components/EffectPage/PageHeader'
+import { View } from 'react-native'
 
 export const EffectPage = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -48,17 +41,14 @@ export const EffectPage = ({ navigation }) => {
         
     }, [selectedStyle])
     return (
-        <Container headerHeight={headerHeight}>
+        <View style={tailwind("flex-1")}>
+            <PageHeader/>
             <ImageBox photoURL={generatedImage[selectedStyle.id]} />
             <ListEffectBoxContainer
                 styles={styles}
                 originImageAccessURL={originImage.accessURL}
             />
-        </Container >
+        </View >
     )
 }
 
-const Container = styled.View`
-width: ${windowWidth}px;
-height: ${windowHeight}px;
-`

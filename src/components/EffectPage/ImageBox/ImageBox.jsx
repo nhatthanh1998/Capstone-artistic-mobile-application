@@ -7,7 +7,7 @@ export const ImageBox = ({ photoURL }) => {
         return <View></View>
     } else {
         return (
-            <View style={tailwind("w-full h-2/3 bg-gray-100 flex flex-col justify-center")} >
+            <View style={tailwind("w-full h-3/5 bg-gray-100 flex flex-col justify-center mt-24")} >
                 <AutoScaleImage
                     width={Dimensions.get('window').width}
                     source = {{uri: photoURL}}

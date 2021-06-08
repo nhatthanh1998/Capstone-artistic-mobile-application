@@ -27,7 +27,7 @@ export const MainStack = () => {
             />
             <Stack.Screen name={EFFECT_PAGE} component={EffectPage}
                 options={{
-                    title: EFFECT_PAGE_TITLE
+                    headerShown: false
                 }}
             />
 
