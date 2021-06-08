@@ -83,7 +83,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label={GALLERY_TITLE}
-                            onPress={() => {() => handlePressGallery({navigation: props.navigation, dispatch}) }}
+                            onPress={() => handlePressGallery({dispatch, navigation: props.navigation})}
                         />
 
                         <DrawerItem
