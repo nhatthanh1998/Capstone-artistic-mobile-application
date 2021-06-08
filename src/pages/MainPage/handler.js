@@ -2,6 +2,8 @@ import * as ImagePicker from 'expo-image-picker';
 import {CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {uploadPhotoToServer} from '../../apis/photos'
+
+
 // GET PERMISSION HANDLER
 export const getGalleryAccessPermission = async ({currentOS, setHasGalleryPermission}) => {
     if (currentOS !== 'web') {
@@ -15,9 +17,7 @@ export const getGalleryAccessPermission = async ({currentOS, setHasGalleryPermis
 }
 
 
-
 // ACTION HANDLER 
-
 export const handlePressCamera = ({navigation}) => {
     navigation.navigate(CAMERA_PAGE)
 }

@@ -11,7 +11,7 @@ import { styles } from './styles'
 import { ALBUM_PAGE, MAIN_PAGE, CAMERA_PAGE, PROFILE_PAGE } from '../../../enums/page-name'
 import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE } from '../../../enums/drawer-title'
 import { handleNavigation, handleSignOut } from './handler'
-import { handlePressGallery } from '../../../pages/HomePage/handler'
+import { handlePressGallery } from '../../../pages/MainPage/handler'
 
 
 

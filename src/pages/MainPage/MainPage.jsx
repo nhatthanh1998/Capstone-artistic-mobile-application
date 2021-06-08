@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { handlePressMenu } from './handler'
+import { handlePressMenu, getGalleryAccessPermission, handlePressCamera, handlePressGallery } from './handler'
+import { GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 
 export const MainPage = ({navigation}) => {
+
+    // Variable
+    const dispatch = useDispatch();
+    const isLoading = useSelector(selectIsLoading)
+    const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
+
+    useEffect(() => {
+    getGalleryAccessPermission({currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission})
+    }, [])
+
+    // Return ERROR
+    if (hasGalleryPermission == null) {
+        return (<Text>{GALLARY_ERROR_MESSAGE}</Text>)
+    }
+
+    if (hasGalleryPermission == false) {
+        return (<Text>{GALLERY_NOT_GRANTED_MESSAGE}</Text>)
+    }
+
+
     return (
         <View>
             <View style={tailwind("flex flex-row items-center mx-5 mt-10")}>
@@ -44,13 +67,19 @@ export const MainPage = ({navigation}) => {
                 </View>
             </View>
             <View style={tailwind("mx-5 mt-10 flex justify-center flex-row")}>
-                <View style={tailwind("w-28 h-28 rounded-2xl overflow-hidden justify-center items-center")} style="background-color: #fff   ">
+                <TouchableOpacity style={tailwind("w-28 h-28 rounded-2xl overflow-hidden justify-center items-center")} style="background-color: #fff"
+                onPress = {() => {
+                    handlePressCamera({navigation})
+                }}
+                >
                     <Image source={require("../../commons/images/camera_ico.png")} alt="lovely avatar" style={tailwind("w-28 h-28")} />
-                </View>
+                </TouchableOpacity>
             </View>
-            <View style={tailwind("p-5 bg-yellow-200")}>
+            <TouchableOpacity style={tailwind("p-5 bg-yellow-200")}
+            onPress={() => {handlePressGallery({navigation, dispatch})}}
+            >
                 <Text>Click me to Gallery</Text>
-            </View>
+            </TouchableOpacity>
         </View>
     )
 }
