@@ -2,6 +2,7 @@ import {fetchAllStyles} from '../../apis/styles'
 import {setStyles} from '../../redux/slicers/style.slicer'
 import { sendTransferPhotoRequest, requestSavePhotoToAlbum } from '../../apis/photos'
 import { DEFAULT_STYLE_ID } from '../../enums/default-style-id'
+import { MAIN_PAGE } from '../../enums/page-name'
 export const getStyles = async ({dispatch}) => {
     const response = await fetchAllStyles()
     dispatch(setStyles(response))
@@ -19,4 +20,8 @@ export const handleRequestSavePhoto = async ({dispatch, selectedStyle, generated
     console.log(photoLocation)
     const response = await requestSavePhotoToAlbum({photoLocation})
     console.log("response")
+}
+
+export const handleBack = ({navigation}) => {
+    navigation.navigate(MAIN_PAGE)
 }

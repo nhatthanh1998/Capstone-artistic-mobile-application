@@ -6,7 +6,7 @@ import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
-import { getStyles, requestTransferImage, handleRequestSavePhoto } from './handler'
+import { getStyles, handleBack, requestTransferImage } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
 import { PageHeader } from '../../components/EffectPage/PageHeader'
@@ -40,9 +40,12 @@ export const EffectPage = ({ navigation }) => {
         })
         
     }, [selectedStyle])
+
     return (
         <View style={tailwind("flex-1")}>
-            <PageHeader/>
+            <PageHeader
+            handleBack={()=> handleBack({navigation})}
+            />
             <ImageBox photoURL={generatedImage[selectedStyle.id]} />
             <ListEffectBoxContainer
                 styles={styles}
