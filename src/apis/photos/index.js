@@ -49,3 +49,27 @@ export async function fetchAlbumPhotos({page, limit, offset}) {
     })
     return response.data
 }
+
+export async function requestSavePhotoToAlbum({photoLocation}) {
+    const token = await AsyncStorage.getItem("token")
+    let ENDPOINT_URL = `${MAIN_SERVER}/photos/save-to-album`    
+    const payload = {photoLocation}
+    const response = await axios.post(ENDPOINT_URL, payload, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    return response.data
+}
+
+export async function requestDeletePhoto({photoId}) {
+    const token = await AsyncStorage.getItem("token")
+    let ENDPOINT_URL = `${MAIN_SERVER}/photos`    
+    const payload = {photoId}
+    const response = await axios.delete(ENDPOINT_URL, payload, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    return response.data
+}

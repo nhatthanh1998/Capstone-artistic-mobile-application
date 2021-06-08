@@ -18,7 +18,7 @@ export const ListEffectBoxContainer = ({ styles, originImageAccessURL }) => {
 
     const renderOriginalEffectBox = () => {
         const isSelect = selectedStyle.id === DEFAULT_STYLE_ID ? true : false
-        return <EffectBox style={DEFAULT_STYLE} handlePress={handlePress} key={DEFAULT_STYLE_ID} isSelect={isSelect} />
+        return <EffectBox style={DEFAULT_STYLE({originImageAccessURL})} handlePress={handlePress} key={DEFAULT_STYLE_ID} isSelect={isSelect} />
     }
 
 

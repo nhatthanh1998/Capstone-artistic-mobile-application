@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { useHeaderHeight } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux'
-import { Dimensions } from 'react-native';
+import { Dimensions, Text } from 'react-native';
 import styled from 'styled-components/native'
 
 import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
-
 import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
 
-import { getStyles, requestTransferImage } from './handler'
+import { getStyles, requestTransferImage, handleRequestSavePhoto } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -22,7 +22,7 @@ const windowHeight = Dimensions.get('window').height;
 export const EffectPage = ({ navigation }) => {
     const dispatch = useDispatch()
     const headerHeight = useHeaderHeight()
-
+    
     const styles = useSelector(selectStyles)
     const selectedStyle = useSelector(selectSelectedStyle)
     const originImage = useSelector(selectOriginImage)
@@ -47,11 +47,9 @@ export const EffectPage = ({ navigation }) => {
         })
         
     }, [selectedStyle])
-
-
     return (
         <Container headerHeight={headerHeight}>
-            <ImageBox imageURL={generatedImage[selectedStyle.id]} />
+            <ImageBox photoURL={generatedImage[selectedStyle.id]} />
             <ListEffectBoxContainer
                 styles={styles}
                 originImageAccessURL={originImage.accessURL}
@@ -59,8 +57,6 @@ export const EffectPage = ({ navigation }) => {
         </Container >
     )
 }
-
-
 
 const Container = styled.View`
 width: ${windowWidth}px;
