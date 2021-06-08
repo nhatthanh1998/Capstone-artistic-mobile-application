@@ -48,6 +48,9 @@ export const MainPage = ({navigation}) => {
                     <Image source={require("../../commons/images/camera_ico.png")} alt="lovely avatar" style={tailwind("w-28 h-28")} />
                 </View>
             </View>
+            <View style={tailwind("p-5 bg-yellow-200")}>
+                <Text>Click me to Gallery</Text>
+            </View>
         </View>
     )
 }

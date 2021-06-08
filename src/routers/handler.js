@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {setUserProfile, setIsLoggedIn} from '../redux/slicers/user.slicer'
 import { getUserProfile } from '../apis/users'
+import {UNAUTHORIZED} from '../enums/response-status'
+import { LOGIN_PAGE } from '../enums/page-name'
 
 
 export const checkIsLoggedIn = async ({dispatch}) => {
@@ -13,7 +15,13 @@ export const checkIsLoggedIn = async ({dispatch}) => {
 }
 
 
-export const handleGetUserProfile = async ({dispatch}) => {
+export const handleGetUserProfile = async ({dispatch, navigation}) => {
     const response = await getUserProfile()
-    dispatch(setUserProfile(response))
+    const {message, statusCode} = response
+    if(message && statusCode===UNAUTHORIZED) {
+        AsyncStorage.removeItem("token")
+        navigation.navigate (LOGIN_PAGE)
+    } else {
+        dispatch(setUserProfile(response))
+    }
 }

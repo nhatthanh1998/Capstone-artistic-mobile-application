@@ -9,12 +9,12 @@ import {Text} from 'react-native'
 
 const Drawer = createDrawerNavigator();
 
-export const MainDrawer = () => {
+export const MainDrawer = ({navigation}) => {
   const dispatch = useDispatch()
   const userProfile = useSelector(selectUserProfile)
 
   useEffect(() => {
-    handleGetUserProfile({ dispatch })
+    handleGetUserProfile({ dispatch, navigation })
   }, [])
 
   if (userProfile.id.length == 0) {
