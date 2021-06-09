@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
         transform: [{translateY: -140}]
     },
     border: {
-        borderRadius: 70
+        borderRadius: 60
     }
 })
