@@ -1,28 +1,20 @@
-import React, { useEffect } from "react";
-import { useHeaderHeight } from '@react-navigation/stack';
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { Dimensions, Text } from 'react-native';
-import styled from 'styled-components/native'
-
 import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
 import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
-
-import { getStyles, requestTransferImage, handleRequestSavePhoto } from './handler'
+import { getStyles, handleBack, handleRequestSavePhoto, requestTransferImage } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
-import { TouchableOpacity } from "react-native-gesture-handler";
-
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import tailwind from "tailwind-rn";
+import { PageHeader } from '../../components/EffectPage/PageHeader'
+import { View } from 'react-native'
 
 
 export const EffectPage = ({ navigation }) => {
     const dispatch = useDispatch()
-    const headerHeight = useHeaderHeight()
-    
+    const [isDisableSave, setDisableSave] = useState(true)
     const styles = useSelector(selectStyles)
     const selectedStyle = useSelector(selectSelectedStyle)
     const originImage = useSelector(selectOriginImage)
@@ -45,20 +37,21 @@ export const EffectPage = ({ navigation }) => {
              photoLocation:originImage.accessURL,
              selectedStyle
         })
-        
+        selectedStyle.id === DEFAULT_STYLE_ID ? setDisableSave(true) : setDisableSave(false)
     }, [selectedStyle])
+
     return (
-        <Container headerHeight={headerHeight}>
+        <View style={tailwind("flex-1")}>
+            <PageHeader
+            handleBack={()=> handleBack({navigation})}
+            handleSave = {() => {handleRequestSavePhoto({dispatch, selectedStyle, generatedImage})}}
+            />
             <ImageBox photoURL={generatedImage[selectedStyle.id]} />
             <ListEffectBoxContainer
                 styles={styles}
                 originImageAccessURL={originImage.accessURL}
             />
-        </Container >
+        </View >
     )
 }
 
-const Container = styled.View`
-width: ${windowWidth}px;
-height: ${windowHeight}px;
-`

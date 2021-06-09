@@ -31,7 +31,7 @@ export const ListEffectBoxContainer = ({ styles, originImageAccessURL }) => {
 
 
     return (
-        <ScrollView contentContainerStyle={tailwind("bg-white pr-32 flex")}
+        <ScrollView contentContainerStyle={tailwind("bg-white pr-32 flex items-center")}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
         >
