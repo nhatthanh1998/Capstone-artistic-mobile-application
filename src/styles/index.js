@@ -4,6 +4,9 @@ export const styles = StyleSheet.create({
     darken: {
         backgroundColor: 'rgba(0,0,0,0.4)'
     },
+    darken_2: {
+        backgroundColor: 'rgba(0,0,0,0.75)'
+    },
     lighten: {
         backgroundColor: 'rgba(253, 253, 253, 0.85)'
     },

@@ -38,10 +38,7 @@ export const PhotoList = () => {
                     renderItem={PhotoItem}
                     keyExtractor={item => item.id}
             />
+          <PhotoDetail imageUrl="https://i.pinimg.com/564x/1a/3f/76/1a3f7634e5a3b52d38a36173ffb05e9f.jpg"/>
         </SafeAreaView>
-       
-
-
-
     )
 }
