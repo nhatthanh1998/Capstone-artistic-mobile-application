@@ -41,6 +41,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-modal": "^11.10.0",
     "react-native-modal-datetime-picker": "^10.0.0",
+    "react-native-modal-dropdown": "^1.0.0",
     "react-native-paper": "^4.9.1",
     "react-native-reanimated": "^2.1.0",
     "react-native-router-flux": "^4.3.1",
@@ -63,6 +64,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@types/react-native": "~0.63.2",
+    "@types/react-native-modal-dropdown": "^0.7.0",
     "typescript": "~4.0.0"
   },
   "private": true
