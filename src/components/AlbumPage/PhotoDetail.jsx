@@ -19,10 +19,10 @@ export const PhotoDetail = ({imageUrl}) => {
     
 
     return (
-        <Modal style={tailwind("m-0")} isVisible={true}>
+        <Modal style={tailwind("m-0")} isVisible={false}>
             <View style={tailwind("w-full h-full bg-gray-900")}>
                 <View style={tailwind("flex flex-row z-20 absolute py-5 w-full")}>
-                    <TouchableOpacity style={tailwind("w-1/3 pl-5")} onPress={() => console.log("Press")}>
+                    <TouchableOpacity style={tailwind("w-1/3 pl-5")} onPress={() => {}}>
                         <Image source={require('../../assets/icons/left-arrow.png')} style={tailwind("h-5 w-5")}/>
                     </TouchableOpacity>
                     <View style={tailwind("w-1/3")}>

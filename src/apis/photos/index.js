@@ -34,12 +34,8 @@ export async function sendTransferPhotoRequest({photoLocation, selectedStyle }) 
 }
 
 
-export async function fetchAlbumPhotos({page, limit, offset}) {
-    let ENDPOINT_URL = `${MAIN_SERVER}/photos?`
-    page ? ENDPOINT_URL += `page=${page}` : ENDPOINT_URL
-    limit ? ENDPOINT_URL += `limit=${limit}` : ENDPOINT_URL
-    offset ? ENDPOINT_URL += `offset=${offset}` : ENDPOINT_URL
-    
+export async function fetchAlbumPhotos() {
+    let ENDPOINT_URL = `${MAIN_SERVER}/photos`
     const token = await AsyncStorage.getItem("token")
 
     const response = await axios.get(ENDPOINT_URL, {
