@@ -18,9 +18,6 @@ const albumSlicer = createSlice({
     reducers: {
         setAlbumPhotos: (state, action) => {
             let {metaData, photos} = action.payload
-            photos = photos.map(photo => {
-                return {...photo, uri: photo.accessURL, key:photo.id}
-            })
             state.metaData = metaData
             state.photos = photos
         },
