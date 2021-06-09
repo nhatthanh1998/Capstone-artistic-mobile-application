@@ -1,57 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {View, Image, Text, TouchableOpacity, SafeAreaView, StyleSheet, FlatList} from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
-
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d123',
-        title: 'Fourth Item',
-      },
-      {
-        id: '58694a0f-3da1-471f-bd96-145571e29662',
-        title: 'Five Item',
-      },
-      {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
-      },
-      {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-      },
-      {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-      },
-      {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-      },
-      {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-      },
-      {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-      },
-  
-    
-  ];
+import { selectAlbumPhotos } from '../../redux/slicers/albums.slicer'
+import { handleGetAlbumPhotos } from './handler'
+import { useSelector, useDispatch } from 'react-redux'
 
 const PhotoItem = () => (
     <View style={tailwind("w-1/3 mb-5 flex-row justify-center")}>
@@ -68,6 +21,12 @@ const PhotoItem = () => (
 )
 
 export const PhotoList = () => {
+  const albumPhotos = useSelector(selectAlbumPhotos)
+
+  useEffect(()=> {
+    handleGetAlbumPhotos()
+  }, [])
+
     return (
         <SafeAreaView style={tailwind("h-2/4")}>
             <FlatList
@@ -75,7 +34,7 @@ export const PhotoList = () => {
                     style={tailwind("px-5")}
                     numColumns={3}
                     showsVerticalScrollIndicator={false}
-                    data={DATA}
+                    data={albumPhotos}
                     renderItem={PhotoItem}
                     keyExtractor={item => item.id}
             />
