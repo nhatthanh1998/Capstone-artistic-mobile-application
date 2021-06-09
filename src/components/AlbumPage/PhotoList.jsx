@@ -52,6 +52,13 @@ export const PhotoList = () => {
   const handlePressBack = () => {
     setVisible(false)
     dispatch(setAlbumSelectedPhoto(null))
+  }
+
+  const handleDownload = () => {
+
+  }
+
+  const handleDelete = () => {
 
   }
 

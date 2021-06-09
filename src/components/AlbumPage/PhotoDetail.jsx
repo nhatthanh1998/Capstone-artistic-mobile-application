@@ -3,8 +3,35 @@ import {View, Image, Text, TouchableOpacity} from 'react-native'
 import Modal from 'react-native-modal'
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
+import { DownloadSuccessModal } from '../../commons/components/modals/DownloadSuccessModal'
+import { ConfirmDeleteModal } from '../../commons/components/modals/ConfirmDeleteModal'
+import {requestDeletePhoto} from '../../apis/photos'
+import {useDispatch} from 'react-redux'
+import {deletePhotoFromAlbums } from '../../redux/slicers/albums.slicer'
 
-export const PhotoDetail = ({photo, isVisible, handlePressBack, handleDelete, handleDownload}) => {
+
+export const PhotoDetail = ({photo, isVisible, handlePressBack}) => {
+    const dispatch = useDispatch()
+    const [showDownloadSuccessModal, setShowDownloadSuccessModal] = useState(false)
+    const [isConfirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
+
+    // Action
+
+    const handleConfirmDeleteModal = async ({photoId}) => {
+        const response = await requestDeletePhoto({photoId})
+        dispatch(deletePhotoFromAlbums(response))
+        handlePressBack()
+    }
+
+    const handlePressDeleteButton = () => {
+        setConfirmDeleteModalVisible(true)
+    }
+
+    const handleCancleDeleteModal = () => {
+        setConfirmDeleteModalVisible(false)
+    }
+
+
     let {accessURL, id, photoLocation, photoName, uri} = ''
     photo != null ? {accessURL, id, photoLocation, photoName, uri} = photo : null
     const [originImageHeight, setOriginImageHeight] = useState(0)
@@ -49,7 +76,7 @@ export const PhotoDetail = ({photo, isVisible, handlePressBack, handleDelete, ha
                                     <Text style={tailwind("text-xs font-thin text-white")}>Download</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
-                                onPress = {() => {handleDelete()}}
+                                onPress = {() => {handlePressDeleteButton()}}
                                 >
                                     <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../assets/icons/delete.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Delete</Text>
@@ -64,6 +91,9 @@ export const PhotoDetail = ({photo, isVisible, handlePressBack, handleDelete, ha
                             source={{uri: accessURL}}
                             resizeMode="contain"/>  
                     </View>
+
+                    <DownloadSuccessModal show = {showDownloadSuccessModal} />
+                    <ConfirmDeleteModal isVisible = {isConfirmDeleteModalVisible} onConfirm = {() => handleConfirmDeleteModal({photoId: id})} onCancel = {() => handleCancleDeleteModal()}/>
                 </View>                 
             </Modal>
         )
