@@ -2,7 +2,7 @@ import * as ImagePicker from 'expo-image-picker';
 import {CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {uploadPhotoToServer} from '../../apis/photos'
-
+import { setOriginImage } from '../../redux/slicers/origin-image.slicer'
 
 // GET PERMISSION HANDLER
 export const getGalleryAccessPermission = async ({currentOS, setHasGalleryPermission}) => {
@@ -40,7 +40,5 @@ export const handlePressGallery = async ({navigation, dispatch}) => {
         dispatch(setOriginImage({accessURL: photo.uri}))
         uploadPhotoToServer({imageURI: photo.uri})
         navigation.navigate(EFFECT_PAGE)
-    }
-    else {
     }
 }

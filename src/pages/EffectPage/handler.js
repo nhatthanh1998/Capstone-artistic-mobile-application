@@ -17,7 +17,6 @@ export const requestTransferImage = async ({generatedImage, selectedStyle, photo
 
 export const handleRequestSavePhoto = async ({dispatch, selectedStyle, generatedImage}) => {
     const photoLocation = generatedImage[selectedStyle.id]
-    console.log(photoLocation)
     const response = await requestSavePhotoToAlbum({photoLocation})
     console.log("response")
 }
