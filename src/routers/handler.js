@@ -20,7 +20,7 @@ export const handleGetUserProfile = async ({dispatch, navigation}) => {
     const {message, statusCode} = response
     if(message && statusCode===UNAUTHORIZED) {
         AsyncStorage.removeItem("token")
-        navigation.navigate (LOGIN_PAGE)
+        navigation.navigate(LOGIN_PAGE)
     } else {
         dispatch(setUserProfile(response))
     }

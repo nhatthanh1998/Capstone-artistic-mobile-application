@@ -3,7 +3,7 @@ import {Text, View, InputText} from 'react-native'
 import Modal from 'react-native-modal'
 import tailwind from 'tailwind-rn'
 
-export const ChangePasswordModal = (props) => {
+export const ChangePasswordModal = () => {
     return (
         <View>
             <Modal>

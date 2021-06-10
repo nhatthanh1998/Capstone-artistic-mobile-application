@@ -18,9 +18,6 @@ const albumSlicer = createSlice({
     reducers: {
         setAlbumPhotos: (state, action) => {
             let {metaData, photos} = action.payload
-            photos = photos.map(photo => {
-                return {...photo, uri: photo.accessURL, key:photo.id}
-            })
             state.metaData = metaData
             state.photos = photos
         },
@@ -32,13 +29,18 @@ const albumSlicer = createSlice({
         setAlbumSelectedPhoto: (state, action) => {
             state.selectedPhoto = action.payload
         },
+        deletePhotoFromAlbums: (state, action) => {
+            const {id} = action.payload
+            const photos = state.photos.filter(photo => photo.id !== id)
+            state.photos = photos
+        }
 
     }
 })
 
 
 // action export
-export const { setAlbumPhotos, setAlbumSelectedPhoto } = albumSlicer.actions
+export const { setAlbumPhotos, setAlbumSelectedPhoto, deletePhotoFromAlbums } = albumSlicer.actions
 
 
 // use-selector export 
