@@ -5,16 +5,13 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.4)'
     },
     darken_2: {
-        backgroundColor: 'rgba(0,0,0,0.75)'
+        backgroundColor: 'rgba(0,0,0,0.7)'
     },
     lighten: {
         backgroundColor: 'rgba(253, 253, 253, 0.85)'
     },
     bodyRadius: {
-        paddingTop: 50,
-        borderTopEndRadius: 50,
-        borderTopStartRadius: 50,
-        transform: [{translateY: -50}]
+        borderRadius: 50,
     },
     shadow_1: {
         shadowColor: "#000",

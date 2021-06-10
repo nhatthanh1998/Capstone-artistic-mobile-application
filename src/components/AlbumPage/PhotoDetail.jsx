@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
 
-export const PhotoDetail = ({imageUrl}) => {
+export const PhotoDetail = ({imageUrl, visible}) => {
 
     const [originImageHeight, setOriginImageHeight] = useState(0)
 
@@ -16,10 +16,9 @@ export const PhotoDetail = ({imageUrl}) => {
         })
     }, [imageUrl])
 
-    
 
     return (
-        <Modal style={tailwind("m-0")} isVisible={true}>
+        <Modal style={tailwind("m-0")} isVisible={visible}>
             <View style={tailwind("w-full h-full bg-gray-900")}>
                 <View style={tailwind("flex flex-row z-20 absolute py-5 w-full")}>
                     <TouchableOpacity style={tailwind("w-1/3 pl-5")} onPress={() => console.log("Press")}>
