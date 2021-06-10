@@ -16,10 +16,10 @@ export const ConfirmDeleteModal = (props) => {
     return (
         <View>
             <Modal isVisible={isVisible} 
-            animationOut="fadeOutUpBig"
-            animationIn="fadeInUpBig"
-            backdropColor="black"
-            backdropOpacity={0.7}
+                animationOut="fadeOutUpBig"
+                animationIn="fadeInUpBig"
+                backdropColor="black"
+                backdropOpacity={0.7}
             >
                 <View onLayout={(event) => {
                     setModalWidth(event.nativeEvent.layout.width)

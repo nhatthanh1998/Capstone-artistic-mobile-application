@@ -14,6 +14,7 @@ export const PhotoDetail = ({photo, visible, handlePressBack}) => {
     const [isConfirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
     const [originImageHeight, setOriginImageHeight] = useState(0)
     const [showMenu, setShowMenu] = useState(false)
+    const [galleryPermission, setGalleryPermission] = useState(null)
 
     // Action
 
@@ -31,9 +32,37 @@ export const PhotoDetail = ({photo, visible, handlePressBack}) => {
         setConfirmDeleteModalVisible(false)
     }
 
-    const handlePressDownloadButton = () => {
 
+    const handlePressDownloadButton = async () => {
+        const {granted} = await MediaLibrary.getPermissionsAsync();
+        if (!granted) {
+            console.log("Permission not granted")
+            return;
+        }
+        try {
+            const fileName = accessURL.lastIndexOf('/')
+            const fileUri = `${FileSystem.documentDirectory}${fileName}.png`;
+            const downloadedFile = await FileSystem.downloadAsync(accessURL, fileUri);
+    
+            if (downloadedFile.status != 200) {
+                console.log("Error in download file")
+            }
+            const asset = await MediaLibrary.createAssetAsync(downloadedFile.uri);
+            const album = await MediaLibrary.getAlbumAsync('Download');
+            if (album == null) {
+              await MediaLibrary.createAlbumAsync('Download', asset, false);
+            } else {
+              await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+            }
+            setIsShowDownloadSuccessModel(true)
+          } catch (e) {
+            console.log("Error at the end", e)
+        }
     }
+
+    useEffect(() => {
+
+    }, [])
 
     useEffect(() => {
         if(photo != null) {
