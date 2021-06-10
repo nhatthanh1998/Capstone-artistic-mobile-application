@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Text, StatusBar, View, Image, ImageBackground, Animated, SafeAreaView} from 'react-native'
+import {Text, StatusBar, Animated, SafeAreaView} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAlbumSelectedPhoto, selectAlbumPhotos } from '../../redux/slicers/albums.slicer'
 import { AlbumHeader } from '../../components/AlbumPage/AlbumHeader'
-import { PhotoDetail } from '../../components/AlbumPage/PhotoDetail/PhotoDetail'
+import { PhotoDetail } from '../../components/AlbumPage/PhotoDetail'
 
 import { PhotoItem } from '../../components/AlbumPage/PhotoItem'
 import { getAlbumPhotos } from './handler'
