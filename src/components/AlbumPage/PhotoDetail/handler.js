@@ -1,6 +1,7 @@
 import {requestDeletePhoto} from '../../../apis/photos'
 import {deletePhotoFromAlbums } from '../../../redux/slicers/albums.slicer'
 import * as MediaLibrary from 'expo-media-library';
+import * as FileSystem from 'expo-file-system';
 
 export const handlePressBack = ({setVisible}) => {
     setVisible(false)
@@ -26,7 +27,9 @@ export const handleCancleDeleteModal = ({setConfirmDeleteModalVisible}) => {
 }
 
 
-export const handlePressDownloadButton = async ({accessURL, setIsShowDownloadSuccessModel}) => {
+export const handlePressDownloadButton = async ({accessURL, setDownloadSucessModalVisible}) => {
+    console.log("start download......")
+    console.log(accessURL)
     try {
         const fileName = accessURL.lastIndexOf('/')
         const fileUri = `${FileSystem.documentDirectory}${fileName}.png`;
@@ -41,12 +44,16 @@ export const handlePressDownloadButton = async ({accessURL, setIsShowDownloadSuc
         } else {
             await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
         }
-        setIsShowDownloadSuccessModel(true)
+        setDownloadSucessModalVisible(true)
     } catch (e) {
         console.log("Error at the end", e)
     }
 }
 
+
+export const handleCloseDownloadSuccessModal = ({setDownloadSucessModalVisible}) => {
+    setDownloadSucessModalVisible(false)
+}
 
 export const getMediaLibraryPermission = async ({setMediaPermission}) => {
     const { granted } = await MediaLibrary.getPermissionsAsync();
@@ -56,3 +63,4 @@ export const getMediaLibraryPermission = async ({setMediaPermission}) => {
         setMediaPermission(true)
     }
 }
+

@@ -6,7 +6,14 @@ import tailwind from 'tailwind-rn'
 import { styles } from '../../../styles'
 import { DownloadSuccessModal } from '../../../commons/components/modals/DownloadSuccessModal'
 import { ConfirmDeleteModal } from '../../../commons/components/modals/ConfirmDeleteModal'
-import { handleCancleDeleteModal, handleConfirmDeleteModal, handlePressDeleteButton, handlePressDownloadButton, getMediaLibraryPermission, handlePressBack } from './handler'
+import { handleCancleDeleteModal,
+    handleConfirmDeleteModal,
+    handlePressDeleteButton,
+    handlePressDownloadButton, 
+    getMediaLibraryPermission, 
+    handlePressBack,
+    handleCloseDownloadSuccessModal
+ } from './handler'
 
 
 
@@ -14,6 +21,7 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
     const dispatch = useDispatch()
     const [showDownloadSuccessModal] = useState(false)
     const [isConfirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
+    const [isDownloadSuccessModalVisible, setDownloadSucessModalVisible] = useState(false)
     const [originImageHeight, setOriginImageHeight] = useState(0)
     const [showMenu, setShowMenu] = useState(false)
     const [mediaPermission, setMediaPermission] = useState(null)
@@ -45,7 +53,7 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
                 <Modal style={tailwind("m-0")} isVisible={visible}>
                 <View style={tailwind("w-full h-full relative")}>
                     <View style={{...tailwind("flex flex-row absolute py-5 w-full z-20 bg-gray-900")}}>
-                        <TouchableOpacity style={tailwind("w-1/3 pl-5")} onPress={() => {handlePressBack()}}>
+                        <TouchableOpacity style={tailwind("w-1/3 pl-5")} onPress={() => {handlePressBack({setVisible})}}>
                             <Image source={require('../../../assets/icons/left-arrow.png')} style={tailwind("h-5 w-5")}/>
                         </TouchableOpacity>
                         <View style={tailwind("w-1/3")}>
@@ -70,7 +78,7 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
                             </TouchableOpacity>
                             <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
                             onPress = {() => {
-                                handleDownload()
+                                handlePressDownloadButton({accessURL: photo.accessURL, setDownloadSucessModalVisible})
                             }}
                             >
                                 <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/download.png')}></Image>
@@ -92,7 +100,9 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
                             resizeMode="contain"/>  
                     </View>
 
-                    <DownloadSuccessModal show = {showDownloadSuccessModal} />
+                    <DownloadSuccessModal isVisible = {isDownloadSuccessModalVisible} 
+                    onClose={() => {handleCloseDownloadSuccessModal({setDownloadSucessModalVisible})}}
+                    />
                     <ConfirmDeleteModal 
                     isVisible = {isConfirmDeleteModalVisible} 
                     onConfirm = {() => handleConfirmDeleteModal({photoId: photo.id, dispatch, setConfirmDeleteModalVisible, setVisible})} 
