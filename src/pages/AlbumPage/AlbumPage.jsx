@@ -13,11 +13,7 @@ import { PhotoList } from '../../components/AlbumPage/PhotoList'
 export const AlbumPage = () => {
 
     const dispatch = useDispatch()
-    const albumSelectedPhoto = useSelector(selectAlbumSelectedPhoto)
     const albumPhotos = useSelector(selectAlbumPhotos)
-
-    const [containWidth, setContainWidth] = useState(0)
-
     useEffect(() => {
         getAlbumPhotos({dispatch})
         StatusBar.setHidden(true);
@@ -48,7 +44,7 @@ export const AlbumPage = () => {
                 </View>
             </ImageBackground>
             <View style={{...tailwind("pt-3 bg-white w-full h-full overflow-hidden bg-white"), ...styles.bodyRadius}}>
-                <PhotoList/>
+                <PhotoList  albumPhotos = {albumPhotos}/>
             </View>
         </View>
     );

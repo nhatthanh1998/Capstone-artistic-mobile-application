@@ -20,6 +20,7 @@ export async function uploadPhotoToServer({imageURI}) {
 }
 
 
+
 export async function sendTransferPhotoRequest({photoLocation, selectedStyle }) {
     const ENDPOINT_URL = `${MAIN_SERVER}/photos/transfer-photo`
     const socketId = await AsyncStorage.getItem("socketId")

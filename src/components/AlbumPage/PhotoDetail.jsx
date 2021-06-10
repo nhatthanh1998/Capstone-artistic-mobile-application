@@ -5,7 +5,7 @@ import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
 import { DownloadSuccessModal } from '../../commons/components/modals/DownloadSuccessModal'
 import { ConfirmDeleteModal } from '../../commons/components/modals/ConfirmDeleteModal'
-import {requestDeletePhoto} from '../../apis/photos'
+import {requestDeletePhoto, } from '../../apis/photos'
 import {useDispatch} from 'react-redux'
 import {deletePhotoFromAlbums } from '../../redux/slicers/albums.slicer'
 
@@ -14,6 +14,10 @@ export const PhotoDetail = ({photo, isVisible, handlePressBack}) => {
     const dispatch = useDispatch()
     const [showDownloadSuccessModal, setShowDownloadSuccessModal] = useState(false)
     const [isConfirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
+    let {accessURL, id, photoLocation, photoName, uri} = ''
+    photo != null ? {accessURL, id, photoLocation, photoName, uri} = photo : null
+    const [originImageHeight, setOriginImageHeight] = useState(0)
+    const [showMenu, setShowMenu] = useState(false)
 
     // Action
 
@@ -31,11 +35,9 @@ export const PhotoDetail = ({photo, isVisible, handlePressBack}) => {
         setConfirmDeleteModalVisible(false)
     }
 
+    const handlePressDownloadButton = () => {
 
-    let {accessURL, id, photoLocation, photoName, uri} = ''
-    photo != null ? {accessURL, id, photoLocation, photoName, uri} = photo : null
-    const [originImageHeight, setOriginImageHeight] = useState(0)
-    const [showMenu, setShowMenu] = useState(false)
+    }
 
     useEffect(() => {
         if(photo != null) {
