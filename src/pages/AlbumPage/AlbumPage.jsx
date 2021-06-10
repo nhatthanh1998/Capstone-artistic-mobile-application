@@ -19,15 +19,6 @@ export const AlbumPage = () => {
     const dispatch = useDispatch()
     const albumPhotos = useSelector(selectAlbumPhotos)
 
-    useEffect(() => {
-        getAlbumPhotos({dispatch})
-        StatusBar.setHidden(true);
-    }, [])
-
-    if(albumPhotos.length === 0) {
-        return <Text>Not have image</Text>
-    }
-
     const ref = useRef()
 
     const scrollY = useRef(new Animated.Value(0)).current
@@ -51,6 +42,17 @@ export const AlbumPage = () => {
         inputRange: [0, headerHeight],
         outputRange: [0, -(headerHeight)],
     });
+
+    useEffect(() => {
+        getAlbumPhotos({dispatch})
+        StatusBar.setHidden(true);
+    }, [])
+
+    if(albumPhotos.length === 0) {
+        return <Text>Not have image</Text>
+    }
+
+    
 
     const handlePressPhotoItem = (item) => {
       dispatch(setAlbumSelectedPhoto(item))

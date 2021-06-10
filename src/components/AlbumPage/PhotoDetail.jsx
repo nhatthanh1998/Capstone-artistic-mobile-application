@@ -6,7 +6,6 @@ import { styles } from '../../styles'
 import { DownloadSuccessModal } from '../../commons/components/modals/DownloadSuccessModal'
 import { ConfirmDeleteModal } from '../../commons/components/modals/ConfirmDeleteModal'
 import {requestDeletePhoto, } from '../../apis/photos'
-import {useDispatch} from 'react-redux'
 import {deletePhotoFromAlbums } from '../../redux/slicers/albums.slicer'
 
 
