@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { handleGetUserProfile } from './handler'
 import { selectUserProfile } from '../redux/slicers/user.slicer'
 import {Text} from 'react-native'
+import * as navigation from './RootNavigation';
 
 const Drawer = createDrawerNavigator();
 
-export const MainDrawer = ({navigation}) => {
+export const MainDrawer = () => {
   const dispatch = useDispatch()
   const userProfile = useSelector(selectUserProfile)
 

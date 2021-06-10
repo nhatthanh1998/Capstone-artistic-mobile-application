@@ -7,6 +7,7 @@ import { MainDrawer } from './MainDrawer'
 import { checkIsLoggedIn } from './handler'
 import {useSelector, useDispatch} from 'react-redux'
 import { selectUserIsLoggedIn } from '../redux/slicers/user.slicer'
+import {navigationRef} from './RootNavigation';
 
 const App = () => {
     const dispatch = useDispatch()
@@ -23,7 +24,7 @@ const App = () => {
         </NavigationContainer>
 
         ) : (
-            <NavigationContainer >
+            <NavigationContainer ref={navigationRef}>
                 <AuthStack />
             </NavigationContainer>
         )

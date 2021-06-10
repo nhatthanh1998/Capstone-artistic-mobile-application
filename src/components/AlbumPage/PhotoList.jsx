@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { SafeAreaView, FlatList } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { selectAlbumPhotos } from '../../redux/slicers/albums.slicer'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { PhotoDetail } from './PhotoDetail'
 import { PhotoItem } from './PhotoItem'
 
@@ -11,8 +10,6 @@ export const PhotoList = ({albumPhotos}) => {
 
   const [isVisible, setVisible] = useState(false)
   const dispatch = useDispatch()
-  const albumPhotos = useSelector(selectAlbumPhotos)
-
   useEffect(()=> {
     handleGetAlbumPhotos({dispatch})
   }, [])
