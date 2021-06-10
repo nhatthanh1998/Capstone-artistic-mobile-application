@@ -1,13 +1,14 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Text, StatusBar, Animated, SafeAreaView} from 'react-native'
+import {Text, StatusBar, Animated, SafeAreaView, View, Image} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAlbumSelectedPhoto, selectAlbumPhotos } from '../../redux/slicers/albums.slicer'
 import { AlbumHeader } from '../../components/AlbumPage/AlbumHeader'
 import { PhotoDetail } from '../../components/AlbumPage/PhotoDetail'
-
+import { EmptyAlbum } from '../../components/AlbumPage/EmptyAlbum'
 import { PhotoItem } from '../../components/AlbumPage/PhotoItem'
 import { getAlbumPhotos } from './handler'
 import tailwind from 'tailwind-rn'
+import { styles } from '../../styles'
 
 const AnimatedFlatList = Animated.FlatList
 
@@ -48,13 +49,6 @@ export const AlbumPage = () => {
         getAlbumPhotos({dispatch})
         StatusBar.setHidden(true);
     }, [])
-
-    if(albumPhotos.length === 0) {
-        return <Text>Not have image</Text>
-    }
-
-    
-
     const handlePressPhotoItem = (item) => {
       dispatch(setAlbumSelectedPhoto(item))
       setSelectedPhoto(item)
@@ -75,18 +69,31 @@ export const AlbumPage = () => {
             }}>
                 <AlbumHeader setHeaderHeight={setHeaderHeight}/>
             </Animated.View>
-            <AnimatedFlatList
-                ref={ref}
-                // onMomentumScrollEnd={handleSnap}
-                onScroll={handleScroll}
-                style={{...tailwind("overflow-hidden rounded-b-none px-5 h-full z-10"), paddingTop: headerHeight}}
-                numColumns={3}
-                showsVerticalScrollIndicator={false}
-                data={albumPhotos}
-                renderItem={data => <PhotoItem data={data} handlePress={() => handlePressPhotoItem(data.item)}/>}
-                keyExtractor={item => item.id}
-            />
-          <PhotoDetail photo = {selectedPhoto} setVisible = {setVisible} visible = {visible}/>
+            {
+              albumPhotos.length === 0 ?
+                (
+                  <View style={{paddingTop: headerHeight}}>
+                    <EmptyAlbum/>
+                  </View>
+                ) :
+                (
+                  <>
+                    <AnimatedFlatList
+                      ref={ref}
+                      // onMomentumScrollEnd={handleSnap}
+                      onScroll={handleScroll}
+                      style={{...tailwind("overflow-hidden rounded-b-none px-5 h-full z-10"), paddingTop: headerHeight}}
+                      numColumns={3}
+                      showsVerticalScrollIndicator={false}
+                      data={albumPhotos}
+                      renderItem={data => <PhotoItem data={data} handlePress={() => handlePressPhotoItem(data.item)}/>}
+                      keyExtractor={item => item.id}
+                    />
+                    <PhotoDetail photo = {selectedPhoto} setVisible = {setVisible} visible = {visible}/>
+                  </>
+                )
+            }
+            
         </SafeAreaView>
     )
 }
