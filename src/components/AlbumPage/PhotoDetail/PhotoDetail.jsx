@@ -45,6 +45,7 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
 
     if (mediaPermission === false) {
         return <Text>Media Permission not granted!</Text>
+    } else {
         return (
             <Modal 
             animationOut="bounceOut"
