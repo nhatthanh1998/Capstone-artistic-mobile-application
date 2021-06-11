@@ -16,8 +16,10 @@ export const RegisterSuccessModal = (props) => {
     return (
         <View>
             <Modal isVisible={isVisible} 
-            animationOut="fadeOutUpBig"
-            animationIn="fadeInUpBig"
+            animationOut="bounceOut"
+            animationIn="bounceInUp"
+            animationInTiming={350}
+            animationOutTiming={250}
             backdropColor="black"
             backdropOpacity={0.7}
             >
