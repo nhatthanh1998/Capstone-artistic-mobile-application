@@ -64,8 +64,8 @@ export const MainPage = ({ navigation }) => {
                     <ImageBackground style={{...tailwind("w-32 h-52 mr-7 rounded-xl overflow-hidden"), ...styles.shadow_1}} 
                         source={{uri:"https://i.pinimg.com/564x/ac/1c/c0/ac1cc079aae5b2ef34bab68f9cd2e001.jpg"}}
                         />
-                    <ImageBackground style={{...tailwind("w-40 h-64 mr-8 rounded-xl overflow-hidden"), ...styles.shadow_1}} source={{uri:"https://i.pinimg.com/564x/fd/58/25/fd58257bfb9c26c879ea86de8951a83c.jpg"}}/>
-                    <ImageBackground style={tailwind("w-32 h-52 mr-7 rounded-xl overflow-hidden")} source={{uri:"https://i.pinimg.com/564x/ac/1c/c0/ac1cc079aae5b2ef34bab68f9cd2e001.jpg"}}/>
+                    <ImageBackground style={{...tailwind("w-40 h-64 mr-8 rounded-xl overflow-hidden"), ...styles.shadow_4}} source={{uri:"https://i.pinimg.com/564x/fd/58/25/fd58257bfb9c26c879ea86de8951a83c.jpg"}}/>
+                    <ImageBackground style={{...tailwind("w-32 h-52 mr-7 rounded-xl overflow-hidden"), ...styles.shadow_1}} source={{uri:"https://i.pinimg.com/564x/ac/1c/c0/ac1cc079aae5b2ef34bab68f9cd2e001.jpg"}}/>
                 </View>
             </View>
             <View style={tailwind("flex flex-row justify-center")}>
