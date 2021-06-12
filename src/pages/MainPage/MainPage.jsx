@@ -82,6 +82,11 @@ export const MainPage = ({ navigation }) => {
                     <ImageBackground style={tailwind("w-full h-full")} source={{uri:"https://i.pinimg.com/564x/41/1a/df/411adfcc645b789551c08a672ad9fec9.jpg"}} />
                 </View>
             </View>
+            <View style={tailwind("flex flex-row justify-center mt-10")}>
+                <TouchableOpacity style={{...tailwind("bg-gray-900 w-32 mx-5 text-sm p-3 rounded-full px-5"), ...styles.shadow_1}}>
+                    <Text style={tailwind("font-medium text-center text-white")}>Start transfer</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
