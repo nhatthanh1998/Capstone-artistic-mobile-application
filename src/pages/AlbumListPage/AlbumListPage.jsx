@@ -3,32 +3,30 @@ import tailwind from 'tailwind-rn'
 import React from 'react'
 import { handlePressAlbumDetail } from './handler'
 
-
-
 export const AlbumListPage = ({ navigation }) => {
 
     return (
-        <View>
-            <View style={{ ...tailwind("flex flex-col items-center w-full pt-9") }}>
+        <View style={tailwind("relative")}>
+            <View style={{ ...tailwind("flex relative z-10 flex-col items-center w-full pt-9") }}>
                 <View style={tailwind("flex flex-row items-center mb-5")}>
-                    <View style={tailwind("w-1/3 pl-5")}>
+                    <TouchableOpacity style={tailwind("w-1/3 pl-5")}>
                         <Image style={tailwind("w-5 h-5")} source={{ uri: "https://image.flaticon.com/icons/png/512/3106/3106676.png" }} />
-                    </View>
+                    </TouchableOpacity>
                     <Text style={tailwind("text-2xl w-1/3 text-gray-800 font-medium tracking-wide text-center")}>Album</Text>
-                    <View style={tailwind("w-1/3 flex flex-row justify-end pr-5")}>
+                    <TouchableOpacity style={tailwind("w-1/3 flex flex-row justify-end pr-5")}>
                         <Image source={{ uri: "https://image.flaticon.com/icons/png/512/219/219424.png" }} style={tailwind("w-4 h-4")} />
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
-
-            <View style={tailwind("pt-5 mx-5")}>
-                <View style={tailwind("relative")}>
+            <View style={tailwind("pt-5 mx-5 relative z-10")}>
+                <View style={tailwind("relative z-10")}>
                     <TouchableOpacity
                         onPress={() => {
                             console.log("Press")
                         }}
+                        style={tailwind("absolute right-0 z-10 bottom-0")}
                     >
-                        <Text style={tailwind("absolute text-xs bottom-0 right-0 mr-1 text-red-600")}>
+                        <Text style={tailwind("text-xs mr-1 text-red-600")}>
                             View more
                         </Text>
                     </TouchableOpacity>
