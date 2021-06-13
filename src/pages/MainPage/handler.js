@@ -3,6 +3,8 @@ import {CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {uploadPhotoToServer} from '../../apis/photos'
 import { setOriginImage } from '../../redux/slicers/origin-image.slicer'
+import { fetchAllStyles } from '../../apis/styles'
+import { setStyles } from '../../redux/slicers/style.slicer'
 
 // GET PERMISSION HANDLER
 export const getGalleryAccessPermission = async ({currentOS, setHasGalleryPermission}) => {
@@ -41,4 +43,9 @@ export const handlePressGallery = async ({navigation, dispatch}) => {
         uploadPhotoToServer({imageURI: photo.uri})
         navigation.navigate(EFFECT_PAGE)
     }
+}
+
+export const getStyles = async ({dispatch}) => {
+    const response = await fetchAllStyles()
+    dispatch(setStyles(response))
 }

@@ -15,7 +15,7 @@ import {TestPage} from '../pages/TestPage'
 export const MainStack = () => {
     const Stack = createStackNavigator()
     return (
-        <Stack.Navigator initialRouteName="TestPage">
+        <Stack.Navigator initialRouteName={MainPage}>
             <Stack.Screen name={MAIN_PAGE} component={MainPage}
                 options={{
                     headerShown: false

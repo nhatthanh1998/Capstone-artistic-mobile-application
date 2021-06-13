@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { View, Image, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { handlePressMenu, getGalleryAccessPermission, handlePressCamera, handlePressGallery } from './handler'
+import { handlePressMenu, getGalleryAccessPermission, handlePressCamera, handlePressGallery, getStyles } from './handler'
 import { GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
+import { MyCarousel } from '../../components/Carousel'
+import { selectStyles } from '../../redux/slicers/style.slicer'
+import * as _ from 'lodash'
 
 export const MainPage = ({ navigation }) => {
 
@@ -12,9 +15,12 @@ export const MainPage = ({ navigation }) => {
     const dispatch = useDispatch();
     const isLoading = useSelector(selectIsLoading)
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
+    const styles = useSelector(selectStyles)
+    const [showCaseStyles, setShowCaseStyles] = useState([])
 
     useEffect(() => {
         getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission })
+        getStyles({dispatch})
     }, [])
 
     // Return ERROR
@@ -48,27 +54,15 @@ export const MainPage = ({ navigation }) => {
                     </View>
                 </View>
             </View>
-            <Text style={tailwind("ml-5 text-xl font-thin tracking-wide mt-4")}>Discovery</Text>
-            <Text style={tailwind("ml-5 mt-1 mb-4 text-4xl font-medium uppercase")}>Showcase</Text>
+            <Text style={tailwind("ml-5 text-lg text-gray-500 font-thin tracking-wide mt-2")}>Discovery</Text>
+            <Text style={tailwind("ml-5 mb-2 mt-1 text-3xl text-gray-900 font-medium uppercase tracking-tight")}>Showcase</Text>
 
 
-            <View style={tailwind("mb-9 pt-8 flex relative ")}>
-                <View style={tailwind("absolute flex flex-row items-center top-0 right-0 mr-5")}>
-                    <View style={tailwind("w-1.5 h-1.5 mr-1.5 bg-gray-300 rounded-full")}></View>
-                    <View style={tailwind("w-7 h-1.5 mr-1.5 bg-black rounded-full")}></View>
-                    <View style={tailwind("w-1.5 h-1.5 mr-1.5 bg-gray-300 rounded-full")}></View>
-                    <View style={tailwind("w-1.5 h-1.5 mr-1.5 bg-gray-300 rounded-full")}></View>
-                    <View style={tailwind("w-1.5 h-1.5 bg-gray-300 rounded-full")}></View>
-                </View>
-                <View style={{...tailwind("flex flex-row items-center"), transform:[{translateX: -60}]}}>
-                    <ImageBackground style={{...tailwind("w-32 h-52 mr-7 rounded-xl overflow-hidden"), ...styles.shadow_1}} 
-                        source={{uri:"https://i.pinimg.com/564x/ac/1c/c0/ac1cc079aae5b2ef34bab68f9cd2e001.jpg"}}
-                        />
-                    <ImageBackground style={{...tailwind("w-40 h-64 mr-8 rounded-xl overflow-hidden"), ...styles.shadow_4}} source={{uri:"https://i.pinimg.com/564x/fd/58/25/fd58257bfb9c26c879ea86de8951a83c.jpg"}}/>
-                    <ImageBackground style={{...tailwind("w-32 h-52 mr-7 rounded-xl overflow-hidden"), ...styles.shadow_1}} source={{uri:"https://i.pinimg.com/564x/ac/1c/c0/ac1cc079aae5b2ef34bab68f9cd2e001.jpg"}}/>
-                </View>
-            </View>
-            <View style={tailwind("flex flex-row justify-center")}>
+            <MyCarousel data = {_.sampleSize(styles, 5)}/>
+
+
+
+            <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <View style={{...tailwind("w-20 h-20 rounded-md mx-2 overflow-hidden"), ...styles.shadow_1}}>
                     <ImageBackground style={tailwind("w-full h-full")} source={{uri:"https://i.pinimg.com/564x/7f/a0/03/7fa003f3428b434da3a03e32a2c3366a.jpg"}}/>
                 </View>
@@ -92,26 +86,26 @@ export const MainPage = ({ navigation }) => {
 }
 
 
-const styles = StyleSheet.create({
-    shadow_1: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 1.00,
+// const styles = StyleSheet.create({
+//     shadow_1: {
+//         shadowColor: "#000",
+//         shadowOffset: {
+//             width: 0,
+//             height: 1,
+//         },
+//         shadowOpacity: 0.18,
+//         shadowRadius: 1.00,
 
-        elevation: 1,
-    },
-    shadow_4: {
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 9,
-        },
-        shadowOpacity: 0.48,
-        shadowRadius: 11.95,
-        elevation: 18,
-    }
-})
+//         elevation: 1,
+//     },
+//     shadow_4: {
+//         shadowColor: "#000",
+//         shadowOffset: {
+//             width: 0,
+//             height: 9,
+//         },
+//         shadowOpacity: 0.48,
+//         shadowRadius: 11.95,
+//         elevation: 18,
+//     }
+// })
