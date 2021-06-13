@@ -5,16 +5,5 @@ export const login = async ({username, password}) => {
     const payload = {username, password}
 
     const response = await axios.post(ENDPOINT_URL, payload)
-    const data = response.data
-    if(data.statusCode === 401) {
-        return {
-            token: null,
-            error: true
-        }
-    } else {
-        return {
-            token: data.token,
-            error: false
-        }
-    }
+    return response.data
 }

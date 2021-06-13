@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Feather';
 export const LoginPage = ({ navigation }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [isShowPassword, setIsShowPassword] = useState('false')
+    const [isShowPassword, setIsShowPassword] = useState(true)
     const [error, setError] = useState(false)
     const dispatch = useDispatch()
 
@@ -48,6 +48,7 @@ export const LoginPage = ({ navigation }) => {
                 <View style={tailwind("mb-5 py-2 border-b relative flex flex-row items-center")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
                     <TextInput placeholder="Password" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                        secureTextEntry={isShowPassword}
                         onChangeText={text => { handleChangeText({ text, setState: setPassword }) }}
                     />
                     {renderPasswordIcon()}
@@ -59,6 +60,7 @@ export const LoginPage = ({ navigation }) => {
                         }}
                     >Login</Text>
                 </View>
+                <Text style={tailwind("text-xs mt-2 text-red-700 text-center")}>{error == true ? "Username or password is wrong":null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or, login with ...</Text>
                 <View style={tailwind("flex justify-center flex-row")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2702/2702602.png" }} style={tailwind("h-7 w-7 mx-5")} />

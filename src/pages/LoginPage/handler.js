@@ -9,15 +9,14 @@ export const handleChangeText = ({text, setState}) => {
 }
 
 export const handleLogin = async ({username, password, dispatch, setError}) => {
-    const response = await login({username, password})
-    const { token, error } = response
-    if(error == true) {
-        setError(true)
-    } else {
+    try {
+        const response = await login({username, password})
+        const {token} =  response
         setError(false)
         AsyncStorage.setItem('token', token)
         dispatch(setIsLoggedIn(true))
-        
+    } catch (e) {
+        setError(true)
     }
 }
 
