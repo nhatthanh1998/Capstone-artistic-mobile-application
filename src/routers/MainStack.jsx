@@ -7,15 +7,21 @@ import { MainPage } from '../pages/MainPage'
 import { ProfilePage } from '../pages/ProfilePage'
 
 
-import { ALBUM_PAGE, CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE, PROFILE_PAGE } from "../enums/page-name"
-import { ALBUM_PAGE_TITLE, CAMERA_PAGE_TITLE, EFFECT_PAGE_TITLE,  } from "../enums/page-title"
-
+import { CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE, PROFILE_PAGE, ALBUM_LIST_PAGE, ALBUM_DETAIL_PAGE } from "../enums/page-name"
+import { CAMERA_PAGE_TITLE, } from "../enums/page-title"
+import { AlbumListPage } from '../pages/AlbumListPage/AlbumListPage'
+import {TestPage} from '../pages/TestPage'
 
 export const MainStack = () => {
     const Stack = createStackNavigator()
     return (
-        <Stack.Navigator >
+        <Stack.Navigator initialRouteName="TestPage">
             <Stack.Screen name={MAIN_PAGE} component={MainPage}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen name={"TestPage"} component={TestPage}
                 options={{
                     headerShown: false
                 }}
@@ -30,10 +36,13 @@ export const MainStack = () => {
                     headerShown: false
                 }}
             />
-
-            <Stack.Screen name={ALBUM_PAGE} component={AlbumPage}
+            <Stack.Screen name={ALBUM_LIST_PAGE} component={AlbumListPage}
                 options={{
-                    title: ALBUM_PAGE_TITLE,
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen name={ALBUM_DETAIL_PAGE} component={AlbumPage}
+                options={{
                     headerShown: false
                 }}
             />

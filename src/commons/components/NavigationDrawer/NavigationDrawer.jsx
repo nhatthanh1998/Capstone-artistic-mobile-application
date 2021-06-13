@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
-import { ALBUM_PAGE, MAIN_PAGE, CAMERA_PAGE, PROFILE_PAGE } from '../../../enums/page-name'
+import { ALBUM_LIST_PAGE, MAIN_PAGE, CAMERA_PAGE, PROFILE_PAGE } from '../../../enums/page-name'
 import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE } from '../../../enums/drawer-title'
 import { handleNavigation, handleSignOut } from './handler'
 import { handlePressGallery } from '../../../pages/MainPage/handler'
@@ -95,7 +95,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label={ALBUM_TITLE}
-                            onPress={() =>  handleNavigation({navigation: props.navigation, pageName: ALBUM_PAGE})}
+                            onPress={() =>  handleNavigation({navigation: props.navigation, pageName: ALBUM_LIST_PAGE})}
                         />
                     </Drawer.Section>
                 </View>
