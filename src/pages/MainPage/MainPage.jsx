@@ -15,6 +15,7 @@ export const MainPage = ({ navigation }) => {
     const dispatch = useDispatch();
     const isLoading = useSelector(selectIsLoading)
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
+    const [showSelectPhotoModal, setShowSelectPhotoModal] = useState(false)
     useEffect(() => {
         getStyles({dispatch})
         getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission })
@@ -56,11 +57,15 @@ export const MainPage = ({ navigation }) => {
             <CarouselContainer/>
 
             <View style={tailwind("flex flex-row justify-center mt-10")}>
-                <TouchableOpacity style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
+                <TouchableOpacity onPress={() => setShowSelectPhotoModal(true)} style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
                     <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Start transfer</Text>
                 </TouchableOpacity>
             </View>
-            <SelectPhotoModal isVisible={false}/>
+            <SelectPhotoModal
+                handlePressCamera={() => handlePressCamera({navigation})}
+                handlePressGallery={() => handlePressGallery({navigation})}
+                onCancel={() => setShowSelectPhotoModal(false)}
+                isVisible={showSelectPhotoModal}/>
         </View>
     )
 }

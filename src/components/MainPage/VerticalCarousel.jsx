@@ -48,9 +48,8 @@ export const VerticalCarousel = ({ data, setSelectedStyle }) => {
           setSelectedStyle(style)
           setActiveIndex(index)
         }}
+        loop
         slideInterpolatedStyle={animatedStyle}
-        enableMomentum
-        loop={true}
         enableSnap={true}
         ref={carouselRef}
         sliderWidth={screenWidth}

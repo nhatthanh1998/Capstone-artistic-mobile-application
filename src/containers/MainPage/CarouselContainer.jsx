@@ -36,7 +36,7 @@ export const CarouselContainer = () => {
 
     return (
     <View>
-        {selectedStyle && <MyCarousel data = {showCases[selectedStyle.id]}/>}    
+        {selectedStyle && <MyCarousel data = {_.sampleSize(showCases[selectedStyle.id], 6)}/>}    
         <View style={tailwind("pt-5")}>
             <VerticalCarousel data={styles} setSelectedStyle={setSelectedStyle}/>
         </View>
