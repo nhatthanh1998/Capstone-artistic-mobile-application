@@ -36,7 +36,7 @@ export const VerticalCarousel = ({ data, setSelectedStyle }) => {
     return (
       <View style={{ ...styles.shadow_4, ...tailwind("overflow-hidden") }}>
         <Image style={{...tailwind("rounded-xl"), height: itemHeight, marginEnd:5, marginStart:5}}
-         source={{ uri: item.iconURL }} />
+         source={{ uri: item.icon_url }} />
       </View>
     )
   };

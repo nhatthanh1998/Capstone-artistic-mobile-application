@@ -4,22 +4,27 @@ import { getShowCaseByStyleId } from '../../apis/showcases'
 import * as _ from 'lodash'
 import {MyCarousel} from '../../components/MainPage/Carousel' 
 import { VerticalCarousel } from '../../components/MainPage/VerticalCarousel'
+import { handleGetAvailableStyles } from './handler'
 import tailwind from 'tailwind-rn'
-import { useSelector } from 'react-redux'
-import { selectStyles } from '../../redux/slicers/style.slicer'
+
 
 export const CarouselContainer = () => {
-    const allStyles = useSelector(selectStyles)
+    const [availableStyles, setAvailableStyles] = useState([])
     const [styles, setStyles] = useState([])
     const [showCases, setShowCases] = useState({})
     const [selectedStyle, setSelectedStyle] = useState({})
 
     useEffect(() => {
-        const sample = _.sampleSize(allStyles, 5)
+        handleGetAvailableStyles({setAvailableStyles})
+        return () => {}
+    }, [])
+
+    useEffect(() => {
+        const sample = _.sampleSize(availableStyles, 5)
         setStyles(sample)
         setSelectedStyle(sample[0])
         return () => {}
-    }, [allStyles])
+    }, [availableStyles])
 
     useEffect(() => {
         Promise.all([...styles.map(style => getShowCaseByStyleId({styleId: style.id}))]).then(rs => {
@@ -34,6 +39,7 @@ export const CarouselContainer = () => {
         return () => {}
     }, [styles])
 
+    console.log("styles:", styles)
     return (
     <View>
         {selectedStyle && <MyCarousel data = {_.sampleSize(showCases[selectedStyle.id], 6)}/>}    

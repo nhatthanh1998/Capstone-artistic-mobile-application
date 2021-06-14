@@ -6,3 +6,9 @@ export const getShowCaseByStyleId = async ({styleId}) => {
     const response = await axios.get(ENDPOINT_URL)
     return response.data
 }
+
+export const getShowCaseAvailableStyles = async () => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/showcases/available-styles`
+    const response = await axios.get(ENDPOINT_URL)
+    return response.data
+}
