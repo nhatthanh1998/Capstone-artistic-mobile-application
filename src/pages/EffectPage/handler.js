@@ -20,7 +20,6 @@ export const requestTransferImage = async ({generatedImage, selectedStyle, photo
 export const handleRequestSavePhoto = async ({dispatch, selectedStyle, generatedImage}) => {
     const photoLocation = generatedImage[selectedStyle.id]
     const response = await requestSavePhotoToAlbum({photoLocation})
-    console.log("response")
 }
 
 export const handleBack = ({navigation}) => {

@@ -6,7 +6,7 @@ import {
   Image,
 } from 'react-native';
 import tailwind from 'tailwind-rn';
-import { styles } from '../styles'
+import { styles } from '../../styles'
 import * as _ from 'lodash'
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -20,7 +20,7 @@ export const MyCarousel = ({ data }) => {
   const renderItem = ({ item, index }) => {
     return (
       <View style={{ ...styles.shadow_4 }}>
-        <Image style={tailwind("h-72 rounded-xl mx-2")} source={{ uri: item.iconURL }} />
+        <Image style={tailwind("h-72 rounded-xl mx-2")} source={{ uri: item.accessURL }} />
       </View>
     )
   };
@@ -39,7 +39,7 @@ export const MyCarousel = ({ data }) => {
         {renderStatusBar()}
       </View>
       <Carousel
-        onBeforeSnapToItem={(index) => {
+        onSnapToItem={(index) => {
           setActiveIndex(index)
         }}
         enableMomentum

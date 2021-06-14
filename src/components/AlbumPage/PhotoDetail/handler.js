@@ -28,8 +28,6 @@ export const handleCancleDeleteModal = ({setConfirmDeleteModalVisible}) => {
 
 
 export const handlePressDownloadButton = async ({accessURL, setDownloadSucessModalVisible}) => {
-    console.log("start download......")
-    console.log(accessURL)
     try {
         const fileName = accessURL.lastIndexOf('/')
         const fileUri = `${FileSystem.documentDirectory}${fileName}.png`;

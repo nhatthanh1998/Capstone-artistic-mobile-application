@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { View, Image, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Image, Text, TouchableOpacity, ImageBackground } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { handlePressMenu, getGalleryAccessPermission, handlePressCamera, handlePressGallery, getStyles } from './handler'
 import { GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
-import { MyCarousel } from '../../components/MainPage/Carousel'
-import { VerticalCarousel } from '../../components/MainPage/VerticalCarousel'
-import { selectStyles } from '../../redux/slicers/style.slicer'
 import * as _ from 'lodash'
-
+import { CarouselContainer } from '../../containers/MainPage/CarouselContainer'
+import {styles} from '../../styles'
 export const MainPage = ({ navigation }) => {
 
     // Variable
     const dispatch = useDispatch();
     const isLoading = useSelector(selectIsLoading)
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
-    const styles = useSelector(selectStyles)
-    const [showCaseStyles, setShowCaseStyles] = useState([])
-
     useEffect(() => {
-        getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission })
         getStyles({dispatch})
+        getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission })
+        return () => { }
     }, [])
 
     // Return ERROR
@@ -32,8 +28,6 @@ export const MainPage = ({ navigation }) => {
     if (hasGalleryPermission == false) {
         return (<Text>{GALLERY_NOT_GRANTED_MESSAGE}</Text>)
     }
-
-
     return (
         <View>
             <View style={tailwind("flex flex-row items-center mx-5 mt-10")}>
@@ -58,12 +52,8 @@ export const MainPage = ({ navigation }) => {
             <Text style={tailwind("ml-5 text-lg text-gray-500 font-thin tracking-wide mt-2")}>Discovery</Text>
             <Text style={tailwind("ml-5 mb-2 mt-1 text-3xl text-gray-900 font-medium uppercase tracking-tight")}>Showcase</Text>
 
+            <CarouselContainer/>
 
-            <MyCarousel data = {_.sampleSize(styles, 5)}/>
-            <View style={tailwind("pt-5")}>
-                <VerticalCarousel data={[{}, {}]}/>
-            </View>
-            
             <View style={tailwind("flex flex-row justify-center mt-10")}>
                 <TouchableOpacity style={{...tailwind("bg-gray-900 w-32 mx-5 text-sm p-3 rounded-full px-5"), ...styles.shadow_1}}>
                     <Text style={tailwind("font-medium text-center text-white")}>Start transfer</Text>
@@ -72,28 +62,3 @@ export const MainPage = ({ navigation }) => {
         </View>
     )
 }
-
-
-// const styles = StyleSheet.create({
-//     shadow_1: {
-//         shadowColor: "#000",
-//         shadowOffset: {
-//             width: 0,
-//             height: 1,
-//         },
-//         shadowOpacity: 0.18,
-//         shadowRadius: 1.00,
-
-//         elevation: 1,
-//     },
-//     shadow_4: {
-//         shadowColor: "#000",
-//         shadowOffset: {
-//             width: 0,
-//             height: 9,
-//         },
-//         shadowOpacity: 0.48,
-//         shadowRadius: 11.95,
-//         elevation: 18,
-//     }
-// })
