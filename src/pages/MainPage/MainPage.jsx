@@ -6,6 +6,7 @@ import { GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE } from '../../enums/
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import * as _ from 'lodash'
+import {SelectPhotoModal} from '../../commons/components/modals/SelectPhotoModal'
 import { CarouselContainer } from '../../containers/MainPage/CarouselContainer'
 import {styles} from '../../styles'
 export const MainPage = ({ navigation }) => {
@@ -55,10 +56,11 @@ export const MainPage = ({ navigation }) => {
             <CarouselContainer/>
 
             <View style={tailwind("flex flex-row justify-center mt-10")}>
-                <TouchableOpacity style={{...tailwind("bg-gray-900 w-32 mx-5 text-sm p-3 rounded-full px-5"), ...styles.shadow_1}}>
-                    <Text style={tailwind("font-medium text-center text-white")}>Start transfer</Text>
+                <TouchableOpacity style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
+                    <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Start transfer</Text>
                 </TouchableOpacity>
             </View>
+            <SelectPhotoModal isVisible={false}/>
         </View>
     )
 }

@@ -12,7 +12,7 @@ export const CarouselContainer = () => {
     const allStyles = useSelector(selectStyles)
     const [styles, setStyles] = useState([])
     const [showCases, setShowCases] = useState({})
-    const [selectedStyle, setSelectedStyle] = useState(null)
+    const [selectedStyle, setSelectedStyle] = useState({})
 
     useEffect(() => {
         const sample = _.sampleSize(allStyles, 5)
@@ -36,10 +36,10 @@ export const CarouselContainer = () => {
 
     return (
     <View>
-            <MyCarousel data = {showCases[selectedStyle.id]}/>
-            <View style={tailwind("pt-5")}>
-                <VerticalCarousel data={styles} setSelectedStyle={setSelectedStyle}/>
-            </View>
+        {selectedStyle && <MyCarousel data = {showCases[selectedStyle.id]}/>}    
+        <View style={tailwind("pt-5")}>
+            <VerticalCarousel data={styles} setSelectedStyle={setSelectedStyle}/>
+        </View>
     </View>
     )
 }

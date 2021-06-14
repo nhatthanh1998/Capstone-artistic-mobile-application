@@ -32,25 +32,27 @@ export const MyCarousel = ({ data }) => {
     })
   }
 
-
-  return (
-    <View style={tailwind("pt-5")}>
-      <View style={tailwind("absolute flex flex-row items-center top-0 right-0 mr-5")}>
-        {renderStatusBar()}
+  if(data) {
+    return (
+      <View style={tailwind("pt-7")}>
+        <View style={tailwind("absolute flex flex-row items-center top-0 right-0 mr-5")}>
+          {renderStatusBar()}
+        </View>
+        <Carousel
+          onSnapToItem={(index) => {
+            setActiveIndex(index)
+          }}
+          enableMomentum
+          loop={true}
+          enableSnap={true}
+          ref={carouselRef}
+          sliderWidth={screenWidth}
+          itemWidth={screenWidth * 3 / 5}
+          data={data}
+          renderItem={renderItem}
+        />
       </View>
-      <Carousel
-        onSnapToItem={(index) => {
-          setActiveIndex(index)
-        }}
-        enableMomentum
-        loop={true}
-        enableSnap={true}
-        ref={carouselRef}
-        sliderWidth={screenWidth}
-        itemWidth={screenWidth * 3 / 5}
-        data={data}
-        renderItem={renderItem}
-      />
-    </View>
-  );
+    );
+  }
+  return <></>
 };
