@@ -9,47 +9,13 @@ import tailwind from 'tailwind-rn';
 import { styles } from '../styles'
 import * as _ from 'lodash'
 
-
 const { width: screenWidth } = Dimensions.get('window');
-
-const animatedStyle = (index, animatedValue, carouselProps) => {
-  let animatedOpacity = {};
-  let animatedScale = {};
-
-  if (carouselProps.inactiveSlideOpacity < 1) {
-    animatedOpacity = {
-      opacity: animatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [carouselProps.inactiveSlideOpacity, 1]
-      })
-    };
-  }
-  if (carouselProps.inactiveSlideScale < 1) {
-    animatedScale = {
-      transform: [{
-        scaleY: animatedValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: [carouselProps.inactiveSlideScale, 1]
-        })
-      }]
-    };
-  }
-  return {
-    ...animatedOpacity,
-    ...animatedScale
-  }
-}
-
 const activeStyle = tailwind("w-7 h-1.5 mr-1.5 bg-black rounded-full")
 const inactiveStyle = tailwind("w-1.5 h-1.5 mr-1.5 bg-gray-300 rounded-full")
 
 export const MyCarousel = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const carouselRef = useRef(null);
-
-  const goForward = () => {
-    carouselRef.current.snapToNext();
-  };
 
   const renderItem = ({ item, index }) => {
     return (
@@ -79,13 +45,11 @@ export const MyCarousel = ({ data }) => {
         enableMomentum
         loop={true}
         enableSnap={true}
-        slideInterpolatedStyle={animatedStyle}
         ref={carouselRef}
         sliderWidth={screenWidth}
         itemWidth={screenWidth * 3 / 5}
         data={data}
         renderItem={renderItem}
-
       />
     </View>
   );

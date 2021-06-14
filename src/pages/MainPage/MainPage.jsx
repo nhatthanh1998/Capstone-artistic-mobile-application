@@ -5,7 +5,8 @@ import { handlePressMenu, getGalleryAccessPermission, handlePressCamera, handleP
 import { GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
-import { MyCarousel } from '../../components/Carousel'
+import { MyCarousel } from '../../components/MainPage/Carousel'
+import { VerticalCarousel } from '../../components/MainPage/VerticalCarousel'
 import { selectStyles } from '../../redux/slicers/style.slicer'
 import * as _ from 'lodash'
 
@@ -59,23 +60,10 @@ export const MainPage = ({ navigation }) => {
 
 
             <MyCarousel data = {_.sampleSize(styles, 5)}/>
-
-
-
-            <View style={tailwind("flex flex-row justify-center mt-5")}>
-                <View style={{...tailwind("w-20 h-20 rounded-md mx-2 overflow-hidden"), ...styles.shadow_1}}>
-                    <ImageBackground style={tailwind("w-full h-full")} source={{uri:"https://i.pinimg.com/564x/7f/a0/03/7fa003f3428b434da3a03e32a2c3366a.jpg"}}/>
-                </View>
-                <View style={{...tailwind("w-20 h-20 rounded-md mx-2 overflow-hidden"), ...styles.shadow_1}}>
-                    <ImageBackground style={tailwind("w-full h-full")} source={{uri:"https://i.pinimg.com/564x/17/1c/a9/171ca9d177cb716ea6470fda2dba47ff.jpg"}} />
-                </View>
-                <View style={{...tailwind("w-20 h-20 rounded-md mx-2 overflow-hidden"), ...styles.shadow_1}}>
-                    <ImageBackground style={tailwind("w-full h-full")} source={{uri:"https://i.pinimg.com/564x/54/51/20/54512045ad472b854a35a8cac5d1cd23.jpg"}}/>
-                </View>
-                <View style={{...tailwind("w-20 h-20 rounded-md mx-2 overflow-hidden"), ...styles.shadow_1}}>
-                    <ImageBackground style={tailwind("w-full h-full")} source={{uri:"https://i.pinimg.com/564x/41/1a/df/411adfcc645b789551c08a672ad9fec9.jpg"}} />
-                </View>
+            <View style={tailwind("pt-5")}>
+                <VerticalCarousel data={[{}, {}]}/>
             </View>
+            
             <View style={tailwind("flex flex-row justify-center mt-10")}>
                 <TouchableOpacity style={{...tailwind("bg-gray-900 w-32 mx-5 text-sm p-3 rounded-full px-5"), ...styles.shadow_1}}>
                     <Text style={tailwind("font-medium text-center text-white")}>Start transfer</Text>
