@@ -8,6 +8,7 @@ import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { MyCarousel } from '../../components/MainPage/Carousel'
 import { VerticalCarousel } from '../../components/MainPage/VerticalCarousel'
 import { selectStyles } from '../../redux/slicers/style.slicer'
+import { SelectPhotoModal } from '../../commons/components/modals/SelectPhotoModal'
 import * as _ from 'lodash'
 
 export const MainPage = ({ navigation }) => {
@@ -65,35 +66,11 @@ export const MainPage = ({ navigation }) => {
             </View>
             
             <View style={tailwind("flex flex-row justify-center mt-10")}>
-                <TouchableOpacity style={{...tailwind("bg-gray-900 w-32 mx-5 text-sm p-3 rounded-full px-5"), ...styles.shadow_1}}>
-                    <Text style={tailwind("font-medium text-center text-white")}>Start transfer</Text>
+                <TouchableOpacity style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
+                    <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Start transfer</Text>
                 </TouchableOpacity>
             </View>
+            <SelectPhotoModal isVisible={true}/>
         </View>
     )
 }
-
-
-// const styles = StyleSheet.create({
-//     shadow_1: {
-//         shadowColor: "#000",
-//         shadowOffset: {
-//             width: 0,
-//             height: 1,
-//         },
-//         shadowOpacity: 0.18,
-//         shadowRadius: 1.00,
-
-//         elevation: 1,
-//     },
-//     shadow_4: {
-//         shadowColor: "#000",
-//         shadowOffset: {
-//             width: 0,
-//             height: 9,
-//         },
-//         shadowOpacity: 0.48,
-//         shadowRadius: 11.95,
-//         elevation: 18,
-//     }
-// })

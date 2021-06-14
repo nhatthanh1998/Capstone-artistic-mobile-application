@@ -43,5 +43,8 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.48,
         shadowRadius: 11.95,
         elevation: 18,
+    },
+    modalBorderRadius: {
+        borderRadius: 60
     }
 })

@@ -6,7 +6,7 @@ import {
   Image,
 } from 'react-native';
 import tailwind from 'tailwind-rn';
-import { styles } from '../styles'
+import { styles } from '../../styles'
 import * as _ from 'lodash'
 
 
