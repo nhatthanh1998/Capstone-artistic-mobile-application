@@ -1,9 +1,20 @@
 import { View, Image, ImageBackground, Text, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { AlbumListItem } from '../../components/AlbumListPage/AlbumListItem'
 import { handlePressAlbumDetail } from './handler'
+import { fetchAlbums } from '../../apis/albums'
 
 export const AlbumListPage = ({ navigation }) => {
+
+    const [albums, setAlbums] = useState([])
+
+    useEffect(() => {
+        fetchAlbums().then(({data}) => {
+            setAlbums(data)
+        })
+        return () => {}
+    }, [])
 
     return (
         <View style={tailwind("relative")}>
@@ -18,52 +29,11 @@ export const AlbumListPage = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={tailwind("pt-5 mx-5 relative z-10")}>
-                <View style={tailwind("relative z-10")}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            console.log("Press")
-                        }}
-                        style={tailwind("absolute right-0 z-10 bottom-0")}
-                    >
-                        <Text style={tailwind("text-xs mr-1 text-red-600")}>
-                            View more
-                        </Text>
-                    </TouchableOpacity>
-                    <Text style={tailwind("font-medium text-xl")}>Picnic night</Text>
-                    <Text style={tailwind("text-xs mb-3 mt-1 font-thin")}>25 photos</Text>
-                </View>
-                <View style={tailwind("flex flex-row h-52")}>
-                    <View style={tailwind("h-full w-1/2 pr-2 py-1")}>
-                        <ImageBackground style={tailwind("h-full w-full rounded-xl")}
-                            source={{ uri: "https://i.pinimg.com/564x/43/fe/49/43fe496d6cb4ed20bc0c562363938627.jpg" }}>
-                        </ImageBackground>
-                    </View>
-                    <View style={tailwind("w-1/2")}>
-                        <View style={tailwind("h-full flex flex-wrap")}>
-                            <View style={tailwind("h-1/2 w-1/2 pr-1 py-1")}>
-                                <ImageBackground style={tailwind("h-full w-full rounded-xl overflow-hidden")}
-                                    source={{ uri: "https://i.pinimg.com/564x/f9/3b/10/f93b1023d308ecf07cd053c37c91e6f9.jpg" }}>
-                                </ImageBackground>
-                            </View>
-                            <View style={tailwind("h-1/2 w-1/2 pl-1 py-1")}>
-                                <ImageBackground style={tailwind("h-full w-full rounded-xl")}
-                                    source={{ uri: "https://i.pinimg.com/564x/f9/3b/10/f93b1023d308ecf07cd053c37c91e6f9.jpg" }}>
-                                </ImageBackground>
-                            </View>
-                            <View style={tailwind("h-1/2 w-1/2 pl-1 py-1")}>
-                                <ImageBackground style={tailwind("h-full w-full rounded-xl")}
-                                    source={{ uri: "https://i.pinimg.com/564x/f9/3b/10/f93b1023d308ecf07cd053c37c91e6f9.jpg" }}>
-                                </ImageBackground>
-                            </View>
-                            <View style={tailwind("h-1/2 w-1/2 pl-1 py-1")}>
-                                <ImageBackground style={tailwind("h-full w-full rounded-xl")}
-                                    source={{ uri: "https://i.pinimg.com/564x/f9/3b/10/f93b1023d308ecf07cd053c37c91e6f9.jpg" }}>
-                                </ImageBackground>
-                            </View>
-                        </View>
-                    </View>
-                </View>
+            <View>
+                {albums.map(album => {
+                    return <AlbumListItem album={album} key={album.id}/>
+                })}
+                
             </View>
         </View>
     )

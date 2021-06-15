@@ -39,7 +39,6 @@ export const CarouselContainer = () => {
         return () => {}
     }, [styles])
 
-    console.log("styles:", styles)
     return (
     <View>
         {selectedStyle && <MyCarousel data = {_.sampleSize(showCases[selectedStyle.id], 6)}/>}    

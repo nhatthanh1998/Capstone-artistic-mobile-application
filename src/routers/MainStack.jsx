@@ -22,7 +22,7 @@ export const MainStack = () => {
             />
             <Stack.Screen name={CAMERA_PAGE} component={CameraPage}
                 options={{
-                    title: CAMERA_PAGE_TITLE
+                    headerShown: false
                 }}
             />
             <Stack.Screen name={EFFECT_PAGE} component={EffectPage}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import tailwind from "tailwind-rn"
 
 import { Text, View, Image, TouchableOpacity } from 'react-native';
@@ -7,7 +7,7 @@ import { Camera } from 'expo-camera';
 import { Loading } from '../../components/CameraPage/Loading/Loading'
 
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
-import {getCameraPermission, handlePressFlip, handleTakePicture} from './handler'
+import { getCameraPermission, handlePressFlip, handleTakePicture, handlePressBack, handlePressFlash } from './handler'
 import { UPLOAD_PHOTO_LOADING_MESSAGE } from '../../enums/loading-message'
 import { CAMERA_ERROR_MESSAGE, CAMERA_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
 
@@ -17,51 +17,52 @@ export const CameraPage = ({ navigation }) => {
   const [camera, setCamera] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back);
   const isLoading = useSelector(selectIsLoading)
-
+  const [flash, setFlash] = useState("off")
 
   useEffect(() => {
-    getCameraPermission({setHasPermission})
-    return () => {}
+    getCameraPermission({ setHasPermission })
+    return () => { }
   }, [])
 
 
   if (hasPermission === null) {
-    return <Text>{ CAMERA_ERROR_MESSAGE }</Text>;
+    return <Text>{CAMERA_ERROR_MESSAGE}</Text>;
   }
   if (hasPermission === false) {
-    return <Text>{ CAMERA_NOT_GRANTED_MESSAGE }</Text>;
+    return <Text>{CAMERA_NOT_GRANTED_MESSAGE}</Text>;
   }
 
   return (
     <View style={tailwind("flex-1")}>
       <View style={tailwind("flex-1	")}>
-        <Camera style={tailwind("flex-1")}
+        <Camera style={tailwind("flex-1 w-full relative")}
           ref={ref => setCamera(ref)}
           type={type}
+          flashMode={flash}
           ratio={'16:9'}
         >
-          <Loading isLoading = { isLoading } loadingText = {UPLOAD_PHOTO_LOADING_MESSAGE}/>
-
-          <View style={tailwind("w-full h-24 absolute bottom-0 flex flex-row")}>
-            <View style={tailwind("w-1/3 h-24")}>
-
-            </View>
-
-            <TouchableOpacity style={tailwind("w-1/3 h-24 items-center")}
-              onPress={() => handleTakePicture({camera, dispatch, navigation})}
+          <Loading isLoading={isLoading} loadingText={UPLOAD_PHOTO_LOADING_MESSAGE} />
+          <TouchableOpacity style={tailwind("absolute flex items-center justify-center m-4 rounded-lg h-8 w-8 mt-10")}
+            onPress={() => handlePressBack({ navigation })}
+          >
+            <Image style={tailwind("w-5 h-5")} source={{ uri: "https://img.icons8.com/metro/26/ffffff/back.png" }} />
+          </TouchableOpacity>
+          <View style={tailwind("flex justify-center flex-row items-center mb-6 w-full absolute bottom-0")}>
+            <TouchableOpacity
+              onPress={() => handlePressFlash({ flash, setFlash })}
             >
-              <Image source={require("../../commons/images/take_picture_icon.png")}
-                style={tailwind("w-24 h-24 absolute")}
-              />
+              <Image style={tailwind("w-6 mr-24 h-6")} source={{ uri: "https://img.icons8.com/ios-glyphs/30/ffffff/flash-on.png" }} />
             </TouchableOpacity>
-            <TouchableOpacity style={tailwind("w-1/3 h-24 items-center justify-center")}
-              onPress={() => {
-                handlePressFlip({type, setType})
-              }}
+
+            <TouchableOpacity style={tailwind("w-14 h-14 bg-white border-gray-50 border-4 rounded-full")}
+              onPress={() => { handleTakePicture({ camera, dispatch, navigation }) }}
             >
-              <Image source={require("../../commons/images/flip_icon.png")}
-                style={tailwind("w-16 h-16 absolute")}
-              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handlePressFlip({ setType, type })
+              }}>
+              <Image style={tailwind("w-6 ml-24 h-6")} source={{ uri: "https://img.icons8.com/metro/26/ffffff/switch-camera.png" }} />
             </TouchableOpacity>
           </View>
         </Camera>
