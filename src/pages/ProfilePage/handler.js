@@ -63,6 +63,6 @@ export const handleSelectDate = ({date, setDatePickerShow, setUpdatedDateOfBirth
 };
 
 
-export const handleCloseProfilePage = (navigation) => {
+export const handleCloseProfilePage = ({navigation}) => {
   navigation.navigate(MAIN_PAGE)
 }

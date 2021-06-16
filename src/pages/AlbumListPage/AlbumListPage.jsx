@@ -2,7 +2,6 @@ import { View, Image, ImageBackground, Text, TouchableOpacity } from 'react-nati
 import tailwind from 'tailwind-rn'
 import React, {useState, useEffect} from 'react'
 import { AlbumListItem } from '../../components/AlbumListPage/AlbumListItem'
-import { handlePressAlbumDetail } from './handler'
 import { fetchAlbums } from '../../apis/albums'
 
 export const AlbumListPage = ({ navigation }) => {
@@ -31,7 +30,7 @@ export const AlbumListPage = ({ navigation }) => {
             </View>
             <View>
                 {albums.map(album => {
-                    return <AlbumListItem album={album} key={album.id}/>
+                    return <AlbumListItem album={album} key={album.id} navigation = {navigation}/>
                 })}
                 
             </View>

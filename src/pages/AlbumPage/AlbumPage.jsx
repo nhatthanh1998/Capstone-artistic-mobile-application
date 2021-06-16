@@ -1,25 +1,25 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Text, StatusBar, Animated, SafeAreaView, View, Image} from 'react-native'
+import {Text, StatusBar, Animated, SafeAreaView, View} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAlbumSelectedPhoto, selectAlbumPhotos } from '../../redux/slicers/albums.slicer'
+import { setAlbumSelectedPhoto, selectAlbumPhotos, selectSelectedAlbum } from '../../redux/slicers/albums.slicer'
 import { AlbumHeader } from '../../components/AlbumPage/AlbumHeader'
 import { PhotoDetail } from '../../components/AlbumPage/PhotoDetail'
 import { EmptyAlbum } from '../../components/AlbumPage/EmptyAlbum'
 import { PhotoItem } from '../../components/AlbumPage/PhotoItem'
-import { getAlbumPhotos } from './handler'
+import { handleGetAlbumDetail } from './handler'
 import tailwind from 'tailwind-rn'
-import { styles } from '../../styles'
 
 const AnimatedFlatList = Animated.FlatList
 
-export const AlbumPage = () => {
+export const AlbumPage = ({route, navigaiton}) => {
+    const { albumId } = route.params
 
     const [headerHeight, setHeaderHeight] = useState(0)
     const [visible, setVisible] = useState(false)
     const [selectedPhoto, setSelectedPhoto] = useState(null)
-
     const dispatch = useDispatch()
     const albumPhotos = useSelector(selectAlbumPhotos)
+    const album = useSelector(selectSelectedAlbum)
 
     const ref = useRef()
 
@@ -46,18 +46,13 @@ export const AlbumPage = () => {
     });
 
     useEffect(() => {
-        getAlbumPhotos({dispatch})
         StatusBar.setHidden(true);
+        handleGetAlbumDetail({albumId, dispatch})
     }, [])
     const handlePressPhotoItem = (item) => {
       dispatch(setAlbumSelectedPhoto(item))
       setSelectedPhoto(item)
       setVisible(true)
-    }
-
-    const handlePressBack = () => {
-      setVisible(false)
-      dispatch(setAlbumSelectedPhoto(null))
     }
 
     return (
@@ -67,7 +62,7 @@ export const AlbumPage = () => {
                  ...tailwind("absolute w-full z-20"),
                  transform: [{translateY}]
             }}>
-                <AlbumHeader setHeaderHeight={setHeaderHeight}/>
+                <AlbumHeader setHeaderHeight={setHeaderHeight} album={album}/>
             </Animated.View>
             {
               albumPhotos.length === 0 ?

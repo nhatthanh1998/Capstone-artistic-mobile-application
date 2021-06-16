@@ -1,9 +1,12 @@
-import { fetchAlbumPhotos } from '../../apis/photos'
-import { setAlbumPhotos } from '../../redux/slicers/albums.slicer'
+import { setAlbumPhotos, setSelectedAlbum } from '../../redux/slicers/albums.slicer'
+import { getAlbumDetail } from '../../apis/albums'
 
 
-export const getAlbumPhotos = async ({dispatch}) => {
-    const response = await fetchAlbumPhotos({limit: 10, page:0 })
-    dispatch(setAlbumPhotos(response))
-    return null
+export const handleGetAlbumDetail = async ({albumId, dispatch}) => {
+    const response = await getAlbumDetail({albumId})
+    console.log("response:", response)
+    console.log("photos:", response.photos)
+
+    dispatch(setSelectedAlbum(response))
+    dispatch(setAlbumPhotos(response.photos))
 }
