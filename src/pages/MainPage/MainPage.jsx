@@ -32,6 +32,7 @@ export const MainPage = ({ navigation }) => {
     }
     return (
         <View>
+
             <View style={tailwind("flex flex-row items-center mx-5 mt-10")}>
                 <View style={tailwind("w-1/3")}>
                     <TouchableOpacity style={{ ...tailwind("flex flex-col w-9 h-9 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}

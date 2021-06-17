@@ -4,7 +4,6 @@ import { LoginPage } from '../pages/LoginPage'
 import { SignUpPage } from '../pages/SignUpPage'
 import { REGISTER_PAGE, LOGIN_PAGE } from "../enums/page-name"
 
-
 export const AuthStack = () => {
     const Stack = createStackNavigator()
     return (
