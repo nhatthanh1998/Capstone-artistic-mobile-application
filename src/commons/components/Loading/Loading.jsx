@@ -8,7 +8,7 @@ import { styles } from '../../../styles'
 export const Loading = ({isLoading}) => {
     if(isLoading == true) {
         return (
-            <View style={{...tailwind("absolute w-full h-full z-10 flex flex-row items-center justify-center"), ...styles.darken_2}}>
+            <View style={{...tailwind("absolute w-full h-full z-50 flex flex-row items-center justify-center"), ...styles.darken_2}}>
                 <LottieView source={require('../../lottie/loading.json')} autoPlay={true} loop={true} 
                     style={tailwind("w-48 h-48")}/> 
             </View>

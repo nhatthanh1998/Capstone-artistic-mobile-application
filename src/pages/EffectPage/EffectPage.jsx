@@ -8,8 +8,8 @@ import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../..
 import { getStyles, handleBack, handleRequestSavePhoto, requestTransferImage } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
-import { PageHeader } from '../../components/EffectPage/PageHeader'
-import { View } from 'react-native'
+import { View, TouchableOpacity, StatusBar, Image } from 'react-native'
+import { MAIN_PAGE } from "../../enums/page-name";
 
 
 export const EffectPage = ({ navigation }) => {
@@ -21,6 +21,7 @@ export const EffectPage = ({ navigation }) => {
     const generatedImage = useSelector(selectGeneratedImageAccessURL)
 
     useEffect(() => {
+        StatusBar.setHidden(true)
         getStyles({dispatch})
         return () => { }
     }, [])
@@ -40,12 +41,24 @@ export const EffectPage = ({ navigation }) => {
         selectedStyle.id === DEFAULT_STYLE_ID ? setDisableSave(true) : setDisableSave(false)
     }, [selectedStyle])
 
+    const backToMainPage = () => {
+        navigation.navigate(MAIN_PAGE)
+    }
+
     return (
-        <View style={tailwind("flex-1")}>
-            <PageHeader
-            handleBack={()=> handleBack({navigation})}
-            handleSave = {() => {handleRequestSavePhoto({dispatch, selectedStyle, generatedImage})}}
-            />
+        <View style={tailwind("flex-1 relative")}>
+            <View style={tailwind("flex flex-row bg-white px-5 py-4 relative z-20")}>
+                <View style={tailwind("w-1/3")}>
+                    <TouchableOpacity onPress={() => backToMainPage()}>
+                        <Image style={tailwind("w-7 h-7")} source={{uri: "https://image.flaticon.com/icons/png/512/2223/2223615.png"}}></Image>
+                    </TouchableOpacity>
+                </View>
+                <View style={tailwind("flex flex-row w-2/3 justify-end")}>
+                    <TouchableOpacity disabled = {isDisableSave} onPress={() => {handleSave()}}>
+                        <Image style={tailwind("w-6 h-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
+                    </TouchableOpacity>
+                </View>
+            </View>
             <ImageBox photoURL={generatedImage[selectedStyle.id]} />
             <ListEffectBoxContainer
                 styles={styles}

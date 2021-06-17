@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { View, Image, Text, TouchableOpacity, ImageBackground } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { handlePressMenu, getGalleryAccessPermission, handlePressCamera, handlePressGallery, getStyles } from './handler'
+import { selectUserProfile } from '../../redux/slicers/user.slicer'
 import { GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import * as _ from 'lodash'
 import {SelectPhotoModal} from '../../commons/components/modals/SelectPhotoModal'
 import { CarouselContainer } from '../../containers/MainPage/CarouselContainer'
 import {styles} from '../../styles'
-export const MainPage = ({ navigation }) => {
+import { Loading } from '../../commons/components/Loading/Loading'
 
+
+export const MainPage = ({ navigation }) => {
     // Variable
     const dispatch = useDispatch();
-    const isLoading = useSelector(selectIsLoading)
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
     const [showSelectPhotoModal, setShowSelectPhotoModal] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const userProfile = useSelector(selectUserProfile)
     useEffect(() => {
-        getStyles({dispatch})
-        getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission })
-        return () => { }
+        setIsLoading(true)
+        Promise.all([
+        getStyles({dispatch}),
+        getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission })])
+        .then(rs => {
+            setIsLoading(false)
+        })
+        return () => {}
     }, [])
 
     // Return ERROR
@@ -30,10 +38,11 @@ export const MainPage = ({ navigation }) => {
     if (hasGalleryPermission == false) {
         return (<Text>{GALLERY_NOT_GRANTED_MESSAGE}</Text>)
     }
-    return (
-        <View>
 
-            <View style={tailwind("flex flex-row items-center mx-5 mt-10")}>
+    return (
+        <View style={tailwind("h-full relative")}>
+            <Loading isLoading={isLoading}/>
+            <View style={tailwind("flex flex-row items-center mx-5 mt-10 relative z-10")}>
                 <View style={tailwind("w-1/3")}>
                     <TouchableOpacity style={{ ...tailwind("flex flex-col w-9 h-9 rounded-xl overflow-hidden justify-center items-center bg-white"), ...styles.shadow_1 }}
                         onPress={() => { handlePressMenu({ navigation }) }}
@@ -57,7 +66,7 @@ export const MainPage = ({ navigation }) => {
 
             <CarouselContainer/>
 
-            <View style={tailwind("flex flex-row justify-center mt-10")}>
+            <View style={tailwind("flex relative z-10 flex-row justify-center mt-10")}>
                 <TouchableOpacity onPress={() => setShowSelectPhotoModal(true)} style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
                     <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Start transfer</Text>
                 </TouchableOpacity>
