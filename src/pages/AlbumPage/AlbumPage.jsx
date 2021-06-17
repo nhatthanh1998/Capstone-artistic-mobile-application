@@ -21,7 +21,6 @@ export const AlbumPage = ({route, navigation}) => {
     const dispatch = useDispatch()
     const albumPhotos = useSelector(selectAlbumPhotos)
     const album = useSelector(selectSelectedAlbum)
-
     const ref = useRef()
 
     const scrollY = useRef(new Animated.Value(0)).current
