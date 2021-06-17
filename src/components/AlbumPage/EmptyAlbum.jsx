@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, Image, View} from 'react-native'
+import {Text, Image, View, TouchableOpacity} from 'react-native'
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
 
@@ -14,12 +14,12 @@ export const EmptyAlbum = () => {
               Your album is currently empty. I suggest taking new photo or select from your gallery and use our transformation.
             </Text>
             <View style={tailwind("flex flex-row justify-center mt-10")}>
-                <View style={{...tailwind("w-32 mx-5 bg-yellow-300 py-3 rounded-full"), ...styles.shadow_2}}>
+                <TouchableOpacity style={{...tailwind("w-32 mx-5 bg-yellow-300 py-3 rounded-full"), ...styles.shadow_2}}>
                     <Text style={tailwind("text-base text-center font-thin")}>Take picture</Text>
-                </View>
-                <View style={{...tailwind("w-32 mx-5  bg-gray-800 py-3 rounded-full"), ...styles.shadow_2}}>
-                    <Text style={tailwind("text-base font-thin text-white text-center")}>Take picture</Text>
-                </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{...tailwind("w-32 mx-5  bg-gray-800 py-3 rounded-full"), ...styles.shadow_2}}>
+                    <Text style={tailwind("text-base font-thin text-white text-center")}>From gallery</Text>
+                </TouchableOpacity>
             </View>
         </>
     )

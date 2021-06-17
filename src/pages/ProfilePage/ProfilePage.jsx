@@ -112,7 +112,7 @@ export const ProfilePage = ({ navigation }) => {
             </View>
             <EditProfileSuccessModal isVisible={showEditProfileSuccessModal}
                 onConfirm={() => setShowEditProfileSuccessModal(false)}
-                onHideCallback={() => handleCloseProfilePage(navigation)}
+                onHideCallback={() => handleCloseProfilePage({navigation})}
             />
         </View>
     )

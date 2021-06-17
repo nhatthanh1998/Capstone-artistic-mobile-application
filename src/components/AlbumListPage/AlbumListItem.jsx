@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
 import moment from 'moment'
@@ -22,7 +22,7 @@ export const AlbumListItem = ({album, navigation}) => {
                 })
             }}
             >
-                <ImageBackground source={{uri: thumbnail_url}}
+                <Image source={{uri: thumbnail_url}}
                      style={{...tailwind("justify-center items-center h-full w-full")}}/>
             </TouchableOpacity>
         </View>

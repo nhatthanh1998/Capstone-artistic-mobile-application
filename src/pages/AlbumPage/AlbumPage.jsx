@@ -8,10 +8,11 @@ import { EmptyAlbum } from '../../components/AlbumPage/EmptyAlbum'
 import { PhotoItem } from '../../components/AlbumPage/PhotoItem'
 import { handleGetAlbumDetail } from './handler'
 import tailwind from 'tailwind-rn'
+import { ALBUM_LIST_PAGE } from '../../enums/page-name'
 
 const AnimatedFlatList = Animated.FlatList
 
-export const AlbumPage = ({route, navigaiton}) => {
+export const AlbumPage = ({route, navigation}) => {
     const { albumId } = route.params
 
     const [headerHeight, setHeaderHeight] = useState(0)
@@ -55,6 +56,10 @@ export const AlbumPage = ({route, navigaiton}) => {
       setVisible(true)
     }
 
+    const backToAlbumPage = () => {
+      navigation.navigate(ALBUM_LIST_PAGE)
+    }
+
     return (
         <SafeAreaView style={tailwind("h-full relative bg-white")} >
             <Animated.View
@@ -62,7 +67,8 @@ export const AlbumPage = ({route, navigaiton}) => {
                  ...tailwind("absolute w-full z-20"),
                  transform: [{translateY}]
             }}>
-                <AlbumHeader setHeaderHeight={setHeaderHeight} album={album}/>
+                <AlbumHeader pressBack={backToAlbumPage} 
+                  setHeaderHeight={setHeaderHeight} album={album}/>
             </Animated.View>
             {
               albumPhotos.length === 0 ?
