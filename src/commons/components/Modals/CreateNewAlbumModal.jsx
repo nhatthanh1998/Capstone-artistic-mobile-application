@@ -6,7 +6,10 @@ import { styles } from '../../../styles';
 
 
 export const CreateNewAlbumModal = (props) => {
-    const {isVisible, onCancel} = props
+    const {isVisible, onCancel, onCreateNewAlbum} = props
+    const [albumName, setAlbumName] = useState('')
+    const [albumNameError, setAlbumNameError] = useState('')
+
     return (
         <View>
             <Modal isVisible={isVisible} 
@@ -27,16 +30,21 @@ export const CreateNewAlbumModal = (props) => {
                             Please enter your album name
                         </Text>
                     </View>
-                    <View style={tailwind("border-b mb-3")}>
-                        <TextInput style={tailwind("text-center p-3 text-sm")} placeholder="Your album name"/>
+                    <View style={tailwind("border-b")}>
+                        <TextInput style={tailwind("text-center p-3 text-sm")} onChangeText={setAlbumName} value={albumName} placeholder="Your album name"/>
                     </View>
+                    <Text style={tailwind("text-xs text-center text-red-600")}>{albumNameError}</Text>
                     <View style={tailwind("flex flex-row relative w-full justify-center items-center")}>
-                        <TouchableOpacity style={{...tailwind("p-3 bg-yellow-300 w-32 rounded-xl mt-4"), ...styles.shadow_2}}>
+                        <TouchableOpacity onPress={() => {
+                            if(albumName.length > 0) {
+                                onCreateNewAlbum(albumName)
+                            } else {
+                                setAlbumNameError('Name of the album cannot be blank!')
+                            }
+                        }} style={{...tailwind("p-3 bg-yellow-300 w-32 rounded-xl mt-4"), ...styles.shadow_2}}>
                             <Text style={tailwind("text-center text-sm")}>Create</Text>
                         </TouchableOpacity>
                     </View>
-                    
-    
                 </View>
             </Modal>
         </View>

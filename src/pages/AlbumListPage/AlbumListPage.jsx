@@ -2,7 +2,7 @@ import { View, Image, ImageBackground, Text, TouchableOpacity } from 'react-nati
 import tailwind from 'tailwind-rn'
 import React, {useState, useEffect} from 'react'
 import { AlbumListItem } from '../../components/AlbumListPage/AlbumListItem'
-import { fetchAlbums } from '../../apis/albums'
+import { createNewAlbum, fetchAlbums } from '../../apis/albums'
 import { MAIN_PAGE } from '../../enums/page-name'
 import { styles } from '../../styles'
 import { CreateNewAlbumModal } from '../../commons/components/modals/CreateNewAlbumModal'
@@ -18,6 +18,10 @@ export const AlbumListPage = ({ navigation }) => {
         })
         return () => {}
     }, [])
+
+    const onCreateNewAlbum = (newAlbumName) => {
+        createNewAlbum(newAlbumName)
+    }
 
     return (
         <View style={tailwind("relative")}>
@@ -39,7 +43,7 @@ export const AlbumListPage = ({ navigation }) => {
                     return <AlbumListItem album={album} key={album.id} navigation = {navigation}/>
                 })}
             </View>
-            <CreateNewAlbumModal isVisible={showModal} onCancel={() => setShowModal(false)}/>
+            <CreateNewAlbumModal onCreateNewAlbum={onCreateNewAlbum} isVisible={showModal} onCancel={() => setShowModal(false)}/>
         </View>
     )
 }
