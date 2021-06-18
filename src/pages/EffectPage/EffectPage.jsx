@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBoxContainer'
 import { ImageBox } from '../../components/EffectPage/ImageBox'
-import { selectStyles, setSelectedStyle, selectSelectedStyle } from '../../redux/slicers/style.slicer'
+import { selectStyles, setSelectedStyle, selectSelectedStyle, selectPrevSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
-import { getStyles, handleBack, handleRequestSavePhoto, requestTransferImage } from './handler'
+import { getStyles, handlePressBack, handleRequestSavePhoto, requestTransferImage } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
 import { View, TouchableOpacity, StatusBar, Image } from 'react-native'
-import { MAIN_PAGE } from "../../enums/page-name";
+import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
+import { Loading } from '../../commons/components/Loading/Loading'
+import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
 
 
 export const EffectPage = ({ navigation }) => {
@@ -17,8 +19,10 @@ export const EffectPage = ({ navigation }) => {
     const [isDisableSave, setDisableSave] = useState(true)
     const styles = useSelector(selectStyles)
     const selectedStyle = useSelector(selectSelectedStyle)
+    const prevSelectedStyle = useSelector(selectPrevSelectedStyle)
     const originImage = useSelector(selectOriginImage)
     const generatedImage = useSelector(selectGeneratedImageAccessURL)
+    const isLoading = useSelector(selectIsLoading)
 
     useEffect(() => {
         StatusBar.setHidden(true)
@@ -36,20 +40,18 @@ export const EffectPage = ({ navigation }) => {
     useEffect(() => {
         requestTransferImage({generatedImage,
              photoLocation:originImage.accessURL,
-             selectedStyle
+             selectedStyle,
+             dispatch
         })
         selectedStyle.id === DEFAULT_STYLE_ID ? setDisableSave(true) : setDisableSave(false)
     }, [selectedStyle])
 
-    const backToMainPage = () => {
-        navigation.navigate(MAIN_PAGE)
-    }
-
     return (
-        <View style={tailwind("flex-1 relative")}>
+        <View style={tailwind("flex-1 relative h-full")}>
+            <Loading isLoading={isLoading}/>
             <View style={tailwind("flex flex-row bg-white px-5 py-4 relative z-20")}>
                 <View style={tailwind("w-1/3")}>
-                    <TouchableOpacity onPress={() => backToMainPage()}>
+                    <TouchableOpacity onPress={() => handlePressBack()}>
                         <Image style={tailwind("w-7 h-7")} source={{uri: "https://image.flaticon.com/icons/png/512/2223/2223615.png"}}></Image>
                     </TouchableOpacity>
                 </View>
@@ -59,7 +61,7 @@ export const EffectPage = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <ImageBox photoURL={generatedImage[selectedStyle.id]} />
+            <ImageBox photoURL={generatedImage[selectedStyle.id]} prevPhotoURL = {generatedImage[prevSelectedStyle.id]}/>
             <ListEffectBoxContainer
                 styles={styles}
                 originImageAccessURL={originImage.accessURL}
@@ -67,4 +69,3 @@ export const EffectPage = ({ navigation }) => {
         </View >
     )
 }
-

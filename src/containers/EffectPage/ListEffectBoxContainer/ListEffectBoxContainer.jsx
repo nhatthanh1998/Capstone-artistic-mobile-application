@@ -7,7 +7,6 @@ import { setSelectedStyle, selectSelectedStyle, DEFAULT_STYLE } from '../../../r
 import {DEFAULT_STYLE_ID} from '../../../enums/default-style-id'
 
 
-
 export const ListEffectBoxContainer = ({ styles, originImageAccessURL }) => {
     const dispatch = useDispatch()
     const selectedStyle = useSelector(selectSelectedStyle)

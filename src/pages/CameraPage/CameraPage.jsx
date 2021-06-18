@@ -4,8 +4,7 @@ import tailwind from "tailwind-rn"
 
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
-import { Loading } from '../../components/CameraPage/Loading/Loading'
-
+import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { getCameraPermission, handlePressFlip, handleTakePicture, handlePressBack, handlePressFlash } from './handler'
 import { UPLOAD_PHOTO_LOADING_MESSAGE } from '../../enums/loading-message'
@@ -41,7 +40,7 @@ export const CameraPage = ({ navigation }) => {
           flashMode={flash}
           ratio={'16:9'}
         >
-          <Loading isLoading={isLoading} loadingText={UPLOAD_PHOTO_LOADING_MESSAGE} />
+          <Loading isLoading={isLoading} />
           <TouchableOpacity style={tailwind("absolute flex items-center justify-center m-4 rounded-lg h-8 w-8 mt-10")}
             onPress={() => handlePressBack({ navigation })}
           >

@@ -5,7 +5,8 @@ import {DEFAULT_STYLE_ID} from "../../enums/default-style-id"
 
 const initialState = {
     styles: [],
-    selectedStyle: {id: DEFAULT_STYLE_ID}
+    selectedStyle: {id: DEFAULT_STYLE_ID},
+    prevSelectedStyle: {id: DEFAULT_STYLE_ID}
 }
 
 const styleSlicer = createSlice({
@@ -18,6 +19,7 @@ const styleSlicer = createSlice({
         },
 
         setSelectedStyle: (state, action) => {
+            state.prevSelectedStyle = state.selectedStyle
             state.selectedStyle = action.payload
         }
     }
@@ -43,6 +45,7 @@ export const DEFAULT_STYLE = ({originImageAccessURL}) => {
 export const selectStyles = state => state.style.styles
 export const selectSelectedStyleID = state => state.style.selectedStyle.id
 export const selectSelectedStyle = state => state.style.selectedStyle
+export const selectPrevSelectedStyle = state => state.style.prevSelectedStyle
 
 // reducer export
 export default styleSlicer.reducer

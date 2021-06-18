@@ -3,6 +3,7 @@ import {setStyles} from '../../redux/slicers/style.slicer'
 import { sendTransferPhotoRequest, requestSavePhotoToAlbum } from '../../apis/photos'
 import { DEFAULT_STYLE_ID } from '../../enums/default-style-id'
 import { MAIN_PAGE } from '../../enums/page-name'
+import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 
 
 export const getStyles = async ({dispatch}) => {
@@ -10,9 +11,10 @@ export const getStyles = async ({dispatch}) => {
     dispatch(setStyles(response))
 }
 
-export const requestTransferImage = async ({generatedImage, selectedStyle, photoLocation}) => {
+export const requestTransferImage = async ({generatedImage, selectedStyle, photoLocation, dispatch}) => {
     const { id } = selectedStyle
     if(generatedImage[id] === undefined && id !== DEFAULT_STYLE_ID) {
+        dispatch(setIsLoading(true))
         await sendTransferPhotoRequest({photoLocation, selectedStyle})
     }
 }
@@ -22,6 +24,6 @@ export const handleRequestSavePhoto = async ({dispatch, selectedStyle, generated
     const response = await requestSavePhotoToAlbum({photoLocation})
 }
 
-export const handleBack = ({navigation}) => {
+export const handlePressBack = ({navigation}) => {
     navigation.navigate(MAIN_PAGE)
 }
