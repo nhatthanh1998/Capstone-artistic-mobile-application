@@ -4,7 +4,7 @@ import { ListEffectBoxContainer } from '../../containers/EffectPage/ListEffectBo
 import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle, selectPrevSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
-import { selectGeneratedImageAccessURL, setGeneratedImageAccessURL } from '../../redux/slicers/generated-image.slicer'
+import { selectGeneratedImage, setGeneratedImage } from '../../redux/slicers/generated-image.slicer'
 import { getStyles, handlePressBack, handleRequestSavePhoto, requestTransferImage } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
@@ -21,7 +21,7 @@ export const EffectPage = ({ navigation }) => {
     const selectedStyle = useSelector(selectSelectedStyle)
     const prevSelectedStyle = useSelector(selectPrevSelectedStyle)
     const originImage = useSelector(selectOriginImage)
-    const generatedImage = useSelector(selectGeneratedImageAccessURL)
+    const generatedImage = useSelector(selectGeneratedImage)
     const isLoading = useSelector(selectIsLoading)
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const EffectPage = ({ navigation }) => {
 
 
     useEffect(() => {
-        dispatch(setGeneratedImageAccessURL({ accessURL: originImage.accessURL, styleId: DEFAULT_STYLE_ID }))
+        dispatch(setGeneratedImage({ accessURL: originImage.accessURL, styleId: DEFAULT_STYLE_ID, transferPhotoLocation: null}))
         dispatch(setSelectedStyle({id: DEFAULT_STYLE_ID}))
     }, [originImage])
 
@@ -61,7 +61,7 @@ export const EffectPage = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <ImageBox photoURL={generatedImage[selectedStyle.id]} prevPhotoURL = {generatedImage[prevSelectedStyle.id]}/>
+            <ImageBox photoURL={generatedImage[selectedStyle.id].accessURL} prevPhotoURL = {generatedImage[prevSelectedStyle.id].accessURL}/>
             <ListEffectBoxContainer
                 styles={styles}
                 originImageAccessURL={originImage.accessURL}

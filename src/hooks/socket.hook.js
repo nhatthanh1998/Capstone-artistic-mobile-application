@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux'
-import {setGeneratedImageAccessURL} from '../redux/slicers/generated-image.slicer'
+import {setGeneratedImage} from '../redux/slicers/generated-image.slicer'
 import {setOriginImage} from '../redux/slicers/origin-image.slicer'
 import { setIsLoading } from '../redux/slicers/is-loading.slicer'
 import {TRANSFER_COMPLETED, UPLOAD_IMAGE_SUCCESS} from '../enums/socket-event'
@@ -24,7 +24,7 @@ export function useSocket() {
 
     socket.on(TRANSFER_COMPLETED, async data => {
         const {accessURL, styleId} = data
-        dispatch(setGeneratedImageAccessURL({accessURL, styleId}))
+        dispatch(setGeneratedImage({accessURL, styleId, transferPhotoLocation}))
         dispatch(setIsLoading(false))
     })
     return socket

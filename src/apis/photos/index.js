@@ -47,10 +47,10 @@ export async function fetchAlbumPhotos() {
     return response.data
 }
 
-export async function requestSavePhotoToAlbum({photoLocation}) {
+export async function requestSavePhotoToAlbum({photoLocation, albumId}) {
     const token = await AsyncStorage.getItem("token")
     let ENDPOINT_URL = `${MAIN_SERVER}/photos/save-to-album`    
-    const payload = {photoLocation}
+    const payload = {photoLocation, albumId}
     const response = await axios.post(ENDPOINT_URL, payload, {
         headers: {
             'Authorization': `Bearer ${token}`

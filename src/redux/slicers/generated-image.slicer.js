@@ -8,20 +8,20 @@ const generatedImageSlicer = createSlice({
     name: GENERATED_IMAGE_REDUCER_PREFIX,
     initialState,
     reducers: {
-        setGeneratedImageAccessURL: (state, action) => {
-            const { accessURL, styleId } = action.payload
-            state[styleId] = accessURL
+        setGeneratedImage: (state, action) => {
+            const { accessURL, styleId, transferPhotoLocation } = action.payload
+            state[styleId] = {accessURL, transferPhotoLocation}
         }
     }
 })
 
 
 // action export
-export const { setGeneratedImageAccessURL } = generatedImageSlicer.actions
+export const { setGeneratedImage } = generatedImageSlicer.actions
 
 
 // use-selector export 
-export const selectGeneratedImageAccessURL = state => state.generatedImage
+export const selectGeneratedImage= state => state.generatedImage
 
 // reducer export
 export default generatedImageSlicer.reducer
