@@ -5,11 +5,12 @@ import { AlbumListItem } from '../../components/AlbumListPage/AlbumListItem'
 import { fetchAlbums } from '../../apis/albums'
 import { MAIN_PAGE } from '../../enums/page-name'
 import { styles } from '../../styles'
+import { CreateNewAlbumModal } from '../../commons/components/modals/CreateNewAlbumModal'
 
 export const AlbumListPage = ({ navigation }) => {
 
     const [albums, setAlbums] = useState([])
-    const [showMenu, setShowMenu] = useState(true)
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         fetchAlbums().then(({data}) => {
@@ -28,7 +29,7 @@ export const AlbumListPage = ({ navigation }) => {
                         <Image style={tailwind("w-5 h-5")} source={{ uri: "https://image.flaticon.com/icons/png/512/3106/3106676.png" }} />
                     </TouchableOpacity>
                     <Text style={tailwind("text-2xl w-1/3 text-gray-800 font-medium tracking-wide text-center")}>Album</Text>
-                    <TouchableOpacity style={tailwind("w-1/3 flex flex-row justify-end pr-5")}>
+                    <TouchableOpacity onPress={() => setShowModal(true)} style={tailwind("w-1/3 flex flex-row justify-end pr-5")}>
                         <Image source={{ uri: "https://image.flaticon.com/icons/png/512/748/748113.png" }} style={tailwind("w-4 h-4")} />
                     </TouchableOpacity>
                 </View>
@@ -38,6 +39,7 @@ export const AlbumListPage = ({ navigation }) => {
                     return <AlbumListItem album={album} key={album.id} navigation = {navigation}/>
                 })}
             </View>
+            <CreateNewAlbumModal isVisible={showModal} onCancel={() => setShowModal(false)}/>
         </View>
     )
 }
