@@ -31,8 +31,8 @@ export const ConfirmDeleteAlbumModal = (props) => {
                             setImageHeight(event.nativeEvent.layout.height)
                         }} width={modelWidth - 20} source={require('../../../assets/modals/delete-icon.webp')}></AutoScaleImage>
                     </View>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>{TITLE}</Text>
-                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>{MESSAGE}</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Delete Album</Text>
+                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Are you sure abouth delete this album</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
                         <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
                             <Text style={tailwind("text-center text-base tracking-tight font-medium")}>{YES_BUTTON}</Text>

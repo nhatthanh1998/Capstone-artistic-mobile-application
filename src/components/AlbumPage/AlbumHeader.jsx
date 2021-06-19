@@ -3,11 +3,13 @@ import {ImageBackground, View, Image, Text, TouchableOpacity} from 'react-native
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
 import {ConfirmDeleteAlbumModal} from '../../commons/components/modals/ConfirmDeleteAlbumModal'
+import { EditAlbumModal } from '../../commons/components/modals/EditAlbumModal'
 
 export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
 
     const [showMenu, setShowMenu] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
+    const [showEditAlbumModal, setShowEditAlbumModal] = useState(false)
 
     if(album) {
         const {count, name, thumbnailURL} = album
@@ -32,12 +34,18 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
                             {
                                 showMenu && (
                                     <View style={{...tailwind("absolute right-5 mt-5 p-4 rounded-xl"), ...styles.darken_2}} hide>
-                                        <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => console.log("Press")}>
+                                        <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
+                                            setShowMenu(false)
+                                            setShowEditAlbumModal(true)
+                                        }}>
                                             <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../assets/icons/edit.png')}></Image>
                                             <Text style={tailwind("text-xs font-thin text-white")}>Edit</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
-
+                                            onPress={() => {
+                                                setShowConfirmDeleteModal(true)
+                                                setShowMenu(false)
+                                            }}
                                             >
                                                 <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../assets/icons/delete.png')}></Image>
                                                 <Text style={tailwind("text-xs font-thin text-white")}>Delete</Text>
@@ -52,7 +60,8 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
                     </View>
                     <View style={{...styles.bodyRadius, ...tailwind("w-full h-10 rounded-b-none bg-white")}}></View>
                 </View>
-                <ConfirmDeleteAlbumModal/>
+                <ConfirmDeleteAlbumModal isVisible={showConfirmDeleteModal} onCancel={() => setShowConfirmDeleteModal(false)}/>
+                <EditAlbumModal album={album} isVisible={showEditAlbumModal} onCancel={() => setShowEditAlbumModal(false)}/>
             </ImageBackground>
         )
     }
