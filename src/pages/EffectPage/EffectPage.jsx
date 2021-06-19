@@ -70,7 +70,7 @@ export const EffectPage = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={tailwind("flex flex-row w-2/3 justify-end")}>
-                    <TouchableOpacity  onPress={() => {handlePressSavePhoto({setAlbums, setSaveModalPhotoVisible, dispatch})}}>
+                    <TouchableOpacity  onPress={() => {handlePressSavePhoto({setAlbums, setSavePhotoModalVisible, dispatch})}}>
                         <Image style={tailwind("w-6 h-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
                     </TouchableOpacity>
                 </View>

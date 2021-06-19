@@ -39,10 +39,14 @@ export const handleContinueEdit = ({setBackModalVisible}) => {
 }
 
 
-export const handlePressSavePhoto = async ({setSaveModalPhotoVisible, setAlbums, dispatch}) => {
-    setSaveModalPhotoVisible(true)
+export const handlePressSavePhoto = async ({setSavePhotoModalVisible, setAlbums, dispatch}) => {
+    setSavePhotoModalVisible(true)
     dispatch(setIsLoading(true))
     const response = await fetchAlbums()
     setAlbums(response)
     dispatch(setIsLoading(false))
+}
+
+handlePressCancelSavePhotoModal = ({setSavePhotoModalVisible}) => {
+    setSavePhotoModalVisible(false)
 }

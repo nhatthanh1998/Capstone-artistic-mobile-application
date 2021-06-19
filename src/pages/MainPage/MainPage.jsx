@@ -73,7 +73,7 @@ export const MainPage = ({ navigation }) => {
             </View>
             <SelectPhotoModal
                 handlePressCamera={() => handlePressCamera({navigation})}
-                handlePressGallery={() => handlePressGallery({navigation})}
+                handlePressGallery={() => handlePressGallery({navigation, dispatch})}
                 onCancel={() => setShowSelectPhotoModal(false)}
                 isVisible={showSelectPhotoModal}/>
         </View>

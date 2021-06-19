@@ -1,5 +1,5 @@
 import * as ImagePicker from 'expo-image-picker';
-import {CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE} from '../../enums/page-name'
+import {CAMERA_PAGE, EFFECT_PAGE} from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {uploadPhotoToServer} from '../../apis/photos'
 import { setOriginImage } from '../../redux/slicers/origin-image.slicer'
