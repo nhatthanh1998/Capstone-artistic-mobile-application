@@ -50,16 +50,6 @@ export const MainPage = ({ navigation }) => {
                         <Image source={require("../../assets/icons/navigation_icon.png")} style={tailwind("w-5 h-5")} />
                     </TouchableOpacity>
                 </View>
-
-                <View style={tailwind("flex flex-row items-center justify-end w-2/3")}>
-                    <Image style={tailwind("w-5 h-5 mr-3")} source={{ uri: "https://image.flaticon.com/icons/png/512/481/481770.png" }} />
-                    <View style={tailwind("w-12 h-12 relative flex justify-center")}>
-                        <View style={{ ...tailwind("w-full h-full rounded-full overflow-hidden"), ...styles.shadow_4 }}>
-                            <Image source={{ uri: "https://i.pinimg.com/originals/c1/13/df/c113df816b94afc3224d925890e290e2.jpg" }}
-                                style={tailwind("w-full h-full")} />
-                        </View>
-                    </View>
-                </View>
             </View>
             <Text style={tailwind("ml-5 text-lg text-gray-500 font-thin tracking-wide mt-2")}>Discovery</Text>
             <Text style={tailwind("ml-5 mb-2 mt-1 text-3xl text-gray-900 font-medium uppercase tracking-tight")}>Showcase</Text>

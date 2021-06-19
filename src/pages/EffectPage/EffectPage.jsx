@@ -8,7 +8,7 @@ import { selectGeneratedImageAccessURL, setGeneratedImage, selectGeneratedImageP
 import { getStyles, handlePressBack, handlePressSavePhoto, requestTransferImage, handleConfirmGoBack, handleContinueEdit,  } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
-import { View, TouchableOpacity, StatusBar, Image } from 'react-native'
+import { View, TouchableOpacity, StatusBar, Image, Text } from 'react-native'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { Loading } from '../../commons/components/Loading/Loading'
 import { BackEffectPageModal } from '../../commons/components/modals/BackEffectPageModal'
@@ -60,18 +60,21 @@ export const EffectPage = ({ navigation }) => {
             onConfirm={() => handleConfirmGoBack({navigation, setBackModalShow})}/>
             <SavePhotoToAlbumModal 
             isVisible={isSavePhotoModalVisible}
-            onCancel={() => {}}
+            onCancel={() => {setSavePhotoModalVisible(false)}}
             />
             <Loading isLoading={isLoading}/>
-            <View style={tailwind("flex flex-row bg-white px-5 py-4 relative z-20")}>
+            <View style={tailwind("flex flex-row items-center bg-white px-5 py-4 relative z-20")}>
                 <View style={tailwind("w-1/3")}>
                     <TouchableOpacity onPress={() => handlePressBack({setBackModalVisible})}>
-                        <Image style={tailwind("w-7 h-7")} source={{uri: "https://image.flaticon.com/icons/png/512/2223/2223615.png"}}></Image>
+                        <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/2223/2223615.png"}}></Image>
                     </TouchableOpacity>
                 </View>
-                <View style={tailwind("flex flex-row w-2/3 justify-end")}>
+                <View style={tailwind("w-1/3")}>
+                    <Text style={tailwind("text-lg font-medium")}>Effect Page</Text>
+                </View>
+                <View style={tailwind("flex flex-row w-1/3 justify-end")}>
                     <TouchableOpacity  onPress={() => {handlePressSavePhoto({setAlbums, setSavePhotoModalVisible, dispatch})}}>
-                        <Image style={tailwind("w-6 h-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
+                        <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import { styles } from '../../../styles';
-
+import { AlbumPicker } from './SavePhotoToAlbumModal/DropDown'
 
 export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm}) => {
     return (
@@ -22,14 +22,14 @@ export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm}) => {
                     </TouchableOpacity>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Save Photo</Text>
                     <View style={tailwind("flex flex-row justify-center")}>
-                        <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>
-                            Choose the album
+                        <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500 mb-3")}>
+                            Choose album you want to save your photo to
                         </Text>
                     </View>
-                    <View style={tailwind("border-b")}>
-                        <TextInput style={tailwind("text-center p-3 text-sm")} placeholder="Your album name"/>
+                    <View style={tailwind("relative z-20")}>
+                        <AlbumPicker style={tailwind("text-center p-3 text-sm z-50")}/>
                     </View>
-                    <View style={tailwind("flex flex-row relative w-full justify-center items-center")}>
+                    <View style={tailwind("flex flex-row relative w-full justify-center items-center z-10")}>
                         <TouchableOpacity onPress={() => {
                         }} style={{...tailwind("p-3 bg-yellow-300 w-32 rounded-xl mt-4"), ...styles.shadow_2}}>
                             <Text style={tailwind("text-center text-sm")}>Save</Text>

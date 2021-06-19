@@ -18,7 +18,7 @@ import { handlePressGallery } from '../../../pages/MainPage/handler'
 export const NavigationDrawerContent = (props) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
-    const {firstName, lastName, id, email, username, iconURL} = userProfile
+    const {firstName, lastName, username} = userProfile
     let fullName = `${firstName} ${lastName}`
     
     return (
@@ -27,13 +27,7 @@ export const NavigationDrawerContent = (props) => {
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
                         <View style={{ flexDirection: 'row', marginTop: 15 }}>
-                            <Avatar.Image
-                                source={{
-                                    uri: iconURL
-                                }}
-                                size={50}
-                            />
-                            <View style={{ marginLeft: 15, flexDirection: 'column' }}>
+                            <View style={{ flexDirection: 'column' }}>
                                 <Title style={styles.title}>{fullName}</Title>
                                 <Caption style={styles.caption}>@{username}</Caption>
                             </View>
