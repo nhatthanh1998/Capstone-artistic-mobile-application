@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 import { GENERATED_IMAGE_REDUCER_PREFIX } from "../../enums/reducer-prefix"
 
 
-const initialState = {}
+const initialState = {
+    accessURL: {},
+    photoLocations: {}
+}
 
 const generatedImageSlicer = createSlice({
     name: GENERATED_IMAGE_REDUCER_PREFIX,
@@ -10,7 +13,8 @@ const generatedImageSlicer = createSlice({
     reducers: {
         setGeneratedImage: (state, action) => {
             const { accessURL, styleId, transferPhotoLocation } = action.payload
-            state[styleId] = {accessURL, transferPhotoLocation}
+            state.accessURL[styleId] = accessURL
+            state.photoLocations[styleId] = transferPhotoLocation
         }
     }
 })
@@ -21,7 +25,9 @@ export const { setGeneratedImage } = generatedImageSlicer.actions
 
 
 // use-selector export 
-export const selectGeneratedImage= state => state.generatedImage
+export const selectGeneratedImageAccessURL= state => state.generatedImage.accessURL
+
+export const selectGeneratedImagePhotoLocations = state => state.generatedImage.photoLocations
 
 // reducer export
 export default generatedImageSlicer.reducer

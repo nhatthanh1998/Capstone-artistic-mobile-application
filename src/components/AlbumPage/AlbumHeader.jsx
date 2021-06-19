@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {ImageBackground, View, Image, Text, TouchableOpacity} from 'react-native'
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
+import {ConfirmDeleteAlbumModal} from '../../commons/components/modals/ConfirmDeleteAlbumModal'
 
 export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
+
+    const [showMenu, setShowMenu] = useState(false)
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
 
     if(album) {
         const {count, name, thumbnailURL} = album
@@ -21,15 +25,34 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
                             <Image style={tailwind("w-5 h-5")} source={{uri: "https://img.icons8.com/material-outlined/48/ffffff/left.png"}} />
                         </TouchableOpacity>
                         <Text style={tailwind("text-2xl w-1/3 text-white font-medium tracking-wide text-center")}>{name}</Text>
-                        <TouchableOpacity style={tailwind("w-1/3 flex flex-row justify-end pr-5")}>
-                            <Image source={{uri: "https://img.icons8.com/android/24/ffffff/more.png"}} style={tailwind("w-4 h-4")} />
-                        </TouchableOpacity>
+                        <View style={tailwind("w-1/3 relative flex flex-row justify-end pr-5")}>
+                            <TouchableOpacity onPress={() => setShowMenu(!showMenu)}>
+                                <Image source={{uri: "https://img.icons8.com/android/24/ffffff/more.png"}} style={tailwind("w-4 h-4")} />
+                            </TouchableOpacity>
+                            {
+                                showMenu && (
+                                    <View style={{...tailwind("absolute right-5 mt-5 p-4 rounded-xl"), ...styles.darken_2}} hide>
+                                        <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => console.log("Press")}>
+                                            <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../assets/icons/edit.png')}></Image>
+                                            <Text style={tailwind("text-xs font-thin text-white")}>Edit</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
+
+                                            >
+                                                <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../assets/icons/delete.png')}></Image>
+                                                <Text style={tailwind("text-xs font-thin text-white")}>Delete</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                )
+                            }
+                        </View>
                     </View>
                     <View style={{...tailwind("w-20 rounded-full py-3 text-gray-200 mb-20"), ...styles.lighten}}>
                         <Text style={tailwind("text-xs font-thin text-black text-center")}>{count} pictures</Text>
                     </View>
                     <View style={{...styles.bodyRadius, ...tailwind("w-full h-10 rounded-b-none bg-white")}}></View>
                 </View>
+                <ConfirmDeleteAlbumModal/>
             </ImageBackground>
         )
     }

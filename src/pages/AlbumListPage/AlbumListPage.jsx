@@ -1,4 +1,4 @@
-import { View, Image, ImageBackground, Text, TouchableOpacity } from 'react-native'
+import { View, Image, FlatList, ScrollView, Text, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import React, {useState, useEffect} from 'react'
 import { AlbumListItem } from '../../components/AlbumListPage/AlbumListItem'
@@ -10,6 +10,7 @@ import { CreateNewAlbumModal } from '../../commons/components/modals/CreateNewAl
 export const AlbumListPage = ({ navigation }) => {
 
     const [albums, setAlbums] = useState([])
+    const [headerHeight, setHeaderHeight] = useState(0)
     const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
@@ -19,14 +20,20 @@ export const AlbumListPage = ({ navigation }) => {
         return () => {}
     }, [])
 
-    const onCreateNewAlbum = (newAlbumName) => {
-        createNewAlbum(newAlbumName)
+    const onCreateNewAlbum = async (newAlbumName) => {
+        await createNewAlbum(newAlbumName)
+        setShowModal(false)
+        fetchAlbums().then(({data}) => {
+            setAlbums(data)
+        })
     }
 
     return (
         <View style={tailwind("relative")}>
-            <View style={{ ...tailwind("flex relative z-10 flex-col items-center w-full pt-9") }}>
-                <View style={tailwind("flex flex-row items-center mb-5")}>
+            <View style={{ ...tailwind("flex absolute z-20 flex-col bg-white items-center w-full pt-9")}} onLayout={e => {
+                setHeaderHeight(e.nativeEvent.layout.height)
+            }}>
+                <View style={tailwind("flex flex-row items-center")}>
                     <TouchableOpacity style={tailwind("w-1/3 pl-5")} onPress={() => {
                         navigation.navigate(MAIN_PAGE)
                     }}>
@@ -38,11 +45,12 @@ export const AlbumListPage = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View>
+            <ScrollView style={{...tailwind("z-10 relative bg-white")}} contentContainerStyle={{paddingTop: headerHeight}}>
                 {albums.map(album => {
                     return <AlbumListItem album={album} key={album.id} navigation = {navigation}/>
                 })}
-            </View>
+                <View style={tailwind("h-10")}></View>
+            </ScrollView>
             <CreateNewAlbumModal onCreateNewAlbum={onCreateNewAlbum} isVisible={showModal} onCancel={() => setShowModal(false)}/>
         </View>
     )

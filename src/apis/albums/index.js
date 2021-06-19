@@ -14,7 +14,6 @@ export async function fetchAlbums() {
     return response.data
 }
 
-
 export const getAlbumDetail = async ({albumId}) => {
     let ENDPOINT_URL = `${MAIN_SERVER}/albums/${albumId}`
     const token = await AsyncStorage.getItem("token")
@@ -30,7 +29,7 @@ export async function createNewAlbum(albumName) {
     let ENDPOINT_URL = `${MAIN_SERVER}/albums`
     const token = await AsyncStorage.getItem("token")
 
-    const response = await axios.post(ENDPOINT_URL, {albumName}, {
+    const response = await axios.post(ENDPOINT_URL, {name: albumName}, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

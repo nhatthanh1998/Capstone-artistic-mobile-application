@@ -89,7 +89,7 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
                                         <Text style={tailwind("text-xs font-thin text-white")}>Download</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
-                                    onPress = {() => {handlePressDeleteButton({setConfirmDeleteModalVisible})}}
+                                        onPress = {() => {handlePressDeleteButton({setConfirmDeleteModalVisible})}}
                                     >
                                         <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/delete.png')}></Image>
                                         <Text style={tailwind("text-xs font-thin text-white")}>Delete</Text>

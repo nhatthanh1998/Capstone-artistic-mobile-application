@@ -68,6 +68,7 @@ export const PageHeader = ({item, index, onClose}) => {
                     <Image style={tailwind("w-6 h-6 mr-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
                 </TouchableOpacity>
                 <Image style={tailwind("w-6 h-6 ")} source={{uri: "https://image.flaticon.com/icons/png/512/1159/1159633.png"}}></Image>
+                
             </View>
             <ConfirmDeleteModal onCancel={() => {
                 setIsShowConfirmDeleteModel(false)
