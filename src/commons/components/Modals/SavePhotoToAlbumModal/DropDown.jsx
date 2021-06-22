@@ -1,24 +1,32 @@
 import DropDownPicker from 'react-native-dropdown-picker';
-import React, {useState}  from 'react'
+import React, {useState, useEffect}  from 'react'
 
 
-export const AlbumPicker = () => {
+export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'}
-  ]);
+  const [value, setValue] = useState(null)
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    if(albums!== null) {
+      const albumData = albums.data.map(item => {
+        return {label: item.name, value: item.id }
+      })
+
+      setItems(albumData)
+    }
+    return () => {}
+  }, [albums])
 
   return (
     <DropDownPicker
       placeholder="Select album"
       searchable={false}
       open={open}
-      value={value}
+      value={selectedAlbum}
       items={items}
       setOpen={setOpen}
-      setValue={setValue}
+      setValue={setSelectedAlbum}
       setItems={setItems}
     />
   );

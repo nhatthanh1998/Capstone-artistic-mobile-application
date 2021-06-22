@@ -6,7 +6,7 @@ const initialState = {
     photoLocation: null,
     accessURL: null,
     userID: null,
-    photoName: null,
+    name: null,
     id: null,
     createdAt: null,
     updatedAt: null
@@ -17,11 +17,11 @@ const originImageSlicer = createSlice({
     initialState,
     reducers: {
         setOriginImage: (state, action) => {
-            const { photoLocation, accessURL, userID, photoName, id, createdAt, updatedAt} = action.payload
+            const { photoLocation, accessURL, userID, name, id, createdAt, updatedAt} = action.payload
             state.photoLocation = photoLocation
             state.accessURL = accessURL
             state.userID = userID
-            state.photoName = photoName
+            state.name = name
             state.id = id
             state.createdAt = createdAt
             state.updatedAt = updatedAt

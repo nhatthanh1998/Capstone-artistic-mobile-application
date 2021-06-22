@@ -5,7 +5,7 @@ import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle, selectPrevSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImage, selectGeneratedImagePhotoLocations } from '../../redux/slicers/generated-image.slicer'
-import { getStyles, handlePressBack, handlePressSavePhoto, requestTransferImage, handleConfirmGoBack, handleContinueEdit,  } from './handler'
+import { getStyles, handlePressBack, handlePressSavePhoto, requestTransferImage, handleConfirmGoBack, handleContinueEdit, handleRequestSavePhoto } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
 import { View, TouchableOpacity, StatusBar, Image, Text } from 'react-native'
@@ -18,8 +18,9 @@ import { SavePhotoToAlbumModal } from '../../commons/components/modals/SavePhoto
 export const EffectPage = ({ navigation }) => {
     const dispatch = useDispatch()
     const [isDisableSave, setDisableSave] = useState(true)
-    const [albums, setAlbums] = useState([])
-
+    const [albums, setAlbums] = useState(null)
+    const [selectedAlbum, setSelectedAlbum] = useState(null)
+    const [albumError, setAlbumError] = useState('')
     const styles = useSelector(selectStyles)
     const selectedStyle = useSelector(selectSelectedStyle)
     const prevSelectedStyle = useSelector(selectPrevSelectedStyle)
@@ -58,11 +59,17 @@ export const EffectPage = ({ navigation }) => {
             isVisible={isBackModalVisible} 
             onCancel={() => handleContinueEdit({setBackModalVisible})} 
             onConfirm={() => handleConfirmGoBack({navigation, setBackModalShow})}/>
+
             <SavePhotoToAlbumModal 
             isVisible={isSavePhotoModalVisible}
             onCancel={() => {setSavePhotoModalVisible(false)}}
-            />
+            albums={albums}
+            selectedAlbum={selectedAlbum}
+            setSelectedAlbum={setSelectedAlbum}
+            onConfirm = {() => {handleRequestSavePhoto({setAlbumError, dispatch, navigation, albumId:selectedAlbum, photoLocation:photoLocations[selectedStyle.id]})}}/>
+
             <Loading isLoading={isLoading}/>
+
             <View style={tailwind("flex flex-row items-center bg-white px-5 py-4 relative z-20")}>
                 <View style={tailwind("w-1/3")}>
                     <TouchableOpacity onPress={() => handlePressBack({setBackModalVisible})}>
@@ -73,7 +80,9 @@ export const EffectPage = ({ navigation }) => {
                     <Text style={tailwind("text-lg font-medium")}>Effect Page</Text>
                 </View>
                 <View style={tailwind("flex flex-row w-1/3 justify-end")}>
-                    <TouchableOpacity  onPress={() => {handlePressSavePhoto({setAlbums, setSavePhotoModalVisible, dispatch})}}>
+                    <TouchableOpacity
+                    disabled={isDisableSave}
+                    onPress={() => {handlePressSavePhoto({setAlbums, setSavePhotoModalVisible, dispatch})}}>
                         <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
                     </TouchableOpacity>
                 </View>

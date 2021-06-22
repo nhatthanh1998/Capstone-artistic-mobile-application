@@ -15,7 +15,7 @@ export const AlbumListItem = ({album, navigation}) => {
             </View>
             <Image></Image>
             
-            <Text style={tailwind("text-xs mb-3 mt-1 font-thin")}>{total} photos</Text>
+            <Text style={tailwind("text-xs mb-3 mt-1 font-thin")}>{total} medias</Text>
             <TouchableOpacity style={{...tailwind("h-52 rounded-xl overflow-hidden"), ...styles.shadow_4}}
             onPress = {() => {
                 navigation.navigate(ALBUM_DETAIL_PAGE, {

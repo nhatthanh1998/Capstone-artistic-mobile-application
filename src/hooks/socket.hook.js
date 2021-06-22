@@ -23,7 +23,7 @@ export function useSocket() {
     
 
     socket.on(TRANSFER_COMPLETED, async data => {
-        const {accessURL, styleId} = data
+        const {accessURL, styleId, transferPhotoLocation} = data
         dispatch(setGeneratedImage({accessURL, styleId, transferPhotoLocation}))
         dispatch(setIsLoading(false))
     })

@@ -3,8 +3,8 @@ import { ALBUM_REDUCER_PREFIX } from "../../enums/reducer-prefix"
 
 
 const initialState = {
-    photos: [],
-    selectedPhoto: null,
+    medias: [],
+    selectedMedia: null,
     metaData: {
         page: 0,
         limit: 10,
@@ -21,22 +21,17 @@ const albumSlicer = createSlice({
             state.selectedAlbum = action.payload
         },
 
-        setAlbumPhotos: (state, action) => {
-            state.photos = action.payload
+        setAlbumMedias: (state, action) => {
+            state.medias = action.payload
         },
 
-        addNewPhotoToPhotos: (state, action) => {
-            const newPhoto = action.payload
-            state.photos = { ...state.photos, newPhoto }
-        },
-
-        setAlbumSelectedPhoto: (state, action) => {
+        setAlbumSelectedMedia: (state, action) => {
             state.selectedPhoto = action.payload
         },
-        deletePhotoFromAlbums: (state, action) => {
+        deleteMediaFromAlbums: (state, action) => {
             const { id } = action.payload
-            const photos = state.photos.filter(photo => photo.id !== id)
-            state.photos = photos
+            const medias = state.medias.filter(media => media.id !== id)
+            state.medias = medias
         }
 
     }
@@ -44,12 +39,12 @@ const albumSlicer = createSlice({
 
 
 // action export
-export const { setAlbumPhotos, setAlbumSelectedPhoto, deletePhotoFromAlbums, setSelectedAlbum } = albumSlicer.actions
+export const { setAlbumMedias, setAlbumSelectedMedia, deleteMediaFromAlbums, setSelectedAlbum } = albumSlicer.actions
 
 
 // use-selector export 
-export const selectAlbumPhotos = state => state.album.photos
-export const selectAlbumSelectedPhoto = state => state.album.selectedPhoto
+export const selectAlbumMedias = state => state.album.medias
+export const selectAlbumSelectedMedia = state => state.album.selectedMedia
 export const selectAlbumMetadata = state => state.album.metaData
 export const selectSelectedAlbum = state => state.album.selectedAlbum
 // reducer export

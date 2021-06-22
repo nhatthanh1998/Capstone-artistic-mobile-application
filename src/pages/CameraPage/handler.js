@@ -57,7 +57,5 @@ export const handleTakePicture = async ({dispatch, camera, navigation}) => {
       const socketId = await AsyncStorage.getItem("socketId")
       uploadPhotoToServer({imageURI: photo.uri, socketId: socketId})
       navigation.navigate(EFFECT_PAGE)
-    } else {
-        console.log('no camera instance')
     }
   }

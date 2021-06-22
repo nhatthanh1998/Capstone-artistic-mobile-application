@@ -14,7 +14,7 @@ import { handleCancleDeleteModal,
     handlePressBack,
     handleCloseDownloadSuccessModal
  } from './handler'
-
+ import Video from 'react-native-video';
 
 
 export const PhotoDetail = ({ photo, visible, setVisible }) => {
@@ -25,7 +25,6 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
     const [originImageHeight, setOriginImageHeight] = useState(0)
     const [showMenu, setShowMenu] = useState(false)
     const [mediaPermission, setMediaPermission] = useState(null)
-
 
     useEffect(() => {
         getMediaLibraryPermission({ setMediaPermission })
@@ -38,6 +37,21 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
             })
         }
     }, [photo])
+
+    const renderContent = (photo) => {
+        if(photo.type == "PHOTO") {
+            return (
+                <View style={tailwind("pt-20 flex flex-row items-center justify-center w-full h-full bg-gray-900")}>
+                    <Image
+                        style={{height: originImageHeight, ...tailwind("w-full")}} 
+                        source={{uri: photo.accessURL}}
+                        resizeMode="contain"/>  
+                </View>
+            )
+        } else {
+            return <Text>Video Content</Text>
+        }
+    }
 
     if (mediaPermission === null) {
         return <Text>Something when wrong with the Media Permission</Text>
@@ -61,7 +75,7 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
                                     <Image source={require('../../../assets/icons/left-arrow.png')} style={tailwind("h-5 w-5")}/>
                                 </TouchableOpacity>
                                 <View style={tailwind("w-1/3")}>
-                                    <Text style={tailwind("text-sm font-thin text-white text-center")}>{photo.photoName}</Text>
+                                    <Text style={tailwind("text-sm font-thin text-white text-center")}>{photo.name}</Text>
                                 </View>
                                 <View style={tailwind("w-1/3 flex items-end pr-5")}>
                                     <TouchableOpacity onPress={() => setShowMenu(!showMenu)}>
@@ -97,12 +111,7 @@ export const PhotoDetail = ({ photo, visible, setVisible }) => {
                                 </View>
                                 ) : null
                             }
-                            <View style={tailwind("pt-20 flex flex-row items-center justify-center w-full h-full bg-gray-900")}>
-                                <Image
-                                    style={{height: originImageHeight, ...tailwind("w-full")}} 
-                                    source={{uri: photo.accessURL}}
-                                    resizeMode="contain"/>  
-                            </View>
+                            {renderContent(photo)}
                             <DownloadSuccessModal isVisible = {isDownloadSuccessModalVisible} 
                             onClose={() => {handleCloseDownloadSuccessModal({setDownloadSucessModalVisible})}}
                             />

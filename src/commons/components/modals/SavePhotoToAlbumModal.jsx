@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import { styles } from '../../../styles';
 import { AlbumPicker } from './SavePhotoToAlbumModal/DropDown'
 
-export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm}) => {
+export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, albums, selectedAlbum, setSelectedAlbum}) => {
     return (
         <View>
             <Modal isVisible={isVisible} 
@@ -26,11 +26,14 @@ export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm}) => {
                             Choose album you want to save your photo to
                         </Text>
                     </View>
-                    <View style={tailwind("relative z-20")}>
-                        <AlbumPicker style={tailwind("text-center p-3 text-sm z-50")}/>
-                    </View>
+                    <AlbumPicker
+                        albums={albums}
+                        selectedAlbum={selectedAlbum}
+                        setSelectedAlbum={setSelectedAlbum}
+                    />
                     <View style={tailwind("flex flex-row relative w-full justify-center items-center z-10")}>
                         <TouchableOpacity onPress={() => {
+                            onConfirm()
                         }} style={{...tailwind("p-3 bg-yellow-300 w-32 rounded-xl mt-4"), ...styles.shadow_2}}>
                             <Text style={tailwind("text-center text-sm")}>Save</Text>
                         </TouchableOpacity>

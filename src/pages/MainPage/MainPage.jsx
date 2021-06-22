@@ -18,7 +18,6 @@ export const MainPage = ({ navigation }) => {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
     const [showSelectPhotoModal, setShowSelectPhotoModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const userProfile = useSelector(selectUserProfile)
     useEffect(() => {
         setIsLoading(true)
         Promise.all([

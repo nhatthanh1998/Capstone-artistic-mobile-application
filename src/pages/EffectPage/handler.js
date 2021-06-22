@@ -5,6 +5,7 @@ import { DEFAULT_STYLE_ID } from '../../enums/default-style-id'
 import { MAIN_PAGE } from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import { fetchAlbums } from '../../apis/albums'
+import { ALBUM_DETAIL_PAGE } from '../../enums/page-name'
 
 
 export const getStyles = async ({dispatch}) => {
@@ -20,10 +21,7 @@ export const requestTransferImage = async ({generatedImage, selectedStyle, photo
     }
 }
 
-export const handleRequestSavePhoto = async ({dispatch, selectedStyle, generatedImage}) => {
-    const photoLocation = generatedImage[selectedStyle.id]
-    const response = await requestSavePhotoToAlbum({photoLocation})
-}
+
 
 export const handlePressBack = ({setBackModalVisible}) => {
     setBackModalVisible(true)
@@ -49,4 +47,18 @@ export const handlePressSavePhoto = async ({setSavePhotoModalVisible, setAlbums,
 
 handlePressCancelSavePhotoModal = ({setSavePhotoModalVisible}) => {
     setSavePhotoModalVisible(false)
+}
+
+export const handleRequestSavePhoto = async ({ photoLocation, albumId, setAlbumError, dispatch, navigation }) => {
+    if(albumId === null) {
+        setAlbumError("Album must be selected!")
+    } else {
+        setAlbumError("")
+        dispatch(setIsLoading(true))
+        await requestSavePhotoToAlbum({photoLocation, albumId})
+        dispatch(setIsLoading(false))
+        navigation.navigate(ALBUM_DETAIL_PAGE, {
+            albumId
+        })
+    }
 }

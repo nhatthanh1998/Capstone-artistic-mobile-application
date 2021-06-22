@@ -4,11 +4,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 export async function uploadPhotoToServer({imageURI}) {
-    const ENDPOINT_URL = `${MAIN_SERVER}/photos/upload`
+    const name = new Date().getTime() + ".jpg"
+    const ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
     const socketId = await AsyncStorage.getItem("socketId")
     const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
-    formData.append("photo", {uri: imageURI, type: 'image/jpg', name: 'picture.jpg'});
+    formData.append("media", {uri: imageURI, type: 'image/jpg', name});
     formData.append('socketId', socketId)
     const response = await axios.post(ENDPOINT_URL, formData, {
         headers: {
@@ -22,7 +23,7 @@ export async function uploadPhotoToServer({imageURI}) {
 
 
 export async function sendTransferPhotoRequest({photoLocation, selectedStyle }) {
-    const ENDPOINT_URL = `${MAIN_SERVER}/photos/transfer-photo`
+    const ENDPOINT_URL = `${MAIN_SERVER}/medias/transfer-photo`
     const socketId = await AsyncStorage.getItem("socketId")
     const token = await AsyncStorage.getItem("token")
     const payload = {socketId, photoLocation, style: selectedStyle}
@@ -35,8 +36,8 @@ export async function sendTransferPhotoRequest({photoLocation, selectedStyle }) 
 }
 
 
-export async function fetchAlbumPhotos() {
-    let ENDPOINT_URL = `${MAIN_SERVER}/photos`
+export async function fetchAlbumMedias() {
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias`
     const token = await AsyncStorage.getItem("token")
 
     const response = await axios.get(ENDPOINT_URL, {
@@ -49,7 +50,7 @@ export async function fetchAlbumPhotos() {
 
 export async function requestSavePhotoToAlbum({photoLocation, albumId}) {
     const token = await AsyncStorage.getItem("token")
-    let ENDPOINT_URL = `${MAIN_SERVER}/photos/save-to-album`    
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias/save-to-album`    
     const payload = {photoLocation, albumId}
     const response = await axios.post(ENDPOINT_URL, payload, {
         headers: {
@@ -61,7 +62,7 @@ export async function requestSavePhotoToAlbum({photoLocation, albumId}) {
 
 export async function requestDeletePhoto({photoId}) {
     const token = await AsyncStorage.getItem("token")
-    let ENDPOINT_URL = `${MAIN_SERVER}/photos/${photoId}`    
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias/${photoId}`    
     const response = await axios.delete(ENDPOINT_URL, {
         headers: {
             'Authorization': `Bearer ${token}`

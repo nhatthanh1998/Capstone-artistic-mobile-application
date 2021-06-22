@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {Text, StatusBar, Animated, SafeAreaView, View} from 'react-native'
+import { StatusBar, Animated, SafeAreaView, View} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAlbumSelectedPhoto, selectAlbumPhotos, selectSelectedAlbum } from '../../redux/slicers/albums.slicer'
+import { setAlbumSelectedPhoto, selectAlbumMedias, selectSelectedAlbum } from '../../redux/slicers/albums.slicer'
 import { AlbumHeader } from '../../components/AlbumPage/AlbumHeader'
 import { PhotoDetail } from '../../components/AlbumPage/PhotoDetail'
 import { EmptyAlbum } from '../../components/AlbumPage/EmptyAlbum'
@@ -19,7 +19,7 @@ export const AlbumPage = ({route, navigation}) => {
     const [visible, setVisible] = useState(false)
     const [selectedPhoto, setSelectedPhoto] = useState(null)
     const dispatch = useDispatch()
-    const albumPhotos = useSelector(selectAlbumPhotos)
+    const albumMedias = useSelector(selectAlbumMedias)
     const album = useSelector(selectSelectedAlbum)
     const ref = useRef()
 
@@ -70,7 +70,7 @@ export const AlbumPage = ({route, navigation}) => {
                   setHeaderHeight={setHeaderHeight} album={album}/>
             </Animated.View>
             {
-              albumPhotos.length === 0 ?
+              albumMedias.length === 0 ?
                 (
                   <View style={{paddingTop: headerHeight}}>
                     <EmptyAlbum/>
@@ -85,7 +85,7 @@ export const AlbumPage = ({route, navigation}) => {
                       style={{...tailwind("overflow-hidden rounded-b-none px-5 h-full z-10"), paddingTop: headerHeight}}
                       numColumns={3}
                       showsVerticalScrollIndicator={false}
-                      data={albumPhotos}
+                      data={albumMedias}
                       renderItem={data => <PhotoItem data={data} handlePress={() => handlePressPhotoItem(data.item)}/>}
                       keyExtractor={item => item.id}
                     />
