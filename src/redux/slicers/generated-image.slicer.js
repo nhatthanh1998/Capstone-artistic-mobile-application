@@ -15,13 +15,17 @@ const generatedImageSlicer = createSlice({
             const { accessURL, styleId, transferPhotoLocation } = action.payload
             state.accessURL[styleId] = accessURL
             state.photoLocations[styleId] = transferPhotoLocation
+        },
+
+        cleanGeneratedImage: (state, action) => {
+            state = initialState
         }
     }
 })
 
 
 // action export
-export const { setGeneratedImage } = generatedImageSlicer.actions
+export const { setGeneratedImage, cleanGeneratedImage } = generatedImageSlicer.actions
 
 
 // use-selector export 

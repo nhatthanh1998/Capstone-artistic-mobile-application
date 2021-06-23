@@ -36,3 +36,14 @@ export async function createNewAlbum(albumName) {
     })
     return response.data
 }
+
+export async function deleteAlbum({albumId}) {
+    let ENDPOINT_URL = `${MAIN_SERVER}/albums/${albumId}`
+    const token = await AsyncStorage.getItem("token")
+    const response = await axios.delete(ENDPOINT_URL, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    return response.data
+}

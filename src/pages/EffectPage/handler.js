@@ -6,7 +6,8 @@ import { MAIN_PAGE } from '../../enums/page-name'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import { fetchAlbums } from '../../apis/albums'
 import { ALBUM_DETAIL_PAGE } from '../../enums/page-name'
-
+import { cleanOriginImage } from '../../redux/slicers/origin-image.slicer'
+import { cleanGeneratedImage } from '../../redux/slicers/generated-image.slicer'
 
 export const getStyles = async ({dispatch}) => {
     const response = await fetchAllStyles()
@@ -56,6 +57,8 @@ export const handleRequestSavePhoto = async ({ photoLocation, albumId, setAlbumE
         setAlbumError("")
         dispatch(setIsLoading(true))
         await requestSavePhotoToAlbum({photoLocation, albumId})
+        dispatch(cleanGeneratedImage())
+        dispatch(cleanOriginImage())
         dispatch(setIsLoading(false))
         navigation.navigate(ALBUM_DETAIL_PAGE, {
             albumId
