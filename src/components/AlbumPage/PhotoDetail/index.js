@@ -1,1 +1,1 @@
-export * from './PhotoDetail'
+export * from './MediaDetail'
