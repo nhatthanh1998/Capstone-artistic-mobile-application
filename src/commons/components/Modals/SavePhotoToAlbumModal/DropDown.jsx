@@ -4,7 +4,6 @@ import React, {useState, useEffect}  from 'react'
 
 export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null)
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -14,6 +13,7 @@ export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum}) => {
       })
 
       setItems(albumData)
+      setSelectedAlbum(albumData[0].value)
     }
     return () => {}
   }, [albums])
