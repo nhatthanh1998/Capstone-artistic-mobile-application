@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
     lighten: {
         backgroundColor: 'rgba(253, 253, 253, 0.85)'
     },
+    lighten_2: {
+        backgroundColor: 'rgba(253, 253, 253, 0.95)'
+    },
     bodyRadius: {
         borderRadius: 50,
     },
