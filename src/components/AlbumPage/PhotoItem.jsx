@@ -10,15 +10,11 @@ export const PhotoItem = ({data, handlePress}) => {
     if (type == "PHOTO") {
         return (
             <View style={tailwind("w-1/3 mb-5 flex-row justify-center")}>
-                <View style={tailwind("relative")}>
+                <View style={tailwind("relative flex items-center")}>
                     <TouchableOpacity style={{...tailwind("overflow-hidden relative z-10 rounded-3xl w-24 h-24"), ...styles.shadow_2}}
-                    onPress = {() => handlePress()}
+                        onPress = {() => handlePress()}
                     >
                         <Image source={{uri:accessURL}} style={tailwind("w-full h-full bg-red-100")}/>
-                    </TouchableOpacity>
-        
-                    <TouchableOpacity style={{...tailwind("bg-gray-50 mt-3 py-2 rounded-full")}}>
-                        <Text style={tailwind("font-thin text-xs text-center")}>{name}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -34,10 +30,6 @@ export const PhotoItem = ({data, handlePress}) => {
                                 <Image style={tailwind("h-5 w-5")} source={require('../../assets/icons/play.png')}></Image>
                             </View>
                         </ImageBackground>
-                    </TouchableOpacity>
-        
-                    <TouchableOpacity style={{...tailwind("bg-gray-50 mt-3 py-2 rounded-full")}}>
-                        <Text style={tailwind("font-thin text-xs text-center")}>{name}</Text>
                     </TouchableOpacity>
                 </View>
             </View>

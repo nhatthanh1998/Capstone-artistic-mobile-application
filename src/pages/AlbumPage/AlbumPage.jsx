@@ -49,6 +49,7 @@ export const AlbumPage = ({route, navigation}) => {
         StatusBar.setHidden(true);
         handleGetAlbumDetail({albumId, dispatch})
     }, [])
+
     const handlePressPhotoItem = (item) => {
       dispatch(setAlbumSelectedMedia(item))
       setSelectedPhoto(item)
@@ -80,9 +81,9 @@ export const AlbumPage = ({route, navigation}) => {
                   <>
                     <AnimatedFlatList
                       ref={ref}
-                      // onMomentumScrollEnd={handleSnap}
                       onScroll={handleScroll}
-                      style={{...tailwind("overflow-hidden rounded-b-none px-5 h-full z-10"), paddingTop: headerHeight}}
+                      style={{...tailwind("relative px-5 z-10")}}
+                      contentContainerStyle={{paddingTop: headerHeight, paddingBottom: 50}}
                       numColumns={3}
                       showsVerticalScrollIndicator={false}
                       data={albumMedias}
