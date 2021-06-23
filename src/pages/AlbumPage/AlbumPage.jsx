@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { StatusBar, Animated, SafeAreaView, View} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAlbumSelectedPhoto, selectAlbumMedias, selectSelectedAlbum } from '../../redux/slicers/albums.slicer'
+import { setAlbumSelectedMedia, selectAlbumMedias, selectSelectedAlbum } from '../../redux/slicers/albums.slicer'
 import { AlbumHeader } from '../../components/AlbumPage/AlbumHeader'
-import { PhotoDetail } from '../../components/AlbumPage/PhotoDetail'
+import { MediaDetail } from '../../components/AlbumPage/PhotoDetail'
 import { EmptyAlbum } from '../../components/AlbumPage/EmptyAlbum'
 import { PhotoItem } from '../../components/AlbumPage/PhotoItem'
 import { handleGetAlbumDetail } from './handler'
@@ -50,7 +50,7 @@ export const AlbumPage = ({route, navigation}) => {
         handleGetAlbumDetail({albumId, dispatch})
     }, [])
     const handlePressPhotoItem = (item) => {
-      dispatch(setAlbumSelectedPhoto(item))
+      dispatch(setAlbumSelectedMedia(item))
       setSelectedPhoto(item)
       setVisible(true)
     }
@@ -89,7 +89,7 @@ export const AlbumPage = ({route, navigation}) => {
                       renderItem={data => <PhotoItem data={data} handlePress={() => handlePressPhotoItem(data.item)}/>}
                       keyExtractor={item => item.id}
                     />
-                    <PhotoDetail photo = {selectedPhoto} setVisible = {setVisible} visible = {visible}/>
+                    <MediaDetail media={selectedPhoto} setVisible = {setVisible} visible = {visible}/>
                   </>
                 )
             }

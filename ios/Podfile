@@ -22,4 +22,6 @@ target 'mymobileapp' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
 end
