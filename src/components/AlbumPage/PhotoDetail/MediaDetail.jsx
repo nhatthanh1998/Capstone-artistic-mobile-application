@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { View, Image, Text, TouchableOpacity } from 'react-native'
+import { View, Image, Text, TouchableOpacity, Dimensions } from 'react-native'
 import Modal from 'react-native-modal'
 import tailwind from 'tailwind-rn'
 import { styles } from '../../../styles'
@@ -30,11 +30,13 @@ export const MediaDetail = ({ media, visible, setVisible }) => {
         getMediaLibraryPermission({ setMediaPermission })
     }, [])
 
+    const screenWidth = Dimensions.get('window').width;
+
     useEffect(() => {
         if (media != null) {
             if(media.type == "PHOTO") {
-                Image.getSize(media.accessURL, (_, height) => {
-                    setOriginImageHeight(height)
+                Image.getSize(media.accessURL, (width, height) => {
+                    setOriginImageHeight(screenWidth * height / width)
                 })
             }
         }
@@ -43,7 +45,7 @@ export const MediaDetail = ({ media, visible, setVisible }) => {
     const renderContent = (media) => {
         if(media.type == "PHOTO") {
             return (
-                <View style={tailwind("pt-20 flex flex-row items-center justify-center w-full h-full bg-gray-900")}>
+                <View style={tailwind("flex flex-row items-end justify-center w-full h-full bg-black")}>
                     <Image
                         style={{height: originImageHeight, ...tailwind("w-full")}} 
                         source={{uri: media.accessURL}}
@@ -51,10 +53,9 @@ export const MediaDetail = ({ media, visible, setVisible }) => {
                 </View>
             )
         } else {
-            console.log(media)
             return (
-                <View style={tailwind("flex justify-center items-center w-full h-full bg-white")}>
-                    <Video style={tailwind("bg-red-100 h-56 w-full")}
+                <View style={tailwind("flex bg-black justify-center items-center w-full")}>
+                    <Video style={tailwind("w-full h-full")}
                         useNativeControls
                         resizeMode="contain" 
                         source={{
@@ -82,16 +83,17 @@ export const MediaDetail = ({ media, visible, setVisible }) => {
                 media !== null ?
                 (
                     <View style={tailwind("w-full h-full relative")}>
-                        <View style={{...tailwind("flex flex-row absolute py-5 w-full z-20 bg-gray-900")}}>
-                            <TouchableOpacity style={tailwind("w-1/3 pl-5")} onPress={() => {handlePressBack({setVisible})}}>
-                                <Image source={require('../../../assets/icons/left-arrow.png')} style={tailwind("h-5 w-5")}/>
-                            </TouchableOpacity>
-                            <View style={tailwind("w-1/3")}>
-                                <Text style={tailwind("text-sm font-thin text-white text-center")}>{media.name}</Text>
+                        <View style={{...tailwind("flex flex-row absolute py-5 w-full z-20")}}>
+                            <View style={tailwind("w-1/2 pl-5")}>
+                                <TouchableOpacity style={{...tailwind("w-7 h-7 flex items-center justify-center rounded-lg"), ...styles.lighten_2, ...styles.shadow_2}} onPress={() => {handlePressBack({setVisible})}}>
+                                    <Image source={{uri: "https://image.flaticon.com/icons/png/512/130/130831.png"}} style={tailwind("w-4 h-4")}/>
+                                </TouchableOpacity>
                             </View>
-                            <View style={tailwind("w-1/3 flex items-end pr-5")}>
-                                <TouchableOpacity onPress={() => setShowMenu(!showMenu)}>
-                                    <Image source={require('../../../assets/icons/more.png')} style={tailwind("h-5 w-5")}/>
+                            
+                            <View style={tailwind("w-1/2 flex items-end pr-5")}>
+                                <TouchableOpacity onPress={() => setShowMenu(!showMenu)}
+                                    style={{...tailwind("w-7 h-7 flex items-center justify-center rounded-lg"), ...styles.lighten_2, ...styles.shadow_2}} >
+                                    <Image source={{uri: "https://image.flaticon.com/icons/png/512/512/512142.png"}} style={tailwind("w-4 h-4")}/>
                                 </TouchableOpacity>
                             </View>
                         </View>
