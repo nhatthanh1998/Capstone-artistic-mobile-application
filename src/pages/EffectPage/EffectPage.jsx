@@ -58,7 +58,7 @@ export const EffectPage = ({ navigation }) => {
             <BackEffectPageModal 
             isVisible={isBackModalVisible} 
             onCancel={() => handleContinueEdit({setBackModalVisible})} 
-            onConfirm={() => handleConfirmGoBack({navigation, setBackModalShow})}/>
+            onConfirm={() => handleConfirmGoBack({navigation, setBackModalVisible})}/>
 
             <SavePhotoToAlbumModal 
             isVisible={isSavePhotoModalVisible}

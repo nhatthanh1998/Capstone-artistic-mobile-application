@@ -1,35 +1,44 @@
-import { View, Image, FlatList, ScrollView, Text, TouchableOpacity } from 'react-native'
+import { View, Image, ScrollView, Text, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import React, {useState, useEffect} from 'react'
 import { AlbumListItem } from '../../components/AlbumListPage/AlbumListItem'
 import { createNewAlbum, fetchAlbums } from '../../apis/albums'
 import { MAIN_PAGE } from '../../enums/page-name'
-import { styles } from '../../styles'
 import { CreateNewAlbumModal } from '../../commons/components/modals/CreateNewAlbumModal'
+import { Loading } from '../../commons/components/Loading/Loading'
+import { selectIsLoading, setIsLoading } from '../../redux/slicers/is-loading.slicer'
+import { useSelector, useDispatch } from 'react-redux'
 
 export const AlbumListPage = ({ navigation }) => {
-
+    const dispatch = useDispatch()
     const [albums, setAlbums] = useState([])
     const [headerHeight, setHeaderHeight] = useState(0)
     const [showModal, setShowModal] = useState(false)
+    const isLoading = useSelector(selectIsLoading)
+
 
     useEffect(() => {
+        dispatch(setIsLoading(true))
         fetchAlbums().then(({data}) => {
             setAlbums(data)
+            setIsLoading(false)
         })
         return () => {}
     }, [])
 
     const onCreateNewAlbum = async (newAlbumName) => {
+        setIsLoading(true)
         await createNewAlbum(newAlbumName)
         setShowModal(false)
         fetchAlbums().then(({data}) => {
             setAlbums(data)
+            setIsLoading(false)
         })
     }
 
     return (
-        <View style={tailwind("relative")}>
+        <View style={tailwind("relative h-full")}>
+            <Loading isLoading={isLoading}/>
             <View style={{ ...tailwind("flex absolute z-20 flex-col bg-white items-center w-full pt-9")}} onLayout={e => {
                 setHeaderHeight(e.nativeEvent.layout.height)
             }}>

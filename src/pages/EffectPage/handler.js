@@ -28,8 +28,8 @@ export const handlePressBack = ({setBackModalVisible}) => {
     setBackModalVisible(true)
 }
 
-export const handleConfirmGoBack = ({navigation, setBackModalShow}) => {
-    setBackModalShow(false)
+export const handleConfirmGoBack = ({navigation, setBackModalVisible}) => {
+    setBackModalVisible(false)
     navigation.navigate(MAIN_PAGE)
 }
 
