@@ -5,14 +5,15 @@ import { styles } from '../../styles'
 import {ConfirmDeleteAlbumModal} from '../../commons/components/modals/ConfirmDeleteAlbumModal'
 import { EditAlbumModal } from '../../commons/components/modals/EditAlbumModal'
 
-export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
+export const AlbumHeader = ({setHeaderHeight, album, pressBack, handleDeleteAlbum}) => {
 
     const [showMenu, setShowMenu] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [showEditAlbumModal, setShowEditAlbumModal] = useState(false)
 
     if(album) {
-        const {count, name, thumbnailURL} = album
+        const {count, name, thumbnailURL, isDefault} = album
+        console.log("is Default:", isDefault)
         return (
             <ImageBackground 
                 onLayout={(event) => {
@@ -41,7 +42,7 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
                                             <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../assets/icons/edit.png')}></Image>
                                             <Text style={tailwind("text-xs font-thin text-white")}>Edit</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
+                                        {isDefault === false ? <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
                                             onPress={() => {
                                                 setShowConfirmDeleteModal(true)
                                                 setShowMenu(false)
@@ -49,7 +50,7 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
                                             >
                                                 <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../assets/icons/delete.png')}></Image>
                                                 <Text style={tailwind("text-xs font-thin text-white")}>Delete</Text>
-                                        </TouchableOpacity>
+                                        </TouchableOpacity> : null}
                                     </View>
                                 )
                             }
@@ -60,7 +61,9 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack}) => {
                     </View>
                     <View style={{...styles.bodyRadius, ...tailwind("w-full h-10 rounded-b-none bg-white")}}></View>
                 </View>
-                <ConfirmDeleteAlbumModal isVisible={showConfirmDeleteModal} onCancel={() => setShowConfirmDeleteModal(false)}/>
+                <ConfirmDeleteAlbumModal isVisible={showConfirmDeleteModal} onCancel={() => setShowConfirmDeleteModal(false)}
+                onConfirm={() => {handleDeleteAlbum()}}
+                />
                 <EditAlbumModal album={album} isVisible={showEditAlbumModal} onCancel={() => setShowEditAlbumModal(false)}/>
             </ImageBackground>
         )

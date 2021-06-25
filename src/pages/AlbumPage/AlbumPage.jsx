@@ -6,7 +6,9 @@ import { AlbumHeader } from '../../components/AlbumPage/AlbumHeader'
 import { MediaDetail } from '../../components/AlbumPage/PhotoDetail'
 import { EmptyAlbum } from '../../components/AlbumPage/EmptyAlbum'
 import { PhotoItem } from '../../components/AlbumPage/PhotoItem'
-import { handleGetAlbumDetail } from './handler'
+import { handleDeleteAlbum, handleGetAlbumDetail } from './handler'
+import {selectIsLoading} from '../../redux/slicers/is-loading.slicer'
+import { Loading } from '../../commons/components/Loading/Loading'
 import tailwind from 'tailwind-rn'
 import { ALBUM_LIST_PAGE } from '../../enums/page-name'
 
@@ -21,6 +23,7 @@ export const AlbumPage = ({route, navigation}) => {
     const dispatch = useDispatch()
     const albumMedias = useSelector(selectAlbumMedias)
     const album = useSelector(selectSelectedAlbum)
+    const isLoading = useSelector(selectIsLoading)
     const ref = useRef()
 
     const scrollY = useRef(new Animated.Value(0)).current
@@ -59,16 +62,20 @@ export const AlbumPage = ({route, navigation}) => {
     const backToAlbumPage = () => {
       navigation.navigate(ALBUM_LIST_PAGE)
     }
-
     return (
-        <SafeAreaView style={tailwind("h-full relative bg-white")} >
+        <SafeAreaView style={tailwind("h-full relative bg-white")}>
+            <Loading isLoading={isLoading}/>
             <Animated.View
              style={{
                  ...tailwind("absolute w-full z-20"),
                  transform: [{translateY}]
             }}>
-                <AlbumHeader pressBack={backToAlbumPage} 
-                  setHeaderHeight={setHeaderHeight} album={album}/>
+                <AlbumHeader
+                  pressBack={backToAlbumPage} 
+                  setHeaderHeight={setHeaderHeight} 
+                  album={album}
+                  handleDeleteAlbum={() => {handleDeleteAlbum({albumId, dispatch, navigation})}}
+                  />
             </Animated.View>
             {
               albumMedias.length === 0 ?

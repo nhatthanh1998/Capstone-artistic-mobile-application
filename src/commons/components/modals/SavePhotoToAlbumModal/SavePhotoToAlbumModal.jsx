@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
-import { styles } from '../../../styles';
-import { AlbumPicker } from './SavePhotoToAlbumModal/DropDown'
+import { styles } from '../../../../styles';
+import { AlbumPicker } from './DropDown'
 
 export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, albums, selectedAlbum, setSelectedAlbum}) => {
     return (

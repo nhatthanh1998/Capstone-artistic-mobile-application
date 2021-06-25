@@ -12,7 +12,7 @@ import { View, TouchableOpacity, StatusBar, Image, Text } from 'react-native'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { Loading } from '../../commons/components/Loading/Loading'
 import { BackEffectPageModal } from '../../commons/components/modals/BackEffectPageModal'
-import { SavePhotoToAlbumModal } from '../../commons/components/modals/SavePhotoToAlbumModal'
+import { SavePhotoToAlbumModal } from '../../commons/components/modals/SavePhotoToAlbumModal/SavePhotoToAlbumModal'
 
 
 export const EffectPage = ({ navigation }) => {

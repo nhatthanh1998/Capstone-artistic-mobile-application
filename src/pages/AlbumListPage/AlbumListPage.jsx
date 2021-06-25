@@ -21,18 +21,18 @@ export const AlbumListPage = ({ navigation }) => {
         dispatch(setIsLoading(true))
         fetchAlbums().then(({data}) => {
             setAlbums(data)
-            setIsLoading(false)
+        dispatch(setIsLoading(false))
         })
         return () => {}
     }, [])
 
     const onCreateNewAlbum = async (newAlbumName) => {
-        setIsLoading(true)
+        dispatch(setIsLoading(true))
         await createNewAlbum(newAlbumName)
         setShowModal(false)
         fetchAlbums().then(({data}) => {
             setAlbums(data)
-            setIsLoading(false)
+            dispatch(setIsLoading(false))
         })
     }
 
