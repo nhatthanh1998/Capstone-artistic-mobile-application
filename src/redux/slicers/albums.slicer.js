@@ -33,7 +33,6 @@ const albumSlicer = createSlice({
             const medias = state.medias.filter(media => media.id !== id)
             state.medias = medias
         }
-
     }
 })
 

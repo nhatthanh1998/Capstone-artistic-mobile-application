@@ -6,6 +6,10 @@ import tailwind from 'tailwind-rn'
 import { styles } from '../../../styles'
 import { DownloadSuccessModal } from '../../../commons/components/modals/DownloadSuccessModal'
 import { ConfirmDeleteModal } from '../../../commons/components/modals/ConfirmDeleteModal'
+import { MoveMediaToAnotherAlbumModal } from '../../../commons/components/modals/MoveMediaToAnotherAlbumModal/MoveMediaToAnotherAlbumModal'
+import {handleMoveMedia} from './handler'
+
+
 import { handleCancleDeleteModal,
     handleConfirmDeleteModal,
     handlePressDeleteButton,
@@ -17,11 +21,11 @@ import { handleCancleDeleteModal,
 import { Video, AVPlaybackStatus } from 'expo-av';
 
 
-export const MediaDetail = ({ media, visible, setVisible }) => {
+export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
     const dispatch = useDispatch()
-    const [showDownloadSuccessModal] = useState(false)
     const [isConfirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
     const [isDownloadSuccessModalVisible, setDownloadSucessModalVisible] = useState(false)
+    const [isMoveMediaModalShow, setMoveMediaModalShow] = useState(false)
     const [originImageHeight, setOriginImageHeight] = useState(0)
     const [showMenu, setShowMenu] = useState(false)
     const [mediaPermission, setMediaPermission] = useState(null)
@@ -104,9 +108,9 @@ export const MediaDetail = ({ media, visible, setVisible }) => {
                                     <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/paint.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Transfer</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => console.log("Press")}>
+                                <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => setMoveMediaModalShow(true)}>
                                     <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/share.png')}></Image>
-                                    <Text style={tailwind("text-xs font-thin text-white")}>Share</Text>
+                                    <Text style={tailwind("text-xs font-thin text-white")}>Move</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")} onPress = {() => {
                                     handlePressDownloadButton({accessURL: media.accessURL, setDownloadSucessModalVisible})
@@ -133,6 +137,14 @@ export const MediaDetail = ({ media, visible, setVisible }) => {
                             isVisible = {isConfirmDeleteModalVisible} 
                             onConfirm = {() => handleConfirmDeleteModal({photoId: media.id, dispatch, setConfirmDeleteModalVisible, setVisible})} 
                             onCancel = {() => handleCancleDeleteModal({setConfirmDeleteModalVisible})}/>
+                        <MoveMediaToAnotherAlbumModal
+                            isVisible={isMoveMediaModalShow}
+                            onCancel={() => {setMoveMediaModalShow(false)}}
+                            onConfirm={handleMoveMedia}
+                            media={media}
+                            navigation={navigation}
+                            setMediaDetailVisible = {setVisible}
+                        />
                     </View> 
                 ) : <></>
             }                

@@ -2,6 +2,7 @@ import {requestDeletePhoto} from '../../../apis/photos'
 import {deletePhotoFromAlbums } from '../../../redux/slicers/albums.slicer'
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
+import { changeMediaAlbumLocation } from '../../../apis/medias'
 
 export const handlePressBack = ({setVisible}) => {
     setVisible(false)
@@ -62,3 +63,6 @@ export const getMediaLibraryPermission = async ({setMediaPermission}) => {
     }
 }
 
+export const handleMoveMedia = async ({mediaId, selectedAlbumId}) => {
+    return await changeMediaAlbumLocation({mediaId, selectedAlbumId})
+}

@@ -13,7 +13,6 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, handleDeleteAlbu
 
     if(album) {
         const {count, name, thumbnailURL, isDefault} = album
-        console.log("is Default:", isDefault)
         return (
             <ImageBackground 
                 onLayout={(event) => {

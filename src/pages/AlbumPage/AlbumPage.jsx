@@ -97,7 +97,12 @@ export const AlbumPage = ({route, navigation}) => {
                       renderItem={data => <PhotoItem data={data} handlePress={() => handlePressPhotoItem(data.item)}/>}
                       keyExtractor={item => item.id}
                     />
-                    <MediaDetail media={selectedPhoto} setVisible = {setVisible} visible = {visible}/>
+                    <MediaDetail
+                      media={selectedPhoto} 
+                      setVisible = {setVisible} 
+                      visible = {visible}
+                      navigation={navigation}
+                    />
                   </>
                 )
             }
