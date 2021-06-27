@@ -1,12 +1,12 @@
 import React from 'react'
-import { TouchableOpacity, View, Image, Text, ImageBackground } from 'react-native'
+import { TouchableOpacity, View, Image, ImageBackground } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { styles } from '../../styles'
 
 
 export const PhotoItem = ({data, handlePress}) => {
     const {item} = data
-    const {accessURL, id, photoLocation, name, uri, type} = item
+    const {accessURL, type} = item
     if (type == "PHOTO") {
         return (
             <View style={tailwind("w-1/3 mb-5 flex-row justify-center")}>

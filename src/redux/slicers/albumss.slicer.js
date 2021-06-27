@@ -28,15 +28,28 @@ const albumssSlicer = createSlice({
             }
             return state
         },
-        removeMediaFromAlbum: (state, action) => {
-            const {albumId, mediaId, newAlbumId} = action.payload
-            const oldAlbumTotal = +state[albumId].total - 1
-            const newAlbumTotal = +state[newAlbumId].total + 1
-            const oldMedias = state[albumId].medias.filter(media => media.id != mediaId)
+        deleteMedia: (state, action) => {
+            const {albumId, mediaId} = action.payload
+            const total = +state[albumId].total - 1
+            const medias = state[albumId].medias.filter(media => media.id != mediaId)
             return {
                 ...state,
                 [albumId]: {
                     ...state[albumId],
+                    total,
+                    medias
+                }
+            }
+        },
+        moveMediaToOtherAlbum: (state, action) => {
+            const {oldAlbumId, mediaId, newAlbumId} = action.payload
+            const oldAlbumTotal = +state[oldAlbumId].total - 1
+            const newAlbumTotal = +state[newAlbumId].total + 1
+            const oldMedias = state[oldAlbumId].medias.filter(media => media.id != mediaId)
+            return {
+                ...state,
+                [oldAlbumId]: {
+                    ...state[oldAlbumId],
                     total: oldAlbumTotal,
                     medias: oldMedias
                 },
@@ -50,7 +63,7 @@ const albumssSlicer = createSlice({
 })
 
 
-export const { initAlbums, setAlbumMedias, removeMediaFromAlbum } = albumssSlicer.actions
+export const { initAlbums, setAlbumMedias, moveMediaToOtherAlbum, deleteMedia} = albumssSlicer.actions
 
 export const selectAlbums = state => state.albums
 

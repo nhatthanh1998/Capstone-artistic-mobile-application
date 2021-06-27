@@ -23,6 +23,10 @@ export const PageHeader = ({item, index, onClose}) => {
     }
 
     const onConfirm = () => {
+        
+
+
+
         setIsShowDownloadSuccessModel(false)
     }
 

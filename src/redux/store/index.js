@@ -5,7 +5,8 @@ import generatedImageReducer from '../slicers/generated-image.slicer'
 import isLoadingReducer from '../slicers/is-loading.slicer'
 import albumReducer from '../slicers/albums.slicer'
 import userReducer from '../slicers/user.slicer'
-import albumssSlicer from '../slicers/albumss.slicer';
+import albumssReducer from '../slicers/albumss.slicer';
+import selectedMediaReducer from '../slicers/selectedMedia.slicer'
 
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
     isLoading: isLoadingReducer,
     album: albumReducer,
     user: userReducer,
-    albums: albumssSlicer
+    albums: albumssReducer,
+    selectedMedia: selectedMediaReducer
   },
 });

@@ -1,5 +1,5 @@
-import {requestDeletePhoto} from '../../../apis/photos'
-import {deletePhotoFromAlbums } from '../../../redux/slicers/albums.slicer'
+import {requestDeleteMedia} from '../../../apis/photos'
+import {deleteMedia } from '../../../redux/slicers/albumss.slicer'
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import { changeMediaAlbumLocation } from '../../../apis/medias'
@@ -10,11 +10,11 @@ export const handlePressBack = ({setVisible}) => {
 
 
 
-export const handleConfirmDeleteModal = async ({photoId, dispatch, setVisible, setConfirmDeleteModalVisible}) => {
-    const response = await requestDeletePhoto({
-        photoId
+export const handleConfirmDeleteModal = async ({mediaId, albumId, dispatch, setVisible, setConfirmDeleteModalVisible}) => {
+    const response = await requestDeleteMedia({
+        mediaId
     })
-    dispatch(deletePhotoFromAlbums(response))
+    dispatch(deleteMedia({albumId, mediaId}))
     setConfirmDeleteModalVisible(false)
     handlePressBack({setVisible})
 }

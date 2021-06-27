@@ -60,9 +60,9 @@ export async function requestSavePhotoToAlbum({photoLocation, albumId}) {
     return response.data
 }
 
-export async function requestDeletePhoto({photoId}) {
+export async function requestDeleteMedia({mediaId}) {
     const token = await AsyncStorage.getItem("token")
-    let ENDPOINT_URL = `${MAIN_SERVER}/medias/${photoId}`    
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias/${mediaId}`    
     const response = await axios.delete(ENDPOINT_URL, {
         headers: {
             'Authorization': `Bearer ${token}`

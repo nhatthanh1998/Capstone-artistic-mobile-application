@@ -6,7 +6,7 @@ import { styles } from '../../../../styles';
 import { AlbumPicker } from './DropDown'
 import { useDispatch, useSelector } from 'react-redux'
 import { ALBUM_DETAIL_PAGE } from '../../../../enums/page-name'
-import { removeMediaFromAlbum, selectAlbums } from '../../../../redux/slicers/albumss.slicer';
+import { moveMediaToOtherAlbum, selectAlbums } from '../../../../redux/slicers/albumss.slicer';
 
 
 export const MoveMediaToAnotherAlbumModal = ({ isVisible, onCancel, onConfirm, media, navigation, setMediaDetailVisible }) => {
@@ -59,7 +59,7 @@ export const MoveMediaToAnotherAlbumModal = ({ isVisible, onCancel, onConfirm, m
                         disabled={isDisableMove}
                         onPress={async () => {
                             await onConfirm({mediaId: id, selectedAlbumId: selectedAlbum})
-                            dispatch(removeMediaFromAlbum({albumId: albumId, mediaId: id, newAlbumId: selectedAlbum}))
+                            dispatch(moveMediaToOtherAlbum({oldAlbumId: albumId, mediaId: id, newAlbumId: selectedAlbum}))
                             onCancel()
                             setMediaDetailVisible(false)
                             navigation.navigate(ALBUM_DETAIL_PAGE, {

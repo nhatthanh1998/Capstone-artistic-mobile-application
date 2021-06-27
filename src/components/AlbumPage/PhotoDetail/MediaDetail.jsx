@@ -135,7 +135,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
                         />
                         <ConfirmDeleteModal 
                             isVisible = {isConfirmDeleteModalVisible} 
-                            onConfirm = {() => handleConfirmDeleteModal({photoId: media.id, dispatch, setConfirmDeleteModalVisible, setVisible})} 
+                            onConfirm = {() => handleConfirmDeleteModal({mediaId: media.id, albumId: media.albumId, dispatch, setConfirmDeleteModalVisible, setVisible})} 
                             onCancel = {() => handleCancleDeleteModal({setConfirmDeleteModalVisible})}/>
                         <MoveMediaToAnotherAlbumModal
                             isVisible={isMoveMediaModalShow}

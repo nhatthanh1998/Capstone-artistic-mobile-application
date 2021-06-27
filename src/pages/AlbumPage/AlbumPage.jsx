@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { StatusBar, Animated, SafeAreaView, View} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAlbumSelectedMedia, selectAlbumMedias, selectSelectedAlbum } from '../../redux/slicers/albums.slicer'
+import { setSelectedMedia } from '../../redux/slicers/selectedMedia.slicer'
 import { AlbumHeader } from '../../components/AlbumPage/AlbumHeader'
 import { MediaDetail } from '../../components/AlbumPage/PhotoDetail'
 import { EmptyAlbum } from '../../components/AlbumPage/EmptyAlbum'
@@ -57,7 +57,7 @@ export const AlbumPage = ({route, navigation}) => {
     }, [])
 
     const handlePressPhotoItem = (item) => {
-      dispatch(setAlbumSelectedMedia(item))
+      dispatch(setSelectedMedia(item))
       setSelectedPhoto(item)
       setVisible(true)
     }
