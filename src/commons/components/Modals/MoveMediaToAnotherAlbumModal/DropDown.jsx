@@ -7,7 +7,7 @@ export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum, setDisable
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if(albums!== null) {
+    if(albums !== null) {
       const albumData = albums.map(item => {
         return {label: item.name, value: item.id }
       })
@@ -20,6 +20,8 @@ export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum, setDisable
     }
     return () => {}
   }, [albums])
+
+  console.log("Items:", items)
 
   return (
     <DropDownPicker

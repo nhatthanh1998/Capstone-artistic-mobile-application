@@ -11,21 +11,22 @@ import {selectIsLoading} from '../../redux/slicers/is-loading.slicer'
 import { Loading } from '../../commons/components/Loading/Loading'
 import tailwind from 'tailwind-rn'
 import { ALBUM_LIST_PAGE } from '../../enums/page-name'
+import { selectAlbums } from '../../redux/slicers/albumss.slicer'
 
 const AnimatedFlatList = Animated.FlatList
 
 export const AlbumPage = ({route, navigation}) => {
     const { albumId } = route.params
-
     const [headerHeight, setHeaderHeight] = useState(0)
     const [visible, setVisible] = useState(false)
     const [selectedPhoto, setSelectedPhoto] = useState(null)
+
     const dispatch = useDispatch()
-    const albumMedias = useSelector(selectAlbumMedias)
-    const album = useSelector(selectSelectedAlbum)
     const isLoading = useSelector(selectIsLoading)
     const ref = useRef()
-
+    const albums = useSelector(selectAlbums)
+    const album = albums[albumId]
+    const medias = album.medias ? album.medias : []
     const scrollY = useRef(new Animated.Value(0)).current
 
     const handleScroll = Animated.event(
@@ -50,7 +51,9 @@ export const AlbumPage = ({route, navigation}) => {
 
     useEffect(() => {
         StatusBar.setHidden(true);
-        handleGetAlbumDetail({albumId, dispatch})
+        if (!album.medias) {
+          handleGetAlbumDetail({albumId, dispatch})
+        } 
     }, [])
 
     const handlePressPhotoItem = (item) => {
@@ -62,6 +65,7 @@ export const AlbumPage = ({route, navigation}) => {
     const backToAlbumPage = () => {
       navigation.navigate(ALBUM_LIST_PAGE)
     }
+
     return (
         <SafeAreaView style={tailwind("h-full relative bg-white")}>
             <Loading isLoading={isLoading}/>
@@ -78,7 +82,7 @@ export const AlbumPage = ({route, navigation}) => {
                   />
             </Animated.View>
             {
-              albumMedias.length === 0 ?
+              medias.length === 0 ?
                 (
                   <View style={{paddingTop: headerHeight}}>
                     <EmptyAlbum/>
@@ -93,7 +97,7 @@ export const AlbumPage = ({route, navigation}) => {
                       contentContainerStyle={{paddingTop: headerHeight, paddingBottom: 50}}
                       numColumns={3}
                       showsVerticalScrollIndicator={false}
-                      data={albumMedias}
+                      data={medias}
                       renderItem={data => <PhotoItem data={data} handlePress={() => handlePressPhotoItem(data.item)}/>}
                       keyExtractor={item => item.id}
                     />

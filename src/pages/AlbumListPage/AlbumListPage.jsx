@@ -8,10 +8,11 @@ import { CreateNewAlbumModal } from '../../commons/components/modals/CreateNewAl
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading, setIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { useSelector, useDispatch } from 'react-redux'
+import { initAlbums, selectAlbums } from '../../redux/slicers/albumss.slicer'
 
 export const AlbumListPage = ({ navigation }) => {
     const dispatch = useDispatch()
-    const [albums, setAlbums] = useState([])
+    const albums = useSelector(selectAlbums)
     const [headerHeight, setHeaderHeight] = useState(0)
     const [showModal, setShowModal] = useState(false)
     const isLoading = useSelector(selectIsLoading)
@@ -20,18 +21,18 @@ export const AlbumListPage = ({ navigation }) => {
     useEffect(() => {
         dispatch(setIsLoading(true))
         fetchAlbums().then(({data}) => {
-            setAlbums(data)
-        dispatch(setIsLoading(false))
+            dispatch(initAlbums(data))
+            dispatch(setIsLoading(false))
         })
         return () => {}
     }, [])
-
+    
     const onCreateNewAlbum = async (newAlbumName) => {
         dispatch(setIsLoading(true))
         await createNewAlbum(newAlbumName)
         setShowModal(false)
         fetchAlbums().then(({data}) => {
-            setAlbums(data)
+            dispatch(initAlbums(data))
             dispatch(setIsLoading(false))
         })
     }
@@ -55,8 +56,9 @@ export const AlbumListPage = ({ navigation }) => {
                 </View>
             </View>
             <ScrollView style={{...tailwind("z-10 relative bg-white")}} contentContainerStyle={{paddingTop: headerHeight}}>
-                {albums.map(album => {
-                    return <AlbumListItem album={album} key={album.id} navigation = {navigation}/>
+                {Object.keys(albums).map((key, _) => {
+                    const album = albums[key]
+                    return <AlbumListItem album={album} key={key} navigation = {navigation}/>
                 })}
                 <View style={tailwind("h-10")}></View>
             </ScrollView>

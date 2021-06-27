@@ -12,13 +12,13 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, handleDeleteAlbu
     const [showEditAlbumModal, setShowEditAlbumModal] = useState(false)
 
     if(album) {
-        const {count, name, thumbnailURL, isDefault} = album
+        const {total, name, thumbnailUrl, isDefault} = album
         return (
             <ImageBackground 
                 onLayout={(event) => {
                     setHeaderHeight(event.nativeEvent.layout.height)
                 }}
-                source={{uri: thumbnailURL}} 
+                source={{uri: thumbnailUrl}} 
                 style={{...tailwind("w-full")}}
             >
                 <View style={{...tailwind("flex flex-col items-center w-full pt-9"), ...styles.darken}}>
@@ -56,7 +56,7 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, handleDeleteAlbu
                         </View>
                     </View>
                     <View style={{...tailwind("w-20 rounded-full py-3 text-gray-200 mb-20"), ...styles.lighten}}>
-                        <Text style={tailwind("text-xs font-thin text-black text-center")}>{count} pictures</Text>
+                        <Text style={tailwind("text-xs font-thin text-black text-center")}>{total} pictures</Text>
                     </View>
                     <View style={{...styles.bodyRadius, ...tailwind("w-full h-10 rounded-b-none bg-white")}}></View>
                 </View>

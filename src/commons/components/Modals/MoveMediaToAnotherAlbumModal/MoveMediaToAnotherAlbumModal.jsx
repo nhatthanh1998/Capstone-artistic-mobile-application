@@ -4,24 +4,28 @@ import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import { styles } from '../../../../styles';
 import { AlbumPicker } from './DropDown'
-import { getAlbums } from './handler'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ALBUM_DETAIL_PAGE } from '../../../../enums/page-name'
+import { removeMediaFromAlbum, selectAlbums } from '../../../../redux/slicers/albumss.slicer';
 
 
 export const MoveMediaToAnotherAlbumModal = ({ isVisible, onCancel, onConfirm, media, navigation, setMediaDetailVisible }) => {
     const {albumId, id} = media
+    const albums = useSelector(selectAlbums)
     const [isDisableMove, setDisableMove] = useState(true)
-    const [albums, setAlbums] = useState([])
     const [selectedAlbum, setSelectedAlbum] = useState(null)
+    const [selectAbleAlbums, setSelectAbleAlbums] = useState([])
     const dispatch = useDispatch()
 
     useEffect(() => {
-        getAlbums({dispatch}).then(response => {
-            const filterAlbums = response.data.filter(album => album.id !== albumId)
-            setAlbums(filterAlbums)
-            setSelectedAlbum(filterAlbums[0])
+        let filterAlbums = [] 
+        Object.keys(albums).filter((key, _) => {
+            if(key != albumId) {
+                filterAlbums.push(albums[key])
+            }
         })
+        setSelectAbleAlbums(filterAlbums)
+        setSelectedAlbum(filterAlbums[0])
     }, [])
 
     return (
@@ -40,12 +44,12 @@ export const MoveMediaToAnotherAlbumModal = ({ isVisible, onCancel, onConfirm, m
                     </TouchableOpacity>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Move Media</Text>
                     <View style={tailwind("flex flex-row justify-center")}>
-                        <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500 mb-3")}>
+                        <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500 mb-3")}>1
                             Choose album you want to move your media to
                         </Text>
                     </View>
                     <AlbumPicker
-                        albums={albums}
+                        albums={selectAbleAlbums}
                         selectedAlbum={selectedAlbum}
                         setSelectedAlbum={setSelectedAlbum}
                         setDisableMove={setDisableMove}
@@ -55,6 +59,7 @@ export const MoveMediaToAnotherAlbumModal = ({ isVisible, onCancel, onConfirm, m
                         disabled={isDisableMove}
                         onPress={async () => {
                             await onConfirm({mediaId: id, selectedAlbumId: selectedAlbum})
+                            dispatch(removeMediaFromAlbum({albumId: albumId, mediaId: id, newAlbumId: selectedAlbum}))
                             onCancel()
                             setMediaDetailVisible(false)
                             navigation.navigate(ALBUM_DETAIL_PAGE, {
