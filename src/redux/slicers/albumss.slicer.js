@@ -41,6 +41,23 @@ const albumssSlicer = createSlice({
                 }
             }
         },
+        addMedia: (state, action) => {
+            const {albumId, media} = action.payload
+            if(state[albumId]) {
+                if(state[albumId].medias) {
+                    const total = +state[albumId].total + 1
+                    const medias = [...state[albumId].medias, media]
+                    return {
+                        ...state,
+                        [albumId]: {
+                            ...state[albumId],
+                            total,
+                            medias
+                        }
+                    }
+                }
+            }
+        },
         moveMediaToOtherAlbum: (state, action) => {
             const {oldAlbumId, mediaId, newAlbumId} = action.payload
             const oldAlbumTotal = +state[oldAlbumId].total - 1
