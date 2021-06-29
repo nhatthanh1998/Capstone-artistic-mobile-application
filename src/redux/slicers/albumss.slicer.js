@@ -80,7 +80,7 @@ const albumssSlicer = createSlice({
 })
 
 
-export const { initAlbums, setAlbumMedias, moveMediaToOtherAlbum, deleteMedia} = albumssSlicer.actions
+export const { initAlbums, setAlbumMedias, moveMediaToOtherAlbum, deleteMedia, addMedia} = albumssSlicer.actions
 
 export const selectAlbums = state => state.albums
 

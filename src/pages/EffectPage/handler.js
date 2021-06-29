@@ -8,6 +8,7 @@ import { fetchAlbums } from '../../apis/albums'
 import { ALBUM_DETAIL_PAGE } from '../../enums/page-name'
 import { cleanOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { cleanGeneratedImage } from '../../redux/slicers/generated-image.slicer'
+import { addMedia } from '../../redux/slicers/albumss.slicer'
 
 export const getStyles = async ({dispatch}) => {
     const response = await fetchAllStyles()
@@ -22,14 +23,11 @@ export const requestTransferImage = async ({generatedImage, selectedStyle, photo
     }
 }
 
-
-
-export const handlePressBack = ({setBackModalVisible}) => {
-    setBackModalVisible(true)
-}
-
-export const handleConfirmGoBack = ({navigation, setBackModalVisible}) => {
-    setBackModalVisible(false)
+export const handleExit = ({navigation, setShowSaveSuccessModel, dispatch, setShowQuitModal}) => {
+    setShowSaveSuccessModel && setShowSaveSuccessModel(false)
+    setShowQuitModal && setShowQuitModal(false)
+    dispatch(cleanGeneratedImage())
+    dispatch(cleanOriginImage())
     navigation.navigate(MAIN_PAGE)
 }
 
@@ -50,18 +48,22 @@ handlePressCancelSavePhotoModal = ({setSavePhotoModalVisible}) => {
     setSavePhotoModalVisible(false)
 }
 
-export const handleRequestSavePhoto = async ({ photoLocation, albumId, setAlbumError, dispatch, navigation }) => {
+export const handleRequestSavePhoto = async ({ photoLocation, albumId, setAlbumError, dispatch, setShowSaveSuccessModel, setSavePhotoModalVisible }) => {
     if(albumId === null) {
         setAlbumError("Album must be selected!")
     } else {
         setAlbumError("")
+        setSavePhotoModalVisible(false)
         dispatch(setIsLoading(true))
-        await requestSavePhotoToAlbum({photoLocation, albumId})
-        dispatch(cleanGeneratedImage())
-        dispatch(cleanOriginImage())
+        const media = await requestSavePhotoToAlbum({photoLocation, albumId})
+        // dispatch(cleanGeneratedImage())
+        // dispatch(cleanOriginImage())
         dispatch(setIsLoading(false))
-        navigation.navigate(ALBUM_DETAIL_PAGE, {
-            albumId
-        })
+        dispatch(addMedia({albumId, media}))
+
+        setShowSaveSuccessModel(true)
+        // navigation.navigate(ALBUM_DETAIL_PAGE, {
+        //     albumId
+        // })
     }
 }

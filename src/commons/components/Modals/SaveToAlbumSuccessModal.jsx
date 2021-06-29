@@ -3,10 +3,8 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import AutoScaleImage from 'react-native-scalable-image';
-import { MESSAGE, NO_BUTTON, TITLE, YES_BUTTON } from '../../../enums/modals/back-effect-page-modal'
 
-
-export const BackEffectPageModal = ({isVisible, onCancel, onConfirm} ) => {
+export const SaveToAlbumSuccessModal = ({isVisible, onCancel, onConfirm} ) => {
     const [modelWidth, setModalWidth] = useState(0)
     const [imageHeight, setImageHeight] = useState(0) 
 
@@ -28,16 +26,16 @@ export const BackEffectPageModal = ({isVisible, onCancel, onConfirm} ) => {
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
                         <AutoScaleImage onLayout={(event) => {
                             setImageHeight(event.nativeEvent.layout.height)
-                        }} width={modelWidth - 20} source={require('../../../assets/modals/save-icon.webp')}></AutoScaleImage>
+                        }} width={modelWidth - 20} source={require('../../../assets/modals/download-complete.webp')}></AutoScaleImage>
                     </View>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>{TITLE}</Text>
-                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>{MESSAGE}</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Save success</Text>
+                    <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Your photo save successfully.</Text>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
                         <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>{YES_BUTTON}</Text>
+                            <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Continue</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={onCancel} style={tailwind("py-3 bg-gray-800 rounded-full w-32")}>
-                            <Text style={tailwind("text-center text-base tracking-tight font-medium text-gray-200")}>{NO_BUTTON}</Text>
+                            <Text style={tailwind("text-center text-base tracking-tight font-medium text-gray-200")}>Exit</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

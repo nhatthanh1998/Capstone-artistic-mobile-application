@@ -5,14 +5,15 @@ import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle, selectPrevSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImage, selectGeneratedImagePhotoLocations } from '../../redux/slicers/generated-image.slicer'
-import { getStyles, handlePressBack, handlePressSavePhoto, requestTransferImage, handleConfirmGoBack, handleContinueEdit, handleRequestSavePhoto } from './handler'
+import { getStyles, handlePressSavePhoto, requestTransferImage, handleExit, handleRequestSavePhoto } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
 import { View, TouchableOpacity, StatusBar, Image, Text } from 'react-native'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { Loading } from '../../commons/components/Loading/Loading'
-import { BackEffectPageModal } from '../../commons/components/modals/BackEffectPageModal'
+import { SaveToAlbumSuccessModal } from '../../commons/components/modals/SaveToAlbumSuccessModal'
 import { SavePhotoToAlbumModal } from '../../commons/components/modals/SavePhotoToAlbumModal/SavePhotoToAlbumModal'
+import { QuitModal } from '../../commons/components/modals/QuitModal'
 
 
 export const EffectPage = ({ navigation }) => {
@@ -28,8 +29,9 @@ export const EffectPage = ({ navigation }) => {
     const generatedImage = useSelector(selectGeneratedImageAccessURL)
     const photoLocations = useSelector(selectGeneratedImagePhotoLocations)
     const isLoading = useSelector(selectIsLoading)
-    const [isBackModalVisible, setBackModalVisible] = useState(false)
+    const [showSaveSuccessModel, setShowSaveSuccessModel] = useState(false)
     const [isSavePhotoModalVisible, setSavePhotoModalVisible] = useState(false)
+    const [showQuitModal, setShowQuitModal] = useState(false)
 
     useEffect(() => {
         StatusBar.setHidden(true)
@@ -55,24 +57,32 @@ export const EffectPage = ({ navigation }) => {
 
     return (
         <View style={tailwind("flex-1 relative h-full")}>
-            <BackEffectPageModal 
-            isVisible={isBackModalVisible} 
-            onCancel={() => handleContinueEdit({setBackModalVisible})} 
-            onConfirm={() => handleConfirmGoBack({navigation, setBackModalVisible})}/>
+            <QuitModal
+                isVisible={showQuitModal}
+                onCancel={() => setShowQuitModal(false)}
+                onConfirm={() => handleExit({navigation, setShowQuitModal, dispatch})}
+            />
+
+            <SaveToAlbumSuccessModal 
+                isVisible={showSaveSuccessModel} 
+                onConfirm={() => setShowSaveSuccessModel(false)} 
+                onCancel={() => handleExit({navigation, setShowSaveSuccessModel, dispatch})}
+            />
 
             <SavePhotoToAlbumModal 
-            isVisible={isSavePhotoModalVisible}
-            onCancel={() => {setSavePhotoModalVisible(false)}}
-            albums={albums}
-            selectedAlbum={selectedAlbum}
-            setSelectedAlbum={setSelectedAlbum}
-            onConfirm = {() => {handleRequestSavePhoto({setAlbumError, dispatch, navigation, albumId:selectedAlbum, photoLocation:photoLocations[selectedStyle.id]})}}/>
-
+                isVisible={isSavePhotoModalVisible}
+                onCancel={() => {setSavePhotoModalVisible(false)}}
+                albums={albums}
+                selectedAlbum={selectedAlbum}
+                setSelectedAlbum={setSelectedAlbum}
+                onConfirm={() => {
+                    handleRequestSavePhoto({setAlbumError, setSavePhotoModalVisible, setShowSaveSuccessModel, dispatch, navigation, albumId:selectedAlbum, photoLocation:photoLocations[selectedStyle.id]})
+                }}/>
             <Loading isLoading={isLoading}/>
 
             <View style={tailwind("flex flex-row items-center bg-white px-5 py-4 relative z-20")}>
                 <View style={tailwind("w-1/3")}>
-                    <TouchableOpacity onPress={() => handlePressBack({setBackModalVisible})}>
+                    <TouchableOpacity onPress={() => setShowQuitModal(true)}>
                         <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/2223/2223615.png"}}></Image>
                     </TouchableOpacity>
                 </View>
