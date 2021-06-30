@@ -29,15 +29,13 @@ const albumssSlicer = createSlice({
             const removeAlbumId = action.payload.albumId
             return _.omit(albums, [removeAlbumId])
         },
-        setAlbumMedias: (state, action) => {
-            state = {
-                ...state,
-                [action.payload.id]: {
-                    ...state[action.payload.id],
-                    medias: action.payload.medias
-                }
+        setAlbumMedias: (albums, action) => {
+            const {id, medias} = action.payload
+            albums[id] = {
+                ...albums[id],
+                medias
             }
-            return state
+            return albums
         },
         deleteMedia: (state, action) => {
             const {albumId, mediaId} = action.payload

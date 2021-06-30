@@ -83,7 +83,7 @@ export const EffectPage = ({ navigation }) => {
             <View style={tailwind("flex flex-row items-center bg-white px-5 py-4 relative z-20")}>
                 <View style={tailwind("w-1/3")}>
                     <TouchableOpacity onPress={() => setShowQuitModal(true)}>
-                        <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/2223/2223615.png"}}></Image>
+                        <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/1/1193.png"}}></Image>
                     </TouchableOpacity>
                 </View>
                 <View style={tailwind("w-1/3")}>

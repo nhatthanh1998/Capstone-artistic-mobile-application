@@ -54,12 +54,12 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
                             </TouchableOpacity>
                             {
                                 showMenu && (
-                                    <View style={{...tailwind("absolute right-5 mt-5 p-4 rounded-xl"), ...styles.darken_2}} hide>
+                                    <View style={{...tailwind("absolute z-50 right-5 mt-5 p-4 rounded-xl"), ...styles.darken_2}} hide>
                                         <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
                                             setShowMenu(false)
                                             handlePressAddItem({dispatch, albumId: id})
                                         }}>
-                                            <Image style={tailwind("w-3 h-3 mr-4")} source={require('../../assets/icons/add.png')}></Image>
+                                            <Image style={tailwind("w-3 h-3 mr-4")} source={require('../../assets/icons/plus.png')}></Image>
                                             <Text style={tailwind("text-xs font-thin text-white")}>Add item</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
@@ -67,7 +67,14 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
                                             setShowEditAlbumModal(true)
                                         }}>
                                             <Image style={tailwind("w-3 h-3 mr-4")} source={require('../../assets/icons/edit.png')}></Image>
-                                            <Text style={tailwind("text-xs font-thin text-white")}>Edit</Text>
+                                            <Text style={tailwind("text-xs font-thin text-white")}>Change name</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
+                                            setShowMenu(false)
+                                            setShowEditAlbumModal(true)
+                                        }}>
+                                            <Image style={tailwind("w-3 h-3 mr-4")} source={require('../../assets/icons/background.png')}></Image>
+                                            <Text style={tailwind("text-xs font-thin text-white")}>Change background</Text>
                                         </TouchableOpacity>
                                         {isDefault === false ? <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
                                             onPress={() => {
@@ -76,7 +83,7 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
                                             }}
                                             >
                                                 <Image style={tailwind("w-3 h-3 mr-4")} source={require('../../assets/icons/delete.png')}></Image>
-                                                <Text style={tailwind("text-xs font-thin text-white")}>Delete</Text>
+                                                <Text style={tailwind("text-xs font-thin text-white")}>Delete Album</Text>
                                         </TouchableOpacity> : null}
                                     </View>
                                 )

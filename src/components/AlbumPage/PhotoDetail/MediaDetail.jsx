@@ -49,11 +49,11 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
     const renderContent = (media) => {
         if(media.type == "PHOTO") {
             return (
-                <View style={tailwind("flex flex-row items-end justify-center w-full h-full bg-black")}>
+                <View style={tailwind("flex flex-row items-center justify-center w-full h-full bg-black")}>
                     <Image
                         style={{height: originImageHeight, ...tailwind("w-full")}} 
                         source={{uri: media.accessURL}}
-                        resizeMode="contain"/>  
+                    />  
                 </View>
             )
         } else {
@@ -88,40 +88,52 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
                 (
                     <View style={tailwind("w-full h-full relative")}>
                         <View style={{...tailwind("flex flex-row absolute py-5 w-full z-20")}}>
-                            <View style={tailwind("w-1/2 pl-5")}>
-                                <TouchableOpacity style={{...tailwind("w-7 h-7 flex items-center justify-center rounded-lg"), ...styles.lighten_2, ...styles.shadow_2}} onPress={() => {handlePressBack({setVisible})}}>
-                                    <Image source={{uri: "https://image.flaticon.com/icons/png/512/130/130831.png"}} style={tailwind("w-4 h-4")}/>
-                                </TouchableOpacity>
-                            </View>
-                            
-                            <View style={tailwind("w-1/2 flex items-end pr-5")}>
+                            <View style={tailwind("w-1/2 flex pl-5")}>
                                 <TouchableOpacity onPress={() => setShowMenu(!showMenu)}
                                     style={{...tailwind("w-7 h-7 flex items-center justify-center rounded-lg"), ...styles.lighten_2, ...styles.shadow_2}} >
-                                    <Image source={{uri: "https://image.flaticon.com/icons/png/512/512/512142.png"}} style={tailwind("w-4 h-4")}/>
+                                    <Image source={require('../../../assets/icons/menu.png')} style={tailwind("w-4 h-4")}/>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={tailwind("w-1/2 pr-5 items-end")}>
+                                <TouchableOpacity style={{...tailwind("w-7 h-7 flex items-center justify-center rounded-lg"), ...styles.lighten_2, ...styles.shadow_2}} onPress={() => {
+                                    handlePressBack({setVisible})
+                                    setShowMenu(false)
+                                }}>
+                                    <Image source={require('../../../assets/icons/down-arrow.png')} style={tailwind("w-4 h-4")}/>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         {
                             showMenu ? (
-                            <View style={{...tailwind("py-4 z-20 absolute right-0 px-6 mt-14 mr-5 rounded-xl"), ...styles.darken_2}} hide>
-                                <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => console.log("Press")}>
-                                    <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/paint.png')}></Image>
-                                    <Text style={tailwind("text-xs font-thin text-white")}>Transfer</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => setMoveMediaModalShow(true)}>
-                                    <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/share.png')}></Image>
-                                    <Text style={tailwind("text-xs font-thin text-white")}>Move</Text>
+                            <View style={{...tailwind("py-4 z-20 absolute px-6 mt-14 ml-5 rounded-xl"), ...styles.darken_2}} hide>
+                                <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
+                                    setShowMenu(false)
+                                }}>
+                                    <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/paint.png')}></Image>
+                                    <Text style={tailwind("text-xs font-thin text-white")}>Apply style</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")} onPress = {() => {
+                                    setShowMenu(false)
                                     handlePressDownloadButton({accessURL: media.accessURL, setDownloadSucessModalVisible})
                                 }}>
-                                    <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/download.png')}></Image>
+                                    <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/download.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Download</Text>
                                 </TouchableOpacity>
+                                <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
+                                    setShowMenu(false)
+                                    setMoveMediaModalShow(true)
+                                }}>
+                                    <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/share.png')}></Image>
+                                    <Text style={tailwind("text-xs font-thin text-white")}>Move</Text>
+                                </TouchableOpacity>
+                                
                                 <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
-                                    onPress = {() => {handlePressDeleteButton({setConfirmDeleteModalVisible})}}
-                                >
-                                    <Image style={tailwind("w-3 h-3 mr-6")} source={require('../../../assets/icons/delete.png')}></Image>
+                                    onPress = {() => {
+                                        handlePressDeleteButton({setConfirmDeleteModalVisible})
+                                        setShowMenu(false)
+                                }}>
+                                    <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/delete.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Delete</Text>
                                 </TouchableOpacity>
                             </View>
