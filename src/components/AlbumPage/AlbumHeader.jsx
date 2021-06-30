@@ -9,7 +9,7 @@ import { uploadMedia } from '../../apis/photos'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { addMedia } from '../../redux/slicers/albumss.slicer'
 
-export const AlbumHeader = ({setHeaderHeight, album, pressBack, handleDeleteAlbum, dispatch}) => {
+export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, dispatch, handleDeleteAlbum}) => {
 
     const [showMenu, setShowMenu] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
@@ -89,7 +89,7 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, handleDeleteAlbu
                     <View style={{...styles.bodyRadius, ...tailwind("w-full h-10 rounded-b-none bg-white")}}></View>
                 </View>
                 <ConfirmDeleteAlbumModal isVisible={showConfirmDeleteModal} onCancel={() => setShowConfirmDeleteModal(false)}
-                onConfirm={() => {handleDeleteAlbum()}}
+                    onConfirm={() => {handleDeleteAlbum({albumId: album.id, dispatch, navigation, setShowConfirmDeleteModal})}}
                 />
                 <EditAlbumModal album={album} isVisible={showEditAlbumModal} onCancel={() => setShowEditAlbumModal(false)}/>
             </ImageBackground>

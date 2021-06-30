@@ -7,12 +7,15 @@ import { handleDeleteAlbumRedux, setAlbumMedias } from '../../redux/slicers/albu
 
 
 export const handleGetAlbumDetail = async ({albumId, dispatch}) => {
+    dispatch(setIsLoading(true))
     const response = await getAlbumDetail({albumId})
+    dispatch(setIsLoading(false))
     dispatch(setAlbumMedias(response))
 }
 
-export const handleDeleteAlbum = async ({albumId, dispatch, navigation }) => {
+export const handleDeleteAlbum = async ({albumId, dispatch, navigation, setShowConfirmDeleteModal}) => {
     dispatch(setIsLoading(true))
+    setShowConfirmDeleteModal(false)
     await deleteAlbum({albumId})
     dispatch(setIsLoading(false))
     dispatch(handleDeleteAlbumRedux({ albumId }))

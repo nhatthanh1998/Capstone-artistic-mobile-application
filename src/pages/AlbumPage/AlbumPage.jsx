@@ -20,6 +20,7 @@ export const AlbumPage = ({route, navigation}) => {
     const [headerHeight, setHeaderHeight] = useState(0)
     const [visible, setVisible] = useState(false)
     const [selectedPhoto, setSelectedPhoto] = useState(null)
+    const [onLoadData, setOnLoadData] = useState(false)
 
     const dispatch = useDispatch()
     const isLoading = useSelector(selectIsLoading)
@@ -52,6 +53,7 @@ export const AlbumPage = ({route, navigation}) => {
     useEffect(() => {
         StatusBar.setHidden(true);
         if (!album.medias) {
+          setOnLoadData(true)
           handleGetAlbumDetail({albumId, dispatch})
         } 
     }, [])
@@ -79,11 +81,12 @@ export const AlbumPage = ({route, navigation}) => {
                   setHeaderHeight={setHeaderHeight}
                   dispatch={dispatch}
                   album={album}
-                  handleDeleteAlbum={() => {handleDeleteAlbum({albumId, dispatch, navigation})}}
+                  navigation={navigation}
+                  handleDeleteAlbum={handleDeleteAlbum}
                   />
             </Animated.View>
             {
-              medias.length === 0 ?
+              medias.length === 0 && onLoadData == false ?
                 (
                   <View style={{paddingTop: headerHeight}}>
                     <EmptyAlbum/>

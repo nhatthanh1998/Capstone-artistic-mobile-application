@@ -29,10 +29,10 @@ export const AlbumListPage = ({ navigation }) => {
     
     const onCreateNewAlbum = async (newAlbumName) => {
         dispatch(setIsLoading(true))
-        const data = await createNewAlbum(newAlbumName)
         setShowModal(false)
+        const data = await createNewAlbum(newAlbumName)
         dispatch(setIsLoading(false))
-         dispatch(handleAddAlbumRedux({newAlbum: {...data, total: 0}}))
+        dispatch(handleAddAlbumRedux({newAlbum: {...data, total: 0}}))
     }
 
     return (
