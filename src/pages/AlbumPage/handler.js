@@ -2,7 +2,7 @@ import { getAlbumDetail } from '../../apis/albums'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import {ALBUM_LIST_PAGE} from '../../enums/page-name'
 import { deleteAlbum } from '../../apis/albums'
-import { setAlbumMedias } from '../../redux/slicers/albumss.slicer'
+import { handleDeleteAlbumRedux, setAlbumMedias } from '../../redux/slicers/albumss.slicer'
 
 
 
@@ -13,7 +13,8 @@ export const handleGetAlbumDetail = async ({albumId, dispatch}) => {
 
 export const handleDeleteAlbum = async ({albumId, dispatch, navigation }) => {
     dispatch(setIsLoading(true))
-    const response = await deleteAlbum({albumId})
+    await deleteAlbum({albumId})
     dispatch(setIsLoading(false))
+    dispatch(handleDeleteAlbumRedux({ albumId }))
     navigation.navigate(ALBUM_LIST_PAGE)
 }

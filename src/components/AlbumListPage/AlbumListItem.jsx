@@ -6,7 +6,7 @@ import moment from 'moment'
 import { ALBUM_DETAIL_PAGE } from '../../enums/page-name'
 
 export const AlbumListItem = ({album, navigation}) => {
-    const {id, name, thumbnailUrl, total, createdAt} = album
+    const {id, name, thumbnailURL, total, createdAt} = album
     return (
         <View style={tailwind("pt-5 mx-5")}>
             <View style={tailwind("flex flex-row items-center")}>
@@ -23,7 +23,7 @@ export const AlbumListItem = ({album, navigation}) => {
                     })
                 }}
                 >
-                <Image source={{uri: thumbnailUrl}}
+                <Image source={{uri: thumbnailURL}}
                      style={{...tailwind("justify-center items-center h-full w-full")}}/>
             </TouchableOpacity>
         </View>

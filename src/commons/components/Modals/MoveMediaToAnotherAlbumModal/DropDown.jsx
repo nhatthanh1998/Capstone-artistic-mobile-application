@@ -21,8 +21,6 @@ export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum, setDisable
     return () => {}
   }, [albums])
 
-  console.log("Items:", items)
-
   return (
     <DropDownPicker
       placeholder="Select album"

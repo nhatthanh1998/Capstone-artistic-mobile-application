@@ -8,7 +8,7 @@ import { CreateNewAlbumModal } from '../../commons/components/modals/CreateNewAl
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading, setIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { useSelector, useDispatch } from 'react-redux'
-import { initAlbums, selectAlbums } from '../../redux/slicers/albumss.slicer'
+import { handleAddAlbumRedux, initAlbums, selectAlbums } from '../../redux/slicers/albumss.slicer'
 
 export const AlbumListPage = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -29,12 +29,10 @@ export const AlbumListPage = ({ navigation }) => {
     
     const onCreateNewAlbum = async (newAlbumName) => {
         dispatch(setIsLoading(true))
-        await createNewAlbum(newAlbumName)
+        const data = await createNewAlbum(newAlbumName)
         setShowModal(false)
-        fetchAlbums().then(({data}) => {
-            dispatch(initAlbums(data))
-            dispatch(setIsLoading(false))
-        })
+        dispatch(setIsLoading(false))
+         dispatch(handleAddAlbumRedux({newAlbum: {...data, total: 0}}))
     }
 
     return (

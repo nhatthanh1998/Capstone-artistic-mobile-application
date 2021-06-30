@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { ALBUM_REDUCER_PREFIX } from "../../enums/reducer-prefix"
-
+import _ from 'lodash'
 
 const initialState = {}
 
@@ -8,7 +8,7 @@ const albumssSlicer = createSlice({
     name: ALBUM_REDUCER_PREFIX,
     initialState,
     reducers: {
-        initAlbums: (state, action) => {
+        initAlbums: (_, action) => {
             const albums = {}
             for (album of action.payload) {
                 albums[album.id] = {
@@ -16,7 +16,18 @@ const albumssSlicer = createSlice({
                     medias: null
                 }
             }
-            return state = albums
+            return albums
+        },
+        handleAddAlbumRedux: (albums, action) => {
+            const newAlbum = action.payload.newAlbum
+            return {
+                [newAlbum.id]: newAlbum,
+                ...albums
+            }
+        },
+        handleDeleteAlbumRedux: (albums, action) => {
+            const removeAlbumId = action.payload.albumId
+            return _.omit(albums, [removeAlbumId])
         },
         setAlbumMedias: (state, action) => {
             state = {
@@ -46,7 +57,7 @@ const albumssSlicer = createSlice({
             if(state[albumId]) {
                 if(state[albumId].medias) {
                     const total = +state[albumId].total + 1
-                    const medias = [...state[albumId].medias, media]
+                    const medias = [media, ...state[albumId].medias,]
                     return {
                         ...state,
                         [albumId]: {
@@ -80,7 +91,8 @@ const albumssSlicer = createSlice({
 })
 
 
-export const { initAlbums, setAlbumMedias, moveMediaToOtherAlbum, deleteMedia, addMedia} = albumssSlicer.actions
+export const { initAlbums, handleAddAlbumRedux, handleDeleteAlbumRedux, 
+    setAlbumMedias, moveMediaToOtherAlbum, deleteMedia, addMedia } = albumssSlicer.actions
 
 export const selectAlbums = state => state.albums
 

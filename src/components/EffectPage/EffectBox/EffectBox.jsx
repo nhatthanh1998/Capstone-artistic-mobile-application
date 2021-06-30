@@ -2,7 +2,7 @@ import React from 'react'
 import { TouchableOpacity, Image, View, Text, ImageBackground } from 'react-native'
 import tailwind from 'tailwind-rn'
 export const EffectBox = ({ style, handlePress, isSelect }) => {
-    const {id, styleName, iconURL, routingKey, description} = style
+    const {styleName, iconURL} = style
     if (isSelect == false) {
         return (
             <View style={tailwind("w-1/4 my-10 justify-center flex flex-row")}>

@@ -70,3 +70,20 @@ export async function requestDeleteMedia({mediaId}) {
     })
     return response.data
 }
+
+
+export async function uploadMedia({uri, albumId}) {
+    const name = new Date().getTime() + ".jpg"
+    const ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
+    const token = await AsyncStorage.getItem("token")
+    let formData = new FormData();
+    formData.append("albumId", albumId)
+    formData.append("media", {uri, type: 'image/jpg', name});
+    const response = await axios.post(ENDPOINT_URL, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    return response.data
+}

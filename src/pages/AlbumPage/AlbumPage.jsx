@@ -25,8 +25,8 @@ export const AlbumPage = ({route, navigation}) => {
     const isLoading = useSelector(selectIsLoading)
     const ref = useRef()
     const albums = useSelector(selectAlbums)
-    const album = albums[albumId]
-    const medias = album.medias ? album.medias : []
+    const album = albums[albumId] || {}
+    const medias = album.medias || []
     const scrollY = useRef(new Animated.Value(0)).current
 
     const handleScroll = Animated.event(
@@ -76,7 +76,8 @@ export const AlbumPage = ({route, navigation}) => {
             }}>
                 <AlbumHeader
                   pressBack={backToAlbumPage} 
-                  setHeaderHeight={setHeaderHeight} 
+                  setHeaderHeight={setHeaderHeight}
+                  dispatch={dispatch}
                   album={album}
                   handleDeleteAlbum={() => {handleDeleteAlbum({albumId, dispatch, navigation})}}
                   />
