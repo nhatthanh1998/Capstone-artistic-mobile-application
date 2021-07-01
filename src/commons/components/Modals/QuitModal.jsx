@@ -27,10 +27,10 @@ export const QuitModal = (props) => {
                         </Text>
                     </View>
                     <View style={tailwind("flex flex-row justify-center mt-6")}>
-                        <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-5")}>
+                        <TouchableOpacity onPress={onConfirm} style={tailwind("py-3 bg-yellow-300 rounded-full w-32 mx-2")}>
                             <Text style={tailwind("text-center text-base tracking-tight font-medium")}>Exit</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={onCancel} style={tailwind("py-3 bg-gray-800 rounded-full w-32")}>
+                        <TouchableOpacity onPress={onCancel} style={tailwind("py-3 bg-gray-800 rounded-full w-32 mx-2")}>
                             <Text style={tailwind("text-center text-base tracking-tight font-medium text-gray-200")}>Cancel</Text>
                         </TouchableOpacity>
                     </View>

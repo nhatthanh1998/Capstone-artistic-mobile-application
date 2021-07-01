@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Carousel from 'react-native-snap-carousel';
 import {
   View,
@@ -10,14 +10,16 @@ import { styles } from '../../styles'
 import * as _ from 'lodash'
 
 
-const { width: screenWidth } = Dimensions.get('window');
 
-const itemHeight = screenWidth * 1/4 - 10
-const itemWidth = screenWidth * 1/4
 
-export const VerticalCarousel = ({ data, setSelectedStyle }) => {
+
+export const VerticalCarousel = ({ data, setSelectedStyle, sliderWidth }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const carouselRef = useRef(null);
+
+  useEffect(() => {
+
+  }, [sliderWidth])
 
   const animatedStyle = (index, animatedValue, carouselProps) => {
     let animatedOpacity = {};
@@ -35,8 +37,8 @@ export const VerticalCarousel = ({ data, setSelectedStyle }) => {
   const renderItem = ({ item, index }) => {
     return (
       <View style={{ ...styles.shadow_4, ...tailwind("overflow-hidden") }}>
-        <Image style={{...tailwind("rounded-xl"), height: itemHeight, marginEnd:5, marginStart:5}}
-         source={{ uri: item.icon_url }} />
+        <Image style={{...tailwind("rounded-xl"), height: sliderWidth * 1/4, marginEnd:5, marginStart:5}}
+         source={{ uri: item.iconURL }} />
       </View>
     )
   };
@@ -52,8 +54,8 @@ export const VerticalCarousel = ({ data, setSelectedStyle }) => {
         slideInterpolatedStyle={animatedStyle}
         enableSnap={true}
         ref={carouselRef}
-        sliderWidth={screenWidth}
-        itemWidth={itemWidth}
+        sliderWidth={sliderWidth}
+        itemWidth={sliderWidth * 1/4}
         data={data}
         renderItem={renderItem}
       />

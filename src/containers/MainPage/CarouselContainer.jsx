@@ -6,7 +6,9 @@ import {MyCarousel} from '../../components/MainPage/Carousel'
 import { VerticalCarousel } from '../../components/MainPage/VerticalCarousel'
 import { handleGetAvailableStyles } from './handler'
 import tailwind from 'tailwind-rn'
+import { Dimensions } from 'react-native';
 
+const windowWidth = Dimensions.get('window').width;
 
 export const CarouselContainer = () => {
     const [availableStyles, setAvailableStyles] = useState([])
@@ -43,7 +45,7 @@ export const CarouselContainer = () => {
     <View>
         {selectedStyle && <MyCarousel data = {_.sampleSize(showCases[selectedStyle.id], 6)}/>}    
         <View style={tailwind("pt-5")}>
-            <VerticalCarousel data={styles} setSelectedStyle={setSelectedStyle}/>
+            <VerticalCarousel data={styles} setSelectedStyle={setSelectedStyle} sliderWidth={windowWidth}/>
         </View>
     </View>
     )

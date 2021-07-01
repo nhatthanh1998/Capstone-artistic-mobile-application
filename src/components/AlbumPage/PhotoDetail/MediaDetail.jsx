@@ -7,7 +7,9 @@ import { styles } from '../../../styles'
 import { DownloadSuccessModal } from '../../../commons/components/modals/DownloadSuccessModal'
 import { ConfirmDeleteModal } from '../../../commons/components/modals/ConfirmDeleteModal'
 import { MoveMediaToAnotherAlbumModal } from '../../../commons/components/modals/MoveMediaToAnotherAlbumModal/MoveMediaToAnotherAlbumModal'
-import {handleMoveMedia} from './handler'
+import { handleMoveMedia } from './handler'
+import { ApplyStyleModal } from '../../../commons/components/modals/ApplyStyleModal'
+import { setOriginImage } from '../../../redux/slicers/origin-image.slicer'
 
 
 import { handleCancleDeleteModal,
@@ -19,6 +21,7 @@ import { handleCancleDeleteModal,
     handleCloseDownloadSuccessModal
  } from './handler'
 import { Video, AVPlaybackStatus } from 'expo-av';
+import { EFFECT_PAGE } from '../../../enums/page-name'
 
 
 export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
@@ -29,6 +32,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
     const [originImageHeight, setOriginImageHeight] = useState(0)
     const [showMenu, setShowMenu] = useState(false)
     const [mediaPermission, setMediaPermission] = useState(null)
+    const [showApplyStyleModal, setShowApplyStyleModal] = useState(false)
 
     useEffect(() => {
         getMediaLibraryPermission({ setMediaPermission })
@@ -70,6 +74,18 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
         }
     }
 
+    const handleApplyStyle = (media) => {
+        if(media.type == "VIDEO") {
+            console.log("HERE")
+            setShowApplyStyleModal(true)
+        }
+        else {
+            const {accessURL} = media
+            dispatch(setOriginImage({accessURL}))
+            navigation.navigate(EFFECT_PAGE)
+        }
+    }
+
     if (mediaPermission === null) {
         return <Text>Something when wrong with the Media Permission</Text>
     }
@@ -87,6 +103,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
                 media !== null ?
                 (
                     <View style={tailwind("w-full h-full relative")}>
+                        <ApplyStyleModal visible={showApplyStyleModal} onCancel={() => setShowApplyStyleModal(false)}/>
                         <View style={{...tailwind("flex flex-row absolute py-5 w-full z-20")}}>
                             <View style={tailwind("w-1/2 flex pl-5")}>
                                 <TouchableOpacity onPress={() => setShowMenu(!showMenu)}
@@ -109,6 +126,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
                             <View style={{...tailwind("py-4 z-20 absolute px-6 mt-14 ml-5 rounded-xl"), ...styles.darken_2}} hide>
                                 <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
                                     setShowMenu(false)
+                                    handleApplyStyle(media)
                                 }}>
                                     <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/paint.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Apply style</Text>
