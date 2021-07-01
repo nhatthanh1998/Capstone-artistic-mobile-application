@@ -8,16 +8,26 @@ import { fetchAllStyles } from '../../../apis/styles';
 import { Video, AVPlaybackStatus } from 'expo-av';
 
 export const ApplyStyleModal = (props) => {
-    const {visible, onCancel, handlePressCamera, handlePressGallery} = props
+    const {visible, onCancel, handleRequestTransferVideo, setSelectedStyleId} = props
     const [modalWidth, setModalWidth] = useState(100)
     const [stylesBE, setStylesBE] = useState([])
-    const [showCases, setShowCases] = useState({})
+    const [videoShowCase, setVideoShowCase] = useState({})
     const [selectedStyle, setSelectedStyle] = useState({})
 
     useEffect(() => {
         fetchAllStyles().then(styles => setStylesBE(styles))
         return () => {}
     }, [])
+
+    useEffect(() => {
+        // TODO: fetch video showcase
+        return () => {}
+    }, [selectedStyle])
+
+    handleSetSelectedStyle = (style) => {
+        setSelectedStyle(style)
+        setSelectedStyleId(style.id)
+    }
 
     return (
         <View>
@@ -50,10 +60,14 @@ export const ApplyStyleModal = (props) => {
                         }}/>
                     </View>
                     <View style={tailwind("pt-5 w-full flex items-center")}>
-                        <VerticalCarousel data={stylesBE} setSelectedStyle={setSelectedStyle} sliderWidth={modalWidth} itemShow={3}/>
+                        <VerticalCarousel data={stylesBE} setSelectedStyle={handleSetSelectedStyle} sliderWidth={modalWidth} itemShow={3}/>
                     </View>
                     <View style={tailwind("flex relative z-10 flex-row justify-center mt-7 mb-3")}>
-                        <TouchableOpacity onPress={() => setShowSelectPhotoModal(true)} style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
+                        <TouchableOpacity onPress={() => {
+                                setShowSelectPhotoModal(true)
+                                handleRequestTransferVideo()
+                            }} 
+                            style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
                             <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Start transfer</Text>
                         </TouchableOpacity>
                     </View>

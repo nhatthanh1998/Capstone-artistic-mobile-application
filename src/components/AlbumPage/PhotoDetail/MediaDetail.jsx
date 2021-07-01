@@ -24,7 +24,7 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 import { EFFECT_PAGE } from '../../../enums/page-name'
 
 
-export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
+export const MediaDetail = ({ media, visible, setVisible, navigation, albumId }) => {
     const dispatch = useDispatch()
     const [isConfirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
     const [isDownloadSuccessModalVisible, setDownloadSucessModalVisible] = useState(false)
@@ -33,6 +33,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
     const [showMenu, setShowMenu] = useState(false)
     const [mediaPermission, setMediaPermission] = useState(null)
     const [showApplyStyleModal, setShowApplyStyleModal] = useState(false)
+    const [selectedStyleId, setSelectedStyleId] = useState(null)
 
     useEffect(() => {
         getMediaLibraryPermission({ setMediaPermission })
@@ -74,6 +75,14 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
         }
     }
 
+    const handleRequestTransferVideo = () => {
+        const payload = {
+            albumId,
+            mediaId: media.id,
+            styleId: selectedStyleId
+        }
+    }
+
     const handleApplyStyle = (media) => {
         if(media.type == "VIDEO") {
             console.log("HERE")
@@ -103,7 +112,8 @@ export const MediaDetail = ({ media, visible, setVisible, navigation }) => {
                 media !== null ?
                 (
                     <View style={tailwind("w-full h-full relative")}>
-                        <ApplyStyleModal visible={showApplyStyleModal} onCancel={() => setShowApplyStyleModal(false)}/>
+                        <ApplyStyleModal visible={showApplyStyleModal} onCancel={() => setShowApplyStyleModal(false)} setSelectedStyleId={setSelectedStyleId}
+                            handleRequestTransferVideo={handleRequestTransferVideo}/>
                         <View style={{...tailwind("flex flex-row absolute py-5 w-full z-20")}}>
                             <View style={tailwind("w-1/2 flex pl-5")}>
                                 <TouchableOpacity onPress={() => setShowMenu(!showMenu)}
