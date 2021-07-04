@@ -15,7 +15,13 @@ export const ApplyStyleModal = (props) => {
     const [selectedStyle, setSelectedStyle] = useState({})
 
     useEffect(() => {
-        fetchAllStyles().then(styles => setStylesBE(styles))
+        fetchAllStyles().then(styles => {
+            setStylesBE(styles)
+            if(styles.length > 0) {
+                setSelectedStyle(styles[0])
+                setSelectedStyleId(styles[0].id)
+            }
+        })
         return () => {}
     }, [])
 
@@ -24,7 +30,7 @@ export const ApplyStyleModal = (props) => {
         return () => {}
     }, [selectedStyle])
 
-    handleSetSelectedStyle = (style) => {
+    const handleSetSelectedStyle = (style) => {
         setSelectedStyle(style)
         setSelectedStyleId(style.id)
     }
@@ -63,12 +69,10 @@ export const ApplyStyleModal = (props) => {
                         <VerticalCarousel data={stylesBE} setSelectedStyle={handleSetSelectedStyle} sliderWidth={modalWidth} itemShow={3}/>
                     </View>
                     <View style={tailwind("flex relative z-10 flex-row justify-center mt-7 mb-3")}>
-                        <TouchableOpacity onPress={() => {
-                                setShowSelectPhotoModal(true)
-                                handleRequestTransferVideo()
-                            }} 
+                        <TouchableOpacity
+                            onPress={handleRequestTransferVideo}
                             style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
-                            <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Start transfer</Text>
+                            <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Transfer Video</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

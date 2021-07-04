@@ -15,3 +15,21 @@ export const changeMediaAlbumLocation = async ({mediaId, selectedAlbumId}) => {
     })
     return response.data
 }
+
+
+export const requestTransferVideo = async({albumId, mediaId, styleId}) => {
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias/transfer-video`
+    const token = await AsyncStorage.getItem("token")
+    const payload = {
+        albumId,
+        mediaId,
+        styleId
+    }
+    const { data } = await axios.post(ENDPOINT_URL, payload, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    console.log(data)
+    return data
+}

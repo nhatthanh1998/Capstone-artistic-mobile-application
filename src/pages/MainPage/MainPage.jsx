@@ -10,6 +10,7 @@ import {SelectPhotoModal} from '../../commons/components/modals/SelectPhotoModal
 import { CarouselContainer } from '../../containers/MainPage/CarouselContainer'
 import {styles} from '../../styles'
 import { Loading } from '../../commons/components/Loading/Loading'
+import { requestGetNotifications } from '../../apis/notifications'
 
 
 export const MainPage = ({ navigation }) => {
@@ -18,12 +19,19 @@ export const MainPage = ({ navigation }) => {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
     const [showSelectPhotoModal, setShowSelectPhotoModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [notifications, setNotifications] = useState([])
+    const [numOfNotifications, setNumOfNotifications] = useState(0)
+    const [showMenu, setShowMenu] = useState(false)
     useEffect(() => {
         setIsLoading(true)
         Promise.all([
-        getStyles({dispatch}),
-        getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission })])
-        .then(rs => {
+            getStyles({dispatch}),
+            getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission }),
+            requestGetNotifications().then(rs => {
+                setNumOfNotifications(rs.count)
+                setNotifications(rs.data)
+            })
+        ]).then(_ => {
             setIsLoading(false)
         })
         return () => {}
@@ -48,6 +56,41 @@ export const MainPage = ({ navigation }) => {
                     >
                         <Image source={require("../../assets/icons/navigation_icon.png")} style={tailwind("w-5 h-5")} />
                     </TouchableOpacity>
+                </View>
+                <View style={tailwind("w-2/3 items-end")}>
+                    <TouchableOpacity style={tailwind("flex flex-col justify-center items-center")}
+                        onPress={() => setShowMenu(!showMenu)}
+                    >
+                        {
+                            numOfNotifications > 0 && (
+                                <View style={{...tailwind("absolute top-0 right-0 rounded-full z-20 bg-red-600 w-4 h-4 flex items-center justify-center"), 
+                                    transform: [
+                                        {translateX: 3}, {translateY: -2}
+                                    ]}}
+                                >
+                                    <Text style={{...tailwind("text-white"), fontSize: 9, ...styles.shadow_1}}>{numOfNotifications}</Text>
+                                </View>
+                            )
+                        }
+                        <Image source={require("../../assets/icons/bell.png")} style={tailwind("w-6 h-6 z-10 relative")} />
+                    </TouchableOpacity>
+                    {
+                        showMenu && (
+                            <View style={{...tailwind("absolute z-50 mt-8 py-4 px-2 rounded-xl"), ...styles.lighten_2, ...styles.shadow_2}} hide>
+                                {
+                                    notifications.length === 0 ? <></> : notifications.map((notification) => {
+                                        return (
+                                            <View style={tailwind("flex flex-row w-full items-center")}>
+                                                <Text style={tailwind("text-xs font-thin text-black")}>{notification.message}</Text>
+                                            </View>
+                                        )
+                                    })
+                                }
+                                
+                            </View>
+                        )
+                    }
+                    
                 </View>
             </View>
             <Text style={tailwind("ml-5 text-lg text-gray-500 font-thin tracking-wide mt-2")}>Discovery</Text>

@@ -21,7 +21,6 @@ export async function uploadPhotoToServer({imageURI}) {
 }
 
 
-
 export async function sendTransferPhotoRequest({photoLocation, selectedStyle }) {
     const ENDPOINT_URL = `${MAIN_SERVER}/medias/transfer-photo`
     const socketId = await AsyncStorage.getItem("socketId")
@@ -73,12 +72,17 @@ export async function requestDeleteMedia({mediaId}) {
 
 
 export async function uploadMedia({uri, albumId}) {
-    const name = new Date().getTime() + ".jpg"
+    const extension = uri.slice(uri.lastIndexOf('.') + 1)
+    const name = new Date().getTime() + "." + extension
     const ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
     const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
     formData.append("albumId", albumId)
-    formData.append("media", {uri, type: 'image/jpg', name});
+    if(extension == 'mp4') {
+        formData.append("media", {uri, type: 'video/mp4', name});
+    } else {
+        formData.append("media", {uri, type: 'image/jpeg', name});
+    }
     const response = await axios.post(ENDPOINT_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',

@@ -1,0 +1,2 @@
+let uri = 'file:///data/user/0/host.exp.exponent/cache/ExperienceData/UNVERIFIED-192.168.1.26-mymobileapp/ImagePicker/82caf0ac-8420-4837-baf3-7cfe5565df15.mp4'
+console.log(uri.slice(uri.lastIndexOf('.') + 1))

@@ -106,6 +106,7 @@ export const AlbumPage = ({route, navigation}) => {
                       keyExtractor={item => item.id}
                     />
                     <MediaDetail
+                      albumId={album.id}
                       media={selectedPhoto} 
                       setVisible = {setVisible} 
                       visible = {visible}

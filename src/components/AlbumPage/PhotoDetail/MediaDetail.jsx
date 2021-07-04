@@ -10,6 +10,7 @@ import { MoveMediaToAnotherAlbumModal } from '../../../commons/components/modals
 import { handleMoveMedia } from './handler'
 import { ApplyStyleModal } from '../../../commons/components/modals/ApplyStyleModal'
 import { setOriginImage } from '../../../redux/slicers/origin-image.slicer'
+import {RequestTransferVideoSuccessModal} from '../../../commons/components/modals/RequestTransferVideoSuccessModal'
 
 
 import { handleCancleDeleteModal,
@@ -22,6 +23,8 @@ import { handleCancleDeleteModal,
  } from './handler'
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { EFFECT_PAGE } from '../../../enums/page-name'
+import { requestTransferVideo } from '../../../apis/medias'
+import { setIsLoading } from '../../../redux/slicers/is-loading.slicer'
 
 
 export const MediaDetail = ({ media, visible, setVisible, navigation, albumId }) => {
@@ -34,6 +37,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
     const [mediaPermission, setMediaPermission] = useState(null)
     const [showApplyStyleModal, setShowApplyStyleModal] = useState(false)
     const [selectedStyleId, setSelectedStyleId] = useState(null)
+    const [showRequestTransferVideoSuccessModal, setShowRequestTransferVideoSuccessModal] = useState(null)
 
     useEffect(() => {
         getMediaLibraryPermission({ setMediaPermission })
@@ -74,18 +78,19 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
             )    
         }
     }
-
-    const handleRequestTransferVideo = () => {
-        const payload = {
+    const handleRequestTransferVideo = async () => {
+        dispatch(setIsLoading(true))
+        setShowApplyStyleModal(false)
+        const data = await requestTransferVideo({
             albumId,
             mediaId: media.id,
             styleId: selectedStyleId
-        }
+        })
+        dispatch(setIsLoading(false))
     }
 
     const handleApplyStyle = (media) => {
         if(media.type == "VIDEO") {
-            console.log("HERE")
             setShowApplyStyleModal(true)
         }
         else {
@@ -112,6 +117,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                 media !== null ?
                 (
                     <View style={tailwind("w-full h-full relative")}>
+                        <RequestTransferVideoSuccessModal visible={true}/>
                         <ApplyStyleModal visible={showApplyStyleModal} onCancel={() => setShowApplyStyleModal(false)} setSelectedStyleId={setSelectedStyleId}
                             handleRequestTransferVideo={handleRequestTransferVideo}/>
                         <View style={{...tailwind("flex flex-row absolute py-5 w-full z-20")}}>
