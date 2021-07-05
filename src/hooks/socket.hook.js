@@ -7,8 +7,8 @@ import { setIsLoading } from '../redux/slicers/is-loading.slicer'
 import {TRANSFER_COMPLETED, UPLOAD_IMAGE_SUCCESS} from '../enums/socket-event'
 import {SOCKET_SERVER} from '@env'
 
+const socket = io(SOCKET_SERVER)
 export function useSocket() {
-    const socket = io(SOCKET_SERVER)
     const dispatch = useDispatch()
 
     socket.on('connection', async data => {
@@ -29,3 +29,12 @@ export function useSocket() {
     })
     return socket
 }
+
+export const emitEvent = async ({event, payload}) => {
+    await socket.emit(event, payload)
+}
+
+export const setUpListen = async ({userId, handler}) => {
+    await socket.on(userId, data => handler(data))
+}
+

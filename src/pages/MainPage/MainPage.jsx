@@ -21,7 +21,7 @@ export const MainPage = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [notifications, setNotifications] = useState([])
     const [numOfNotifications, setNumOfNotifications] = useState(0)
-    const [showMenu, setShowMenu] = useState(false)
+    const [showNotification, setShowNotification] = useState(false)
     useEffect(() => {
         setIsLoading(true)
         Promise.all([
@@ -59,7 +59,13 @@ export const MainPage = ({ navigation }) => {
                 </View>
                 <View style={tailwind("w-2/3 items-end")}>
                     <TouchableOpacity style={tailwind("flex flex-col justify-center items-center")}
-                        onPress={() => setShowMenu(!showMenu)}
+                        onPress={() => {
+                            setShowNotification(!showNotification)
+                            if(numOfNotifications > 0) {
+                                setNumOfNotifications(0)
+                                requestMarkAllReadNotifications()
+                            }
+                        }}
                     >
                         {
                             numOfNotifications > 0 && (
@@ -75,7 +81,7 @@ export const MainPage = ({ navigation }) => {
                         <Image source={require("../../assets/icons/bell.png")} style={tailwind("w-6 h-6 z-10 relative")} />
                     </TouchableOpacity>
                     {
-                        showMenu && (
+                        showNotification && (
                             <View style={{...tailwind("absolute z-50 mt-8 py-4 px-2 rounded-xl"), ...styles.lighten_2, ...styles.shadow_2}} hide>
                                 {
                                     notifications.length === 0 ? <></> : notifications.map((notification) => {
