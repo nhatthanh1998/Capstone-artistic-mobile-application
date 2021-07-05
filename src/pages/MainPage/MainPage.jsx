@@ -11,6 +11,7 @@ import { CarouselContainer } from '../../containers/MainPage/CarouselContainer'
 import {styles} from '../../styles'
 import { Loading } from '../../commons/components/Loading/Loading'
 import { requestGetNotifications, requestMarkAllReadNotifications } from '../../apis/notifications'
+import { selectCount, selectNotifications, setNotifications } from '../../redux/slicers/notifications.slicer'
 
 
 
@@ -20,17 +21,20 @@ export const MainPage = ({ navigation }) => {
     const [hasGalleryPermission, setHasGalleryPermission] = useState(false)
     const [showSelectPhotoModal, setShowSelectPhotoModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [notifications, setNotifications] = useState([])
-    const [numOfNotifications, setNumOfNotifications] = useState(0)
     const [showNotification, setShowNotification] = useState(false)
+    const notifications = useSelector(selectNotifications)
+    const countNotifications = useSelector(selectCount)
+
     useEffect(() => {
         setIsLoading(true)
         Promise.all([
             getStyles({dispatch}),
             getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission }),
-            requestGetNotifications().then(rs => {
-                setNumOfNotifications(rs.count)
-                setNotifications(rs.data)
+            requestGetNotifications().then(({data, count}) => {
+                dispatch(setNotifications({
+                    notifications: data,
+                    count,
+                }))
             })
         ]).then(_ => {
             setIsLoading(false)
@@ -48,6 +52,9 @@ export const MainPage = ({ navigation }) => {
     }
 
     const renderNotficationMessage = () => {
+        if(!notifications) {
+            return <></>
+        }
         return notifications.length === 0 ? <></> : notifications.map(notification => {
             return (
                 <View key={notification.id} style={tailwind("flex flex-row w-full items-center")}>
@@ -56,6 +63,7 @@ export const MainPage = ({ navigation }) => {
             )
         })
     }
+
 
     return (
         <View style={tailwind("h-full relative")}>
@@ -72,20 +80,20 @@ export const MainPage = ({ navigation }) => {
                     <TouchableOpacity style={tailwind("flex flex-col justify-center items-center")}
                         onPress={() => {
                             setShowNotification(!showNotification)
-                            if(numOfNotifications > 0) {
-                                setNumOfNotifications(0)
+                            if(countNotifications > 0) {
+                                setNumNotification({count: 0})
                                 requestMarkAllReadNotifications()
                             }
                         }}
                     >
                         {
-                            numOfNotifications > 0 && (
+                            countNotifications > 0 && (
                                 <View style={{...tailwind("absolute top-0 right-0 rounded-full z-20 bg-red-600 w-4 h-4 flex items-center justify-center"), 
                                     transform: [
                                         {translateX: 3}, {translateY: -2}
                                     ]}}
                                 >
-                                    <Text style={{...tailwind("text-white"), fontSize: 9, ...styles.shadow_1}}>{numOfNotifications}</Text>
+                                    <Text style={{...tailwind("text-white"), fontSize: 9, ...styles.shadow_1}}>{countNotifications}</Text>
                                 </View>
                             )
                         }

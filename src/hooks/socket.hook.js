@@ -35,6 +35,7 @@ export const emitEvent = async ({event, payload}) => {
 }
 
 export const setUpListen = async ({userId, handler}) => {
+    console.log(userId)
     await socket.on(userId, data => handler(data))
 }
 

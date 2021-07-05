@@ -30,6 +30,5 @@ export const requestTransferVideo = async({albumId, mediaId, styleId}) => {
             'Authorization': `Bearer ${token}`
         }
     })
-    console.log(data)
     return data
 }

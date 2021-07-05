@@ -7,7 +7,7 @@ import albumReducer from '../slicers/albums.slicer'
 import userReducer from '../slicers/user.slicer'
 import albumssReducer from '../slicers/albumss.slicer';
 import selectedMediaReducer from '../slicers/selectedMedia.slicer'
-
+import notificationsReducer from '../slicers/notifications.slicer';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +18,7 @@ export const store = configureStore({
     album: albumReducer,
     user: userReducer,
     albums: albumssReducer,
-    selectedMedia: selectedMediaReducer
+    selectedMedia: selectedMediaReducer,
+    notifications: notificationsReducer
   },
 });

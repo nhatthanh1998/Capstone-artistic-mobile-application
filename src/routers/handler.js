@@ -24,3 +24,14 @@ export const handleGetUserProfile = async ({dispatch, navigation}) => {
         dispatch(setUserProfile(response))
     }
 }
+
+export const handleSocketMessage = (data) => {
+    console.log(data)
+    const {action} = data
+    switch(action) {
+        case 'TRANSFER_VIDEO_COMPLETE': {
+            console.log("Transfer video complete baby boy!!!")
+            break;
+        }
+    }
+}
