@@ -10,7 +10,8 @@ import {SelectPhotoModal} from '../../commons/components/modals/SelectPhotoModal
 import { CarouselContainer } from '../../containers/MainPage/CarouselContainer'
 import {styles} from '../../styles'
 import { Loading } from '../../commons/components/Loading/Loading'
-import { requestGetNotifications } from '../../apis/notifications'
+import { requestGetNotifications, requestMarkAllReadNotifications } from '../../apis/notifications'
+
 
 
 export const MainPage = ({ navigation }) => {
@@ -44,6 +45,16 @@ export const MainPage = ({ navigation }) => {
 
     if (hasGalleryPermission == false) {
         return (<Text>{GALLERY_NOT_GRANTED_MESSAGE}</Text>)
+    }
+
+    const renderNotficationMessage = () => {
+        return notifications.length === 0 ? <></> : notifications.map(notification => {
+            return (
+                <View key={notification.id} style={tailwind("flex flex-row w-full items-center")}>
+                    <Text style={tailwind("text-xs font-thin text-black")}>{notification.message}</Text>
+                </View>
+            )
+        })
     }
 
     return (
@@ -84,15 +95,8 @@ export const MainPage = ({ navigation }) => {
                         showNotification && (
                             <View style={{...tailwind("absolute z-50 mt-8 py-4 px-2 rounded-xl"), ...styles.lighten_2, ...styles.shadow_2}} hide>
                                 {
-                                    notifications.length === 0 ? <></> : notifications.map((notification) => {
-                                        return (
-                                            <View style={tailwind("flex flex-row w-full items-center")}>
-                                                <Text style={tailwind("text-xs font-thin text-black")}>{notification.message}</Text>
-                                            </View>
-                                        )
-                                    })
+                                    renderNotficationMessage()
                                 }
-                                
                             </View>
                         )
                     }
