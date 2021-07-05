@@ -6,6 +6,9 @@ import {setOriginImage} from '../redux/slicers/origin-image.slicer'
 import { setIsLoading } from '../redux/slicers/is-loading.slicer'
 import {TRANSFER_COMPLETED, UPLOAD_IMAGE_SUCCESS} from '../enums/socket-event'
 import {SOCKET_SERVER} from '@env'
+import { requestGetNotifications } from '../apis/notifications';
+import { setNotifications } from '../redux/slicers/notifications.slicer';
+import { setMediasNull } from '../redux/slicers/albumss.slicer';
 
 const socket = io(SOCKET_SERVER)
 export function useSocket() {
@@ -34,8 +37,22 @@ export const emitEvent = async ({event, payload}) => {
     await socket.emit(event, payload)
 }
 
-export const setUpListen = async ({userId, handler}) => {
-    console.log(userId)
-    await socket.on(userId, data => handler(data))
+export const setUpListen = async ({userId, dispatch}) => {
+    await socket.on(userId, data => {
+        const {action} = data
+        switch(action) {
+            case 'TRANSFER_VIDEO_COMPLETE': {
+                const {albumId} = data
+                requestGetNotifications().then(({data, count}) => {
+                    dispatch(setNotifications({
+                        notifications: data,
+                        count,
+                    }))
+                    dispatch(setMediasNull({id: albumId}))
+                })
+                break;
+            }
+        }
+    })
 }
 

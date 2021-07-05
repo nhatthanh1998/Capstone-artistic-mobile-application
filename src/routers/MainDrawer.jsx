@@ -19,7 +19,7 @@ export const MainDrawer = () => {
   }, [])
 
   useEffect(() => {
-    setUpListen({userId: userProfile.id, handler: handleSocketMessage})
+    setUpListen({userId: userProfile.id, dispatch})
   }, [userProfile])
 
   return (

@@ -11,7 +11,7 @@ import { CarouselContainer } from '../../containers/MainPage/CarouselContainer'
 import {styles} from '../../styles'
 import { Loading } from '../../commons/components/Loading/Loading'
 import { requestGetNotifications, requestMarkAllReadNotifications } from '../../apis/notifications'
-import { selectCount, selectNotifications, setNotifications } from '../../redux/slicers/notifications.slicer'
+import { selectCount, selectNotifications, setNotifications, setNumNotification } from '../../redux/slicers/notifications.slicer'
 
 
 
@@ -81,7 +81,7 @@ export const MainPage = ({ navigation }) => {
                         onPress={() => {
                             setShowNotification(!showNotification)
                             if(countNotifications > 0) {
-                                setNumNotification({count: 0})
+                                dispatch(setNumNotification({count: 0}))
                                 requestMarkAllReadNotifications()
                             }
                         }}
