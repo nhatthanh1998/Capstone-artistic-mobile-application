@@ -84,11 +84,10 @@ export async function uploadMedia({uri, albumId}) {
     } else {
         formData.append("media", {uri, type: 'image/jpeg', name});
     }
-    const response = await axios.post(ENDPOINT_URL, formData, {
+    return axios.post(ENDPOINT_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${token}`
         }
     })
-    return response.data
 }

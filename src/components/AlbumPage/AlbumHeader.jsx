@@ -25,9 +25,15 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
         if (!media.cancelled) {
             dispatch(setIsLoading(true))
             const mediaURI = media.uri
-            const {data} = await uploadMedia({uri: mediaURI, albumId })
-            dispatch(addMedia({media: data, albumId}))
-            dispatch(setIsLoading(false))
+            try {
+                const {data} = await uploadMedia({uri: mediaURI, albumId })
+                dispatch(addMedia({media: data, albumId}))
+                dispatch(setIsLoading(false))
+            } catch (error) {
+                console.log("Error occurs in add Media")
+                dispatch(setIsLoading(false))
+            }
+            
         }
     }
 
