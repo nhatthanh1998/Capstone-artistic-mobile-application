@@ -74,11 +74,12 @@ export async function requestDeleteMedia({mediaId}) {
 export async function uploadMedia({uri, albumId}) {
     const extension = uri.slice(uri.lastIndexOf('.') + 1)
     const name = new Date().getTime() + "." + extension
-    const ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
     const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
     formData.append("albumId", albumId)
     if(extension == 'mp4') {
+        ENDPOINT_URL = `${MAIN_SERVER}/videos/upload`
         formData.append("media", {uri, type: 'video/mp4', name});
     } else {
         formData.append("media", {uri, type: 'image/jpeg', name});
