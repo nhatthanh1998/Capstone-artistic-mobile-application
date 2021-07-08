@@ -47,11 +47,13 @@ export const EffectPage = ({ navigation }) => {
 
 
     useEffect(() => {
-        requestTransferImage({generatedImage,
-             photoLocation:originImage.accessURL,
-             selectedStyle,
-             dispatch
+        requestTransferImage({
+            generatedImage,
+            photoLocation:originImage.accessURL,
+            selectedStyle,
+            dispatch
         })
+
         selectedStyle.id === DEFAULT_STYLE_ID ? setDisableSave(true) : setDisableSave(false)
     }, [selectedStyle])
 
@@ -97,7 +99,7 @@ export const EffectPage = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <ImageBox photoURL={generatedImage[selectedStyle.id]} prevPhotoURL = {generatedImage[prevSelectedStyle.id]}/>
+            <ImageBox photoURL={generatedImage[selectedStyle.id]} prevPhotoURL={generatedImage[prevSelectedStyle.id]}/>
             <ListEffectBoxContainer
                 styles={styles}
                 originImageAccessURL={originImage.accessURL}

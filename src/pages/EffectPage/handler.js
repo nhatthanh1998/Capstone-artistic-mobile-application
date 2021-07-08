@@ -9,6 +9,8 @@ import { ALBUM_DETAIL_PAGE } from '../../enums/page-name'
 import { cleanOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { cleanGeneratedImage } from '../../redux/slicers/generated-image.slicer'
 import { addMedia } from '../../redux/slicers/albumss.slicer'
+import Toast from 'react-native-toast-message';
+
 
 export const getStyles = async ({dispatch}) => {
     const response = await fetchAllStyles()
@@ -17,7 +19,7 @@ export const getStyles = async ({dispatch}) => {
 
 export const requestTransferImage = async ({generatedImage, selectedStyle, photoLocation, dispatch}) => {
     const { id } = selectedStyle
-    if(generatedImage[id] === undefined && id !== DEFAULT_STYLE_ID) {
+    if(!generatedImage[id] && id !== DEFAULT_STYLE_ID) {
         dispatch(setIsLoading(true))
         await sendTransferPhotoRequest({photoLocation, selectedStyle})
     }
@@ -48,20 +50,29 @@ handlePressCancelSavePhotoModal = ({setSavePhotoModalVisible}) => {
     setSavePhotoModalVisible(false)
 }
 
-export const handleRequestSavePhoto = async ({ photoLocation, albumId, setAlbumError, dispatch, setShowSaveSuccessModel, setSavePhotoModalVisible }) => {
+export const handleRequestSavePhoto = ({ photoLocation, albumId, setAlbumError, dispatch, setShowSaveSuccessModel, setSavePhotoModalVisible }) => {
     if(albumId === null) {
         setAlbumError("Album must be selected!")
     } else {
         setAlbumError("")
         setSavePhotoModalVisible(false)
         dispatch(setIsLoading(true))
-        const media = await requestSavePhotoToAlbum({photoLocation, albumId})
+        requestSavePhotoToAlbum({photoLocation, albumId}).then(media => {
+            dispatch(setIsLoading(false))
+            dispatch(addMedia({albumId, media}))
+            setShowSaveSuccessModel(true)
+        }).catch(error => {
+            console.log(error)
+            Toast.show({
+                text1: "Error",
+                text2: error,
+                type: 'error',
+                position: 'top'
+            })
+        })
         // dispatch(cleanGeneratedImage())
         // dispatch(cleanOriginImage())
-        dispatch(setIsLoading(false))
-        dispatch(addMedia({albumId, media}))
-
-        setShowSaveSuccessModel(true)
+        
         // navigation.navigate(ALBUM_DETAIL_PAGE, {
         //     albumId
         // })

@@ -4,18 +4,31 @@ import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import { changeMediaAlbumLocation } from '../../../apis/medias'
 import { setIsLoading } from '../../../redux/slicers/is-loading.slicer';
+import Toast from 'react-native-toast-message';
 
 export const handlePressBack = ({setVisible}) => {
     setVisible(false)
 }
 
-export const handleConfirmDeleteModal = async ({mediaId, albumId, dispatch, setVisible, setConfirmDeleteModalVisible}) => {
+export const handleConfirmDeleteModal = ({mediaId, albumId, dispatch, setVisible, setConfirmDeleteModalVisible}) => {
     dispatch(setIsLoading(true))
     setConfirmDeleteModalVisible(false)
-    await requestDeleteMedia({ mediaId })
-    dispatch(deleteMedia({albumId, mediaId}))
-    dispatch(setIsLoading(false))
-    handlePressBack({setVisible})
+    requestDeleteMedia({ mediaId }).then(() => {
+        dispatch(deleteMedia({albumId, mediaId}))
+        dispatch(setIsLoading(false))
+        handlePressBack({setVisible})
+    }).catch(error => {
+        dispatch(setIsLoading(false))
+        handlePressBack({setVisible})
+        console.log(error)
+        Toast.show({
+            text1: "Error",
+            text2: error,
+            type: 'error',
+            position: 'top'
+        })
+    })
+    
 }
 
 export const handlePressDeleteButton = ({setConfirmDeleteModalVisible}) => {

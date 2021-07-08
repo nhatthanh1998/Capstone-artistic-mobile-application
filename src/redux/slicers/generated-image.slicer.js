@@ -18,7 +18,10 @@ const generatedImageSlicer = createSlice({
         },
 
         cleanGeneratedImage: (state, action) => {
+            console.log("HERE clean")
             state = initialState
+            console.log(state)
+            return state
         }
     }
 })

@@ -10,7 +10,7 @@ import { requestGetNotifications } from '../apis/notifications';
 import { setNotifications } from '../redux/slicers/notifications.slicer';
 import { setMediasNull } from '../redux/slicers/albumss.slicer';
 
-const socket = io(SOCKET_SERVER)
+const socket = io("ws://192.168.1.26:3000")
 export function useSocket() {
     const dispatch = useDispatch()
 
