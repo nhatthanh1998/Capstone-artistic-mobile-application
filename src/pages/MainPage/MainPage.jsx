@@ -12,7 +12,7 @@ import {styles} from '../../styles'
 import { Loading } from '../../commons/components/Loading/Loading'
 import { requestGetNotifications, requestMarkAllReadNotifications } from '../../apis/notifications'
 import { selectCount, selectNotifications, setNotifications, setNumNotification } from '../../redux/slicers/notifications.slicer'
-
+import Toast from 'react-native-toast-message';
 
 
 export const MainPage = ({ navigation }) => {
@@ -35,6 +35,14 @@ export const MainPage = ({ navigation }) => {
                     notifications: data,
                     count,
                 }))
+            }).catch(error => {
+                console.log(error)
+                Toast.show({
+                    text1: "Error",
+                    text2: error,
+                    type: 'error',
+                    position: 'top'
+                })
             })
         ]).then(_ => {
             setIsLoading(false)

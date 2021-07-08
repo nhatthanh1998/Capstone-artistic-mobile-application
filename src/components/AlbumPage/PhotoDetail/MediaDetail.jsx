@@ -11,7 +11,7 @@ import { handleMoveMedia } from './handler'
 import { ApplyStyleModal } from '../../../commons/components/modals/ApplyStyleModal'
 import { setOriginImage } from '../../../redux/slicers/origin-image.slicer'
 import {RequestTransferVideoSuccessModal} from '../../../commons/components/modals/RequestTransferVideoSuccessModal'
-
+import Toast from 'react-native-toast-message';
 
 import { handleCancleDeleteModal,
     handleConfirmDeleteModal,
@@ -81,12 +81,24 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
     const handleRequestTransferVideo = async () => {
         dispatch(setIsLoading(true))
         setShowApplyStyleModal(false)
-        const data = await requestTransferVideo({
-            albumId,
-            mediaId: media.id,
-            styleId: selectedStyleId
-        })
-        dispatch(setIsLoading(false))
+        try {
+            const data = await requestTransferVideo({
+                albumId,
+                mediaId: media.id,
+                styleId: selectedStyleId
+            })
+            dispatch(setIsLoading(false)) 
+        } catch (error) {
+            console.log(error)
+            Toast.show({
+                text1: "Error",
+                text2: error,
+                type: 'error',
+                position: 'top'
+            })
+            dispatch(setIsLoading(false)) 
+        }
+        
     }
 
     const handleApplyStyle = (media) => {

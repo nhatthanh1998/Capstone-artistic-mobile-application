@@ -8,6 +8,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { uploadMedia } from '../../apis/photos'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { addMedia } from '../../redux/slicers/albumss.slicer'
+import Toast from 'react-native-toast-message';
+
 
 export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, dispatch, handleDeleteAlbum}) => {
 
@@ -30,7 +32,13 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
                 dispatch(addMedia({media: data, albumId}))
                 dispatch(setIsLoading(false))
             } catch (error) {
-                console.log("Error occurs in add Media")
+                console.log(error)
+                Toast.show({
+                    text1: "Error",
+                    text2: error,
+                    type: 'error',
+                    position: 'top'
+                })
                 dispatch(setIsLoading(false))
             }
             

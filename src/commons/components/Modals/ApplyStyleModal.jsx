@@ -6,6 +6,8 @@ import { styles } from '../../../styles';
 import { VerticalCarousel } from '../../../components/MainPage/VerticalCarousel'
 import { fetchAllStyles } from '../../../apis/styles';
 import { Video, AVPlaybackStatus } from 'expo-av';
+import Toast from 'react-native-toast-message';
+
 
 export const ApplyStyleModal = (props) => {
     const {visible, onCancel, handleRequestTransferVideo, setSelectedStyleId} = props
@@ -21,6 +23,14 @@ export const ApplyStyleModal = (props) => {
                 setSelectedStyle(styles[0])
                 setSelectedStyleId(styles[0].id)
             }
+        }).catch(error => {
+            console.log(error)
+            Toast.show({
+                text1: "Error",
+                text2: error,
+                type: 'error',
+                position: 'top'
+            })
         })
         return () => {}
     }, [])

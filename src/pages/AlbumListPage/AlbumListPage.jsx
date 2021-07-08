@@ -9,6 +9,8 @@ import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading, setIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { useSelector, useDispatch } from 'react-redux'
 import { handleAddAlbumRedux, initAlbums, selectAlbums } from '../../redux/slicers/albumss.slicer'
+import Toast from 'react-native-toast-message';
+
 
 export const AlbumListPage = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -23,6 +25,14 @@ export const AlbumListPage = ({ navigation }) => {
         fetchAlbums().then(({data}) => {
             dispatch(initAlbums(data))
             dispatch(setIsLoading(false))
+        }).catch(error => {
+            console.log(error)
+            Toast.show({
+                text1: "Error",
+                text2: error,
+                type: 'error',
+                position: 'top'
+            })
         })
         return () => {}
     }, [])
@@ -30,9 +40,20 @@ export const AlbumListPage = ({ navigation }) => {
     const onCreateNewAlbum = async (newAlbumName) => {
         dispatch(setIsLoading(true))
         setShowModal(false)
-        const data = await createNewAlbum(newAlbumName)
-        dispatch(setIsLoading(false))
-        dispatch(handleAddAlbumRedux({newAlbum: {...data, total: 0}}))
+        try {
+            const data = await createNewAlbum(newAlbumName)
+            dispatch(setIsLoading(false))
+            dispatch(handleAddAlbumRedux({newAlbum: {...data, total: 0}}))
+        } catch (error) {
+            console.log(error)
+            Toast.show({
+                text1: "Error",
+                text2: error,
+                type: 'error',
+                position: 'top'
+            })
+        }
+        
     }
 
     return (

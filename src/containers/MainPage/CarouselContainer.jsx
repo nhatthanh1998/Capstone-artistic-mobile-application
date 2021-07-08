@@ -7,6 +7,7 @@ import { VerticalCarousel } from '../../components/MainPage/VerticalCarousel'
 import { handleGetAvailableStyles } from './handler'
 import tailwind from 'tailwind-rn'
 import { Dimensions } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -35,6 +36,14 @@ export const CarouselContainer = () => {
                 showCases[styles[i].id] = rs[i]
             }
             setShowCases(showCases)
+        }).catch(error => {
+            console.log(error)
+            Toast.show({
+                text1: "Error",
+                text2: error,
+                type: 'error',
+                position: 'top'
+            })
         })
 
 

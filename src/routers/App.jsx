@@ -8,6 +8,8 @@ import { checkIsLoggedIn } from './handler'
 import {useSelector, useDispatch} from 'react-redux'
 import { selectUserIsLoggedIn } from '../redux/slicers/user.slicer'
 import {navigationRef} from './RootNavigation';
+import Toast from 'react-native-toast-message';
+
 
 const App = () => {
     const dispatch = useDispatch()
@@ -17,17 +19,26 @@ const App = () => {
         checkIsLoggedIn({dispatch})
     }, [])
     useSocket()    
-    return isLoggedIn == true ?
-        (
-        <NavigationContainer >
-            <MainDrawer />
-        </NavigationContainer>
+    return (
+        <>
+            {
+                isLoggedIn == true ?
+                (
+                <NavigationContainer >
+                    <MainDrawer />
+                </NavigationContainer>
 
-        ) : (
-            <NavigationContainer ref={navigationRef}>
-                <AuthStack />
-            </NavigationContainer>
-        )
+                ) : (
+                    <NavigationContainer ref={navigationRef}>
+                        <AuthStack />
+                    </NavigationContainer>
+                )
+            }
+            <Toast ref={(ref) => Toast.setRef(ref)} />
+        </> 
+    )
+    
+    
 };
 
 export default App;
