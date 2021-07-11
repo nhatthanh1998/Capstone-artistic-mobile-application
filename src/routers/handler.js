@@ -18,9 +18,11 @@ export const checkIsLoggedIn = async ({dispatch}) => {
 
 export const handleGetUserProfile = async ({dispatch, navigation}) => {
     const response = await getUserProfile()
-    if(response.message && response.statusCode===UNAUTHORIZED) {
-        AsyncStorage.removeItem("token")
-        navigation.navigate(LOGIN_PAGE)
+    console.log(response)
+    if(response.message && response.statusCode === UNAUTHORIZED) {
+        await AsyncStorage.removeItem("token").then(() => {
+            navigation.navigate(LOGIN_PAGE)
+        })
     } else {
         dispatch(setUserProfile(response))
     }

@@ -4,7 +4,7 @@ import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import { styles } from '../../../styles';
 import { VerticalCarousel } from '../../../components/MainPage/VerticalCarousel'
-import { fetchAllStyles } from '../../../apis/styles';
+import { fetchAllVideoSupportedStyles } from '../../../apis/styles';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import Toast from 'react-native-toast-message';
 
@@ -13,11 +13,10 @@ export const ApplyStyleModal = (props) => {
     const {visible, onCancel, handleRequestTransferVideo, setSelectedStyleId} = props
     const [modalWidth, setModalWidth] = useState(100)
     const [stylesBE, setStylesBE] = useState([])
-    const [videoShowCase, setVideoShowCase] = useState({})
     const [selectedStyle, setSelectedStyle] = useState({})
 
     useEffect(() => {
-        fetchAllStyles().then(styles => {
+        fetchAllVideoSupportedStyles().then(styles => {
             setStylesBE(styles)
             if(styles.length > 0) {
                 setSelectedStyle(styles[0])
