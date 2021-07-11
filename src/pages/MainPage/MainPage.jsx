@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { handlePressMenu, getGalleryAccessPermission, handlePressCamera, handlePressGallery, getStyles } from './handler'
-import { selectUserProfile } from '../../redux/slicers/user.slicer'
 import { GALLARY_ERROR_MESSAGE, GALLERY_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
 import * as _ from 'lodash'
 import {SelectPhotoModal} from '../../commons/components/modals/SelectPhotoModal'
@@ -47,7 +46,8 @@ export const MainPage = ({ navigation }) => {
         ]).then(_ => {
             setIsLoading(false)
         })
-        return () => {}
+        return () => {
+        };
     }, [])
 
     // Return ERROR
