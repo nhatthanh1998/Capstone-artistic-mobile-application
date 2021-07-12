@@ -3,9 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { MainStack } from './MainStack'
 import { NavigationDrawerContent } from '../commons/components/NavigationDrawer'
 import { useDispatch, useSelector } from 'react-redux'
-import { handleGetUserProfile, handleSocketMessage } from './handler'
 import { selectUserProfile } from '../redux/slicers/user.slicer'
-import * as navigation from './RootNavigation';
 import { setUpListen } from '../hooks/socket.hook';
 
 const Drawer = createDrawerNavigator();
@@ -15,7 +13,6 @@ export const MainDrawer = () => {
   const userProfile = useSelector(selectUserProfile)
 
   useEffect(() => {
-    handleGetUserProfile({ dispatch, navigation })
   }, [])
 
   useEffect(() => {

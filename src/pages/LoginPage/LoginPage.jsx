@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
 import { handleChangePassword, handleChangeUsername, handleClickRegister, handleLogin } from './handler'
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
+import { selectIsLoading } from '../../redux/slicers/is-loading.slicer';
 
 export const LoginPage = ({ navigation }) => {
     const [username, setUsername] = useState('')
@@ -13,9 +14,10 @@ export const LoginPage = ({ navigation }) => {
     const [usernameError, setUsernameError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [isShowPassword, setIsShowPassword] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(false)
+    
     const dispatch = useDispatch()
+    const isLoading = useSelector(selectIsLoading)
 
     const renderPasswordIcon = () => {
         let iconName = "eye-off"
@@ -64,7 +66,7 @@ export const LoginPage = ({ navigation }) => {
                 <View style={tailwind("rounded-xl bg-yellow-300 p-3 ")}>
                     <Text style={tailwind("text-lg text-center tracking-wide")}
                         onPress={() => {
-                            handleLogin({ username, password, setUsernameError, setPasswordError, dispatch, setError, setIsLoading })
+                            handleLogin({ username, password, setUsernameError, setPasswordError, dispatch, setError })
                         }}
                     >Login</Text>
                 </View>
