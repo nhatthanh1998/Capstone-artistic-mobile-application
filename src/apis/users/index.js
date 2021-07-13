@@ -56,3 +56,24 @@ export const uploadProfile = async ({
     })
     return response.data
 }
+
+export const changePassword = async ({ oldPassword, newPassword }) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/users/change-password`
+    const token = await AsyncStorage.getItem("token")
+    const payload = {
+        oldPassword,
+        newPassword
+    }
+
+    try {
+        const response = await axios.post(ENDPOINT_URL, payload, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        return error.response.data
+    }
+    
+}

@@ -7,9 +7,9 @@ import { MainPage } from '../pages/MainPage'
 import { ProfilePage } from '../pages/ProfilePage'
 
 
-import { CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE, PROFILE_PAGE, ALBUM_LIST_PAGE, ALBUM_DETAIL_PAGE } from "../enums/page-name"
-import { CAMERA_PAGE_TITLE, } from "../enums/page-title"
+import { CAMERA_PAGE, EFFECT_PAGE, MAIN_PAGE, PROFILE_PAGE, ALBUM_LIST_PAGE, ALBUM_DETAIL_PAGE, CHANGE_PASSWORD_PAGE } from "../enums/page-name"
 import { AlbumListPage } from '../pages/AlbumListPage/AlbumListPage'
+import { ChangePasswordPage } from '../pages/ChangePasswordPage/ChangePasswordPage'
 
 export const MainStack = () => {
     const Stack = createStackNavigator()
@@ -42,6 +42,12 @@ export const MainStack = () => {
             />
 
             <Stack.Screen name={PROFILE_PAGE} component={ProfilePage}
+                options={{
+                    headerShown: false
+                }}
+            />
+
+            <Stack.Screen name={CHANGE_PASSWORD_PAGE} component={ChangePasswordPage}
                 options={{
                     headerShown: false
                 }}

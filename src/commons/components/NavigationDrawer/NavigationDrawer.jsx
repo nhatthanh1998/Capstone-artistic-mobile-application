@@ -8,8 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
-import { ALBUM_LIST_PAGE, MAIN_PAGE, CAMERA_PAGE, PROFILE_PAGE } from '../../../enums/page-name'
-import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE } from '../../../enums/drawer-title'
+import { ALBUM_LIST_PAGE, MAIN_PAGE, CAMERA_PAGE, PROFILE_PAGE, CHANGE_PASSWORD_PAGE } from '../../../enums/page-name'
+import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE, CHANGE_PASSWOR_TITLE } from '../../../enums/drawer-title'
 import { handleNavigation, handleSignOut } from './handler'
 import { handlePressGallery } from '../../../pages/MainPage/handler'
 
@@ -18,9 +18,9 @@ import { handlePressGallery } from '../../../pages/MainPage/handler'
 export const NavigationDrawerContent = (props) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
-    const {firstName, lastName, username} = userProfile
+    const { firstName, lastName, username } = userProfile
     let fullName = `${firstName} ${lastName}`
-    
+
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -57,6 +57,19 @@ export const NavigationDrawerContent = (props) => {
                             label={PROFILE_TITLE}
                             onPress={() => { props.navigation.navigate(PROFILE_PAGE) }}
                         />
+
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="account-key-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label={CHANGE_PASSWOR_TITLE}
+                            onPress={() => { handleNavigation({ navigation: props.navigation, pageName: CHANGE_PASSWORD_PAGE }) }}
+                        />
+
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <Icon
@@ -66,7 +79,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label={CAMERA_TITLE}
-                            onPress={() => handleNavigation({navigation: props.navigation, pageName:CAMERA_PAGE})}
+                            onPress={() => handleNavigation({ navigation: props.navigation, pageName: CAMERA_PAGE })}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (
@@ -77,7 +90,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label={GALLERY_TITLE}
-                            onPress={() => handlePressGallery({dispatch, navigation: props.navigation})}
+                            onPress={() => handlePressGallery({ dispatch, navigation: props.navigation })}
                         />
 
                         <DrawerItem
@@ -89,7 +102,7 @@ export const NavigationDrawerContent = (props) => {
                                 />
                             )}
                             label={ALBUM_TITLE}
-                            onPress={() =>  handleNavigation({navigation: props.navigation, pageName: ALBUM_LIST_PAGE})}
+                            onPress={() => handleNavigation({ navigation: props.navigation, pageName: ALBUM_LIST_PAGE })}
                         />
                     </Drawer.Section>
                 </View>
@@ -104,7 +117,7 @@ export const NavigationDrawerContent = (props) => {
                         />
                     )}
                     label={SIGN_OUT_TITLE}
-                    onPress={() => { handleSignOut({dispatch})}}
+                    onPress={() => { handleSignOut({ dispatch }) }}
                 />
             </Drawer.Section>
         </View>
