@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
-import { handleChangePassword, handleChangeUsername, handleClickRegister, handleLogin } from './handler'
+import { handleChangePassword, handleChangeUsername, handleClickRegister, handleLogin, handleClickResetPassword } from './handler'
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer';
@@ -80,12 +80,20 @@ export const LoginPage = ({ navigation }) => {
             </View>
             <View style={tailwind("flex flex-row justify-center items-end")}>
                 <Text style={tailwind("text-center text-sm font-thin text-gray-600")}>
-                    New commer?
+                    Don't have account?
                 </Text>
                 <Text style={tailwind("ml-1 text-blue-900 font-bold")}
                     onPress={() => handleClickRegister({ navigation })}
                 >
                     Register now
+                </Text>
+            </View>
+
+            <View style={tailwind("flex flex-row justify-center items-end mt-2")}>
+                <Text style={tailwind("ml-1 text-blue-900 font-bold")}
+                    onPress={() => handleClickResetPassword({ navigation })}
+                >
+                    Reset Your Password
                 </Text>
             </View>
         </View>

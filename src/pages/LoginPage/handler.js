@@ -1,5 +1,5 @@
 import { login } from '../../apis/auth'
-import { REGISTER_PAGE } from '../../enums/page-name'
+import { REGISTER_PAGE, RESET_PASSWORD_PAGE } from '../../enums/page-name'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {getUserProfile} from '../../apis/users'
 import {setIsLoggedIn, setUserProfile} from '../../redux/slicers/user.slicer'
@@ -70,4 +70,8 @@ export const checkIsLoggedIn = async ({ dispatch }) => {
         dispatch(setIsLoading(false))
 
     }
+}
+
+export const handleClickResetPassword = ({ navigation }) => {
+    navigation.navigate(RESET_PASSWORD_PAGE)
 }
