@@ -25,7 +25,8 @@ export const MainPage = ({ navigation }) => {
     const countNotifications = useSelector(selectCount)
 
     useEffect(() => {
-        setIsLoading(true)
+        console.log("trong nay")
+        setIsLoading(false)
         Promise.all([
             getStyles({dispatch}),
             getGalleryAccessPermission({ currentOS: Platform.OS, setHasGalleryPermission: setHasGalleryPermission }),

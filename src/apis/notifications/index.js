@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {MAIN_SERVER} from '@env'
+import {MAIN_SERVER} from '../../config/index'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export async function requestGetNotifications() {

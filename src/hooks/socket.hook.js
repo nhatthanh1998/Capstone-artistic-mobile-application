@@ -5,12 +5,12 @@ import {setGeneratedImage} from '../redux/slicers/generated-image.slicer'
 import {setOriginImage} from '../redux/slicers/origin-image.slicer'
 import { setIsLoading } from '../redux/slicers/is-loading.slicer'
 import {TRANSFER_COMPLETED, UPLOAD_IMAGE_SUCCESS} from '../enums/socket-event'
-import {SOCKET_SERVER} from '@env'
+import {SOCKET_SERVER} from '../config/index'
 import { requestGetNotifications } from '../apis/notifications';
 import { setNotifications } from '../redux/slicers/notifications.slicer';
 import { setMediasNull } from '../redux/slicers/albumss.slicer';
 
-const socket = io("ws://192.168.1.26:3000")
+const socket = io(SOCKET_SERVER)
 export function useSocket() {
     const dispatch = useDispatch()
 

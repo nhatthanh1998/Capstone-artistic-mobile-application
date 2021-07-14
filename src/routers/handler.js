@@ -7,36 +7,35 @@ import { setNotifications } from '../redux/slicers/notifications.slicer'
 import { setIsLoading } from '../redux/slicers/is-loading.slicer'
 
 export const checkIsLoggedIn = async ({ dispatch }) => {
-    dispatch(setIsLoading(true))
     const token = await AsyncStorage.getItem('token')
-    if (token !== null) {
-        const response = await getUserProfile()
-        if (response.message && response.statusCode === UNAUTHORIZED) {
-            await AsyncStorage.removeItem("token")
-            dispatch(setIsLoggedIn(false))
-            dispatch(setIsLoading(false))
+    if (token) {
+        try {
+            const {data, statusCode, message } = await getUserProfile()
+            if (message && statusCode === UNAUTHORIZED) {
+                await AsyncStorage.removeItem("token")
+                dispatch(setIsLoggedIn(false))
+            }
+            else {
+                dispatch(setIsLoggedIn(true))
+                dispatch(setUserProfile(data))
+            }
+        } catch (error) {
+            console.log("error:", error)
         }
-        else {
-            dispatch(setIsLoggedIn(true))
-            dispatch(setUserProfile(response))
-            dispatch(setIsLoading(false))
-        }
-        
+       
     } else {
-        dispatch(setIsLoggedIn(false))
-        dispatch(setIsLoading(false))
-
+        console.log("HERE 3")
     }
 }
 
 
 export const handleGetUserProfile = async ({ dispatch, navigation }) => {
-    const response = await getUserProfile()
-    if (response.message && response.statusCode === UNAUTHORIZED) {
+    const {data, statusCode, message} = await getUserProfile()
+    if (message && statusCode === UNAUTHORIZED) {
         await AsyncStorage.removeItem("token")
         dispatch(setIsLoggedIn(false))
     }
     else {
-        dispatch(setUserProfile(response))
+        dispatch(setUserProfile(data))
     }
 }

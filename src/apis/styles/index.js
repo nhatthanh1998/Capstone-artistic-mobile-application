@@ -1,5 +1,5 @@
 import axios from "axios"
-import {MAIN_SERVER} from "@env"
+import {MAIN_SERVER} from '../../config/index'
 
 export const fetchAllStyles = async () => {
     const ENDPOINT_URL = `${MAIN_SERVER}/styles`

@@ -9,11 +9,11 @@ import { RegisterSuccessModal } from '../../commons/components/modals/RegisterSu
 
 
 export const SignUpPage = ({navigation}) => {
-    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
 
-    const [usernameError, setUsernameError] = useState('')
+    const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [rePasswordError, setRePasswordError] = useState('')
     const [success, setSuccess] = useState(false)
@@ -33,14 +33,14 @@ export const SignUpPage = ({navigation}) => {
             <View style={tailwind("px-12 pb-7 mt-3")}>
                 <Text style={tailwind("text-4xl font-bold tracking-wide pb-3")}>Sign up</Text>
                 <View style={tailwind("mb-5")}>
-                    <View style={usernameError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800"): tailwind("py-2 border-b relative flex flex-row items-center")}>
+                    <View style={emailError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800"): tailwind("py-2 border-b relative flex flex-row items-center")}>
                         <Image source={{ uri: "https://image.flaticon.com/icons/png/512/456/456283.png" }} style={tailwind("absolute w-4 h-4")} />
-                            <TextInput placeholder="Username" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                                value={username}
-                                onChangeText={text => { handleChangeText({ text, setState: setUsername }) }}
+                            <TextInput placeholder="Email" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                                value={email}
+                                onChangeText={text => { handleChangeText({ text, setState: setEmail }) }}
                             />
                     </View>
-                    <Text style={tailwind("text-xs mt-2 text-red-700")}>{usernameError}</Text>
+                    <Text style={tailwind("text-xs mt-2 text-red-700")}>{emailError}</Text>
                 </View>
                 <View style={tailwind("mb-5")}>
                     <View style={passwordError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800") :  tailwind("py-2 border-b relative flex flex-row items-center")}>
@@ -65,7 +65,7 @@ export const SignUpPage = ({navigation}) => {
                 </View>
 
                 <TouchableOpacity style={tailwind("rounded-xl bg-yellow-300 p-3 ")}
-                    onPress={() => { handleSignUp({ username, password, rePassword, setPasswordError, setRePasswordError, setSuccess, setUsernameError }) }}
+                    onPress={() => { handleSignUp({ email, password, rePassword, setPasswordError, setRePasswordError, setSuccess, setEmailError }) }}
                 >
                     <Text style={tailwind("text-lg text-center tracking-wide")}>Register</Text>
                 </TouchableOpacity>

@@ -14,7 +14,7 @@ export const ProfilePage = ({ navigation }) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
     // Parse data from state
-    const { firstName, lastName, email, username, iconURL, dateOfBirth } = userProfile
+    const { firstName, lastName, email, dateOfBirth } = userProfile
 
     // State in component
     const [deviceHeight, setDeviceHeight] = useState(0)

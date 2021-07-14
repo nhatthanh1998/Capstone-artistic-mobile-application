@@ -1,5 +1,5 @@
 import axios from "axios"
-import {MAIN_SERVER} from "@env"
+import {MAIN_SERVER} from '../../config/index'
 
 export const getShowCaseByStyleId = async ({styleId}) => {
     const ENDPOINT_URL = `${MAIN_SERVER}/showcases?styleId=${styleId}`

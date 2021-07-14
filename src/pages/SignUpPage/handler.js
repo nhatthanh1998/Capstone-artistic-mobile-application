@@ -2,14 +2,14 @@ import { registerAccount } from '../../apis/users'
 import { LOGIN_PAGE } from '../../enums/page-name'
 
 
-export const handleSignUp = async ({username, password, rePassword, setUsernameError, setPasswordError, setRePasswordError, setSuccess}) => {
+export const handleSignUp = async ({email, password, rePassword, setEmailError, setPasswordError, setRePasswordError, setSuccess}) => {
     let isValidated = true
     
-    if(username.length == 0) {
-        setUsernameError("Username is required!")
+    if(email.length == 0) {
+        setEmailError("Email is required!")
         isValidated = false
     } else {
-        setUsernameError("")
+        setEmailError("")
     }
 
     if(password.length == 0) {
@@ -39,10 +39,10 @@ export const handleSignUp = async ({username, password, rePassword, setUsernameE
 
 
     if(isValidated == true) {
-        const response = await registerAccount({username, password})
+        const response = await registerAccount({email, password})
         const {status, message} = response
         if(status && message) {
-            setUsernameError(message)
+            setEmailError(message)
         } else {
             setSuccess(true)
         }

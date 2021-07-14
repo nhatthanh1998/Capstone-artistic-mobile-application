@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
-import { handleChangePassword, handleChangeUsername, handleClickRegister, handleLogin, handleClickResetPassword } from './handler'
+import { handleChangePassword, handleChangeEmail, handleClickRegister, handleLogin, handleClickResetPassword } from './handler'
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LoginPage = ({ navigation }) => {
-    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [usernameError, setUsernameError] = useState('')
+    const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [error, setError] = useState(false)
@@ -33,7 +34,6 @@ export const LoginPage = ({ navigation }) => {
             </TouchableOpacity>
         )
     }
-
     return (
         <View style={tailwind("h-full")}>
             <Loading isLoading={isLoading} />
@@ -47,12 +47,12 @@ export const LoginPage = ({ navigation }) => {
                 <Text style={tailwind("text-4xl font-bold tracking-wide pb-3")}>Login</Text>
                 <View style={tailwind("border-b relative flex flex-row items-center")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/456/456283.png" }} style={tailwind("absolute w-4 h-4")} />
-                    <TextInput placeholder="Username" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
-                        onChangeText={text => { handleChangeUsername({ text, setUsername, setUsernameError }) }}
+                    <TextInput placeholder="Email" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
+                        onChangeText={text => { handleChangeEmail({ text, setEmail, setEmailError }) }}
                     />
                 </View>
                 <Text style={tailwind("text-xs text-red-700 mb-4 mt-1")}>
-                        {usernameError.length > 0 ? usernameError : ''}
+                        {emailError.length > 0 ? emailError : ''}
                 </Text>
                 <View style={tailwind("border-b relative flex flex-row items-center")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
@@ -66,11 +66,11 @@ export const LoginPage = ({ navigation }) => {
                 <View style={tailwind("rounded-xl bg-yellow-300 p-3 ")}>
                     <Text style={tailwind("text-lg text-center tracking-wide")}
                         onPress={() => {
-                            handleLogin({ username, password, setUsernameError, setPasswordError, dispatch, setError })
+                            handleLogin({ email, password, setEmailError, setPasswordError, dispatch, setError })
                         }}
                     >Login</Text>
                 </View>
-                <Text style={tailwind("text-xs mt-2 text-red-700 text-center")}>{error == true ? "Username or password is wrong" : null}</Text>
+                <Text style={tailwind("text-xs mt-2 text-red-700 text-center")}>{error == true ? "Email or password is wrong" : null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or, login with ...</Text>
                 <View style={tailwind("flex justify-center flex-row")}>
                     <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2702/2702602.png" }} style={tailwind("h-7 w-7 mx-5")} />
