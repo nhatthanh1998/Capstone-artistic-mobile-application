@@ -10,6 +10,7 @@ export const checkIsLoggedIn = async ({ dispatch }) => {
     const token = await AsyncStorage.getItem('token')
     if (token) {
         try {
+            dispatch(setIsLoading(true))
             const {data, statusCode, message } = await getUserProfile()
             if (message && statusCode === UNAUTHORIZED) {
                 await AsyncStorage.removeItem("token")
@@ -19,12 +20,10 @@ export const checkIsLoggedIn = async ({ dispatch }) => {
                 dispatch(setIsLoggedIn(true))
                 dispatch(setUserProfile(data))
             }
+            dispatch(setIsLoading(false))
         } catch (error) {
-            console.log("error:", error)
+            dispatch(setIsLoading(false))
         }
-       
-    } else {
-        console.log("HERE 3")
     }
 }
 

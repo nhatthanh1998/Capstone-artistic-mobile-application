@@ -25,7 +25,6 @@ export const MainPage = ({ navigation }) => {
     const countNotifications = useSelector(selectCount)
 
     useEffect(() => {
-        console.log("trong nay")
         setIsLoading(false)
         Promise.all([
             getStyles({dispatch}),

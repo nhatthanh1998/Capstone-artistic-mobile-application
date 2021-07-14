@@ -21,7 +21,6 @@ export const AlbumListPage = ({ navigation }) => {
 
 
     useEffect(() => {
-        console.log("chay o day")
         dispatch(setIsLoading(true))
         fetchAlbums().then(({data}) => {
             dispatch(initAlbums(data))

@@ -31,13 +31,15 @@ export const handleLogin = async ({ email, password, setEmailError, setPasswordE
 
     if (isValidated === true) {
         try {
+            dispatch(setIsLoading(true))
             const response = await login({ email, password })
             const { token } = response
-            console.log(token)
             setError(false)
             AsyncStorage.setItem('token', token)
             checkIsLoggedIn({dispatch})
+            dispatch(setIsLoading(false))
         } catch (e) {
+            dispatch(setIsLoading(false))
             setError(true)
         }
     }

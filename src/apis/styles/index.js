@@ -8,7 +8,7 @@ export const fetchAllStyles = async () => {
 }
 
 export const fetchAllVideoSupportedStyles = async () => {
-    const ENDPOINT_URL = `${MAIN_SERVER}/styles/video_transfer`
+    const ENDPOINT_URL = `${MAIN_SERVER}/styles/video-transfer`
     const response = await axios.get(ENDPOINT_URL)
     return response.data
 }
