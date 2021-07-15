@@ -35,7 +35,6 @@ export const MainPage = ({ navigation }) => {
                     count,
                 }))
             }).catch(error => {
-                console.log(error)
                 Toast.show({
                     text1: "Error",
                     text2: error,

@@ -70,7 +70,6 @@ export const SignUpPage = ({navigation}) => {
 
                 <TouchableOpacity style={tailwind("rounded-xl bg-yellow-300 p-3 ")}
                     onPress={() => { 
-                        console.log("Register Click")
                         handleSignUp({ email, password, rePassword, setPasswordError, setRePasswordError, setSuccess, setEmailError, dispatch }) 
                     }}
                 >
