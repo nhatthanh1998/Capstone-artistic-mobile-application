@@ -6,11 +6,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export const getUserProfile = async () => {
     const ENDPOINT_URL = `${MAIN_SERVER}/users/profile`
     const token = await AsyncStorage.getItem("token")
-    return axios.get(ENDPOINT_URL, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+    try {
+        const {data} = await axios.get(ENDPOINT_URL, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return {"data": data}
+    } catch(error) {
+        if(error.response) {
+            return error.response.data
+        } else if (error.request) {
+            console.log(error.request);
+            return error.request;
+        } 
+    }
+    
 }
 
 export const registerAccount = async ({

@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {getUserProfile} from '../../apis/users'
 import {setIsLoggedIn, setUserProfile} from '../../redux/slicers/user.slicer'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
+import Toast from 'react-native-toast-message';
+
 export const handleChangeEmail = ({text, setEmail, setEmailError}) => {
     setEmail(text)
     if(text.length > 0) {
@@ -28,43 +30,52 @@ export const handleLogin = async ({ email, password, setEmailError, setPasswordE
         setPasswordError("Password is required!")
         isValidated = false
     }
-
+    
     if (isValidated === true) {
-        try {
-            dispatch(setIsLoading(true))
-            const response = await login({ email, password })
-            const { token } = response
+        dispatch(setIsLoading(true))
+        const {token, statusCode, message} = await login({ email, password })
+
+        if(statusCode && message) {
+            if(statusCode == 666) {
+                Toast.show({
+                    text1: "Error",
+                    text2: message,
+                    type: 'error',
+                    position: 'top'
+                })
+            } else {
+                setError(true)
+            }
+            dispatch(setIsLoading(false))
+        } else {
             setError(false)
             AsyncStorage.setItem('token', token)
             checkIsLoggedIn({dispatch})
             dispatch(setIsLoading(false))
-        } catch (e) {
-            dispatch(setIsLoading(false))
-            setError(true)
         }
     }
 }
-
 
 export const handleClickRegister = ({ navigation }) => {
     navigation.navigate(REGISTER_PAGE)
 }
 
 export const checkIsLoggedIn = async ({ dispatch }) => {
+    dispatch(setIsLoading(true))
     const token = await AsyncStorage.getItem('token')
     if (token !== null) {
         const {data, message, statusCode} = await getUserProfile()
-        if (message && statusCode === UNAUTHORIZED) {
+
+        if (message && statusCode) {
             await AsyncStorage.removeItem("token")
             dispatch(setIsLoggedIn(false))
+            dispatch(setIsLoading(false))
         }
         else {
             dispatch(setIsLoggedIn(true))
             dispatch(setUserProfile(data))
+            dispatch(setIsLoading(false))
         }
-        
-    } else {
-        dispatch(setIsLoggedIn(false))
     }
 }
 
