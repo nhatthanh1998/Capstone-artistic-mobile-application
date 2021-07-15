@@ -13,9 +13,8 @@ const windowWidth = Dimensions.get('window').width;
 
 export const CarouselContainer = () => {
     const [availableStyles, setAvailableStyles] = useState([])
-    const [styles, setStyles] = useState([])
     const [showCases, setShowCases] = useState({})
-    const [selectedStyle, setSelectedStyle] = useState({})
+    const [selectedStyle, setSelectedStyle] = useState(null)
 
     useEffect(() => {
         handleGetAvailableStyles({setAvailableStyles})
@@ -23,39 +22,44 @@ export const CarouselContainer = () => {
     }, [])
 
     useEffect(() => {
-        const sample = _.sampleSize(availableStyles, 5)
-        setStyles(sample)
-        setSelectedStyle(sample[0])
+        if(availableStyles.length > 0){
+            setSelectedStyle(availableStyles[0])
+        }
         return () => {}
     }, [availableStyles])
 
     useEffect(() => {
-        Promise.all([...styles.map(style => getShowCaseByStyleId({styleId: style.id}))]).then(rs => {
-            const showCases = {}
-            for(let i = 0; i < styles.length; i++) {
-                showCases[styles[i].id] = rs[i]
+        if(selectedStyle) {
+            const styleId = selectedStyle.id
+            if(!showCases[styleId]) {
+                getShowCaseByStyleId({styleId}).then(rs => {
+                    const {data, statusCode, message} = rs
+                    if(statusCode && message) {
+                        Toast.show({
+                            text1: "Error",
+                            text2: message,
+                            type: 'error',
+                            position: 'top'
+                        })           
+                    }
+                    else {
+                        setShowCases({
+                            ...showCases,
+                            [styleId]: data
+                        })
+                    }
+                })
             }
-            setShowCases(showCases)
-        }).catch(error => {
-            console.log(error)
-            Toast.show({
-                text1: "Error",
-                text2: error,
-                type: 'error',
-                position: 'top'
-            })
-        })
-
-
+        }
         return () => {}
-    }, [styles])
+    }, [selectedStyle])
 
     return (
-    <View>
-        {selectedStyle && <MyCarousel data = {_.sampleSize(showCases[selectedStyle.id], 6)}/>}    
-        <View style={tailwind("pt-5")}>
-            <VerticalCarousel data={styles} setSelectedStyle={setSelectedStyle} sliderWidth={windowWidth}/>
+    <>
+        {selectedStyle && <MyCarousel data={_.sampleSize(showCases[selectedStyle.id], 6)}/>}    
+        <View style={tailwind("mt-4")}>
+            <VerticalCarousel data={availableStyles} setSelectedStyle={setSelectedStyle} sliderWidth={windowWidth}/>
         </View>
-    </View>
+    </>
     )
 }

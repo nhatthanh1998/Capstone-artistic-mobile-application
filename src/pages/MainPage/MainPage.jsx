@@ -123,7 +123,7 @@ export const MainPage = ({ navigation }) => {
 
             <CarouselContainer/>
 
-            <View style={tailwind("flex relative z-10 flex-row justify-center mt-10")}>
+            <View style={tailwind("flex relative z-10 flex-row justify-center mt-5")}>
                 <TouchableOpacity onPress={() => setShowSelectPhotoModal(true)} style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>
                     <Text style={tailwind("font-medium text-base text-center text-gray-900 ")}>Start transfer</Text>
                 </TouchableOpacity>
