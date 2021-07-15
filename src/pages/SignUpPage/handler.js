@@ -1,17 +1,22 @@
 import { registerAccount } from '../../apis/users'
 import { LOGIN_PAGE } from '../../enums/page-name'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
+import { validateEmail } from '../../utils'
 import Toast from 'react-native-toast-message';
 
 
 export const handleSignUp = async ({email, password, rePassword, setEmailError, setPasswordError, setRePasswordError, setSuccess, dispatch}) => {
-
-    let isValidated = true
     
+    let isValidated = true
     if(email.length == 0) {
         setEmailError("Email is required!")
         isValidated = false
-    } else {
+    }
+    else if (validateEmail(email) == false) {
+        setEmailError("Email is invalid format!")
+        isValidated = false
+    }
+    else {
         setEmailError("")
     }
 
