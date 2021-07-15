@@ -34,10 +34,18 @@ export const registerAccount = async ({
         password
     }
     try {
-        const response = await axios.post(ENDPOINT_URL, payload)
-        return response.data
+        const { data } = await axios.post(ENDPOINT_URL, payload, {timeout: 2000})
+        return { data }
     } catch (error) {
-        return error.response.data
+        if(error.response) {
+            return error.response.data
+        } 
+        else if(error.request) {
+            return {
+                statusCode: 666,
+                message: 'Network Erorr!'
+            }
+        }
     }
 
 }

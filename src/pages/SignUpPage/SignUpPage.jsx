@@ -5,13 +5,17 @@ import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
 import { handleChangeText, handleSignUp, handleChangeRePassword, handlePressLoginPage } from './handler'
 import { RegisterSuccessModal } from '../../commons/components/modals/RegisterSuccessModal'
-
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
+import { Loading } from '../../commons/components/Loading/Loading'
 
 
 export const SignUpPage = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [rePassword, setRePassword] = useState('')
+    const dispatch = useDispatch()
+    const isLoading = useSelector(selectIsLoading)
 
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
@@ -20,8 +24,8 @@ export const SignUpPage = ({navigation}) => {
 
     return (
         <KeyboardAwareScrollView>
-
-        <View style={tailwind("relative")}>
+        <View style={tailwind("relative flex")}>
+            <Loading isLoading={isLoading}/>
             <RegisterSuccessModal isVisible={success} onConfirm={() => handlePressLoginPage({navigation})}/>
             <Image source={{ uri: "https://image.flaticon.com/icons/png/512/860/860790.png" }} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
             <View style={tailwind("flex flex-row justify-center mt-5")}>
@@ -65,7 +69,10 @@ export const SignUpPage = ({navigation}) => {
                 </View>
 
                 <TouchableOpacity style={tailwind("rounded-xl bg-yellow-300 p-3 ")}
-                    onPress={() => { handleSignUp({ email, password, rePassword, setPasswordError, setRePasswordError, setSuccess, setEmailError }) }}
+                    onPress={() => { 
+                        console.log("Register Click")
+                        handleSignUp({ email, password, rePassword, setPasswordError, setRePasswordError, setSuccess, setEmailError, dispatch }) 
+                    }}
                 >
                     <Text style={tailwind("text-lg text-center tracking-wide")}>Register</Text>
                 </TouchableOpacity>

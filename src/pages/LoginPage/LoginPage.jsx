@@ -7,7 +7,6 @@ import { handleChangePassword, handleChangeEmail, handleClickRegister, handleLog
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LoginPage = ({ navigation }) => {
     const [email, setEmail] = useState('')

@@ -1,8 +1,11 @@
 import { registerAccount } from '../../apis/users'
 import { LOGIN_PAGE } from '../../enums/page-name'
+import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
+import Toast from 'react-native-toast-message';
 
 
-export const handleSignUp = async ({email, password, rePassword, setEmailError, setPasswordError, setRePasswordError, setSuccess}) => {
+export const handleSignUp = async ({email, password, rePassword, setEmailError, setPasswordError, setRePasswordError, setSuccess, dispatch}) => {
+
     let isValidated = true
     
     if(email.length == 0) {
@@ -37,15 +40,24 @@ export const handleSignUp = async ({email, password, rePassword, setEmailError, 
         setRePasswordError("")
     }
 
-
-    if(isValidated == true) {
-        const response = await registerAccount({email, password})
-        const {status, message} = response
-        if(status && message) {
-            setEmailError(message)
+    if(isValidated) {
+        dispatch(setIsLoading(true))
+        const {data, statusCode, message} = await registerAccount({email, password})
+        if(statusCode && message) {
+            if(statusCode == 666) {
+                Toast.show({
+                    text1: "Error",
+                    text2: message,
+                    type: 'error',
+                    position: 'top'
+                })
+            } else {
+                setEmailError(message)
+            }
         } else {
             setSuccess(true)
         }
+        dispatch(setIsLoading(false))
     } 
 }
 
