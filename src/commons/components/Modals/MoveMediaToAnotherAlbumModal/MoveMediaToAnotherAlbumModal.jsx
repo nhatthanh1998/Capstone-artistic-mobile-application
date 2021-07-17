@@ -10,7 +10,7 @@ import { moveMediaToOtherAlbum, selectAlbums } from '../../../../redux/slicers/a
 
 
 export const MoveMediaToAnotherAlbumModal = ({ isVisible, onCancel, onConfirm, media, navigation, setMediaDetailVisible }) => {
-    const {albumId, id} = media
+    const {albumId, id, type} = media
     const albums = useSelector(selectAlbums)
     const [isDisableMove, setDisableMove] = useState(true)
     const [selectedAlbum, setSelectedAlbum] = useState(null)
@@ -42,10 +42,10 @@ export const MoveMediaToAnotherAlbumModal = ({ isVisible, onCancel, onConfirm, m
                     <TouchableOpacity onPress={() => onCancel()} style={tailwind("absolute z-10 mt-3 mr-3 top-0 right-0")}>
                         <Image source={{ uri: "https://image.flaticon.com/icons/png/512/1/1193.png" }} style={tailwind("w-5 h-5")} />
                     </TouchableOpacity>
-                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Move Media</Text>
+                    <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Move {type == "VIDEO" ? "Video" : "Photo"}</Text>
                     <View style={tailwind("flex flex-row justify-center")}>
-                        <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500 mb-3")}>1
-                            Choose album you want to move your media to
+                        <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500 mb-3")}>
+                            Choose destination album you want to move your {type == "VIDEO" ? "video" : "photo"} in
                         </Text>
                     </View>
                     <AlbumPicker
