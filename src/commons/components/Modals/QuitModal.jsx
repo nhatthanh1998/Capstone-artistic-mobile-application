@@ -18,7 +18,7 @@ export const QuitModal = (props) => {
             >
                 <View style={tailwind("bg-white m-5 rounded-xl p-5 relative")}>
                     <TouchableOpacity onPress={() => onCancel()} style={tailwind("absolute z-10 mt-3 mr-3 top-0 right-0")}>
-                        <Image source={{uri:"https://image.flaticon.com/icons/png/512/1/1193.png"}} style={tailwind("w-5 h-5")}/>
+                        <Image source={require('../../../assets/icons/x-square.png')} style={tailwind("w-5 h-5")}/>
                     </TouchableOpacity>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Exit</Text>
                     <View style={tailwind("flex flex-row justify-center")}>

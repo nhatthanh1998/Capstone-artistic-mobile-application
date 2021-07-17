@@ -26,7 +26,7 @@ export const SelectPhotoModal = (props) => {
             >
                 <View style={tailwind("bg-white m-5 rounded-xl p-5 relative")}>
                     <TouchableOpacity onPress={() => onCancel()} style={tailwind("absolute z-10 mt-3 mr-3 top-0 right-0")}>
-                        <Image source={{uri:"https://image.flaticon.com/icons/png/512/1/1193.png"}} style={tailwind("w-5 h-5")}/>
+                        <Image source={require('../../../assets/icons/x-square.png')} style={tailwind("w-5 h-5")}/>
                     </TouchableOpacity>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Transfer Photo</Text>
                     <View style={tailwind("flex flex-row justify-center")}>
@@ -41,7 +41,7 @@ export const SelectPhotoModal = (props) => {
                             onCancel()
                         }} style={tailwind("px-3")}>
                             <View style={tailwind("flex flex-row justify-center")}>
-                                <Image style={tailwind("w-10 h-10")} source={{uri:"https://image.flaticon.com/icons/png/512/685/685655.png"}} />
+                                <Image style={tailwind("w-10 h-10")} source={require('../../../assets/icons/camera.png')} />
                             </View>
                             <Text style={tailwind("text-xs text-center mt-1")}>Take a photo</Text>
                         </TouchableOpacity>
@@ -52,7 +52,7 @@ export const SelectPhotoModal = (props) => {
                         }}
                          style={tailwind("px-3")}>
                             <View style={tailwind("flex flex-row justify-center")}>
-                                <Image style={tailwind("w-10 h-10")} source={{uri: "https://image.flaticon.com/icons/png/512/570/570436.png"}} />
+                                <Image style={tailwind("w-10 h-10")} source={require('../../../assets/icons/gallery.png')} />
                             </View>
                           <Text style={tailwind("text-xs text-center mt-1")}>From gallery</Text>
                         </TouchableOpacity>

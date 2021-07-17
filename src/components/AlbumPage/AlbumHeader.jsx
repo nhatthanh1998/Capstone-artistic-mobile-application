@@ -59,12 +59,12 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
                 <View style={{...tailwind("flex flex-col items-center w-full pt-9"), ...styles.darken}}>
                     <View style={tailwind("flex flex-row items-center mb-5")}>
                         <TouchableOpacity style={tailwind("w-1/6 pl-5")} onPress={() => pressBack()}>
-                            <Image style={tailwind("w-5 h-5")} source={{uri: "https://img.icons8.com/material-outlined/48/ffffff/left.png"}} />
+                            <Image style={tailwind("w-5 h-5")} source={require('../../assets/icons/left-arrow.png')} />
                         </TouchableOpacity>
                         <Text style={tailwind("text-2xl w-2/3 text-white font-medium tracking-wide text-center")}>{name}</Text>
                         <View style={tailwind("w-1/6 relative flex flex-row justify-end pr-5")}>
                             <TouchableOpacity onPress={() => setShowMenu(!showMenu)}>
-                                <Image source={{uri: "https://img.icons8.com/android/24/ffffff/more.png"}} style={tailwind("w-4 h-4")} />
+                                <Image source={require('../../assets/icons/more_ngang.png')} style={tailwind("w-4 h-4")} />
                             </TouchableOpacity>
                             {
                                 showMenu && (

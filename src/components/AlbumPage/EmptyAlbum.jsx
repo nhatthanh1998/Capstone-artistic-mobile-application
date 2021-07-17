@@ -7,9 +7,10 @@ export const EmptyAlbum = () => {
     return (
         <>
             <Text style={tailwind("text-center text-3xl mb-3 uppercase font-light tracking-tighter")}>Nothing here</Text>
-            <Image style={tailwind("h-64 mb-4")}
-              resizeMode="contain" 
-              source={{uri:"https://ouch-cdn2.icons8.com/R8usR4Ej_PG8lP92NTX9NXQVy-cWTOU5NGXbyQkrs-8/rs:fit:912:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMjk0/LzU5YmQ3MjIxLTkw/NDItNDQ4Yy1iNTEw/LTQ0MDcyNzJjYzY5/Yi5zdmc.png"}} />
+            <View style={tailwind("flex items-center ")}>
+                <Image style={tailwind("h-64 w-64 mb-4")}
+                  source={require('../../assets/illustrations/empty.webp')} />
+            </View>
             <Text style={tailwind("mx-11 text-center text-sm font-thin")}>
               Your album is currently empty. I suggest taking new photo or select from your gallery and use our transformation.
             </Text>
