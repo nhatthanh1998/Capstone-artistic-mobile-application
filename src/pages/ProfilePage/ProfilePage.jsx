@@ -49,14 +49,13 @@ export const ProfilePage = ({ navigation }) => {
 
             <View style={{ height: deviceHeight }}>
                 <View style={tailwind("px-11 py-14 h-full w-full relative")}>
-                    <View style={tailwind("flex justify-center")}>
+                    <View style={tailwind("flex items-center")}>
                         <Image
-                            resizeMode="contain"
-                            style={tailwind("h-48")} 
-                            source={{uri:"https://ouch-cdn2.icons8.com/aEXyr6nDbNqFUNJdlQbI0pMqVPfcNtkTLbuW22W48ho/rs:fit:1216:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNTg0/LzBlMzcyMzEwLTRm/MTctNGNjOC05ODM2/LTAxMTMzYmIzMjA4/My5zdmc.png"}} />
+                            style={tailwind("h-48 w-64")} 
+                            source={require('../../assets/illustrations/profile.webp')} />
                     </View>
                     <TouchableOpacity style={tailwind("absolute right-0 mt-12 mr-5")} onPress={() => handleCloseProfilePage({ navigation })}>
-                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/1/1193.png" }}
+                        <Image source={require('../../assets/icons/x-square.png')}
                             style={tailwind("w-6 h-6")} alt="" />
                     </TouchableOpacity>
                     <Text style={tailwind("text-2xl font-bold tracking-tight pb-3")}>Personal Information</Text>

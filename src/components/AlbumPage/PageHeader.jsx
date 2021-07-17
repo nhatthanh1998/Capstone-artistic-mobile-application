@@ -61,17 +61,17 @@ export const PageHeader = ({item, index, onClose}) => {
         <View style={tailwind("flex flex-row bg-white px-5 py-4")}>
             <View style={tailwind("w-1/3")}>
                 <TouchableOpacity onPress={onClose}>
-                    <Image style={tailwind("w-7 h-7")} source={{uri: "https://image.flaticon.com/icons/png/512/2223/2223615.png"}}></Image>
+                    <Image style={tailwind("w-7 h-7")} source={require('../../assets/icons/left_icon_black.png')}></Image>
                 </TouchableOpacity>
             </View>
             <View style={tailwind("flex flex-row w-2/3 justify-end")}>
                 <TouchableOpacity onPress={confirmDeletePhoto}>
-                    <Image style={tailwind("w-6 h-6 mr-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1214/1214428.png"}}></Image>
+                    <Image style={tailwind("w-6 h-6 mr-6")} source={require('../../assets/icons/delete_black.png')}></Image>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onDownloadImage}>
-                    <Image style={tailwind("w-6 h-6 mr-6")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
+                    <Image style={tailwind("w-6 h-6 mr-6")} source={require('../../assets/icons/download_black.png')}></Image>
                 </TouchableOpacity>
-                <Image style={tailwind("w-6 h-6 ")} source={{uri: "https://image.flaticon.com/icons/png/512/1159/1159633.png"}}></Image>
+                <Image style={tailwind("w-6 h-6 ")} source={require('../../assets/icons/edit_black.png')}></Image>
                 
             </View>
             <ConfirmDeleteModal onCancel={() => {

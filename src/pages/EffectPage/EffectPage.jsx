@@ -85,7 +85,7 @@ export const EffectPage = ({ navigation }) => {
             <View style={tailwind("flex flex-row items-center bg-white px-5 py-4 relative z-20")}>
                 <View style={tailwind("w-1/3")}>
                     <TouchableOpacity onPress={() => setShowQuitModal(true)}>
-                        <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/1/1193.png"}}></Image>
+                        <Image style={tailwind("w-5 h-5")} source={require('../../assets/icons/x-square.png')}></Image>
                     </TouchableOpacity>
                 </View>
                 <View style={tailwind("w-1/3")}>
@@ -95,7 +95,7 @@ export const EffectPage = ({ navigation }) => {
                     <TouchableOpacity
                     disabled={isDisableSave}
                     onPress={() => {handlePressSavePhoto({setAlbums, setSavePhotoModalVisible, dispatch})}}>
-                        <Image style={tailwind("w-5 h-5")} source={{uri: "https://image.flaticon.com/icons/png/512/1828/1828784.png"}}></Image>
+                        <Image style={tailwind("w-5 h-5")} source={require('../../assets/icons/download_black.png')}></Image>
                     </TouchableOpacity>
                 </View>
             </View>
