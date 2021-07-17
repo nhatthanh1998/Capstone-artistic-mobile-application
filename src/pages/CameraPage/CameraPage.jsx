@@ -44,13 +44,13 @@ export const CameraPage = ({ navigation }) => {
           <TouchableOpacity style={tailwind("absolute flex items-center justify-center m-4 rounded-lg h-8 w-8 mt-10")}
             onPress={() => handlePressBack({ navigation })}
           >
-            <Image style={tailwind("w-5 h-5")} source={{ uri: "https://img.icons8.com/metro/26/ffffff/back.png" }} />
+            <Image style={tailwind("w-5 h-5")} source={require('../../assets/icons/left_simple.png')} />
           </TouchableOpacity>
           <View style={tailwind("flex justify-center flex-row items-center mb-6 w-full absolute bottom-0")}>
             <TouchableOpacity
               onPress={() => handlePressFlash({ flash, setFlash })}
             >
-              <Image style={tailwind("w-6 mr-24 h-6")} source={{ uri: "https://img.icons8.com/ios-glyphs/30/ffffff/flash-on.png" }} />
+              <Image style={tailwind("w-6 mr-24 h-6")} source={require('../../assets/icons/flash-on.png')} />
             </TouchableOpacity>
 
             <TouchableOpacity style={tailwind("w-14 h-14 bg-white border-gray-50 border-4 rounded-full")}
@@ -61,7 +61,7 @@ export const CameraPage = ({ navigation }) => {
               onPress={() => {
                 handlePressFlip({ setType, type })
               }}>
-              <Image style={tailwind("w-6 ml-24 h-6")} source={{ uri: "https://img.icons8.com/metro/26/ffffff/switch-camera.png" }} />
+              <Image style={tailwind("w-6 ml-24 h-6")} source={require('../../assets/icons/switch-camera.png')} />
             </TouchableOpacity>
           </View>
         </Camera>

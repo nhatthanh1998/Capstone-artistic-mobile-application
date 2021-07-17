@@ -45,7 +45,7 @@ export const LoginPage = ({ navigation }) => {
             <View style={tailwind("px-12 pb-7 mt-3")}>
                 <Text style={tailwind("text-4xl font-bold tracking-wide pb-3")}>Login</Text>
                 <View style={tailwind("border-b relative flex flex-row items-center")}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/456/456283.png" }} style={tailwind("absolute w-4 h-4")} />
+                    <Image source={require('../../assets/icons/user.png')} style={tailwind("absolute w-4 h-4")} />
                     <TextInput placeholder="Email" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
                         onChangeText={text => { handleChangeEmail({ text, setEmail, setEmailError }) }}
                     />
@@ -54,7 +54,7 @@ export const LoginPage = ({ navigation }) => {
                         {emailError.length > 0 ? emailError : ''}
                 </Text>
                 <View style={tailwind("border-b relative flex flex-row items-center")}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
+                    <Image source={require('../../assets/icons/lock.png')} style={tailwind("absolute w-4 h-4")} />
                     <TextInput placeholder="Password" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
                         secureTextEntry={!isShowPassword}
                         onChangeText={text => { handleChangePassword({ text, setPassword, setPasswordError }) }}
@@ -72,9 +72,9 @@ export const LoginPage = ({ navigation }) => {
                 <Text style={tailwind("text-xs mt-2 text-red-700 text-center")}>{error == true ? "Email or password is wrong" : null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or, login with ...</Text>
                 <View style={tailwind("flex justify-center flex-row")}>
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/2702/2702602.png" }} style={tailwind("h-7 w-7 mx-5")} />
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/174/174848.png" }} style={tailwind("h-7 w-7 mx-5")} />
-                    <Image source={{ uri: "https://image.flaticon.com/icons/png/512/25/25657.png" }} style={tailwind("h-7 w-7 mx-5")} />
+                    <Image source={require('../../assets/icons/google.png')} style={tailwind("h-7 w-7 mx-5")} />
+                    <Image source={require('../../assets/icons/facebook.png')} style={tailwind("h-7 w-7 mx-5")} />
+                    <Image source={require('../../assets/icons/github.png')} style={tailwind("h-7 w-7 mx-5")} />
                 </View>
             </View>
             <View style={tailwind("flex flex-row justify-center items-end")}>

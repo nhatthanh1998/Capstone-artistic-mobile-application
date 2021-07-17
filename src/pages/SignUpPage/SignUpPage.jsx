@@ -27,7 +27,7 @@ export const SignUpPage = ({navigation}) => {
         <View style={tailwind("relative flex")}>
             <Loading isLoading={isLoading}/>
             <RegisterSuccessModal isVisible={success} onConfirm={() => handlePressLoginPage({navigation})}/>
-            <Image source={{ uri: "https://image.flaticon.com/icons/png/512/860/860790.png" }} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
+            <Image source={require('../../assets/icons/left_arrow_black.png')} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
             <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <AutoScaleImage
                     width={Dimensions.get('window').width - 30}
@@ -38,7 +38,7 @@ export const SignUpPage = ({navigation}) => {
                 <Text style={tailwind("text-4xl font-bold tracking-wide pb-3")}>Sign up</Text>
                 <View style={tailwind("mb-5")}>
                     <View style={emailError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800"): tailwind("py-2 border-b relative flex flex-row items-center")}>
-                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/456/456283.png" }} style={tailwind("absolute w-4 h-4")} />
+                        <Image source={require('../../assets/icons/user.png')} style={tailwind("absolute w-4 h-4")} />
                             <TextInput placeholder="Email" style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
                                 value={email}
                                 onChangeText={text => { handleChangeText({ text, setState: setEmail }) }}
@@ -48,7 +48,7 @@ export const SignUpPage = ({navigation}) => {
                 </View>
                 <View style={tailwind("mb-5")}>
                     <View style={passwordError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800") :  tailwind("py-2 border-b relative flex flex-row items-center")}>
-                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
+                        <Image source={require('../../assets/icons/lock.png')} style={tailwind("absolute w-4 h-4")} />
                             <TextInput placeholder="Password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
                                 value={password}
                                 onChangeText={text => { handleChangeText({ text, setState: setPassword }) }}
@@ -58,7 +58,7 @@ export const SignUpPage = ({navigation}) => {
                 </View>
                 <View style={tailwind("mb-5")}>
                     <View style={rePasswordError.length > 0 ? tailwind("py-2 border-b relative flex flex-row items-center border-red-800") : tailwind("py-2 border-b relative flex flex-row items-center")}>
-                        <Image source={{ uri: "https://image.flaticon.com/icons/png/512/3064/3064197.png" }} style={tailwind("absolute w-4 h-4")} />
+                        <Image source={require('../../assets/icons/lock.png')} style={tailwind("absolute w-4 h-4")} />
                             <TextInput placeholder="Re enter password" secureTextEntry={true} style={tailwind("text-gray-800 font-thin w-full pl-7 text-base tracking-wide")}
                                 value={rePassword}
                                 onChangeText={text => { handleChangeRePassword({ text, password, setRePassword, setRePasswordError }) }}
