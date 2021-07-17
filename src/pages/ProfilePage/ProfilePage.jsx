@@ -76,7 +76,7 @@ export const ProfilePage = ({ navigation }) => {
                             <TextInput style={lastNameError.length > 0 ? tailwind("text-base px-3 py-2 border border-red-800 w-full rounded-xl font-normal") : tailwind("text-base px-3 py-2 border w-full rounded-xl font-normal")}
                                 value={updatedLastName}
                                 onChangeText={text => {
-                                    handleChangeLastName({text, setLastName: setUpdatedLastName, setFirstNameError
+                                    handleChangeLastName({text, setLastName: setUpdatedLastName, setLastNameError
                                     })
                                 }}
                             />

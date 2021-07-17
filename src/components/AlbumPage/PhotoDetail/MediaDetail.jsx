@@ -192,6 +192,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                             onClose={() => {handleCloseDownloadSuccessModal({setDownloadSucessModalVisible})}}
                         />
                         <ConfirmDeleteModal 
+                            type={media.type || "PHOTO"}
                             isVisible = {isConfirmDeleteModalVisible} 
                             onConfirm = {() => handleConfirmDeleteModal({mediaId: media.id, albumId: media.albumId, dispatch, setConfirmDeleteModalVisible, setVisible})} 
                             onCancel = {() => handleCancleDeleteModal({setConfirmDeleteModalVisible})}/>

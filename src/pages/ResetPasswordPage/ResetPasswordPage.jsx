@@ -59,7 +59,7 @@ export const ResetPasswordPage = ({ navigation }) => {
                             })
                         }}
                     >
-                        <Text style={tailwind("text-base text-center font-normal")}>Update</Text>
+                        <Text style={tailwind("text-base text-center font-normal")}>Reset Password</Text>
                     </TouchableOpacity>
                 </View>
 
