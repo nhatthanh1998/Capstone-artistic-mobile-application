@@ -170,7 +170,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                                     setShowMenu(false)
                                     setMoveMediaModalShow(true)
                                 }}>
-                                    <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/share.png')}></Image>
+                                    <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/move.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Move</Text>
                                 </TouchableOpacity>
                                 
