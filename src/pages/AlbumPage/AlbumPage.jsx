@@ -54,7 +54,7 @@ export const AlbumPage = ({route, navigation}) => {
         StatusBar.setHidden(true);
         if (!album.medias) {
           setOnLoadData(true)
-          handleGetAlbumDetail({albumId, dispatch})
+          handleGetAlbumDetail({albumId, setOnLoadData, dispatch})
         } 
     }, [])
 
@@ -89,7 +89,7 @@ export const AlbumPage = ({route, navigation}) => {
               medias.length === 0 && onLoadData == false ?
                 (
                   <View style={{paddingTop: headerHeight}}>
-                    <EmptyAlbum/>
+                    <EmptyAlbum albumId = {albumId}/>
                   </View>
                 ) :
                 (

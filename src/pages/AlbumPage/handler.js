@@ -6,11 +6,12 @@ import { handleDeleteAlbumRedux, setAlbumMedias } from '../../redux/slicers/albu
 import Toast from 'react-native-toast-message';
 
 
-export const handleGetAlbumDetail = ({albumId, dispatch}) => {
+export const handleGetAlbumDetail = ({albumId, dispatch, setOnLoadData}) => {
     dispatch(setIsLoading(true))
     getAlbumDetail({albumId}).then(response => {
         dispatch(setIsLoading(false))
         dispatch(setAlbumMedias(response))
+        setOnLoadData(false)
     }).catch(error => {
         console.log(error)
         Toast.show({
