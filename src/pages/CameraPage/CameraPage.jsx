@@ -7,7 +7,6 @@ import { Camera } from 'expo-camera';
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { getCameraPermission, handlePressFlip, handleTakePicture, handlePressBack, handlePressFlash } from './handler'
-import { UPLOAD_PHOTO_LOADING_MESSAGE } from '../../enums/loading-message'
 import { CAMERA_ERROR_MESSAGE, CAMERA_NOT_GRANTED_MESSAGE } from '../../enums/error-message'
 
 export const CameraPage = ({ navigation }) => {

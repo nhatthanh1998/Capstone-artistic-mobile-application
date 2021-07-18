@@ -8,12 +8,13 @@ import { selectGeneratedImageAccessURL, setGeneratedImage, selectGeneratedImageP
 import { getStyles, handlePressSavePhoto, requestTransferImage, handleExit, handleRequestSavePhoto } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
-import { View, TouchableOpacity, StatusBar, Image, Text } from 'react-native'
+import { View, TouchableOpacity, StatusBar, Image, Text, BackHandler, ToastAndroid } from 'react-native'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { Loading } from '../../commons/components/Loading/Loading'
 import { SaveToAlbumSuccessModal } from '../../commons/components/modals/SaveToAlbumSuccessModal'
 import { SavePhotoToAlbumModal } from '../../commons/components/modals/SavePhotoToAlbumModal/SavePhotoToAlbumModal'
 import { QuitModal } from '../../commons/components/modals/QuitModal'
+import { handlePressBack } from "../CameraPage/handler";
 
 
 export const EffectPage = ({ navigation }) => {
@@ -36,7 +37,8 @@ export const EffectPage = ({ navigation }) => {
     useEffect(() => {
         StatusBar.setHidden(true)
         getStyles({dispatch})
-        return () => { }
+        BackHandler.addEventListener("hardwareBackPress", handlePressHardwareBackButton)
+        return () => { BackHandler.removeEventListener() }
     }, [])
 
 
@@ -57,6 +59,11 @@ export const EffectPage = ({ navigation }) => {
         selectedStyle.id === DEFAULT_STYLE_ID ? setDisableSave(true) : setDisableSave(false)
     }, [selectedStyle])
 
+
+    const handlePressHardwareBackButton = () => {
+        setShowQuitModal(true)
+        return true
+    }
     return (
         <View style={tailwind("flex-1 relative h-full")}>
             <QuitModal
