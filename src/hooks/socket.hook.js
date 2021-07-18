@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux'
 import {setGeneratedImage} from '../redux/slicers/generated-image.slicer'
 import {setOriginImage} from '../redux/slicers/origin-image.slicer'
 import { setIsLoading } from '../redux/slicers/is-loading.slicer'
-import {TRANSFER_COMPLETED, TRANSFER_PHOTO_COMPLETED, TRANSFER_VIDEO_COMPLETED, UPLOAD_IMAGE_SUCCESS} from '../enums/socket-event'
+import { TRANSFER_PHOTO_COMPLETED, TRANSFER_VIDEO_COMPLETED, UPLOAD_IMAGE_SUCCESS} from '../enums/socket-event'
 import {SOCKET_SERVER} from '../config/index'
 import { requestGetNotifications } from '../apis/notifications';
 import { setNotifications } from '../redux/slicers/notifications.slicer';
@@ -38,10 +38,12 @@ export const setUpListen = async ({userId, dispatch}) => {
                 const {accessURL, styleId, transferPhotoLocation} = data
                 dispatch(setGeneratedImage({accessURL, styleId, transferPhotoLocation}))
                 dispatch(setIsLoading(false))
+                break;
             }
             case UPLOAD_IMAGE_SUCCESS: {
                 dispatch(setOriginImage(data))
                 dispatch(setIsLoading(false))
+                break;
             }
         }
     })

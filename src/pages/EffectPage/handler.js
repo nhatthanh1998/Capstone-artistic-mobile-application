@@ -21,7 +21,17 @@ export const requestTransferImage = async ({generatedImage, selectedStyle, photo
     const { id } = selectedStyle
     if(!generatedImage[id] && id !== DEFAULT_STYLE_ID) {
         dispatch(setIsLoading(true))
-        await sendTransferPhotoRequest({photoLocation, selectedStyle})
+        const {data, message, statusCode} = await sendTransferPhotoRequest({photoLocation, selectedStyle})
+        if(message && statusCode) {
+            console.log("In here:", message, statusCode)
+            dispatch(setIsLoading(false))
+            Toast.show({
+                text1: "Error",
+                text2: "This style is not support for now!",
+                type: 'error',
+                position: 'top'
+            })
+        }
     }
 }
 

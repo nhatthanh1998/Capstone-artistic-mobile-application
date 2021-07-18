@@ -1,15 +1,15 @@
 import axios from 'axios'
-import {MAIN_SERVER} from '../../config/index'
+import { MAIN_SERVER } from '../../config/index'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
-export async function uploadPhotoToServer({imageURI}) {
+export async function uploadPhotoToServer({ imageURI }) {
     const name = new Date().getTime() + ".jpg"
     const ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
     const socketId = await AsyncStorage.getItem("socketId")
     const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
-    formData.append("media", {uri: imageURI, type: 'image/jpg', name});
+    formData.append("media", { uri: imageURI, type: 'image/jpg', name });
     formData.append('socketId', socketId)
     const response = await axios.post(ENDPOINT_URL, formData, {
         headers: {
@@ -21,17 +21,20 @@ export async function uploadPhotoToServer({imageURI}) {
 }
 
 
-export async function sendTransferPhotoRequest({photoLocation, selectedStyle }) {
+export async function sendTransferPhotoRequest({ photoLocation, selectedStyle }) {
     const ENDPOINT_URL = `${MAIN_SERVER}/medias/transfer-photo`
-    const socketId = await AsyncStorage.getItem("socketId")
     const token = await AsyncStorage.getItem("token")
-    const payload = {socketId, photoLocation, style: selectedStyle}
-    const response = await axios.post(ENDPOINT_URL, payload, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    return response.data
+    const payload = { photoLocation, styleId: selectedStyle.id }
+    try {
+        const { data } = await axios.post(ENDPOINT_URL, payload, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return { data }
+    } catch (error) {
+        return error.response.data
+    }
 }
 
 
@@ -47,10 +50,10 @@ export async function fetchAlbumMedias() {
     return response.data
 }
 
-export async function requestSavePhotoToAlbum({photoLocation, albumId}) {
+export async function requestSavePhotoToAlbum({ photoLocation, albumId }) {
     const token = await AsyncStorage.getItem("token")
-    let ENDPOINT_URL = `${MAIN_SERVER}/medias/save-to-album`    
-    const payload = {photoLocation, albumId}
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias/save-to-album`
+    const payload = { photoLocation, albumId }
     const response = await axios.post(ENDPOINT_URL, payload, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -59,9 +62,9 @@ export async function requestSavePhotoToAlbum({photoLocation, albumId}) {
     return response.data
 }
 
-export async function requestDeleteMedia({mediaId}) {
+export async function requestDeleteMedia({ mediaId }) {
     const token = await AsyncStorage.getItem("token")
-    let ENDPOINT_URL = `${MAIN_SERVER}/medias/${mediaId}`    
+    let ENDPOINT_URL = `${MAIN_SERVER}/medias/${mediaId}`
     const response = await axios.delete(ENDPOINT_URL, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -71,18 +74,18 @@ export async function requestDeleteMedia({mediaId}) {
 }
 
 
-export async function uploadMedia({uri, albumId}) {
+export async function uploadMedia({ uri, albumId }) {
     const extension = uri.slice(uri.lastIndexOf('.') + 1)
     const name = new Date().getTime() + "." + extension
     let ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
     const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
     formData.append("albumId", albumId)
-    if(extension == 'mp4') {
+    if (extension == 'mp4') {
         ENDPOINT_URL = `${MAIN_SERVER}/videos/upload`
-        formData.append("media", {uri, type: 'video/mp4', name});
+        formData.append("media", { uri, type: 'video/mp4', name });
     } else {
-        formData.append("media", {uri, type: 'image/jpeg', name});
+        formData.append("media", { uri, type: 'image/jpeg', name });
     }
     return axios.post(ENDPOINT_URL, formData, {
         headers: {
