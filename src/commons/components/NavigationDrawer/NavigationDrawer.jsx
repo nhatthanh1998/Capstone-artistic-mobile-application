@@ -2,16 +2,14 @@ import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserProfile } from '../../../redux/slicers/user.slicer'
-import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
+import { Title, Caption, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntIcon from 'react-native-vector-icons/AntDesign'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
-import { ALBUM_LIST_PAGE, MAIN_PAGE, CAMERA_PAGE, PROFILE_PAGE, CHANGE_PASSWORD_PAGE } from '../../../enums/page-name'
-import { ALBUM_TITLE, CAMERA_TITLE, GALLERY_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE, CHANGE_PASSWOR_TITLE } from '../../../enums/drawer-title'
+import { ALBUM_LIST_PAGE, MAIN_PAGE, PROFILE_PAGE, CHANGE_PASSWORD_PAGE } from '../../../enums/page-name'
+import { ALBUM_TITLE, HOME_TITLE, PROFILE_TITLE, SECTION_TITLE, SIGN_OUT_TITLE, CHANGE_PASSWOR_TITLE } from '../../../enums/drawer-title'
 import { handleNavigation, handleSignOut } from './handler'
-import { handlePressGallery } from '../../../pages/MainPage/handler'
 
 
 
@@ -69,30 +67,6 @@ export const NavigationDrawerContent = (props) => {
                             label={CHANGE_PASSWOR_TITLE}
                             onPress={() => { handleNavigation({ navigation: props.navigation, pageName: CHANGE_PASSWORD_PAGE }) }}
                         />
-
-                        <DrawerItem
-                            icon={({ color, size }) => (
-                                <Icon
-                                    name="camera-outline"
-                                    color={color}
-                                    size={size}
-                                />
-                            )}
-                            label={CAMERA_TITLE}
-                            onPress={() => handleNavigation({ navigation: props.navigation, pageName: CAMERA_PAGE })}
-                        />
-                        <DrawerItem
-                            icon={({ color, size }) => (
-                                <AntIcon
-                                    name="picture"
-                                    color={color}
-                                    size={size}
-                                />
-                            )}
-                            label={GALLERY_TITLE}
-                            onPress={() => handlePressGallery({ dispatch, navigation: props.navigation })}
-                        />
-
                         <DrawerItem
                             icon={({ color, size }) => (
                                 <IonIcon

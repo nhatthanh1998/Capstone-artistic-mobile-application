@@ -1,6 +1,4 @@
 import io from 'socket.io-client'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux'
 import {setGeneratedImage} from '../redux/slicers/generated-image.slicer'
 import {setOriginImage} from '../redux/slicers/origin-image.slicer'
 import { setIsLoading } from '../redux/slicers/is-loading.slicer'

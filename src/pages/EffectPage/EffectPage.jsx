@@ -5,7 +5,7 @@ import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle, selectPrevSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImage, selectGeneratedImagePhotoLocations } from '../../redux/slicers/generated-image.slicer'
-import { getStyles, handlePressSavePhoto, requestTransferImage, handleExit, handleRequestSavePhoto } from './handler'
+import { getStyles, getAlbums, requestTransferImage, handleExit, handleRequestSavePhoto } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
 import { View, TouchableOpacity, StatusBar, Image, Text, BackHandler, ToastAndroid } from 'react-native'
@@ -14,8 +14,6 @@ import { Loading } from '../../commons/components/Loading/Loading'
 import { SaveToAlbumSuccessModal } from '../../commons/components/modals/SaveToAlbumSuccessModal'
 import { SavePhotoToAlbumModal } from '../../commons/components/modals/SavePhotoToAlbumModal/SavePhotoToAlbumModal'
 import { QuitModal } from '../../commons/components/modals/QuitModal'
-import { handlePressBack } from "../CameraPage/handler";
-
 
 export const EffectPage = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -37,6 +35,7 @@ export const EffectPage = ({ navigation }) => {
     useEffect(() => {
         StatusBar.setHidden(true)
         getStyles({dispatch})
+        getAlbums({setAlbums})
         BackHandler.addEventListener("hardwareBackPress", handlePressHardwareBackButton)
         return () => { BackHandler.removeEventListener() }
     }, [])
@@ -49,13 +48,14 @@ export const EffectPage = ({ navigation }) => {
 
 
     useEffect(() => {
-        requestTransferImage({
-            generatedImage,
-            photoLocation:originImage.accessURL,
-            selectedStyle,
-            dispatch
-        })
-
+        if(selectedStyle.id !== DEFAULT_STYLE_ID) {
+            requestTransferImage({
+                generatedImage,
+                photoLocation:originImage.accessURL,
+                selectedStyle,
+                dispatch
+            })
+        }
         selectedStyle.id === DEFAULT_STYLE_ID ? setDisableSave(true) : setDisableSave(false)
     }, [selectedStyle])
 
@@ -80,12 +80,12 @@ export const EffectPage = ({ navigation }) => {
 
             <SavePhotoToAlbumModal 
                 isVisible={isSavePhotoModalVisible}
-                onCancel={() => {setSavePhotoModalVisible(false)}}
+                onCancel={() => setSavePhotoModalVisible(false)}
                 albums={albums}
                 selectedAlbum={selectedAlbum}
                 setSelectedAlbum={setSelectedAlbum}
                 onConfirm={() => {
-                    handleRequestSavePhoto({setAlbumError, setSavePhotoModalVisible, setShowSaveSuccessModel, dispatch, navigation, albumId:selectedAlbum, photoLocation:photoLocations[selectedStyle.id]})
+                    handleRequestSavePhoto({setAlbumError, setSavePhotoModalVisible, setShowSaveSuccessModel, setSelectedAlbum, dispatch, navigation, albumId:selectedAlbum, photoLocation:photoLocations[selectedStyle.id]})
                 }}/>
             <Loading isLoading={isLoading}/>
 
@@ -101,7 +101,7 @@ export const EffectPage = ({ navigation }) => {
                 <View style={tailwind("flex flex-row w-1/3 justify-end")}>
                     <TouchableOpacity
                     disabled={isDisableSave}
-                    onPress={() => {handlePressSavePhoto({setAlbums, setSavePhotoModalVisible, dispatch})}}>
+                    onPress={() => setSavePhotoModalVisible(true)}>
                         <Image style={tailwind("w-5 h-5")} source={require('../../assets/icons/download_black.png')}></Image>
                     </TouchableOpacity>
                 </View>
