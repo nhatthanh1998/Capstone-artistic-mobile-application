@@ -89,3 +89,13 @@ export const changePassword = async ({ oldPassword, newPassword }) => {
     }
     
 }
+
+export const resetPassword = async ({email}) => {
+    const ENDPOINT_URL = `${MAIN_SERVER}/users/reset-password?email=${email}`
+    try {
+        const {data} = await axios.get(ENDPOINT_URL)
+        return {data}
+    } catch (error) {
+        return error.response.data
+    }
+}
