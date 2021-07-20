@@ -31,7 +31,7 @@ export const SignUpPage = ({navigation}) => {
             <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <AutoScaleImage
                     width={Dimensions.get('window').width - 30}
-                    source={{ uri: "https://ouch-cdn2.icons8.com/5Hyr0PNJb0Dhxqs7p_oXcWktGBpdf5Vx61dNp4LoZE0/rs:fit:1216:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNjc5/L2M0ZjFlNjM3LTZk/NWYtNGQ2MS1iNDc2/LTM3ZWY4YWNhNmRi/YS5zdmc.png" }}
+                    source={require('../../assets/illustrations/register.webp')}
                 />
             </View>
             <View style={tailwind("px-12 pb-7 mt-3")}>

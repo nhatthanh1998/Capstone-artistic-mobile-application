@@ -39,7 +39,7 @@ export const LoginPage = ({ navigation }) => {
             <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <AutoScaleImage
                     width={Dimensions.get('window').width}
-                    source={{ uri: "https://ouch-cdn2.icons8.com/_fNVKX7Z_MdTZq4gLEhPfwhjKGtIwbxrDw8p2AgeVVE/rs:fit:1368:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMzA3/L2U5M2Y3YmFlLTA0/NmUtNDBjYS04NjMw/LTFmYzliNjZlZjQz/OS5zdmc.png" }}
+                    source={require('../../assets/illustrations/login.webp')}
                 />
             </View>
             <View style={tailwind("px-12 pb-7 mt-3")}>

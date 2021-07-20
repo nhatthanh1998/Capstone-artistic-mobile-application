@@ -29,7 +29,7 @@ export const ResetPasswordPage = ({ navigation }) => {
                         <Image
                             resizeMode="contain"
                             style={tailwind("h-48")}
-                            source={{ uri: "https://ouch-cdn2.icons8.com/aEXyr6nDbNqFUNJdlQbI0pMqVPfcNtkTLbuW22W48ho/rs:fit:1216:912/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNTg0/LzBlMzcyMzEwLTRm/MTctNGNjOC05ODM2/LTAxMTMzYmIzMjA4/My5zdmc.png" }} />
+                            source={require('../../assets/illustrations/profile.webp')} />
                     </View>
                     <TouchableOpacity style={tailwind("absolute right-0 mt-12 mr-5")} onPress={() => handleCloseProfilePage({ navigation })}>
                         <Image source={require('../../assets/icons/x-square.png')}
