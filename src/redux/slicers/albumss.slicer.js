@@ -8,6 +8,14 @@ const albumssSlicer = createSlice({
     name: ALBUM_REDUCER_PREFIX,
     initialState,
     reducers: {
+        updateAlbumThumbnail: (albums, action) => {
+            const {id, thumbnailURL} = action.payload
+            albums[id] = {
+                ...albums[id],
+                thumbnailURL
+            }
+            return albums
+        },
         initAlbums: (_, action) => {
             const albums = {}
             for (album of action.payload) {
@@ -96,7 +104,7 @@ const albumssSlicer = createSlice({
 
 
 export const { initAlbums, handleAddAlbumRedux, handleDeleteAlbumRedux, 
-    setAlbumMedias, moveMediaToOtherAlbum, deleteMedia, addMedia, setMediasNull } = albumssSlicer.actions
+    setAlbumMedias, moveMediaToOtherAlbum, deleteMedia, addMedia, setMediasNull, updateAlbumThumbnail } = albumssSlicer.actions
 
 export const selectAlbums = state => state.albums
 

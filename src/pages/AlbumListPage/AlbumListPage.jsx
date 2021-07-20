@@ -21,19 +21,22 @@ export const AlbumListPage = ({ navigation }) => {
 
 
     useEffect(() => {
-        dispatch(setIsLoading(true))
-        fetchAlbums().then(({data}) => {
-            dispatch(initAlbums(data))
-            dispatch(setIsLoading(false))
-        }).catch(error => {
-            console.log(error)
-            Toast.show({
-                text1: "Error",
-                text2: error,
-                type: 'error',
-                position: 'top'
+        if(Object.keys(albums).length == 0) {
+            dispatch(setIsLoading(true))
+            fetchAlbums().then(({data}) => {
+                dispatch(initAlbums(data))
+                dispatch(setIsLoading(false))
+            }).catch(error => {
+                console.log(error)
+                Toast.show({
+                    text1: "Error",
+                    text2: error,
+                    type: 'error',
+                    position: 'top'
+                })
             })
-        })
+        }
+        
         return () => {}
     }, [])
     

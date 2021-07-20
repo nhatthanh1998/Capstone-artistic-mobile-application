@@ -10,8 +10,9 @@ import { MoveMediaToAnotherAlbumModal } from '../../../commons/components/modals
 import { handleMoveMedia } from './handler'
 import { ApplyStyleModal } from '../../../commons/components/modals/ApplyStyleModal'
 import { setOriginImage } from '../../../redux/slicers/origin-image.slicer'
-import {RequestTransferVideoSuccessModal} from '../../../commons/components/modals/RequestTransferVideoSuccessModal'
+import { RequestTransferVideoSuccessModal } from '../../../commons/components/modals/RequestTransferVideoSuccessModal'
 import Toast from 'react-native-toast-message';
+import { SetBackgroundModal } from '../../../commons/components/modals/SetBackgroundModal'
 
 import { handleCancleDeleteModal,
     handleConfirmDeleteModal,
@@ -38,6 +39,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
     const [showApplyStyleModal, setShowApplyStyleModal] = useState(false)
     const [selectedStyleId, setSelectedStyleId] = useState(null)
     const [showRequestTransferVideoSuccessModal, setShowRequestTransferVideoSuccessModal] = useState(null)
+    const [showSetBackgroundModal, setShowSetBackgroundModal] = useState(false)
 
     useEffect(() => {
         getMediaLibraryPermission({ setMediaPermission })
@@ -120,7 +122,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
         return <Text>Media Permission not granted!</Text> 
     }
     return (
-        <Modal 
+        <Modal
         animationOut="bounceOut"
         animationIn="bounceInUp"
         animationInTiming={350}
@@ -173,6 +175,15 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                                     <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/move.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Move</Text>
                                 </TouchableOpacity>
+
+                                <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
+                                    onPress = {() => {
+                                        setShowSetBackgroundModal(true)
+                                        setShowMenu(false)
+                                }}>
+                                    <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/background.png')}></Image>
+                                    <Text style={tailwind("text-xs font-thin text-white")}>Set to wall</Text>
+                                </TouchableOpacity>
                                 
                                 <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
                                     onPress = {() => {
@@ -193,9 +204,13 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                         />
                         <ConfirmDeleteModal 
                             type={media.type || "PHOTO"}
-                            isVisible = {isConfirmDeleteModalVisible} 
-                            onConfirm = {() => handleConfirmDeleteModal({mediaId: media.id, albumId: media.albumId, dispatch, setConfirmDeleteModalVisible, setVisible})} 
-                            onCancel = {() => handleCancleDeleteModal({setConfirmDeleteModalVisible})}/>
+                            isVisible={isConfirmDeleteModalVisible} 
+                            onConfirm={() => handleConfirmDeleteModal({mediaId: media.id, albumId: media.albumId, dispatch, setConfirmDeleteModalVisible, setVisible})} 
+                            onCancel={() => handleCancleDeleteModal({setConfirmDeleteModalVisible})}/>
+                        <SetBackgroundModal
+                            media={media}
+                            isVisible={showSetBackgroundModal} 
+                            onCancel={() => setShowSetBackgroundModal(false)}/>
                         <MoveMediaToAnotherAlbumModal
                             isVisible={isMoveMediaModalShow}
                             onCancel={() => {setMoveMediaModalShow(false)}}
@@ -204,6 +219,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                             navigation={navigation}
                             setMediaDetailVisible = {setVisible}
                         />
+                        
                     </View> 
                 ) : <></>
             }                
