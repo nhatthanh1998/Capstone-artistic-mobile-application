@@ -7,6 +7,24 @@ import { handleChangePassword, handleChangeEmail, handleClickRegister, handleLog
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer';
+import * as Google from 'expo-google-app-auth';
+import { styles } from '../../styles';
+
+const signInWithGoogle = async () => {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId: "554326087777-1ns17d7rmsrf77l8m3pg7a25pdpv1ksj.apps.googleusercontent.com",
+        scopes: ["profile", "email"]
+      })
+      if(result.type === 'success') {
+        const { idToken } = result
+        console.log(idToken)
+        // bo tokenID len server de lay token ve nha anh trai oi
+      }
+    } catch (e) {
+      console.log("error", e)
+    }
+}
 
 export const LoginPage = ({ navigation }) => {
     const [email, setEmail] = useState('')
@@ -62,27 +80,29 @@ export const LoginPage = ({ navigation }) => {
                     {renderPasswordIcon()}
                 </View>
                 <Text style={tailwind("text-xs mt-1 mb-5 text-red-700")}>{passwordError.length > 0 ? passwordError : ''}</Text>
-                <View style={tailwind("rounded-xl bg-yellow-300 p-3 ")}>
+                <View style={{...tailwind("rounded-xl bg-yellow-300 p-3 "), ...styles.shadow_1}}>
                     <Text style={tailwind("text-lg text-center tracking-wide")}
                         onPress={() => {
                             handleLogin({ email, password, setEmailError, setPasswordError, dispatch, setError })
                         }}
                     >Login</Text>
                 </View>
-                <Text style={tailwind("text-xs mt-2 text-red-700 text-center")}>{error == true ? "Email or password is wrong" : null}</Text>
-                <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or, login with ...</Text>
-                <View style={tailwind("flex justify-center flex-row")}>
-                    <Image source={require('../../assets/icons/google.png')} style={tailwind("h-7 w-7 mx-5")} />
-                    <Image source={require('../../assets/icons/facebook.png')} style={tailwind("h-7 w-7 mx-5")} />
-                    <Image source={require('../../assets/icons/github.png')} style={tailwind("h-7 w-7 mx-5")} />
+                <Text style={tailwind(`text-xs mt-2 text-red-700 text-center ${error == false ? 'hidden' : ''}`)}>{error == true ? "Email or password is wrong" : null}</Text>
+                <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or</Text>
+                <View style={tailwind("flex justify-center items-center")}>
+                    <TouchableOpacity onPress={() => signInWithGoogle()} style={{...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1}}>
+                        <Image style={tailwind("w-7 h-7 mr-3")} source={require("../../assets/icons/google.png")}></Image>
+                        <Text>Sign in with Google</Text>
+                    </TouchableOpacity>
                 </View>
+                
             </View>
             <View style={tailwind("flex flex-row justify-center items-end")}>
                 <Text style={tailwind("text-center text-sm font-thin text-gray-600")}>
                     Don't have account?
                 </Text>
                 <Text style={tailwind("ml-1 text-blue-900 font-bold")}
-                    onPress={() => handleClickRegister({ navigation })}
+                    onPress={() => signIn()}
                 >
                     Register now
                 </Text>
