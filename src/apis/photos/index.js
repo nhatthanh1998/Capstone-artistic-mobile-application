@@ -6,11 +6,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export async function uploadPhotoToServer({ imageURI }) {
     const name = new Date().getTime() + ".jpg"
     const ENDPOINT_URL = `${MAIN_SERVER}/medias/upload`
-    const socketId = await AsyncStorage.getItem("socketId")
     const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
     formData.append("media", { uri: imageURI, type: 'image/jpg', name });
-    formData.append('socketId', socketId)
     const response = await axios.post(ENDPOINT_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',

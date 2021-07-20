@@ -54,8 +54,7 @@ export const handleTakePicture = async ({dispatch, camera, navigation}) => {
         { format: 'jpeg' }
     )
       dispatch(setOriginImage({accessURL: photo.uri}))
-      const socketId = await AsyncStorage.getItem("socketId")
-      uploadPhotoToServer({imageURI: photo.uri, socketId: socketId})
+      uploadPhotoToServer({imageURI: photo.uri})
       navigation.navigate(EFFECT_PAGE)
     }
   }
