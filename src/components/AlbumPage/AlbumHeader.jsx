@@ -7,15 +7,34 @@ import { EditAlbumModal } from '../../commons/components/modals/EditAlbumModal'
 import * as ImagePicker from 'expo-image-picker';
 import { uploadMedia } from '../../apis/photos'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
-import { addMedia } from '../../redux/slicers/albumss.slicer'
+import { addMedia, updateAlbumThumbnail } from '../../redux/slicers/albumss.slicer'
 import Toast from 'react-native-toast-message';
-
+import {changeAlbumBackgroundWithUploadFile} from '../../apis/albums'
 
 export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, dispatch, handleDeleteAlbum}) => {
 
     const [showMenu, setShowMenu] = useState(false)
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false)
     const [showEditAlbumModal, setShowEditAlbumModal] = useState(false)
+
+    const handlePressChangeBackGround = async ({dispatch}) => {
+        {
+            let photo = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                quality: 1,
+            });
+        
+            if (!photo.cancelled) {
+                dispatch(setIsLoading(true))
+                const imageURI = photo.uri
+                const {data} = await changeAlbumBackgroundWithUploadFile({albumId: album.id, imageURI})
+                dispatch(updateAlbumThumbnail({id: data.id, thumbnailURL: data.thumbnailURL}))
+                dispatch(setIsLoading(false))
+
+            }
+        }
+    }
 
     const handlePressAddItem = async ({albumId}) => {
         let media = await ImagePicker.launchImageLibraryAsync({
@@ -85,7 +104,7 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
                                         </TouchableOpacity>
                                         <TouchableOpacity style={tailwind("flex flex-row w-full items-center py-2")} onPress={() => {
                                             setShowMenu(false)
-                                            setShowEditAlbumModal(true)
+                                            handlePressChangeBackGround({dispatch})
                                         }}>
                                             <Image style={tailwind("w-3 h-3 mr-4")} source={require('../../assets/icons/background.png')}></Image>
                                             <Text style={tailwind("text-xs font-thin text-white")}>Change background</Text>

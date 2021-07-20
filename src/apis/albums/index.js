@@ -66,11 +66,10 @@ export async function changeAlbumBackgroundWithUploadFile({albumId, imageURI}) {
     const token = await AsyncStorage.getItem("token")
     let formData = new FormData();
     formData.append("photo", { uri: imageURI, type: 'image/jpg', name: "albumBackground.jpg" });
-    formData.append('socketId', socketId)
-    const response = await axios.put(ENDPOINT_URL, formData, {
+    const {data} = await axios.put(ENDPOINT_URL, formData, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
-    return response.data
+    return {data}
 }
