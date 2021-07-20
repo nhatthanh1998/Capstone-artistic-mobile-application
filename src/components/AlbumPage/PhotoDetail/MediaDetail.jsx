@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { View, Image, Text, TouchableOpacity, Dimensions } from 'react-native'
 import Modal from 'react-native-modal'
 import tailwind from 'tailwind-rn'
@@ -11,7 +11,6 @@ import { handleMoveMedia } from './handler'
 import { ApplyStyleModal } from '../../../commons/components/modals/ApplyStyleModal'
 import { setOriginImage } from '../../../redux/slicers/origin-image.slicer'
 import { RequestTransferVideoSuccessModal } from '../../../commons/components/modals/RequestTransferVideoSuccessModal'
-import Toast from 'react-native-toast-message';
 import { SetBackgroundModal } from '../../../commons/components/modals/SetBackgroundModal'
 
 import { handleCancleDeleteModal,
@@ -25,7 +24,8 @@ import { handleCancleDeleteModal,
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { EFFECT_PAGE } from '../../../enums/page-name'
 import { requestTransferVideo } from '../../../apis/medias'
-import { setIsLoading } from '../../../redux/slicers/is-loading.slicer'
+import { selectIsLoading, setIsLoading } from '../../../redux/slicers/is-loading.slicer'
+import { Loading } from '../../../commons/components/Loading/Loading'
 
 
 export const MediaDetail = ({ media, visible, setVisible, navigation, albumId }) => {
@@ -40,6 +40,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
     const [selectedStyleId, setSelectedStyleId] = useState(null)
     const [showRequestTransferVideoSuccessModal, setShowRequestTransferVideoSuccessModal] = useState(null)
     const [showSetBackgroundModal, setShowSetBackgroundModal] = useState(false)
+    const isLoading = useSelector(selectIsLoading)
 
     useEffect(() => {
         getMediaLibraryPermission({ setMediaPermission })
@@ -122,11 +123,15 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
         return <Text>Media Permission not granted!</Text> 
     }
     return (
+        <>
         <Modal
         animationOut="bounceOut"
         animationIn="bounceInUp"
         animationInTiming={350}
-        animationOutTiming={250} style={tailwind("m-0")} isVisible={visible}>
+        animationOutTiming={250} 
+        style={tailwind("m-0")} 
+        isVisible={visible}>
+            <Loading isLoading={isLoading}/>
             {
                 media !== null ?
                 (
@@ -224,5 +229,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                 ) : <></>
             }                
         </Modal>
+        </>
+        
     )
 }

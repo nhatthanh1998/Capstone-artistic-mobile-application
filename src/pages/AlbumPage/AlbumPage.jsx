@@ -71,6 +71,13 @@ export const AlbumPage = ({route, navigation}) => {
     return (
         <SafeAreaView style={tailwind("h-full relative bg-white")}>
             <Loading isLoading={isLoading}/>
+            <MediaDetail
+              albumId={album.id}
+              media={selectedPhoto} 
+              setVisible = {setVisible} 
+              visible = {visible}
+              navigation={navigation}
+            />
             <Animated.View
              style={{
                  ...tailwind("absolute w-full z-20"),
@@ -104,14 +111,7 @@ export const AlbumPage = ({route, navigation}) => {
                       data={medias}
                       renderItem={data => <PhotoItem data={data} handlePress={() => handlePressPhotoItem(data.item)}/>}
                       keyExtractor={item => item.id}
-                    />
-                    <MediaDetail
-                      albumId={album.id}
-                      media={selectedPhoto} 
-                      setVisible = {setVisible} 
-                      visible = {visible}
-                      navigation={navigation}
-                    />
+                    />   
                   </>
                 )
             }

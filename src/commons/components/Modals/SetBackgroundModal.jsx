@@ -16,21 +16,15 @@ export const SetBackgroundModal = ({isVisible, onCancel, media }) => {
     const [selectedAlbum, setSelectedAlbum] = useState(null)
 
     const handleSetAlbumBackground = () => {
+        onCancel()
         dispatch(setIsLoading(true))
         changeAlbumBackground({
             albumId: selectedAlbum,
             photoLocation: media.storageLocation
         }).then(data => {
             const {id, thumbnailURL} = data
-            // Toast.show({
-            //     text1: 'Message',
-            //     text2: 'Update album background image success',
-            //     type: 'success',
-            //     position: 'top'
-            // })
             dispatch(updateAlbumThumbnail({id, thumbnailURL}))
             dispatch(setIsLoading(false))
-            onCancel()
             
         }).catch(err => {
             console.log(err)
