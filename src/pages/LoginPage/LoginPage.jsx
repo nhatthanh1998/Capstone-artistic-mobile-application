@@ -3,26 +3,40 @@ import { useDispatch, useSelector } from 'react-redux'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import AutoScaleImage from 'react-native-scalable-image';
-import { handleChangePassword, handleChangeEmail, handleClickRegister, handleLogin, handleClickResetPassword } from './handler'
+import { handleChangePassword, handleChangeEmail, handleClickRegister, handleLogin, handleClickResetPassword, checkIsLoggedIn } from './handler'
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
-import { selectIsLoading } from '../../redux/slicers/is-loading.slicer';
+import { selectIsLoading, setIsLoading } from '../../redux/slicers/is-loading.slicer';
 import * as Google from 'expo-google-app-auth';
 import { styles } from '../../styles';
+import { loginWithGoogle } from '../../apis/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const signInWithGoogle = async () => {
+
+const signInWithGoogle = async ({ dispatch }) => {
     try {
-      const result = await Google.logInAsync({
-        androidClientId: "554326087777-1ns17d7rmsrf77l8m3pg7a25pdpv1ksj.apps.googleusercontent.com",
-        scopes: ["profile", "email"]
-      })
-      if(result.type === 'success') {
-        const { idToken } = result
-        console.log(idToken)
-        // bo tokenID len server de lay token ve nha anh trai oi
-      }
+        dispatch(setIsLoading(true))
+        const result = await Google.logInAsync({
+            androidClientId: "554326087777-1ns17d7rmsrf77l8m3pg7a25pdpv1ksj.apps.googleusercontent.com",
+            scopes: ["profile", "email"]
+        })
+        if (result.type === 'success') {
+            const { idToken } = result
+            const { token, statusCode, message } = await loginWithGoogle({ tokenId: idToken })
+            if (token) {
+                AsyncStorage.setItem('token', token)
+                checkIsLoggedIn({dispatch})
+                dispatch(setIsLoading(false))
+            }
+            if(statusCode && message) {
+                
+            }
+            
+        } else {
+            dispatch(setIsLoading(false))
+        }
     } catch (e) {
-      console.log("error", e)
+        console.log("error:", e)
     }
 }
 
@@ -33,7 +47,7 @@ export const LoginPage = ({ navigation }) => {
     const [passwordError, setPasswordError] = useState('')
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [error, setError] = useState(false)
-    
+
     const dispatch = useDispatch()
     const isLoading = useSelector(selectIsLoading)
 
@@ -52,7 +66,7 @@ export const LoginPage = ({ navigation }) => {
         )
     }
     return (
-        <View style={tailwind("h-full")}>
+        <View style={tailwind("h-full relative")}>
             <Loading isLoading={isLoading} />
             <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <AutoScaleImage
@@ -69,7 +83,7 @@ export const LoginPage = ({ navigation }) => {
                     />
                 </View>
                 <Text style={tailwind("text-xs text-red-700 mb-4 mt-1")}>
-                        {emailError.length > 0 ? emailError : ''}
+                    {emailError.length > 0 ? emailError : ''}
                 </Text>
                 <View style={tailwind("border-b relative flex flex-row items-center")}>
                     <Image source={require('../../assets/icons/lock.png')} style={tailwind("absolute w-4 h-4")} />
@@ -80,7 +94,7 @@ export const LoginPage = ({ navigation }) => {
                     {renderPasswordIcon()}
                 </View>
                 <Text style={tailwind("text-xs mt-1 mb-5 text-red-700")}>{passwordError.length > 0 ? passwordError : ''}</Text>
-                <View style={{...tailwind("rounded-xl bg-yellow-300 p-3 "), ...styles.shadow_1}}>
+                <View style={{ ...tailwind("rounded-xl bg-yellow-300 p-3"), ...styles.shadow_1 }}>
                     <Text style={tailwind("text-lg text-center tracking-wide")}
                         onPress={() => {
                             handleLogin({ email, password, setEmailError, setPasswordError, dispatch, setError })
@@ -90,19 +104,19 @@ export const LoginPage = ({ navigation }) => {
                 <Text style={tailwind(`text-xs mt-2 text-red-700 text-center ${error == false ? 'hidden' : ''}`)}>{error == true ? "Email or password is wrong" : null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or</Text>
                 <View style={tailwind("flex justify-center items-center")}>
-                    <TouchableOpacity onPress={() => signInWithGoogle()} style={{...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1}}>
+                    <TouchableOpacity onPress={() => signInWithGoogle({dispatch})} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
                         <Image style={tailwind("w-7 h-7 mr-3")} source={require("../../assets/icons/google.png")}></Image>
                         <Text>Sign in with Google</Text>
                     </TouchableOpacity>
                 </View>
-                
+
             </View>
             <View style={tailwind("flex flex-row justify-center items-end")}>
                 <Text style={tailwind("text-center text-sm font-thin text-gray-600")}>
                     Don't have account?
                 </Text>
                 <Text style={tailwind("ml-1 text-blue-900 font-bold")}
-                    onPress={() => signIn()}
+                    onPress={() => handleClickRegister({navigation})}
                 >
                     Register now
                 </Text>

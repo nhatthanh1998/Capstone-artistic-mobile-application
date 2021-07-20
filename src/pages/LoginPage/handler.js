@@ -20,6 +20,33 @@ export const handleChangePassword = ({text, setPassword, setPasswordError}) => {
     }
 }
 
+export const handleClickRegister = ({ navigation }) => {
+    navigation.navigate(REGISTER_PAGE)
+}
+
+export const checkIsLoggedIn = async ({ dispatch }) => {
+    dispatch(setIsLoading(true))
+    const token = await AsyncStorage.getItem('token')
+    if (token !== null) {
+        const {data, message, statusCode} = await getUserProfile()
+
+        if (message && statusCode) {
+            await AsyncStorage.removeItem("token")
+            dispatch(setIsLoggedIn(false))
+            dispatch(setIsLoading(false))
+        }
+        else {
+            dispatch(setIsLoggedIn(true))
+            dispatch(setUserProfile(data))
+            dispatch(setIsLoading(false))
+        }
+    }
+}
+
+export const handleClickResetPassword = ({ navigation }) => {
+    navigation.navigate(RESET_PASSWORD_PAGE)
+}
+
 export const handleLogin = async ({ email, password, setEmailError, setPasswordError, dispatch, setError }) => {
     let isValidated = true
     if (email.length === 0) {
@@ -54,31 +81,4 @@ export const handleLogin = async ({ email, password, setEmailError, setPasswordE
             dispatch(setIsLoading(false))
         }
     }
-}
-
-export const handleClickRegister = ({ navigation }) => {
-    navigation.navigate(REGISTER_PAGE)
-}
-
-export const checkIsLoggedIn = async ({ dispatch }) => {
-    dispatch(setIsLoading(true))
-    const token = await AsyncStorage.getItem('token')
-    if (token !== null) {
-        const {data, message, statusCode} = await getUserProfile()
-
-        if (message && statusCode) {
-            await AsyncStorage.removeItem("token")
-            dispatch(setIsLoggedIn(false))
-            dispatch(setIsLoading(false))
-        }
-        else {
-            dispatch(setIsLoggedIn(true))
-            dispatch(setUserProfile(data))
-            dispatch(setIsLoading(false))
-        }
-    }
-}
-
-export const handleClickResetPassword = ({ navigation }) => {
-    navigation.navigate(RESET_PASSWORD_PAGE)
 }
