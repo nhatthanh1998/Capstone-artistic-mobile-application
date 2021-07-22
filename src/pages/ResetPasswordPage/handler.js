@@ -1,15 +1,6 @@
 import { resetPassword } from '../../apis/users'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
-
-
-export const validateEmail = (emailAdress) => {
-  let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  if (emailAdress.match(regexEmail)) {
-    return true; 
-  } else {
-    return false; 
-  }
-}
+import {validateEmail} from '../../utils'
 
 export const handleResetPassword = async ({email, setEmailError, setShowResetPasswordSuccessModal, dispatch}) => {
     let isValid = true

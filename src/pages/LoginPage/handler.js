@@ -5,6 +5,7 @@ import {getUserProfile} from '../../apis/users'
 import {setIsLoggedIn, setUserProfile} from '../../redux/slicers/user.slicer'
 import {setIsLoading} from '../../redux/slicers/is-loading.slicer'
 import Toast from 'react-native-toast-message';
+import { validateEmail } from '../../utils'
 
 export const handleChangeEmail = ({text, setEmail, setEmailError}) => {
     setEmail(text)
@@ -53,6 +54,16 @@ export const handleLogin = async ({ email, password, setEmailError, setPasswordE
         setEmailError("Email is required!")
         isValidated = false
     }
+
+    if(email.length > 0) {
+        if(validateEmail(email) == false) {
+            isValidated = false
+            setEmailError("Email is invalid format!")
+        }
+    }
+
+
+
     if (password.length === 0) {
         setPasswordError("Password is required!")
         isValidated = false
