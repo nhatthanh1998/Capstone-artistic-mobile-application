@@ -1,13 +1,13 @@
 {
-  "name": "mymobileapp",
-  "displayName": "mymobileapp",
   "expo": {
-    "name": "mymobileapp",
-    "slug": "mymobileapp",
+    "name": "Artisantify",
+    "icon": "./app-icon.png",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "slug": "artisantify-slug",
+    "android": {
+      "package": "com.capstone.artisantify",
+      "versionCode": 1
+    },
     "description": ""
   }
 }
