@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
-import AutoScaleImage from 'react-native-scalable-image';
 import { handleChangeText, handleSignUp, handleChangeRePassword, handlePressLoginPage } from './handler'
 import { RegisterSuccessModal } from '../../commons/components/modals/RegisterSuccessModal'
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,8 +28,9 @@ export const SignUpPage = ({navigation}) => {
             <RegisterSuccessModal isVisible={success} onConfirm={() => handlePressLoginPage({navigation})}/>
             <Image source={require('../../assets/icons/left_arrow_black.png')} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
             <View style={tailwind("flex flex-row justify-center mt-5")}>
-                <AutoScaleImage
-                    width={Dimensions.get('window').width - 30}
+                <Image
+                    style={tailwind("h-64")}
+                    resizeMode="contain"
                     source={require('../../assets/illustrations/register.webp')}
                 />
             </View>

@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import { styles } from '../../../../styles';
 import { AlbumPicker } from './DropDown'
 
-export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, albums, selectedAlbum, setSelectedAlbum}) => {
+export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, selectedAlbum, setSelectedAlbum}) => {
     return (
         <View>
             <Modal isVisible={isVisible} 
@@ -27,7 +27,6 @@ export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, albums, s
                         </Text>
                     </View>
                     <AlbumPicker
-                        albums={albums}
                         selectedAlbum={selectedAlbum}
                         setSelectedAlbum={setSelectedAlbum}
                     />

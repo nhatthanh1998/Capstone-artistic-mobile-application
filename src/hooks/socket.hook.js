@@ -6,7 +6,7 @@ import { TRANSFER_PHOTO_COMPLETED, TRANSFER_VIDEO_COMPLETED, UPLOAD_IMAGE_SUCCES
 import {SOCKET_SERVER} from '../config/index'
 import { requestGetNotifications } from '../apis/notifications';
 import { setNotifications } from '../redux/slicers/notifications.slicer';
-import { setMediasNull } from '../redux/slicers/albumss.slicer';
+import { addMedia, setMediasNull } from '../redux/slicers/albumss.slicer';
 
 const socket = io(SOCKET_SERVER)
 export function useSocket() {
@@ -41,6 +41,7 @@ export const setUpListen = async ({userId, dispatch}) => {
             case UPLOAD_IMAGE_SUCCESS: {
                 dispatch(setOriginImage(data))
                 dispatch(setIsLoading(false))
+                dispatch(addMedia({albumId: data.albumId, media: data}))
                 break;
             }
         }

@@ -5,7 +5,7 @@ import { ImageBox } from '../../components/EffectPage/ImageBox'
 import { selectStyles, setSelectedStyle, selectSelectedStyle, selectPrevSelectedStyle } from '../../redux/slicers/style.slicer'
 import { selectOriginImage } from '../../redux/slicers/origin-image.slicer'
 import { selectGeneratedImageAccessURL, setGeneratedImage, selectGeneratedImagePhotoLocations } from '../../redux/slicers/generated-image.slicer'
-import { getStyles, getAlbums, requestTransferImage, handleExit, handleRequestSavePhoto } from './handler'
+import { getStyles, requestTransferImage, handleExit, handleRequestSavePhoto } from './handler'
 import { DEFAULT_STYLE_ID } from "../../enums/default-style-id"
 import tailwind from "tailwind-rn";
 import { View, TouchableOpacity, StatusBar, Image, Text, BackHandler, ToastAndroid } from 'react-native'
@@ -18,7 +18,6 @@ import { QuitModal } from '../../commons/components/modals/QuitModal'
 export const EffectPage = ({ navigation }) => {
     const dispatch = useDispatch()
     const [isDisableSave, setDisableSave] = useState(true)
-    const [albums, setAlbums] = useState(null)
     const [selectedAlbum, setSelectedAlbum] = useState(null)
     const [albumError, setAlbumError] = useState('')
     const styles = useSelector(selectStyles)
@@ -35,7 +34,6 @@ export const EffectPage = ({ navigation }) => {
     useEffect(() => {
         StatusBar.setHidden(true)
         getStyles({dispatch})
-        getAlbums({setAlbums})
         BackHandler.addEventListener("hardwareBackPress", handlePressHardwareBackButton)
         return () => { BackHandler.removeEventListener() }
     }, [])
@@ -81,7 +79,6 @@ export const EffectPage = ({ navigation }) => {
             <SavePhotoToAlbumModal 
                 isVisible={isSavePhotoModalVisible}
                 onCancel={() => setSavePhotoModalVisible(false)}
-                albums={albums}
                 selectedAlbum={selectedAlbum}
                 setSelectedAlbum={setSelectedAlbum}
                 onConfirm={() => {
@@ -102,7 +99,7 @@ export const EffectPage = ({ navigation }) => {
                     <TouchableOpacity
                     disabled={isDisableSave}
                     onPress={() => setSavePhotoModalVisible(true)}>
-                        <Image style={tailwind("w-5 h-5")} source={require('../../assets/icons/download_black.png')}></Image>
+                        <Image style={tailwind(`w-5 h-5 ${isDisableSave ? "hidden" : ""}`)} source={require('../../assets/icons/download_black.png')}></Image>
                     </TouchableOpacity>
                 </View>
             </View>

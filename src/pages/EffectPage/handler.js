@@ -62,11 +62,6 @@ export const handleContinueEdit = ({ setBackModalVisible }) => {
     setBackModalVisible(false)
 }
 
-export const getAlbums = async ({ setAlbums }) => {
-    const response = await fetchAlbums()
-    setAlbums(response)
-}
-
 export const handleRequestSavePhoto = ({ photoLocation, albumId, setAlbumError, dispatch, setShowSaveSuccessModel, setSavePhotoModalVisible, setSelectedAlbum }) => {
     if (albumId === null) {
         setAlbumError("Album must be selected!")

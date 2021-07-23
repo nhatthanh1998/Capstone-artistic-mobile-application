@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
-import AutoScaleImage from 'react-native-scalable-image';
 import { handleChangePassword, handleChangeEmail, handleClickRegister, handleLogin, handleClickResetPassword, checkIsLoggedIn } from './handler'
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
@@ -69,8 +68,9 @@ export const LoginPage = ({ navigation }) => {
         <View style={tailwind("h-full relative")}>
             <Loading isLoading={isLoading} />
             <View style={tailwind("flex flex-row justify-center mt-5")}>
-                <AutoScaleImage
-                    width={Dimensions.get('window').width}
+                <Image
+                    style={tailwind("h-64")}
+                    resizeMode="contain"
                     source={require('../../assets/illustrations/login.webp')}
                 />
             </View>

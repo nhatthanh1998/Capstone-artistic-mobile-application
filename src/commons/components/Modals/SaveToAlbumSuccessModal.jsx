@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
-import AutoScaleImage from 'react-native-scalable-image';
 
 export const SaveToAlbumSuccessModal = ({isVisible, onCancel, onConfirm} ) => {
     const [modelWidth, setModalWidth] = useState(0)
@@ -24,9 +23,12 @@ export const SaveToAlbumSuccessModal = ({isVisible, onCancel, onConfirm} ) => {
                     setModalWidth(event.nativeEvent.layout.width)
                 }} style={{...tailwind("bg-white pb-10"), ...styles.border, paddingTop: paddingTop, transform: [{translateY: (imageHeight - paddingTop) / 2.5}]}}>
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
-                        <AutoScaleImage onLayout={(event) => {
+                        <Image onLayout={(event) => {
                             setImageHeight(event.nativeEvent.layout.height)
-                        }} width={modelWidth - 20} source={require('../../../assets/modals/download-complete.webp')}></AutoScaleImage>
+                        }} 
+                        style={tailwind("h-64")}
+                        resizeMode="contain"
+                        source={require('../../../assets/modals/download-complete.webp')}></Image>
                     </View>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center")}>Save success</Text>
                     <Text style={tailwind("text-center mt-1 text-base tracking-wide text-gray-500")}>Your photo save successfully.</Text>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
-import AutoScaleImage from 'react-native-scalable-image';
 import { TITLE, MESSAGE, YES_BUTTON } from '../../../enums/modals/download-success-model'
 
 
@@ -27,11 +26,12 @@ export const DownloadSuccessModal = (props) => {
                     setModalWidth(event.nativeEvent.layout.width)
                 }} style={{...tailwind("bg-white pb-10"), ...styles.border, paddingTop: paddingTop, transform: [{translateY: (imageHeight - paddingTop) / 2.5}]}}>
                     <View style={{...tailwind("absolute flex flex-row justify-center"), transform: [{translateY: -(imageHeight / 2) }], width: modelWidth}}>
-                        <AutoScaleImage 
+                        <Image 
                             onLayout={(event) => {
                                 setImageHeight(event.nativeEvent.layout.height)
                             }} 
-                            width={modelWidth - 20} 
+                            style={tailwind("h-64")}
+                            resizeMode="contain"
                             source={require('../../../assets/modals/download-complete.webp')}
                         />
                     </View>
