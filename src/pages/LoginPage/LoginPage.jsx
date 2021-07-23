@@ -13,18 +13,12 @@ import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import { useAuthRequest, makeRedirectUri } from 'expo-auth-session';
 import Toast from 'react-native-toast-message';
-import Constants from 'expo-constants';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const USE_PROXY = Platform.select({
-    web: false,
-    default: Constants.appOwnership !== 'standalone',
-});
-
 const REDIRECT_URI = makeRedirectUri({
-    useProxy: USE_PROXY,
-    native: 'artisantify://LOGIN_PAGE',
+    useProxy: true,
+    native: 'com.capstone.artisantify://',
 });
 
 export const LoginPage = ({ navigation }) => {
