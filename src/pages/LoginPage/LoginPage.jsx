@@ -11,15 +11,20 @@ import { loginWithGoogle } from '../../apis/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
-import * as AuthSession from 'expo-auth-session';
+import { useAuthRequest, makeRedirectUri } from 'expo-auth-session';
 import Toast from 'react-native-toast-message';
+import Constants from 'expo-constants';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const useProxy = true;
+const USE_PROXY = Platform.select({
+    web: false,
+    default: Constants.appOwnership !== 'standalone',
+});
 
-const redirectUri = AuthSession.makeRedirectUri({
-    useProxy,
+const REDIRECT_URI = makeRedirectUri({
+    useProxy: USE_PROXY,
+    native: 'artisantify://LOGIN_PAGE',
 });
 
 export const LoginPage = ({ navigation }) => {
@@ -27,7 +32,7 @@ export const LoginPage = ({ navigation }) => {
     const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId: '554326087777-441at1m39m3o477jcd312r8t7ddekb1b.apps.googleusercontent.com',
         androidClientId: '554326087777-m9ksthg4nrvu0vd5kok4ejjv568sedn5.apps.googleusercontent.com',
-        redirectUri
+        redirectUri: REDIRECT_URI
     });
 
     const [email, setEmail] = useState('')
@@ -120,7 +125,7 @@ export const LoginPage = ({ navigation }) => {
                 <Text style={tailwind(`text-xs mt-2 text-red-700 text-center ${error == false ? 'hidden' : ''}`)}>{error == true ? "Email or password is wrong" : null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or</Text>
                 <View style={tailwind("flex justify-center items-center")}>
-                    <TouchableOpacity onPress={() => promptAsync()} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
+                    <TouchableOpacity onPress={() => promptAsync({redirectUri: "artisantify://"})} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
                         <Image style={tailwind("w-7 h-7 mr-3")} source={require("../../assets/icons/google.png")}></Image>
                         <Text>Sign in with Google</Text>
                     </TouchableOpacity>
