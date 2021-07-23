@@ -119,7 +119,7 @@ export const LoginPage = ({ navigation }) => {
                 <Text style={tailwind(`text-xs mt-2 text-red-700 text-center ${error == false ? 'hidden' : ''}`)}>{error == true ? "Email or password is wrong" : null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or</Text>
                 <View style={tailwind("flex justify-center items-center")}>
-                    <TouchableOpacity onPress={() => promptAsync({redirectUri: "artisantify://"})} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
+                    <TouchableOpacity onPress={() => promptAsync()} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
                         <Image style={tailwind("w-7 h-7 mr-3")} source={require("../../assets/icons/google.png")}></Image>
                         <Text>Sign in with Google</Text>
                     </TouchableOpacity>
