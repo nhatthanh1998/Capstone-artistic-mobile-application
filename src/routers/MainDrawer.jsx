@@ -16,7 +16,9 @@ export const MainDrawer = () => {
   }, [])
 
   useEffect(() => {
-    setUpListen({userId: userProfile.id, dispatch})
+    if(userProfile) {
+      setUpListen({userId: userProfile.id, dispatch})
+    }
   }, [userProfile])
 
   return (

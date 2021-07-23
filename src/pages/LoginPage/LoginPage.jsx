@@ -14,11 +14,8 @@ import * as Google from 'expo-auth-session/providers/google';
 export const LoginPage = ({ navigation }) => {
 
     const [request, response, promptAsync] = Google.useAuthRequest({
-        scopes: ['profile', 'email', 'openid'],
         expoClientId: '554326087777-441at1m39m3o477jcd312r8t7ddekb1b.apps.googleusercontent.com',
-        iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-        androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-        webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        androidClientId: '554326087777-m9ksthg4nrvu0vd5kok4ejjv568sedn5.apps.googleusercontent.com'
     });
 
     const [email, setEmail] = useState('')

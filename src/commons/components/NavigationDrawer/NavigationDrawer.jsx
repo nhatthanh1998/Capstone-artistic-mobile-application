@@ -16,6 +16,9 @@ import { handleNavigation, handleSignOut } from './handler'
 export const NavigationDrawerContent = (props) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(selectUserProfile)
+    if(!userProfile) {
+        return <></>
+    }
     const { firstName, lastName, email } = userProfile
     let fullName = `${firstName} ${lastName}`
 
