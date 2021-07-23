@@ -17,7 +17,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 const REDIRECT_URI = makeRedirectUri({
     useProxy: true,
-    native: 'exp://expo.io/@nhatthanhlolo1/artisantify-slug',
+    native: 'com.capstone.artisantify://',
 });
 
 export const LoginPage = ({ navigation }) => {
