@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Artisantify",
+    "scheme": "artisantify",
     "icon": "./app-icon.png",
     "version": "1.0.0",
     "slug": "artisantify-slug",

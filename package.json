@@ -19,7 +19,6 @@
     "expo-av": "~9.1.2",
     "expo-camera": "^11.0.3",
     "expo-file-system": "~11.0.2",
-    "expo-google-app-auth": "^8.2.2",
     "expo-image-manipulator": "~9.1.0",
     "expo-image-picker": "^10.1.4",
     "expo-media-library": "~12.0.2",
@@ -55,7 +54,9 @@
     "react-navigation": "^4.4.4",
     "react-redux": "^7.2.4",
     "socket.io-client": "^2.1.1",
-    "tailwind-rn": "^3.0.1"
+    "tailwind-rn": "^3.0.1",
+    "expo-auth-session": "~3.2.3",
+    "expo-random": "~11.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

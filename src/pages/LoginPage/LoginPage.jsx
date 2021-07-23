@@ -1,45 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
 import { handleChangePassword, handleChangeEmail, handleClickRegister, handleLogin, handleClickResetPassword, checkIsLoggedIn } from './handler'
 import Icon from 'react-native-vector-icons/Feather';
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading, setIsLoading } from '../../redux/slicers/is-loading.slicer';
-import * as Google from 'expo-google-app-auth';
 import { styles } from '../../styles';
 import { loginWithGoogle } from '../../apis/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
-
-const signInWithGoogle = async ({ dispatch }) => {
-    try {
-        dispatch(setIsLoading(true))
-        const result = await Google.logInAsync({
-            androidClientId: "554326087777-1ns17d7rmsrf77l8m3pg7a25pdpv1ksj.apps.googleusercontent.com",
-            scopes: ["profile", "email"]
-        })
-        if (result.type === 'success') {
-            const { idToken } = result
-            const { token, statusCode, message } = await loginWithGoogle({ tokenId: idToken })
-            if (token) {
-                AsyncStorage.setItem('token', token)
-                checkIsLoggedIn({dispatch})
-                dispatch(setIsLoading(false))
-            }
-            if(statusCode && message) {
-                
-            }
-            
-        } else {
-            dispatch(setIsLoading(false))
-        }
-    } catch (e) {
-        console.log("error:", e)
-    }
-}
+import * as Google from 'expo-auth-session/providers/google';
 
 export const LoginPage = ({ navigation }) => {
+
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        scopes: ['profile', 'email', 'openid'],
+        expoClientId: '554326087777-441at1m39m3o477jcd312r8t7ddekb1b.apps.googleusercontent.com',
+        iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+    });
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState('')
@@ -49,6 +30,25 @@ export const LoginPage = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const isLoading = useSelector(selectIsLoading)
+
+    useEffect(() => {
+        if (response?.type === 'success') {
+            const { authentication } = response;
+            dispatch(setIsLoading(true))
+            loginWithGoogle({ tokenId: authentication.accessToken }).then(({token, statusCode, message}) => {
+                if (token) {
+                    AsyncStorage.setItem('token', token)
+                    checkIsLoggedIn({dispatch})
+                    dispatch(setIsLoading(false))
+                }
+                if(statusCode && message) {
+                    
+                }
+            }).catch(err => {
+                dispatch(setIsLoading(false))
+            })
+        }
+    }, [response]);
 
     const renderPasswordIcon = () => {
         let iconName = "eye-off"
@@ -104,7 +104,7 @@ export const LoginPage = ({ navigation }) => {
                 <Text style={tailwind(`text-xs mt-2 text-red-700 text-center ${error == false ? 'hidden' : ''}`)}>{error == true ? "Email or password is wrong" : null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or</Text>
                 <View style={tailwind("flex justify-center items-center")}>
-                    <TouchableOpacity onPress={() => signInWithGoogle({dispatch})} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
+                    <TouchableOpacity onPress={() => promptAsync()} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
                         <Image style={tailwind("w-7 h-7 mr-3")} source={require("../../assets/icons/google.png")}></Image>
                         <Text>Sign in with Google</Text>
                     </TouchableOpacity>
