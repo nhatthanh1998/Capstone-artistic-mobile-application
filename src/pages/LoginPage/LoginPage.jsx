@@ -10,12 +10,24 @@ import { styles } from '../../styles';
 import { loginWithGoogle } from '../../apis/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
+import * as AuthSession from 'expo-auth-session';
+import Toast from 'react-native-toast-message';
+
+WebBrowser.maybeCompleteAuthSession();
+
+const useProxy = true;
+
+const redirectUri = AuthSession.makeRedirectUri({
+    useProxy,
+});
 
 export const LoginPage = ({ navigation }) => {
 
     const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId: '554326087777-441at1m39m3o477jcd312r8t7ddekb1b.apps.googleusercontent.com',
-        androidClientId: '554326087777-m9ksthg4nrvu0vd5kok4ejjv568sedn5.apps.googleusercontent.com'
+        androidClientId: '554326087777-m9ksthg4nrvu0vd5kok4ejjv568sedn5.apps.googleusercontent.com',
+        redirectUri
     });
 
     const [email, setEmail] = useState('')
@@ -27,8 +39,15 @@ export const LoginPage = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const isLoading = useSelector(selectIsLoading)
-
     useEffect(() => {
+        setPasswordError(JSON.stringify(response))
+        Toast.show({
+            text1: "Error",
+            text2: JSON.stringify(response),
+            position: 'top',
+            visibilityTime: 10000,
+            autoHide: false,
+        })
         if (response?.type === 'success') {
             const { authentication } = response;
             dispatch(setIsLoading(true))
@@ -52,7 +71,7 @@ export const LoginPage = ({ navigation }) => {
         isShowPassword == true ? iconName = "eye" : iconName = "eye-off"
         return (
             <TouchableOpacity
-                style={tailwind("absolute right-0 flex flex-row items-center  w-4 h-4")}
+                style={tailwind("absolute right-0 flex flex-row items-center w-4 h-4")}
                 onPress={() => {
                     setIsShowPassword(!isShowPassword)
                 }}
