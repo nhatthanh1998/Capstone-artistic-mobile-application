@@ -11,14 +11,13 @@ import { loginWithGoogle } from '../../apis/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
-import { useAuthRequest, makeRedirectUri } from 'expo-auth-session';
-import Toast from 'react-native-toast-message';
+import { makeRedirectUri } from 'expo-auth-session';
 
 WebBrowser.maybeCompleteAuthSession();
 
 const REDIRECT_URI = makeRedirectUri({
     useProxy: true,
-    native: 'com.capstone.artisantify://',
+    native: 'exp://expo.io/@nhatthanhlolo1/artisantify-slug',
 });
 
 export const LoginPage = ({ navigation }) => {
@@ -39,14 +38,6 @@ export const LoginPage = ({ navigation }) => {
     const dispatch = useDispatch()
     const isLoading = useSelector(selectIsLoading)
     useEffect(() => {
-        setPasswordError(JSON.stringify(response))
-        Toast.show({
-            text1: "Error",
-            text2: JSON.stringify(response),
-            position: 'top',
-            visibilityTime: 10000,
-            autoHide: false,
-        })
         if (response?.type === 'success') {
             const { authentication } = response;
             dispatch(setIsLoading(true))
