@@ -20,7 +20,7 @@ export const MyCarousel = ({ data }) => {
   const renderItem = ({ item, index }) => {
     return (
       <View style={{ ...styles.shadow_4 }}>
-        <Image style={tailwind("h-72 rounded-xl mx-2")} source={{ uri: item.accessURL }} />
+        <Image style={tailwind("h-80 rounded-xl mx-2")} source={{ uri: item.accessURL }} />
       </View>
     )
   };
@@ -34,7 +34,7 @@ export const MyCarousel = ({ data }) => {
 
   if(data) {
     return (
-      <View style={tailwind("pt-7")}>
+      <View style={tailwind("pt-5")}>
         <View style={tailwind("absolute flex flex-row items-center top-0 right-0 mr-5")}>
           {renderStatusBar()}
         </View>
@@ -43,11 +43,10 @@ export const MyCarousel = ({ data }) => {
             setActiveIndex(index)
           }}
           enableMomentum
-          loop={true}
           enableSnap={true}
           ref={carouselRef}
           sliderWidth={screenWidth}
-          itemWidth={screenWidth * 3 / 5}
+          itemWidth={screenWidth * 4 / 5}
           data={data}
           renderItem={renderItem}
         />

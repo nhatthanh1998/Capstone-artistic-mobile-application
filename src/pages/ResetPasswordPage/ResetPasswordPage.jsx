@@ -7,6 +7,7 @@ import { EditProfileSuccessModal } from '../../commons/components/modals/EditPro
 import { styles } from '../../styles'
 import { Loading } from '../../commons/components/Loading/Loading'
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
+import { LOGIN_PAGE } from '../../enums/page-name'
 
 
 export const ResetPasswordPage = ({ navigation }) => {
@@ -25,13 +26,13 @@ export const ResetPasswordPage = ({ navigation }) => {
             <Loading isLoading ={isLoading}/>
             <View style={{ height: deviceHeight }}>
                 <View style={tailwind("px-11 py-14 h-full w-full relative")}>
-                    <View style={tailwind("flex justify-center")}>
+                    <View style={tailwind("flex items-center justify-center")}>
                         <Image
                             resizeMode="contain"
-                            style={tailwind("h-48")}
+                            style={tailwind("h-48 w-48")}
                             source={require('../../assets/illustrations/profile.webp')} />
                     </View>
-                    <TouchableOpacity style={tailwind("absolute right-0 mt-12 mr-5")} onPress={() => handleCloseProfilePage({ navigation })}>
+                    <TouchableOpacity style={tailwind("absolute right-0 mt-12 mr-5")} onPress={() => navigation.navigate(LOGIN_PAGE)}>
                         <Image source={require('../../assets/icons/x-square.png')}
                             style={tailwind("w-6 h-6")} alt="" />
                     </TouchableOpacity>
