@@ -38,6 +38,7 @@ export const LoginPage = ({ navigation }) => {
     const dispatch = useDispatch()
     const isLoading = useSelector(selectIsLoading)
     useEffect(() => {
+        dispatch(setIsLoading(false))
         if (response?.type === 'success') {
             const { authentication } = response;
             dispatch(setIsLoading(true))
@@ -48,7 +49,7 @@ export const LoginPage = ({ navigation }) => {
                     dispatch(setIsLoading(false))
                 }
                 if(statusCode && message) {
-                    
+                    dispatch(setIsLoading(false))
                 }
             }).catch(err => {
                 dispatch(setIsLoading(false))
@@ -110,7 +111,10 @@ export const LoginPage = ({ navigation }) => {
                 <Text style={tailwind(`text-xs mt-2 text-red-700 text-center ${error == false ? 'hidden' : ''}`)}>{error == true ? "Email or password is wrong" : null}</Text>
                 <Text style={tailwind("text-sm font-thin text-center my-5 text-gray-600")}>Or</Text>
                 <View style={tailwind("flex justify-center items-center")}>
-                    <TouchableOpacity onPress={() => promptAsync()} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
+                    <TouchableOpacity onPress={() => {
+                        dispatch(setIsLoading(true))
+                        promptAsync()
+                    }} style={{ ...tailwind("rounded bg-white justify-center flex items-center flex-row py-3 w-52"), ...styles.shadow_1 }}>
                         <Image style={tailwind("w-7 h-7 mr-3")} source={require("../../assets/icons/google.png")}></Image>
                         <Text>Sign in with Google</Text>
                     </TouchableOpacity>

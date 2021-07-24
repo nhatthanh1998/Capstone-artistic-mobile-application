@@ -41,7 +41,7 @@ export const registerAccount = async ({
         } 
         else if(error.request) {
             return {
-                statusCode: 666,
+                status: 666,
                 message: 'Network Erorr!'
             }
         }

@@ -104,10 +104,13 @@ export const EffectPage = ({ navigation }) => {
                 </View>
             </View>
             <ImageBox photoURL={generatedImage[selectedStyle.id]} prevPhotoURL={generatedImage[prevSelectedStyle.id]}/>
-            <ListEffectBoxContainer
-                styles={styles}
-                originImageAccessURL={originImage.accessURL}
-            />
+            
+            <View style={tailwind("absolute bottom-0")}>
+                <ListEffectBoxContainer
+                    styles={styles}
+                    originImageAccessURL={originImage.accessURL}
+                />
+            </View>
         </View >
     )
 }

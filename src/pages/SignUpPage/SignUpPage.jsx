@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { View, Image, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native'
 import tailwind from 'tailwind-rn'
-import { handleChangeText, handleSignUp, handleChangeRePassword, handlePressLoginPage } from './handler'
+import { handleChangeText, handleSignUp, handleChangeRePassword } from './handler'
 import { RegisterSuccessModal } from '../../commons/components/modals/RegisterSuccessModal'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { Loading } from '../../commons/components/Loading/Loading'
+import { LOGIN_PAGE } from '../../enums/page-name'
 
 
 export const SignUpPage = ({navigation}) => {
@@ -19,14 +20,23 @@ export const SignUpPage = ({navigation}) => {
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [rePasswordError, setRePasswordError] = useState('')
-    const [success, setSuccess] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     return (
         <KeyboardAwareScrollView>
         <View style={tailwind("relative flex")}>
             <Loading isLoading={isLoading}/>
-            <RegisterSuccessModal isVisible={success} onConfirm={() => handlePressLoginPage({navigation})}/>
-            <Image source={require('../../assets/icons/left_arrow_black.png')} style={tailwind("w-5 h-5 mt-9 ml-5 absolute")}></Image>
+            <RegisterSuccessModal isVisible={showSuccessModal} onConfirm={() => {
+                setShowSuccessModal(false)
+                navigation.navigate(LOGIN_PAGE)
+            }}/>
+            <TouchableOpacity style={tailwind("w-7 h-7 mt-9 ml-5 absolute z-50")} onPress={() => {
+                setShowSuccessModal(false)
+                navigation.navigate(LOGIN_PAGE)
+            }}>
+                <Image source={require('../../assets/icons/left_arrow_black.png')} style={tailwind("w-5 h-5")}></Image>
+            </TouchableOpacity>
+            
             <View style={tailwind("flex flex-row justify-center mt-5")}>
                 <Image
                     style={tailwind("h-64")}
@@ -70,7 +80,7 @@ export const SignUpPage = ({navigation}) => {
 
                 <TouchableOpacity style={tailwind("rounded-xl bg-yellow-300 p-3 ")}
                     onPress={() => { 
-                        handleSignUp({ email, password, rePassword, setPasswordError, setRePasswordError, setSuccess, setEmailError, dispatch }) 
+                        handleSignUp({ email, password, rePassword, setPasswordError, setRePasswordError, setShowSuccessModal, setEmailError, dispatch }) 
                     }}
                 >
                     <Text style={tailwind("text-lg text-center tracking-wide")}>Register</Text>
@@ -80,7 +90,7 @@ export const SignUpPage = ({navigation}) => {
                         Already have an account?
                 </Text>
                     <Text style={tailwind("ml-1 text-blue-900 font-bold")}
-                        onPress={() => handlePressLoginPage({ navigation })}
+                        onPress={() => navigation.navigate(LOGIN_PAGE)}
                     >
                         Sign in here
                 </Text>

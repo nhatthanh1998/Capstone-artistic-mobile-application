@@ -1,11 +1,10 @@
 import { registerAccount } from '../../apis/users'
-import { LOGIN_PAGE } from '../../enums/page-name'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
 import { validateEmail } from '../../utils'
 import Toast from 'react-native-toast-message';
 
 
-export const handleSignUp = async ({email, password, rePassword, setEmailError, setPasswordError, setRePasswordError, setSuccess, dispatch}) => {
+export const handleSignUp = async ({email, password, rePassword, setEmailError, setPasswordError, setRePasswordError, setShowSuccessModal, dispatch}) => {
     
     let isValidated = true
     if(email.length == 0) {
@@ -47,9 +46,9 @@ export const handleSignUp = async ({email, password, rePassword, setEmailError, 
 
     if(isValidated) {
         dispatch(setIsLoading(true))
-        const {data, statusCode, message} = await registerAccount({email, password})
-        if(statusCode && message) {
-            if(statusCode == 666) {
+        const {data, status, message} = await registerAccount({email, password})
+        if(status && message) {
+            if(status == 666) {
                 Toast.show({
                     text1: "Error",
                     text2: message,
@@ -60,7 +59,7 @@ export const handleSignUp = async ({email, password, rePassword, setEmailError, 
                 setEmailError(message)
             }
         } else {
-            setSuccess(true)
+            setShowSuccessModal(true)
         }
         dispatch(setIsLoading(false))
     } 
@@ -77,8 +76,4 @@ export const handleChangeRePassword = ({text, password, setRePassword, setRePass
 
 export const handleChangeText = ({text, setState}) => {
     setState(text)
-}
-
-export const handlePressLoginPage = ({navigation}) => {
-    navigation.navigate(LOGIN_PAGE)
 }
