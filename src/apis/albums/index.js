@@ -73,3 +73,17 @@ export async function changeAlbumBackgroundWithUploadFile({albumId, imageURI}) {
     })
     return {data}
 }
+
+export async function changeAlbumName({albumId, albumName}) {
+    let ENDPOINT_URL = `${MAIN_SERVER}/albums/${albumId}`
+    const token = await AsyncStorage.getItem("token")
+    const data = {
+        name: albumName
+    }
+    const response = await axios.put(ENDPOINT_URL, data, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    return response.data
+}

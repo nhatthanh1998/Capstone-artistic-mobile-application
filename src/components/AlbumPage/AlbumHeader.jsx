@@ -7,9 +7,9 @@ import { EditAlbumModal } from '../../commons/components/modals/EditAlbumModal'
 import * as ImagePicker from 'expo-image-picker';
 import { uploadMedia } from '../../apis/photos'
 import { setIsLoading } from '../../redux/slicers/is-loading.slicer'
-import { addMedia, updateAlbumThumbnail } from '../../redux/slicers/albumss.slicer'
+import { addMedia, handleUpdateAlbumname, updateAlbumThumbnail } from '../../redux/slicers/albumss.slicer'
 import Toast from 'react-native-toast-message';
-import {changeAlbumBackgroundWithUploadFile} from '../../apis/albums'
+import {changeAlbumBackgroundWithUploadFile, changeAlbumName} from '../../apis/albums'
 
 export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, dispatch, handleDeleteAlbum}) => {
 
@@ -34,6 +34,15 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
 
             }
         }
+    }
+    
+    const handleChangeAlbumName = async({newAlbumName, albumId}) => {
+        dispatch(setIsLoading(true))
+        setShowEditAlbumModal(false)
+        changeAlbumName({albumId, albumName: newAlbumName}).then(rs => {
+            dispatch(handleUpdateAlbumname({albumName: newAlbumName, id: albumId}))
+            dispatch(setIsLoading(false))
+        })
     }
 
     const handlePressAddItem = async ({albumId}) => {
@@ -131,7 +140,7 @@ export const AlbumHeader = ({setHeaderHeight, album, pressBack, navigation, disp
                 <ConfirmDeleteAlbumModal isVisible={showConfirmDeleteModal} onCancel={() => setShowConfirmDeleteModal(false)}
                     onConfirm={() => {handleDeleteAlbum({albumId: album.id, dispatch, navigation, setShowConfirmDeleteModal})}}
                 />
-                <EditAlbumModal album={album} isVisible={showEditAlbumModal} onCancel={() => setShowEditAlbumModal(false)}/>
+                <EditAlbumModal album={album} onEditAlbum={handleChangeAlbumName} isVisible={showEditAlbumModal} onCancel={() => setShowEditAlbumModal(false)}/>
             </ImageBackground>
         )
     }

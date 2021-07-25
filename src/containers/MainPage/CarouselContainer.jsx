@@ -16,6 +16,12 @@ export const CarouselContainer = () => {
     const [showCases, setShowCases] = useState({})
     const [selectedStyle, setSelectedStyle] = useState(null)
 
+    const getShowcaseData = () => {
+        if(selectedStyle)
+            return _.sampleSize(showCases[selectedStyle.id], 6)
+        return []
+    }
+
     useEffect(() => {
         handleGetAvailableStyles({setAvailableStyles})
         return () => {}
@@ -56,7 +62,7 @@ export const CarouselContainer = () => {
 
     return (
     <>
-        {selectedStyle && <MyCarousel data={_.sampleSize(showCases[selectedStyle.id], 6)}/>}    
+        <MyCarousel data={getShowcaseData()}/>  
         <View style={tailwind("mt-4")}>
             <VerticalCarousel data={availableStyles} setSelectedStyle={setSelectedStyle} sliderWidth={windowWidth}/>
         </View>

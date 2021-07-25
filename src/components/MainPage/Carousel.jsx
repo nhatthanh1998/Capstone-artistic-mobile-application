@@ -3,7 +3,7 @@ import Carousel from 'react-native-snap-carousel';
 import {
   View,
   Dimensions,
-  Image,
+  ImageBackground,
 } from 'react-native';
 import tailwind from 'tailwind-rn';
 import { styles } from '../../styles'
@@ -19,25 +19,23 @@ export const MyCarousel = ({ data }) => {
 
   const renderItem = ({ item, index }) => {
     return (
-      <View style={{ ...styles.shadow_4 }}>
-        <Image style={tailwind("h-80 rounded-xl mx-2")} source={{ uri: item.accessURL }} />
-      </View>
+      <ImageBackground style={{ ...styles.shadow_1, ...tailwind("rounded-xl overflow-hidden bg-gray-300 h-80") }} source={{ uri: item.accessURL }} />
     )
   };
 
   const renderStatusBar = () => {
     const indexs = _.range(data.length)
     return indexs.map(index => {
-     return (<View style={activeIndex == index ? activeStyle : inactiveStyle} key = {index}></View>)
+     return (<View style={activeIndex == index ? activeStyle : inactiveStyle} key={index}></View>)
     })
   }
 
-  if(data) {
-    return (
-      <View style={tailwind("pt-5")}>
-        <View style={tailwind("absolute flex flex-row items-center top-0 right-0 mr-5")}>
-          {renderStatusBar()}
-        </View>
+  return (
+    <View style={tailwind("pt-5")}>
+      <View style={tailwind("absolute flex flex-row items-center top-0 right-0 mr-5")}>
+        {renderStatusBar()}
+      </View>
+      <View style={tailwind("h-80")}>
         <Carousel
           onSnapToItem={(index) => {
             setActiveIndex(index)
@@ -51,7 +49,6 @@ export const MyCarousel = ({ data }) => {
           renderItem={renderItem}
         />
       </View>
-    );
-  }
-  return <></>
-};
+    </View>
+  );
+}

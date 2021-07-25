@@ -6,7 +6,7 @@ import { styles } from '../../../styles';
 
 
 export const EditAlbumModal = (props) => {
-    const {isVisible, onCancel, onCreateNewAlbum, album} = props
+    const {isVisible, onCancel, onEditAlbum, album} = props
     const [albumName, setAlbumName] = useState('')
     const [albumNameError, setAlbumNameError] = useState('')
 
@@ -37,7 +37,7 @@ export const EditAlbumModal = (props) => {
                     <View style={tailwind("flex flex-row relative w-full justify-center items-center")}>
                         <TouchableOpacity onPress={() => {
                             if(albumName.length > 0) {
-                                onCreateNewAlbum(albumName)
+                                onEditAlbum({newAlbumName: albumName, albumId: album.id})
                             } else {
                                 setAlbumNameError('Name of the album cannot be blank!')
                             }
