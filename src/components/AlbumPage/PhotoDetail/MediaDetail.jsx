@@ -69,13 +69,14 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                 </View>
             )
         } else {
+            console.log("medi", media)
             return (
                 <View style={tailwind("flex bg-black justify-center items-center w-full")}>
                     <Video style={tailwind("w-full h-full")}
                         useNativeControls
                         resizeMode="contain" 
                         source={{
-                            uri: media.m3u8_720p_playlsit
+                            uri: media.playlist
                     }}/>
                 </View>
             )    
