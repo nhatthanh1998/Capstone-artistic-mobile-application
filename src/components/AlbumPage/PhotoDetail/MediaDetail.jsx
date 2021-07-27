@@ -26,7 +26,7 @@ import { EFFECT_PAGE } from '../../../enums/page-name'
 import { requestTransferVideo } from '../../../apis/medias'
 import { selectIsLoading, setIsLoading } from '../../../redux/slicers/is-loading.slicer'
 import { Loading } from '../../../commons/components/Loading/Loading'
-
+import { ChangeBackgroundSuccessModal } from '../../../commons/components/modals/ChangeBackgroundSuccesModal'
 
 export const MediaDetail = ({ media, visible, setVisible, navigation, albumId }) => {
     const dispatch = useDispatch()
@@ -40,6 +40,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
     const [selectedStyleId, setSelectedStyleId] = useState(null)
     const [showRequestTransferVideoSuccessModal, setShowRequestTransferVideoSuccessModal] = useState(null)
     const [showSetBackgroundModal, setShowSetBackgroundModal] = useState(false)
+    const [showChangeBackgroundSuccessModal, setShowChangeBackgroundSuccessModal] = useState(false)
     const isLoading = useSelector(selectIsLoading)
 
     useEffect(() => {
@@ -69,7 +70,6 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                 </View>
             )
         } else {
-            console.log("medi", media)
             return (
                 <View style={tailwind("flex bg-black justify-center items-center w-full")}>
                     <Video style={tailwind("w-full h-full")}
@@ -181,16 +181,18 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                                     <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/move.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Move</Text>
                                 </TouchableOpacity>
-
-                                <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
-                                    onPress = {() => {
-                                        setShowSetBackgroundModal(true)
-                                        setShowMenu(false)
+                                {
+                                media.type == "PHOTO" ? (
+                                <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")} onPress = {() => {
+                                    setShowSetBackgroundModal(true)
+                                    setShowMenu(false)
                                 }}>
                                     <Image style={tailwind("w-3 h-3 mr-3")} source={require('../../../assets/icons/background.png')}></Image>
                                     <Text style={tailwind("text-xs font-thin text-white")}>Set to wall</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity>) : <></>
+                                }
                                 
+                            
                                 <TouchableOpacity style={tailwind("flex w-full flex-row items-center py-2")}
                                     onPress = {() => {
                                         handlePressDeleteButton({setConfirmDeleteModalVisible})
@@ -213,10 +215,13 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                             isVisible={isConfirmDeleteModalVisible} 
                             onConfirm={() => handleConfirmDeleteModal({mediaId: media.id, albumId: media.albumId, dispatch, setConfirmDeleteModalVisible, setVisible})} 
                             onCancel={() => handleCancleDeleteModal({setConfirmDeleteModalVisible})}/>
+                        <ChangeBackgroundSuccessModal isVisible={showChangeBackgroundSuccessModal} onConfirm={() => setShowChangeBackgroundSuccessModal(false)}/>
                         <SetBackgroundModal
                             media={media}
+                            setShowChangeBackgroundSuccessModal={setShowChangeBackgroundSuccessModal}
                             isVisible={showSetBackgroundModal} 
                             onCancel={() => setShowSetBackgroundModal(false)}/>
+                        
                         <MoveMediaToAnotherAlbumModal
                             isVisible={isMoveMediaModalShow}
                             onCancel={() => {setMoveMediaModalShow(false)}}
@@ -225,7 +230,6 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                             navigation={navigation}
                             setMediaDetailVisible = {setVisible}
                         />
-                        
                     </View> 
                 ) : <></>
             }                

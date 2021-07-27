@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import { styles } from '../../../styles';
 import { VerticalCarousel } from '../../../components/MainPage/VerticalCarousel'
 import { fetchAllVideoSupportedStyles } from '../../../apis/styles';
-import { Video, AVPlaybackStatus } from 'expo-av';
+import { Video } from 'expo-av';
 import Toast from 'react-native-toast-message';
 
 
@@ -14,7 +14,7 @@ export const ApplyStyleModal = (props) => {
     const [modalWidth, setModalWidth] = useState(100)
     const [stylesBE, setStylesBE] = useState([])
     const [selectedStyle, setSelectedStyle] = useState({})
-
+    const video = React.useRef(null);
     useEffect(() => {
         fetchAllVideoSupportedStyles().then(styles => {
             setStylesBE(styles)
@@ -61,23 +61,34 @@ export const ApplyStyleModal = (props) => {
                         <Image source={require('../../../assets/icons/x-square.png')} style={tailwind("w-5 h-5")}/>
                     </TouchableOpacity>
                     <Text style={tailwind("text-2xl font-bold tracking-tight text-center px-5")}>Apply Style To Video</Text>
-                    <View style={tailwind("flex flex-row mt-2 justify-center px-5")}>
-                        <Text style={tailwind("text-center text-sm mt-1 tracking-wide text-gray-500")}>
-                            Selecting wanted style to transform your video. It's may take a while base on your video.
-                        </Text>
+                    <View style={tailwind("text-xs mt-1 flex items-center")}>
+                        <Text>Select style to transform your video</Text>
                     </View>
-                    <View style={tailwind("flex justify-center items-center w-full px-4 mt-3")}>
-                        <Video style={{...tailwind("w-full h-40 bg-red-100 rounded-lg"), ...styles.shadow_2}}
-                            useNativeControls
-                            resizeMode="cover" 
-                            source={{
-                                uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-                        }}/>
+                    
+                    <View style={{...tailwind("flex justify-center items-center bg-gray-500 overflow-hidden rounded-lg w-full mt-3"), ...styles.shadow_2}}>
+                        {
+                            selectedStyle.demoVideoURL ? (
+                                <Video style={{...tailwind("w-full h-40 ")}}
+                                ref={video}
+                                useNativeControls
+                                resizeMode="cover"
+                                onLoad={() => {video.current.playAsync()}}
+                                source={{
+                                    uri: selectedStyle.demoVideoURL
+                                }}/> 
+                            ) : (
+                                <View style={tailwind("w-full h-40 flex justify-center items-center")}>
+                                    <Text style={tailwind("text-white")}>Not have demo video</Text>
+                                </View>
+                            )
+                        
+                        }
+                        
                     </View>
                     <View style={tailwind("pt-5 w-full flex items-center")}>
                         <VerticalCarousel data={stylesBE} setSelectedStyle={handleSetSelectedStyle} sliderWidth={modalWidth} itemShow={3}/>
                     </View>
-                    <View style={tailwind("flex relative z-10 flex-row justify-center mt-7 mb-3")}>
+                    <View style={tailwind("flex relative z-10 flex-row justify-center mt-3")}>
                         <TouchableOpacity
                             onPress={handleRequestTransferVideo}
                             style={{...tailwind("bg-yellow-400 border border-yellow-500 px-7 text-xs py-4 rounded-full"), ...styles.shadow_4}}>

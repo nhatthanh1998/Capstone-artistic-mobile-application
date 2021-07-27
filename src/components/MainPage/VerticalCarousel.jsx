@@ -9,17 +9,9 @@ import tailwind from 'tailwind-rn';
 import { styles } from '../../styles'
 import * as _ from 'lodash'
 
-
-
-
-
 export const VerticalCarousel = ({ data, setSelectedStyle, sliderWidth }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const carouselRef = useRef(null);
-
-  useEffect(() => {
-
-  }, [sliderWidth])
 
   const animatedStyle = (index, animatedValue, carouselProps) => {
     let animatedOpacity = {};

@@ -11,7 +11,7 @@ import Toast from 'react-native-toast-message';
 import { updateAlbumThumbnail } from '../../../redux/slicers/albumss.slicer';
 
 
-export const SetBackgroundModal = ({isVisible, onCancel, media }) => {
+export const SetBackgroundModal = ({isVisible, onCancel, media, setShowChangeBackgroundSuccessModal }) => {
     const dispatch = useDispatch()
     const [selectedAlbum, setSelectedAlbum] = useState(null)
 
@@ -25,7 +25,7 @@ export const SetBackgroundModal = ({isVisible, onCancel, media }) => {
             const {id, thumbnailURL} = data
             dispatch(updateAlbumThumbnail({id, thumbnailURL}))
             dispatch(setIsLoading(false))
-            
+            setShowChangeBackgroundSuccessModal(true)
         }).catch(err => {
             console.log(err)
             dispatch(setIsLoading(false))
