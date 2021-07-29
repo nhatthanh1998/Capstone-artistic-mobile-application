@@ -7,7 +7,6 @@ import { AlbumPicker } from './SavePhotoToAlbumModal/DropDown'
 import { useDispatch } from 'react-redux';
 import { setIsLoading } from '../../../redux/slicers/is-loading.slicer';
 import { changeAlbumBackground } from '../../../apis/albums';
-import Toast from 'react-native-toast-message';
 import { updateAlbumThumbnail } from '../../../redux/slicers/albumss.slicer';
 
 
@@ -42,7 +41,7 @@ export const SetBackgroundModal = ({isVisible, onCancel, media, setShowChangeBac
             backdropColor="black"
             backdropOpacity={0.7}
         >
-            <View style={tailwind("bg-white m-5 rounded-xl p-5 relative")}>
+            <View style={tailwind("bg-white m-5 rounded-xl p-5 pb-10 relative")}>
                 <TouchableOpacity onPress={() => onCancel()} style={tailwind("absolute z-10 mt-3 mr-3 top-0 right-0")}>
                     <Image source={require('../../../assets/icons/x-square.png')} style={tailwind("w-5 h-5")}/>
                 </TouchableOpacity>

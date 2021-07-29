@@ -53,12 +53,6 @@ const albumssSlicer = createSlice({
             }
             return albums
         },
-        setMediasNull: (albums, action) => {
-            const {id} = action.payload
-            if(albums[id]) {
-                albums[id].medias = null
-            }
-        },
         deleteMedia: (state, action) => {
             const {albumId, mediaId} = action.payload
             const total = +state[albumId].total - 1
@@ -112,7 +106,7 @@ const albumssSlicer = createSlice({
 
 
 export const { initAlbums, handleAddAlbumRedux, handleDeleteAlbumRedux, 
-    setAlbumMedias, moveMediaToOtherAlbum, deleteMedia, addMedia, setMediasNull, updateAlbumThumbnail, handleUpdateAlbumname } = albumssSlicer.actions
+    setAlbumMedias, moveMediaToOtherAlbum, deleteMedia, addMedia, updateAlbumThumbnail, handleUpdateAlbumname } = albumssSlicer.actions
 
 export const selectAlbums = state => state.albums
 

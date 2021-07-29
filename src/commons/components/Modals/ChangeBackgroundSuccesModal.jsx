@@ -3,7 +3,6 @@ import {View, Text, TouchableOpacity, Image} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 
-
 export const ChangeBackgroundSuccessModal = (props) => {
     const {isVisible, onConfirm} = props
     return (

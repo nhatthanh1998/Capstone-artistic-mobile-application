@@ -6,7 +6,7 @@ import { TRANSFER_PHOTO_COMPLETED, TRANSFER_VIDEO_COMPLETED, UPLOAD_IMAGE_SUCCES
 import {SOCKET_SERVER} from '../config/index'
 import { requestGetNotifications } from '../apis/notifications';
 import { setNotifications } from '../redux/slicers/notifications.slicer';
-import { addMedia, setMediasNull } from '../redux/slicers/albumss.slicer';
+import { addMedia } from '../redux/slicers/albumss.slicer';
 
 const socket = io(SOCKET_SERVER)
 export function useSocket() {
@@ -22,13 +22,13 @@ export const setUpListen = async ({userId, dispatch}) => {
         const {action} = data
         switch(action) {
             case TRANSFER_VIDEO_COMPLETED: {
-                const {albumId} = data
+                const {albumId, media} = data
+                dispatch(addMedia({albumId, media}))
                 requestGetNotifications().then(({data, count}) => {
                     dispatch(setNotifications({
                         notifications: data,
                         count,
                     }))
-                    dispatch(setMediasNull({id: albumId}))
                 })
                 break;
             }

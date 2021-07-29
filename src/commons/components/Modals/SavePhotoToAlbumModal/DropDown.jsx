@@ -34,6 +34,7 @@ export const AlbumPicker = ({selectedAlbum, setSelectedAlbum}) => {
       open={open}
       value={selectedAlbum}
       items={items}
+      maxHeight={85}
       setOpen={setOpen}
       setValue={setSelectedAlbum}
       setItems={setItems}

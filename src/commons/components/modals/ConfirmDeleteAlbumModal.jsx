@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
-import { MESSAGE, NO_BUTTON, TITLE, YES_BUTTON } from "../../../enums/modals/confirm-delete-modal"
+import { NO_BUTTON, YES_BUTTON } from "../../../enums/modals/confirm-delete-modal"
 
 
 export const ConfirmDeleteAlbumModal = (props) => {

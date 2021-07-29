@@ -12,6 +12,7 @@ import { ApplyStyleModal } from '../../../commons/components/modals/ApplyStyleMo
 import { setOriginImage } from '../../../redux/slicers/origin-image.slicer'
 import { RequestTransferVideoSuccessModal } from '../../../commons/components/modals/RequestTransferVideoSuccessModal'
 import { SetBackgroundModal } from '../../../commons/components/modals/SetBackgroundModal'
+import {CreateTransferVideoReqestSuccessModal} from '../../../commons/components/modals/CreateTransferVideoRequestSuccessModal'
 
 import { handleCancleDeleteModal,
     handleConfirmDeleteModal,
@@ -38,7 +39,7 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
     const [mediaPermission, setMediaPermission] = useState(null)
     const [showApplyStyleModal, setShowApplyStyleModal] = useState(false)
     const [selectedStyleId, setSelectedStyleId] = useState(null)
-    const [showRequestTransferVideoSuccessModal, setShowRequestTransferVideoSuccessModal] = useState(null)
+    const [showRequestTransferVideoSuccessModal, setShowRequestTransferVideoSuccessModal] = useState(false)
     const [showSetBackgroundModal, setShowSetBackgroundModal] = useState(false)
     const [showChangeBackgroundSuccessModal, setShowChangeBackgroundSuccessModal] = useState(false)
     const isLoading = useSelector(selectIsLoading)
@@ -91,7 +92,8 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                 mediaId: media.id,
                 styleId: selectedStyleId
             })
-            dispatch(setIsLoading(false)) 
+            dispatch(setIsLoading(false))
+            setShowRequestTransferVideoSuccessModal(true)
         } catch (error) {
             console.log(error)
             Toast.show({
@@ -124,7 +126,6 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
         return <Text>Media Permission not granted!</Text> 
     }
     return (
-        <>
         <Modal
         animationOut="bounceOut"
         animationIn="bounceInUp"
@@ -215,7 +216,11 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                             isVisible={isConfirmDeleteModalVisible} 
                             onConfirm={() => handleConfirmDeleteModal({mediaId: media.id, albumId: media.albumId, dispatch, setConfirmDeleteModalVisible, setVisible})} 
                             onCancel={() => handleCancleDeleteModal({setConfirmDeleteModalVisible})}/>
+                        
                         <ChangeBackgroundSuccessModal isVisible={showChangeBackgroundSuccessModal} onConfirm={() => setShowChangeBackgroundSuccessModal(false)}/>
+                        <CreateTransferVideoReqestSuccessModal 
+                            isVisible={showRequestTransferVideoSuccessModal} 
+                            onConfirm={() => setShowRequestTransferVideoSuccessModal(false)}/>
                         <SetBackgroundModal
                             media={media}
                             setShowChangeBackgroundSuccessModal={setShowChangeBackgroundSuccessModal}
@@ -233,8 +238,6 @@ export const MediaDetail = ({ media, visible, setVisible, navigation, albumId })
                     </View> 
                 ) : <></>
             }                
-        </Modal>
-        </>
-        
+        </Modal>        
     )
 }

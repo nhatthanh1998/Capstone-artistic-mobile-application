@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native'
+import React from 'react'
+import {View, Text, TouchableOpacity, Image} from 'react-native'
 import tailwind from 'tailwind-rn'
 import Modal from 'react-native-modal';
 import { styles } from '../../../../styles';
@@ -7,7 +7,6 @@ import { AlbumPicker } from './DropDown'
 
 export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, selectedAlbum, setSelectedAlbum}) => {
     return (
-        <View>
             <Modal isVisible={isVisible} 
                 animationOut="bounceOut"
                 animationIn="bounceInUp"
@@ -16,7 +15,7 @@ export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, selectedA
                 backdropColor="black"
                 backdropOpacity={0.7}
             >
-                <View style={tailwind("bg-white m-5 rounded-xl p-5 relative")}>
+                <View style={tailwind("bg-white m-5 rounded-xl p-5 pb-10 relative")}>
                     <TouchableOpacity onPress={() => onCancel()} style={tailwind("absolute z-10 mt-3 mr-3 top-0 right-0")}>
                         <Image source={require('../../../../assets/icons/x-square.png')} style={tailwind("w-5 h-5")}/>
                     </TouchableOpacity>
@@ -39,6 +38,5 @@ export const SavePhotoToAlbumModal = ({isVisible, onCancel, onConfirm, selectedA
                     </View>
                 </View>
             </Modal>
-        </View>
     )
 }

@@ -35,7 +35,9 @@ export const EffectPage = ({ navigation }) => {
         StatusBar.setHidden(true)
         getStyles({dispatch})
         BackHandler.addEventListener("hardwareBackPress", handlePressHardwareBackButton)
-        return () => { BackHandler.removeEventListener() }
+        return () => { 
+            BackHandler.removeEventListener() 
+        }
     }, [])
 
 

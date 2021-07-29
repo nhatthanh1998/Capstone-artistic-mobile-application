@@ -1,7 +1,6 @@
 import DropDownPicker from 'react-native-dropdown-picker';
 import React, {useState, useEffect}  from 'react'
 
-
 export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum, setDisableMove}) => {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([]);
@@ -26,6 +25,7 @@ export const AlbumPicker = ({albums, selectedAlbum, setSelectedAlbum, setDisable
       placeholder="Select album"
       searchable={false}
       open={open}
+      maxHeight={85}
       value={selectedAlbum}
       items={items}
       setOpen={setOpen}
