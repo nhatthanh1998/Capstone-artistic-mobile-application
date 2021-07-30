@@ -87,7 +87,14 @@ const albumssSlicer = createSlice({
             const {oldAlbumId, mediaId, newAlbumId} = action.payload
             const oldAlbumTotal = +state[oldAlbumId].total - 1
             const newAlbumTotal = +state[newAlbumId].total + 1
-            const oldMedias = state[oldAlbumId].medias.filter(media => media.id != mediaId)
+            let moveMedia = null
+            const oldMedias = state[oldAlbumId].medias.filter(media => {
+                if(media.id == mediaId) {
+                    moveMedia = media
+                }
+                return media.id != mediaId
+            })
+            
             return {
                 ...state,
                 [oldAlbumId]: {
@@ -97,6 +104,11 @@ const albumssSlicer = createSlice({
                 },
                 [newAlbumId]: {
                     ...state[newAlbumId],
+                    medias: [
+                        moveMedia,
+                        ...state[newAlbumId].medias,
+                        
+                    ],
                     total: newAlbumTotal
                 }
             }
